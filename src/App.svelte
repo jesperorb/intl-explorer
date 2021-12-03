@@ -72,16 +72,9 @@
   header,
   p,
   h1,
-  select {
+  select,
+  pre {
     margin-bottom: 1rem;
-  }
-
-  label {
-    display: block;
-  }
-
-  .option-header {
-    font-size: 1.5rem;
   }
 
   main {
@@ -94,5 +87,26 @@
       grid-template-columns: 1fr 1fr;
       gap: 0.5rem;
     }
+  }
+
+  pre {
+    line-height: 1.5;
+    padding: 1rem;
+    background-color: #011627;
+    font-size: 0.85rem;
+    border-radius: 0.5rem;
+    overflow-y: scroll;
+  }
+
+  label {
+    display: block;
+  }
+
+  .option-header {
+    font-size: 1.5rem;
+  }
+
+  .token.comment {
+    display: block;
   }
 </style>
