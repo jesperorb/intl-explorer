@@ -11,14 +11,6 @@ html {
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 }
 
-code,
-pre {
-  padding: 1rem;
-  background-color: #011627;
-  font-size: 0.85rem;
-  border-radius: 0.5rem;
-}
-
 .token.comment {
   color: hsl(0, 0%, 55%);
 }
