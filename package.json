@@ -2,6 +2,10 @@
   "name": "datetimeformat-explorer",
   "version": "1.0.0",
   "private": false,
+  "author": {
+    "name": "Jesper Orb",
+    "email": "github@jesperorb.com"
+  },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
