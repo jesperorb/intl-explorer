@@ -104,7 +104,7 @@
     background-color: #011627;
     font-size: 0.85rem;
     border-radius: 0.5rem;
-    overflow-y: scroll;
+    overflow-x: auto;
   }
 
   label {
