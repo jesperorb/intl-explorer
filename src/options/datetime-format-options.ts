@@ -1,6 +1,14 @@
-import { calendars, numberingSystems } from "./calendars";
+import { calendars, numberingSystems } from "../locale-data/calendars";
+import type { FormatOptionsValues } from "./format-helpers";
 
-export const datetimeFormatOptions = new Map<string, any>([
+export type DateTimeFormatOptionsKeys =
+  | keyof Intl.DateTimeFormatOptions
+  | "fractionalSecondDigits";
+
+export const datetimeFormatOptions = new Map<
+  DateTimeFormatOptionsKeys,
+  FormatOptionsValues
+>([
   ["dateStyle", [undefined, "full", "long", "medium", "short"]],
   ["timeStyle", [undefined, "full", "long", "medium", "short"]],
   ["year", ["numeric", "2-digit", undefined]],
@@ -21,8 +29,3 @@ export const datetimeFormatOptions = new Map<string, any>([
   ["localeMatcher", ["best fit", "lookup", undefined]],
   ["formatMatcher", ["best fit", "basic", undefined]],
 ]);
-
-export type DateTimeFormatOptionsKeys =
-  | keyof Intl.DateTimeFormatOptions
-  | "fractionalSecondDigits"
-  | string;

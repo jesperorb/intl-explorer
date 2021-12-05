@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { getFormatOptions } from "./formatters";
-
-  import { datetimeFormatOptions } from "./locales/datetime-format-options";
-  import { languageByLocaleAsEntries } from "./locales/locales";
+  import { datetimeFormatOptions } from "./options/datetime-format-options";
+  import { languageByLocaleAsEntries } from "./locale-data/locales";
+  import { getFormatOptions } from "./options/format-helpers";
 
   let selectedLanguage = window.navigator.language;
 
