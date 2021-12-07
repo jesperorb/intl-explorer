@@ -11,6 +11,7 @@
   import { selectedTab } from "./store/selectedTab";
   import { selectedLocale } from "./store/selectedLocale";
   import { tabEntries, Tabs } from "./tabs";
+  import PluralRules from "./components/PluralRules.svelte";
 </script>
 
 <header>
@@ -43,6 +44,9 @@
     {/if}
     {#if $selectedTab === Tabs.RelativeTimeFormat}
       <RelativeTimeFormatTab selectedLocale={$selectedLocale} />
+    {/if}
+    {#if $selectedTab === Tabs.PluralRules}
+      <PluralRules selectedLocale={$selectedLocale} />
     {/if}
   </div>
 </main>
