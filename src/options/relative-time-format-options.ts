@@ -1,9 +1,7 @@
 import type { FormatOptionsValues } from "./format-helpers";
 
 export type RelativeTimeFormatOptionsKeys =
-  | "numeric"
-  | "style"
-  | "localeMatcher";
+  keyof Intl.RelativeTimeFormatOptions;
 
 export const relativeTimeFormatOptions = new Map<
   RelativeTimeFormatOptionsKeys,
@@ -14,25 +12,7 @@ export const relativeTimeFormatOptions = new Map<
   ["localeMatcher", ["best fit", "lookup", undefined]],
 ]);
 
-export type RelativeTimeFormatUnit =
-  | "year"
-  | "years"
-  | "quarter"
-  | "quarters"
-  | "month"
-  | "months"
-  | "week"
-  | "weeks"
-  | "day"
-  | "days"
-  | "hour"
-  | "hours"
-  | "minute"
-  | "minutes"
-  | "second"
-  | "seconds";
-
-export const relativeTimeFormatUnits: RelativeTimeFormatUnit[] = [
+export const relativeTimeFormatUnits: Intl.RelativeTimeFormatUnit[] = [
   "year",
   "years",
   "quarter",
