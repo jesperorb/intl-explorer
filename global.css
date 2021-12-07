@@ -11,22 +11,6 @@ html {
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 }
 
-.token.comment {
-  color: hsl(0, 0%, 55%);
-}
-
-.token.punctuation {
-  color: rgb(199, 146, 234);
-}
-
-.token.string {
-  color: rgb(173, 219, 103);
-}
-
-.token.operator {
-  color: rgb(127, 219, 202);
-}
-
-.token.key {
-  color: hsl(0, 0%, 100%);
+label {
+  display: block;
 }
