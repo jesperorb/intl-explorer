@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   import OptionHeader from "./OptionHeader.svelte";
-  export let header;
+  export let header: string;
 </script>
 
 <section>
