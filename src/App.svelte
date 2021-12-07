@@ -4,6 +4,7 @@
   import DateTimeFormatTab from "./components/DateTimeFormatTab.svelte";
   import NumberFormatTab from "./components/NumberFormatTab.svelte";
   import ListFormatTab from "./components/ListFormatTab.svelte";
+  import RelativeTimeFormatTab from "./components/RelativeTimeFormatTab.svelte";
 
   import { languageByLocaleAsEntries } from "./locale-data/locales";
 
@@ -39,6 +40,9 @@
     {/if}
     {#if $selectedTab === Tabs.ListFormat}
       <ListFormatTab selectedLocale={$selectedLocale} />
+    {/if}
+    {#if $selectedTab === Tabs.RelativeTimeFormat}
+      <RelativeTimeFormatTab selectedLocale={$selectedLocale} />
     {/if}
   </div>
 </main>
