@@ -13,7 +13,7 @@
     >. This is not a precise tool, it iterates every options property as is. If
     you have found a bug, file an issue or open a PR in the
     <a
-      href="https://github.com/jesperorb/datetimeformat-explorer"
+      href="https://github.com/jesperorb/intl-explorer"
       target="_blank"
       rel="noopener noreferrer"
     >
