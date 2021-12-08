@@ -1,11 +1,13 @@
 <script lang="ts">
   import Header from "./components/Header.svelte";
   import Select from "./components/Select.svelte";
+
   import DateTimeFormatTab from "./components/tabs/DateTimeFormatTab.svelte";
   import NumberFormatTab from "./components/tabs/NumberFormatTab.svelte";
   import ListFormatTab from "./components/tabs/ListFormatTab.svelte";
   import RelativeTimeFormatTab from "./components/tabs/RelativeTimeFormatTab.svelte";
   import PluralRules from "./components/tabs/PluralRulesTab.svelte";
+  import CollatorTab from "./components/tabs/CollatorTab.svelte";
 
   import { languageByLocaleAsEntries } from "./locale-data/locales";
 
@@ -47,6 +49,9 @@
     {/if}
     {#if $selectedTab === Tabs.PluralRules}
       <PluralRules selectedLocale={$selectedLocale} />
+    {/if}
+    {#if $selectedTab === Tabs.Collator}
+      <CollatorTab selectedLocale={$selectedLocale} />
     {/if}
   </div>
 </main>

@@ -3,8 +3,18 @@
   import OptionSection from "../OptionSection.svelte";
   import Grid from "../Grid.svelte";
   import { relativeTimeFormatUnits } from "../../options/relative-time-format-options";
+  import { copyToClipboard } from "../../utils/copyToClipboard";
+  import type { OptionValues } from "../../types/option-values";
 
   export let selectedLocale: string;
+
+  let onClick = (options: OptionValues) => {
+    copyToClipboard(
+      `new Intl.RelativeTimeFormat("${selectedLocale}", ${JSON.stringify(
+        Object.assign({}, options, { value: undefined })
+      )}).format(${dayValue}, "${options.value}")`
+    );
+  };
 
   let dayValue = 2;
   let style: Intl.Style = "long";
@@ -77,6 +87,7 @@
     {#each relativeTimeFormatUnits as value}
       {#if value !== undefined}
         <Highlight
+          {onClick}
           values={{ value: value, style, numeric }}
           output={new Intl.RelativeTimeFormat(selectedLocale, {
             style,

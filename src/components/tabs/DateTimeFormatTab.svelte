@@ -5,10 +5,20 @@
 
   import { datetimeFormatOptions } from "../../options/datetime-format-options";
   import { getFormatOptions } from "../../options/format-helpers";
+  import type { OptionValues } from "../../types/option-values";
+  import { copyToClipboard } from "../../utils/copyToClipboard";
 
   export let selectedLocale: string;
 
   let dateString = "2004-04-04T04:04:04";
+
+  let onClick = (options: OptionValues) => {
+    copyToClipboard(
+      `new Intl.DateTimeFormat("${selectedLocale}", ${JSON.stringify(
+        options
+      )}).format(new Date("${dateString}"))`
+    );
+  };
 </script>
 
 <div class="options">
@@ -29,6 +39,7 @@
       {#each values as value}
         {#if value !== undefined}
           <Highlight
+            {onClick}
             values={{ [option]: value }}
             output={new Intl.DateTimeFormat(
               selectedLocale,

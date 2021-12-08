@@ -6,11 +6,21 @@
 
   import { currenciesAsEntries } from "../../locale-data/currencies";
   import { numberFormatOptionsCurrency } from "../../options/number-format-options";
+  import type { OptionValues } from "../../types/option-values";
+  import { copyToClipboard } from "../../utils/copyToClipboard";
 
   export let selectedLocale: string;
 
   let selectedCurrency = "EUR";
   let number = 123456.789;
+
+  let onClick = (options: OptionValues) => {
+    copyToClipboard(
+      `new Intl.NumberFormat("${selectedLocale}", ${JSON.stringify(
+        options
+      )}).format(${number})`
+    );
+  };
 </script>
 
 <div class="options">
@@ -31,6 +41,7 @@
       {#each values as value}
         {#if value !== undefined}
           <Highlight
+            {onClick}
             values={{
               [option]: value,
               style: "currency",

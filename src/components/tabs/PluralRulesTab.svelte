@@ -2,9 +2,19 @@
   import Grid from "../Grid.svelte";
   import OptionSection from "../OptionSection.svelte";
   import Highlight from "../Highlight.svelte";
+  import { copyToClipboard } from "../../utils/copyToClipboard";
+  import type { OptionValues } from "../../types/option-values";
 
   export let selectedLocale: string;
   let type: Intl.PluralRuleType = "cardinal";
+
+  let onClick = (options: OptionValues) => {
+    copyToClipboard(
+      `new Intl.PluralRules("${selectedLocale}", ${JSON.stringify(
+        Object.assign({}, options, { value: undefined })
+      )}).select(${options.value})`
+    );
+  };
 </script>
 
 <div class="options" />
@@ -33,6 +43,7 @@
 <Grid>
   <OptionSection header={type}>
     <Highlight
+      {onClick}
       values={{
         value: 1,
         type,
@@ -42,6 +53,7 @@
       }).select(1)}
     />
     <Highlight
+      {onClick}
       values={{
         value: 2,
         type,
@@ -51,6 +63,7 @@
       }).select(2)}
     />
     <Highlight
+      {onClick}
       values={{
         value: 20,
         type,
@@ -62,6 +75,7 @@
   </OptionSection>
   <OptionSection header={"localeMatcher"}>
     <Highlight
+      {onClick}
       values={{
         value: 1,
         type,
@@ -73,6 +87,7 @@
       }).select(1)}
     />
     <Highlight
+      {onClick}
       values={{
         value: 2,
         type,

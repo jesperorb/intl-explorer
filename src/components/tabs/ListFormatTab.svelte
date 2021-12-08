@@ -2,8 +2,9 @@
   import Grid from "../Grid.svelte";
   import OptionSection from "../OptionSection.svelte";
   import Highlight from "../Highlight.svelte";
-
   import { listFormatOptions } from "../../options/list-format-options";
+  import type { OptionValues } from "../../types/option-values";
+  import { copyToClipboard } from "../../utils/copyToClipboard";
 
   const toArray = (string: string) => string.split(",");
   const toStyle = (string: string | boolean | number) => string as Intl.Style;
@@ -11,6 +12,14 @@
   export let selectedLocale: string;
 
   let list = "Miso,Sesam,Mami";
+
+  let onClick = (options: OptionValues) => {
+    copyToClipboard(
+      `new Intl.ListFormat("${selectedLocale}", ${JSON.stringify(
+        options
+      )}).format([])`
+    );
+  };
 </script>
 
 <div class="options">
@@ -24,6 +33,7 @@
       {#each values as value}
         {#if value !== undefined}
           <Highlight
+            {onClick}
             values={{ [option]: value }}
             output={new Intl.ListFormat(selectedLocale, {
               [option]: value,
