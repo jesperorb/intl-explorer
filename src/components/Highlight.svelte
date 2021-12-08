@@ -16,9 +16,9 @@
   <code>
     <pre>
           <span class="token punctuation">{"{"}</span> {#each Object.entries(values) as [key, value]}<span class="token key">{key}</span><span class="token operator">{":"}</span> <HighlightValue value={value}/>{#if Object.keys(values).length > 1}<span class="token punctuation">,</span>{/if} {/each}<span class="token punctuation">{"}"}</span>
-  <span class="token comment">
-  // {output}
-  </span>
+<span class="token comment">
+// {output}
+</span>
     </pre>
   </code>
 </div>
