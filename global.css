@@ -24,6 +24,7 @@ pre {
   overflow-x: auto;
   margin-bottom: 1.5rem;
   color: white;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 }
 
 .token.comment {
