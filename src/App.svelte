@@ -1,17 +1,17 @@
 <script lang="ts">
   import Header from "./components/Header.svelte";
   import Select from "./components/Select.svelte";
-  import DateTimeFormatTab from "./components/DateTimeFormatTab.svelte";
-  import NumberFormatTab from "./components/NumberFormatTab.svelte";
-  import ListFormatTab from "./components/ListFormatTab.svelte";
-  import RelativeTimeFormatTab from "./components/RelativeTimeFormatTab.svelte";
+  import DateTimeFormatTab from "./components/tabs/DateTimeFormatTab.svelte";
+  import NumberFormatTab from "./components/tabs/NumberFormatTab.svelte";
+  import ListFormatTab from "./components/tabs/ListFormatTab.svelte";
+  import RelativeTimeFormatTab from "./components/tabs/RelativeTimeFormatTab.svelte";
+  import PluralRules from "./components/tabs/PluralRulesTab.svelte";
 
   import { languageByLocaleAsEntries } from "./locale-data/locales";
 
   import { selectedTab } from "./store/selectedTab";
   import { selectedLocale } from "./store/selectedLocale";
   import { tabEntries, Tabs } from "./tabs";
-  import PluralRules from "./components/PluralRules.svelte";
 </script>
 
 <header>

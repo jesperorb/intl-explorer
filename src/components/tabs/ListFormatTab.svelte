@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Grid from "./Grid.svelte";
-  import OptionSection from "./OptionSection.svelte";
-  import Highlight from "./Highlight.svelte";
+  import Grid from "../Grid.svelte";
+  import OptionSection from "../OptionSection.svelte";
+  import Highlight from "../Highlight.svelte";
 
-  import { listFormatOptions } from "../options/list-format-options";
+  import { listFormatOptions } from "../../options/list-format-options";
 
   const toArray = (string: string) => string.split(",");
   const toStyle = (string: string | boolean | number) => string as Intl.Style;

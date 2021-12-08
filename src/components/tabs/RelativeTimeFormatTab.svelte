@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Highlight from "./Highlight.svelte";
-  import OptionSection from "./OptionSection.svelte";
-  import Grid from "./Grid.svelte";
-  import { relativeTimeFormatUnits } from "../options/relative-time-format-options";
+  import Highlight from "../Highlight.svelte";
+  import OptionSection from "../OptionSection.svelte";
+  import Grid from "../Grid.svelte";
+  import { relativeTimeFormatUnits } from "../../options/relative-time-format-options";
 
   export let selectedLocale: string;
 

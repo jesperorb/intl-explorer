@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Grid from "./Grid.svelte";
-  import OptionSection from "./OptionSection.svelte";
-  import Highlight from "./Highlight.svelte";
+  import Grid from "../Grid.svelte";
+  import OptionSection from "../OptionSection.svelte";
+  import Highlight from "../Highlight.svelte";
 
   export let selectedLocale: string;
   let type: Intl.PluralRuleType = "cardinal";

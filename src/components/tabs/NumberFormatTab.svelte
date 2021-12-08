@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Select from "./Select.svelte";
-  import Grid from "./Grid.svelte";
-  import OptionSection from "./OptionSection.svelte";
-  import Highlight from "./Highlight.svelte";
+  import Select from "../Select.svelte";
+  import Grid from "../Grid.svelte";
+  import OptionSection from "../OptionSection.svelte";
+  import Highlight from "../Highlight.svelte";
 
-  import { currenciesAsEntries } from "../locale-data/currencies";
-  import { numberFormatOptionsCurrency } from "../options/number-format-options";
+  import { currenciesAsEntries } from "../../locale-data/currencies";
+  import { numberFormatOptionsCurrency } from "../../options/number-format-options";
 
   export let selectedLocale: string;
 

@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Highlight from "./Highlight.svelte";
-  import OptionSection from "./OptionSection.svelte";
-  import Grid from "./Grid.svelte";
+  import Highlight from "../Highlight.svelte";
+  import OptionSection from "../OptionSection.svelte";
+  import Grid from "../Grid.svelte";
 
-  import { datetimeFormatOptions } from "../options/datetime-format-options";
-  import { getFormatOptions } from "../options/format-helpers";
+  import { datetimeFormatOptions } from "../../options/datetime-format-options";
+  import { getFormatOptions } from "../../options/format-helpers";
 
   export let selectedLocale: string;
 
