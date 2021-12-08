@@ -5,7 +5,7 @@
 <header>
   <h1>{header} Explorer</h1>
   <p>
-    Examples on how a date is formatted with
+    Examples on how to use
     <a
       href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/{header}"
       target="_blank"
