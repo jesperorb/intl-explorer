@@ -28,15 +28,15 @@
     position: relative;
   }
   .copy {
-    background-color: transparent;
+    background-color: #011627;;
     border: 1px solid white;
     border-radius: 0.25rem;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem .75rem;
     cursor: pointer;
     color: white;
     position: absolute;
     z-index: 1;
-    top: 0.5rem;
+    bottom: 0.5rem;
     right: 0.5rem;
   }
   .copy:hover,
