@@ -4,5 +4,5 @@
     "lib": ["ES2020.Intl", "ES2018.Intl", "ES2021.intl", "ESNext.Intl", "DOM"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*", ".eslintrc.js", ".prettierrc.js"]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "datetimeformat-explorer",
+  "name": "intl-explorer",
   "version": "1.0.0",
   "private": false,
   "author": {
@@ -11,14 +11,24 @@
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear --host",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "deploy": "npm run build && node ./deploy.js"
+    "deploy": "npm run build && node ./deploy.js",
+    "lint": "eslint \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
+    "lint:fix": "eslint --fix \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
+    "format": "prettier --write \"{,!(node_modules|public)/**/}*.{ts,svelte}\""
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
     "@tsconfig/svelte": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "eslint": "^8.4.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-svelte3": "^3.2.1",
     "gh-pages": "^3.2.3",
+    "prettier": "^2.5.1",
+    "prettier-plugin-svelte": "^2.5.1",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
