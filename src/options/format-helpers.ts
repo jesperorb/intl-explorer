@@ -10,6 +10,12 @@ export const getFormatOptions = (
       second: "numeric",
     };
   }
+  if (option === "hour12" || option == "hourCycle") {
+    return {
+      [option as DateTimeFormatOptionsKeys]: value as number,
+      timeStyle: "medium",
+    };
+  }
   return {
     [option]: value,
   };
