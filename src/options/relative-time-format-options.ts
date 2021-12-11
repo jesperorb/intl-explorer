@@ -1,7 +1,6 @@
 import type { FormatOptionsValues } from "./format-helpers";
 
-export type RelativeTimeFormatOptionsKeys =
-  keyof Intl.RelativeTimeFormatOptions;
+export type RelativeTimeFormatOptionsKeys = keyof Intl.RelativeTimeFormatOptions;
 
 export const relativeTimeFormatOptions = new Map<
   RelativeTimeFormatOptionsKeys,

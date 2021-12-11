@@ -10,8 +10,8 @@
       href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/{header}"
       target="_blank"
       rel="noopener noreferrer">MDN: Intl.{header}</a
-    >. This is not a precise tool, it iterates every options property as is. If
-    you have found a bug, file an issue or open a PR in the
+    >. This is not a precise tool, it iterates every options property as is. If you have
+    found a bug, file an issue or open a PR in the
     <a
       href="https://github.com/jesperorb/intl-explorer"
       target="_blank"
