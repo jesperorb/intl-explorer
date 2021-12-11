@@ -23,8 +23,8 @@
   let setDisplayUnit = () => (selectedFormatter = "unit");
   let setDisplayCurrency = () => (selectedFormatter = "currency");
 
-  let onClick = (options: OptionValues) => {
-    copyToClipboard(
+  let onClick = async (options: OptionValues) => {
+    await copyToClipboard(
       `new Intl.NumberFormat("${selectedLocale}", ${JSON.stringify(
         options
       )}).format(${number})`

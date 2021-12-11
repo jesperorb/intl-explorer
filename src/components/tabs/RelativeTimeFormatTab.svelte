@@ -8,8 +8,8 @@
 
   export let selectedLocale: string;
 
-  let onClick = (options: OptionValues) => {
-    copyToClipboard(
+  let onClick = async (options: OptionValues) => {
+    await copyToClipboard(
       `new Intl.RelativeTimeFormat("${selectedLocale}", ${JSON.stringify(
         Object.assign({}, options, { value: undefined })
       )}).format(${dayValue}, "${options.value}")`
@@ -29,13 +29,7 @@
   <div class="radio">
     <label>
       style: long
-      <input
-        type="radio"
-        id="style-long"
-        name="style"
-        bind:group={style}
-        value="long"
-      />
+      <input type="radio" id="style-long" name="style" bind:group={style} value="long" />
     </label>
     <label>
       style: short

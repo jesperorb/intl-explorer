@@ -2,11 +2,11 @@ import type { DateTimeFormatOptionsKeys } from "../options/datetime-format-optio
 
 export const getFormatOptions = (
   option: DateTimeFormatOptionsKeys,
-  value: any
+  value: string | boolean | number
 ): Partial<Intl.DateTimeFormatOptions> => {
   if (option === "fractionalSecondDigits") {
     return {
-      [option as any]: value,
+      [option as DateTimeFormatOptionsKeys]: value as number,
       second: "numeric",
     };
   }

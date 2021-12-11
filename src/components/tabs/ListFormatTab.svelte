@@ -9,15 +9,13 @@
   const toArray = (string: string) => string.split(",");
   const toStyle = (string: string | boolean | number) => string as Intl.Style;
 
-  export let selectedLocale: string;
+  export let selectedLocale: Intl.Locale;
 
   let list = "Miso,Sesam,Mami";
 
-  let onClick = (options: OptionValues) => {
-    copyToClipboard(
-      `new Intl.ListFormat("${selectedLocale}", ${JSON.stringify(
-        options
-      )}).format([])`
+  let onClick = async (options: OptionValues) => {
+    await copyToClipboard(
+      `new Intl.ListFormat("${selectedLocale}", ${JSON.stringify(options)}).format([])`
     );
   };
 </script>

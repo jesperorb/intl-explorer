@@ -5,11 +5,11 @@
   import { copyToClipboard } from "../../utils/copyToClipboard";
   import type { OptionValues } from "../../types/option-values";
 
-  export let selectedLocale: string;
+  export let selectedLocale: string | string[];
   let type: Intl.PluralRuleType = "cardinal";
 
-  let onClick = (options: OptionValues) => {
-    copyToClipboard(
+  let onClick = async (options: OptionValues) => {
+    await copyToClipboard(
       `new Intl.PluralRules("${selectedLocale}", ${JSON.stringify(
         Object.assign({}, options, { value: undefined })
       )}).select(${options.value})`
@@ -31,13 +31,7 @@
   </label>
   <label>
     type: ordinal
-    <input
-      type="radio"
-      id="type-ordinal"
-      name="type"
-      bind:group={type}
-      value="ordinal"
-    />
+    <input type="radio" id="type-ordinal" name="type" bind:group={type} value="ordinal" />
   </label>
 </div>
 <Grid>

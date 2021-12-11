@@ -12,8 +12,8 @@
 
   let dateString = "2004-04-04T04:04:04";
 
-  let onClick = (options: OptionValues) => {
-    copyToClipboard(
+  let onClick = async (options: OptionValues) => {
+    await copyToClipboard(
       `new Intl.DateTimeFormat("${selectedLocale}", ${JSON.stringify(
         options
       )}).format(new Date("${dateString}"))`
@@ -24,12 +24,7 @@
 <div class="options">
   <div>
     <label for="datetime">Date</label>
-    <input
-      type="datetime-local"
-      id="datetime"
-      step="1"
-      bind:value={dateString}
-    />
+    <input type="datetime-local" id="datetime" step="1" bind:value={dateString} />
   </div>
 </div>
 

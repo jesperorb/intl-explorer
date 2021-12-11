@@ -9,8 +9,8 @@
   export let selectedLocale: string;
   let list = "Z,a,z,ä,1,=,à";
 
-  let onClick = (options: OptionValues) => {
-    copyToClipboard(
+  let onClick = async (options: OptionValues) => {
+    await copyToClipboard(
       `[].sort(new Intl.Collator("${selectedLocale}", ${JSON.stringify(
         options
       )}).compare)`
