@@ -29,18 +29,17 @@
   }
   .copy {
     background-color: #011627;;
-    border: 1px solid white;
+    border: 1px solid var(--white);
     border-radius: 0.25rem;
     padding: 0.25rem .75rem;
     cursor: pointer;
-    color: white;
+    color: var(--white);
     position: absolute;
     z-index: 1;
     bottom: 0.5rem;
     right: 0.5rem;
   }
-  .copy:hover,
-  .copy:focus {
+  .copy:hover {
     background-color: rgb(14, 73, 121);
   }
 </style>

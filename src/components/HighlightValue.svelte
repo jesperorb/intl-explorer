@@ -6,17 +6,3 @@
 </script>
 
 <span class={`token ${typeof value}`}>{formattedValue(value)}</span>
-
-<style>
-  .token.boolean {
-    color: rgb(255, 88, 116);
-  }
-
-  .token.number {
-    color: rgb(247, 140, 108);
-  }
-
-  .token.string {
-    color: rgb(173, 219, 103);
-  }
-</style>

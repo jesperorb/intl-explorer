@@ -436,5 +436,3 @@ export const languageByLocale = {
   "zu-ZA": "Zulu (South Africa)",
   zu: "Zulu",
 };
-
-export const languageByLocaleAsEntries = Object.entries(languageByLocale);

@@ -3,7 +3,7 @@
   export let header: string;
 </script>
 
-<section>
+<section data-testid={`option-section-${header}`}>
   <OptionHeader text={header} />
   <slot />
 </section>

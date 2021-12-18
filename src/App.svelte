@@ -9,7 +9,7 @@
   import PluralRules from "./components/tabs/PluralRulesTab.svelte";
   import CollatorTab from "./components/tabs/CollatorTab.svelte";
 
-  import { languageByLocaleAsEntries } from "./locale-data/locales";
+  import { languageByLocale } from "./locale-data/locales";
 
   import { selectedTab } from "./store/selectedTab";
   import { selectedLocale } from "./store/selectedLocale";
@@ -27,12 +27,13 @@
     bind:value={$selectedTab}
     items={tabEntries}
   />
-  <div class="tabs">
+  <hr />
+  <div>
     <Select
       name="locale"
       placeholder="Select a locale"
       label="Locale"
-      items={languageByLocaleAsEntries}
+      items={Object.entries(languageByLocale)}
       bind:value={$selectedLocale}
     />
     {#if $selectedTab === Tabs.DateTimeFormat}
@@ -55,13 +56,3 @@
     {/if}
   </div>
 </main>
-
-<style>
-  .tabs {
-    padding-top: 1rem;
-    border-top: 1px solid gray;
-  }
-  main {
-    margin: 0 1rem;
-  }
-</style>

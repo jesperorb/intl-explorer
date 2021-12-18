@@ -1,4 +1,22 @@
-* {
+:root {
+  --black: hsl(0, 0%, 15%);
+  --white: hsl(0, 100%, 100%);
+  --dark-blue: hsl(207, 95%, 8%);
+  --light-blue: hsl(221, 100%, 75%);
+  --gray: hsl(0, 0%, 55%);
+  --purple: hsl(276, 67%, 74%);
+  --teal: hsl(169, 56%, 68%);
+  --green: hsl(84, 62%, 63%);
+  --red: hsl(350, 100%, 67%);
+  --orange: hsl(14, 90%, 70%);
+
+  --font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+
+  --spacing-1: 1rem;
+  --spacing-1-5: 1.5rem;
+}
+
+*, *::after, **::before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -7,42 +25,63 @@
 body,
 html {
   font-size: 100%;
-  color: hsl(0, 0%, 15%);
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  color: var(--black);
+  font-family: var(--font-family);
 }
-
+body {
+  margin: var(--spacing-1);
+}
 label {
   display: block;
+}
+input, select, button {
+  margin-bottom: var(--spacing-1);
 }
 
 pre {
   line-height: 1.5;
-  padding: 1rem;
-  background-color: #011627;
+  padding: var(--spacing-1);
+  background-color: var(--dark-blue);
   font-size: 0.85rem;
   border-radius: 0.5rem;
   overflow-x: auto;
-  margin-bottom: 1.5rem;
-  color: white;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  margin-bottom: var(--margin-1);
+  color: var(--white);
+  font-family: var(--font-family);
 }
 
 .token.comment {
-  color: hsl(0, 0%, 55%);
+  color: var(--gray);
 }
 
 .token.punctuation {
-  color: rgb(199, 146, 234);
+  color: var(--purple);
 }
 
 .token.operator {
-  color: rgb(127, 219, 202);
+  color: var(--teal);
 }
 
 .token.key {
-  color: rgb(255, 255, 255);
+  color: var(--white);
 }
 
 .token.function {
-  color: rgb(130, 170, 255);
+  color: var(--light-blue);
+}
+
+.token.boolean {
+  color: var(--red);
+}
+
+.token.number {
+  color: var(--orange);
+}
+
+.token.string {
+  color: var(--green);
+}
+
+.padding-bottom-1 {
+  padding-bottom: var(--spacing-1);;
 }

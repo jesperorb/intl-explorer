@@ -21,7 +21,7 @@
   let numeric: "always" | "auto" = "auto";
 </script>
 
-<div class="options">
+<div>
   <div>
     <label for="value">Value</label>
     <input type="text" id="value" bind:value={dayValue} />
@@ -94,14 +94,6 @@
 </Grid>
 
 <style>
-  .options {
-    padding-bottom: 1rem;
-  }
-
-  input {
-    margin-bottom: 1rem;
-  }
-
   .radio {
     display: flex;
     gap: 1rem;

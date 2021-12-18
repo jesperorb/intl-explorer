@@ -21,11 +21,9 @@
   };
 </script>
 
-<div class="options">
-  <div>
-    <label for="datetime">Date</label>
-    <input type="datetime-local" id="datetime" step="1" bind:value={dateString} />
-  </div>
+<div>
+  <label for="datetime">Date</label>
+  <input type="datetime-local" id="datetime" step="1" bind:value={dateString} />
 </div>
 
 <Grid>
@@ -46,9 +44,3 @@
     </OptionSection>
   {/each}
 </Grid>
-
-<style>
-  .options {
-    padding-bottom: 1rem;
-  }
-</style>

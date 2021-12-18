@@ -24,14 +24,4 @@
     >.
   </p>
 </header>
-
-<style>
-  h1 {
-    margin-bottom: 1rem;
-  }
-  header {
-    margin: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid hsl(0, 0%, 45%);
-  }
-</style>
+<hr />

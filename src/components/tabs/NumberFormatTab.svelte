@@ -4,7 +4,7 @@
   import OptionSection from "../OptionSection.svelte";
   import Highlight from "../Highlight.svelte";
 
-  import { currenciesAsEntries } from "../../locale-data/currencies";
+  import { currencies } from "../../locale-data/currencies";
   import {
     numberFormatOptionsCurrency,
     numberFormatOptionsUnit,
@@ -32,7 +32,7 @@
   };
 </script>
 
-<div class="options">
+<div>
   <button on:click={setDisplayUnit}>Unit</button>
   <button on:click={setDisplayCurrency}>Currency</button>
   {#if selectedFormatter === "currency"}
@@ -41,7 +41,7 @@
       placeholder="Select a currency"
       label="Currency"
       bind:value={selectedCurrency}
-      items={currenciesAsEntries}
+      items={Object.entries(currencies)}
     />
   {/if}
   {#if selectedFormatter === "unit"}
@@ -107,11 +107,7 @@
 </Grid>
 
 <style>
-  .options {
-    padding-bottom: 1rem;
-  }
   button {
     padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
   }
 </style>

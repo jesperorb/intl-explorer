@@ -17,8 +17,7 @@
   };
 </script>
 
-<div class="options" />
-<div class="radio">
+<div>
   <label>
     type: cardinal
     <input
@@ -34,6 +33,7 @@
     <input type="radio" id="type-ordinal" name="type" bind:group={type} value="ordinal" />
   </label>
 </div>
+
 <Grid>
   <OptionSection header={type}>
     <Highlight
@@ -94,9 +94,3 @@
     />
   </OptionSection>
 </Grid>
-
-<style>
-  .options {
-    padding-bottom: 1rem;
-  }
-</style>

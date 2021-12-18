@@ -9,7 +9,7 @@
   const toArray = (string: string) => string.split(",");
   const toStyle = (string: string | boolean | number) => string as Intl.Style;
 
-  export let selectedLocale: Intl.Locale;
+  export let selectedLocale: string;
 
   let list = "Miso,Sesam,Mami";
 
@@ -20,7 +20,7 @@
   };
 </script>
 
-<div class="options">
+<div>
   <label for="list">List</label>
   <input type="text" id="list" bind:value={list} />
 </div>
@@ -90,10 +90,3 @@
     {/each}
   </OptionSection>
 </Grid>
-
-<style>
-  .options {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-  }
-</style>

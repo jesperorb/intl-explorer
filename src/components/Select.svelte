@@ -13,9 +13,3 @@
     <option value={key}>{value}</option>
   {/each}
 </select>
-
-<style>
-  select {
-    margin-bottom: 1rem;
-  }
-</style>

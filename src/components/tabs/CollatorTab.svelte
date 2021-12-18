@@ -18,7 +18,7 @@
   };
 </script>
 
-<div class="options">
+<div>
   <label for="list">List</label>
   <input type="text" id="list" bind:value={list} />
 </div>
@@ -45,9 +45,3 @@
     </OptionSection>
   {/each}
 </Grid>
-
-<style>
-  .options {
-    padding-bottom: 1rem;
-  }
-</style>

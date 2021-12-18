@@ -46,7 +46,7 @@ declare namespace Intl {
 
   class ListFormat {
     constructor(
-      locales?: Locale | Locales | undefined,
+      locales?: Locale | Locales | string | undefined,
       options?: Partial<ListFormatOptions>
     );
 

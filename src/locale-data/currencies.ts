@@ -180,6 +180,3 @@ export const currencies = {
   ZMW: "Zambian kwacha",
   ZWL: "Zimbabwean dollar",
 };
-
-export const currenciesAsEntries = Object.entries(currencies);
-export const currencyKeys = Object.keys(currencies);
