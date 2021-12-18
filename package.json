@@ -9,17 +9,20 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear --host",
+    "start": "sirv public --no-clear --host --port 8080",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "deploy": "npm run build && node ./deploy.js",
     "lint": "eslint \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
     "lint:fix": "eslint --fix \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
-    "format": "prettier --write \"{,!(node_modules|public)/**/}*.{ts,svelte}\""
+    "format": "prettier --write \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
+    "cy:open": "cypress open"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
+    "@testing-library/cypress": "^8.0.2",
+    "@testing-library/user-event": "^13.5.0",
     "@tsconfig/svelte": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
@@ -41,6 +44,7 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "cypress": "^9.1.1",
     "sirv-cli": "^1.0.0"
   }
 }
