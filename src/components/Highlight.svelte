@@ -26,6 +26,7 @@
 <style>
   .highlight {
     position: relative;
+    margin-bottom: 1.5rem;
   }
   .copy {
     background-color: #011627;;
@@ -36,7 +37,7 @@
     color: var(--white);
     position: absolute;
     z-index: 1;
-    bottom: 0.5rem;
+    bottom: -2rem;
     right: 0.5rem;
   }
   .copy:hover {

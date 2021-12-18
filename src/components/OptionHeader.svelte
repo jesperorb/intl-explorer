@@ -7,5 +7,6 @@
 <style>
   p {
     font-size: 1.5rem;
+    word-break:break-all;
   }
 </style>
