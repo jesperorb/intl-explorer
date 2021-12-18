@@ -37,6 +37,9 @@ label {
 input, select, button {
   margin-bottom: var(--spacing-1);
 }
+select {
+  max-width: 100%;
+}
 
 pre {
   line-height: 1.5;
