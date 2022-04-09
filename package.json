@@ -24,10 +24,10 @@
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-typescript": "^8.3.1",
     "@testing-library/cypress": "^8.0.2",
-    "@testing-library/user-event": "^14.0.4",
     "@tsconfig/svelte": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
+    "cypress": "^9.5.3",
     "eslint": "^8.13.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-svelte3": "^3.4.1",
@@ -40,14 +40,11 @@
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-visualizer": "^5.6.0",
+    "sirv-cli": "^2.0.2",
     "svelte": "^3.47.0",
     "svelte-check": "^2.5.0",
     "svelte-preprocess": "^4.10.5",
     "tslib": "^2.3.1",
     "typescript": "^4.6.3"
-  },
-  "dependencies": {
-    "cypress": "^9.5.3",
-    "sirv-cli": "^2.0.2"
   }
 }
