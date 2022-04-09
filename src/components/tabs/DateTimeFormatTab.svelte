@@ -44,3 +44,12 @@
     </OptionSection>
   {/each}
 </Grid>
+
+<style>
+  input {
+    border: 1px solid grey;
+    border-radius: 4px;
+    background-color: white;
+    padding: 0.5rem;
+  }
+</style>

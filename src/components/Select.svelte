@@ -13,3 +13,12 @@
     <option value={key}>{value}</option>
   {/each}
 </select>
+
+<style>
+  select {
+    border: 1px solid grey;
+    border-radius: 4px;
+    background-color: white;
+    padding: 0.5rem;
+  }
+</style>

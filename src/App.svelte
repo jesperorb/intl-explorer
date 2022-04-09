@@ -3,7 +3,7 @@
   import Select from "./components/Select.svelte";
 
   import DateTimeFormatTab from "./components/tabs/DateTimeFormatTab.svelte";
-  import NumberFormatTab from "./components/tabs/NumberFormatTab.svelte";
+  import NumberFormatCurrencyTab from "./components/tabs/NumberFormatTabCurrency.svelte";
   import ListFormatTab from "./components/tabs/ListFormatTab.svelte";
   import RelativeTimeFormatTab from "./components/tabs/RelativeTimeFormatTab.svelte";
   import PluralRules from "./components/tabs/PluralRulesTab.svelte";
@@ -14,6 +14,7 @@
   import { selectedTab } from "./store/selectedTab";
   import { selectedLocale } from "./store/selectedLocale";
   import { tabEntries, Tabs } from "./tabs";
+  import NumberFormatTabUnit from "./components/tabs/NumberFormatTabUnit.svelte";
 </script>
 
 <header>
@@ -39,8 +40,11 @@
     {#if $selectedTab === Tabs.DateTimeFormat}
       <DateTimeFormatTab selectedLocale={$selectedLocale} />
     {/if}
-    {#if $selectedTab === Tabs.NumberFormat}
-      <NumberFormatTab selectedLocale={$selectedLocale} />
+    {#if $selectedTab === Tabs.NumberFormatCurrency}
+      <NumberFormatCurrencyTab selectedLocale={$selectedLocale} />
+    {/if}
+    {#if $selectedTab === Tabs.NumberFormatUnit}
+      <NumberFormatTabUnit selectedLocale={$selectedLocale} />
     {/if}
     {#if $selectedTab === Tabs.ListFormat}
       <ListFormatTab selectedLocale={$selectedLocale} />

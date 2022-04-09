@@ -5,6 +5,7 @@
   import { relativeTimeFormatUnits } from "../../options/relative-time-format-options";
   import { copyToClipboard } from "../../utils/copyToClipboard";
   import type { OptionValues } from "../../types/option-values";
+import Input from "../Input.svelte";
 
   export let selectedLocale: string;
 
@@ -23,8 +24,7 @@
 
 <div>
   <div>
-    <label for="value">Value</label>
-    <input type="text" id="value" bind:value={dayValue} />
+    <Input id="value" label="Value" value={dayValue} />
   </div>
   <div class="radio">
     <label>
