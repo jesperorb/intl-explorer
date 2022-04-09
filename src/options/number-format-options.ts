@@ -1,4 +1,5 @@
-import { defaultNumberRange, FormatOptionsValues } from "./format-helpers";
+import { defaultNumberRange } from "./format-helpers";
+import type { FormatOptionsValues } from "./format-helpers"; 
 
 type NumberFormatOptionsKeys = keyof Intl.NumberFormatOptions;
 
