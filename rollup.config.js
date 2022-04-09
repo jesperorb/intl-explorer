@@ -7,9 +7,11 @@ import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 import alias from '@rollup/plugin-alias';
 import css from "rollup-plugin-css-only";
+import { visualizer } from "rollup-plugin-visualizer";
 import path from 'path'
 
 const production = !process.env.ROLLUP_WATCH;
+const generateStats = process.env.STATS;
 
 function serve() {
   let server;
@@ -90,6 +92,10 @@ export default {
     // If we're building for production (npm run build
     // instead of npm run dev), minify
     production && terser(),
+    generateStats && visualizer({
+      filename: './build-stats.html',
+      open: true,
+    })
   ],
   watch: {
     clearScreen: false,
