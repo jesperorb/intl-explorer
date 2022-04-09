@@ -17,16 +17,16 @@ This is a tool for viewing output for all possible formatters for [Intl](https:/
 
 ## Running
 
-1. Install dependencies: `npm install`.
-2. Run devserver: `npm run dev`.
+1. Install dependencies: `yarn`.
+2. Run devserver: `yarn dev`.
 3. Visit: [https://localhost:5000](https://localhost:5000).
 
 ## Building
 
-1. Run command: `npm run build`.
+1. Run command: `yarn build`.
 
 ## Deploying
 
 _Assuming code has been pushed to GitHub as it uses `gh-pages`._
 
-1. Run command: `npm run deploy`.
+1. Run command: `yarn deploy`.
