@@ -1,7 +1,7 @@
 <script lang="ts">
   import Header from "@components/Header.svelte";
   import Select from "@components/Select.svelte";
-  
+
   import DateTimeFormatTab from "@components/tabs/DateTimeFormatTab.svelte";
   import NumberFormatCurrencyTab from "@components/tabs/NumberFormatTabCurrency.svelte";
   import NumberFormatTabUnit from "@components/tabs/NumberFormatTabUnit.svelte";

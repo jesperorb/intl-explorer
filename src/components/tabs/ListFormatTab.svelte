@@ -3,7 +3,7 @@
   import OptionSection from "@components/OptionSection.svelte";
   import Highlight from "@components/Highlight.svelte";
   import Input from "@components/Input.svelte";
-  
+
   import { listFormatOptions } from "@options/list-format-options";
   import { copyToClipboard } from "@utils/copy-to-clipboard";
 
