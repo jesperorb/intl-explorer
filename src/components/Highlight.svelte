@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { OptionValues } from "../types/option-values";
-
-  import HighlightValue from "./HighlightValue.svelte";
+  import HighlightValue from "@components/HighlightValue.svelte";
 
   export let values: OptionValues;
   export let output: string;

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Grid from "../Grid.svelte";
-  import OptionSection from "../OptionSection.svelte";
-  import Highlight from "../Highlight.svelte";
-  import type { OptionValues } from "../../types/option-values";
-  import { collatorFormatOptions } from "../../options/collator-options";
-  import { copyToClipboard } from "../../utils/copyToClipboard";
-  import Input from "../Input.svelte";
+  import Grid from "@components/Grid.svelte";
+  import OptionSection from "@components/OptionSection.svelte";
+  import Highlight from "@components/Highlight.svelte";
+  import Input from "@components/Input.svelte";
+
+  import { collatorFormatOptions } from "@options/collator-options";
+  import { copyToClipboard } from "@utils/copy-to-clipboard";
 
   export let selectedLocale: string;
   let list = "Z,a,z,ä,1,=,à";

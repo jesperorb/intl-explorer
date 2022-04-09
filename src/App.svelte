@@ -1,20 +1,20 @@
 <script lang="ts">
-  import Header from "./components/Header.svelte";
-  import Select from "./components/Select.svelte";
+  import Header from "@components/Header.svelte";
+  import Select from "@components/Select.svelte";
+  
+  import DateTimeFormatTab from "@components/tabs/DateTimeFormatTab.svelte";
+  import NumberFormatCurrencyTab from "@components/tabs/NumberFormatTabCurrency.svelte";
+  import NumberFormatTabUnit from "@components/tabs/NumberFormatTabUnit.svelte";
+  import ListFormatTab from "@components/tabs/ListFormatTab.svelte";
+  import RelativeTimeFormatTab from "@components/tabs/RelativeTimeFormatTab.svelte";
+  import PluralRules from "@components/tabs/PluralRulesTab.svelte";
+  import CollatorTab from "@components/tabs/CollatorTab.svelte";
 
-  import DateTimeFormatTab from "./components/tabs/DateTimeFormatTab.svelte";
-  import NumberFormatCurrencyTab from "./components/tabs/NumberFormatTabCurrency.svelte";
-  import ListFormatTab from "./components/tabs/ListFormatTab.svelte";
-  import RelativeTimeFormatTab from "./components/tabs/RelativeTimeFormatTab.svelte";
-  import PluralRules from "./components/tabs/PluralRulesTab.svelte";
-  import CollatorTab from "./components/tabs/CollatorTab.svelte";
+  import { languageByLocale } from "@locale-data/locales";
 
-  import { languageByLocale } from "./locale-data/locales";
-
-  import { selectedTab } from "./store/selectedTab";
-  import { selectedLocale } from "./store/selectedLocale";
-  import { tabEntries, Tabs } from "./tabs";
-  import NumberFormatTabUnit from "./components/tabs/NumberFormatTabUnit.svelte";
+  import { selectedTab } from "@store/selected-tab";
+  import { selectedLocale } from "@store/selected-locale";
+  import { tabEntries, Tabs } from "@tabs";
 </script>
 
 <header>

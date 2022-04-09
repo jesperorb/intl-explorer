@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Grid from "../Grid.svelte";
-  import OptionSection from "../OptionSection.svelte";
-  import Highlight from "../Highlight.svelte";
-  import { listFormatOptions } from "../../options/list-format-options";
-  import type { OptionValues } from "../../types/option-values";
-  import { copyToClipboard } from "../../utils/copyToClipboard";
-  import Input from "../Input.svelte";
+  import Grid from "@components/Grid.svelte";
+  import OptionSection from "@components/OptionSection.svelte";
+  import Highlight from "@components/Highlight.svelte";
+  import Input from "@components/Input.svelte";
+  
+  import { listFormatOptions } from "@options/list-format-options";
+  import { copyToClipboard } from "@utils/copy-to-clipboard";
 
   const toArray = (string: string) => string.split(",");
   const toStyle = (string: string | boolean | number) => string as Intl.Style;

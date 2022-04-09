@@ -5,7 +5,9 @@ import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
+import alias from '@rollup/plugin-alias';
 import css from "rollup-plugin-css-only";
+import path from 'path'
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -68,7 +70,15 @@ export default {
       sourceMap: !production,
       inlineSources: !production,
     }),
-
+    alias({
+      entries: [
+        { find: "@components", replacement: path.resolve(__dirname, "src", "components") },
+        { find: "@store", replacement: path.resolve(__dirname, "src", "store") },
+        { find: "@utils", replacement: path.resolve(__dirname, "src", "utils") },
+        { find: "@options", replacement: path.resolve(__dirname, "src", "options") },
+        { find: "@tabs", replacement: path.resolve(__dirname, "src", "tabs") },
+      ],
+    }),
     // In dev mode, call `npm run start` once
     // the bundle has been generated
     !production && serve(),

@@ -1,4 +1,4 @@
-import type { DateTimeFormatOptionsKeys } from "../options/datetime-format-options";
+import type { DateTimeFormatOptionsKeys } from "@options/datetime-format-options";
 
 export const getFormatOptions = (
   option: DateTimeFormatOptionsKeys,

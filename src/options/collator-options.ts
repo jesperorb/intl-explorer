@@ -1,4 +1,4 @@
-import type { FormatOptionsValues } from "./format-helpers";
+import type { FormatOptionsValues } from "@utils/format-utils";
 
 export type CollatorFormatOptionsKeys = keyof Intl.CollatorOptions;
 

@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-import { Tabs } from "../tabs";
+import { Tabs } from "@tabs";
 
 const key = "selectedTab";
 

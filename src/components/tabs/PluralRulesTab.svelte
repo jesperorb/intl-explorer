@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Grid from "../Grid.svelte";
-  import OptionSection from "../OptionSection.svelte";
-  import Highlight from "../Highlight.svelte";
-  import { copyToClipboard } from "../../utils/copyToClipboard";
-  import type { OptionValues } from "../../types/option-values";
+  import Grid from "@components/Grid.svelte";
+  import OptionSection from "@components/OptionSection.svelte";
+  import Highlight from "@components/Highlight.svelte";
+
+  import { copyToClipboard } from "@utils/copy-to-clipboard";
 
   export let selectedLocale: string | string[];
   let type: Intl.PluralRuleType = "cardinal";

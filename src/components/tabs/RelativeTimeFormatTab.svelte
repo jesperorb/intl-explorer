@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Highlight from "../Highlight.svelte";
-  import OptionSection from "../OptionSection.svelte";
-  import Grid from "../Grid.svelte";
-  import { relativeTimeFormatUnits } from "../../options/relative-time-format-options";
-  import { copyToClipboard } from "../../utils/copyToClipboard";
-  import type { OptionValues } from "../../types/option-values";
-  import Input from "../Input.svelte";
+  import Highlight from "@components/Highlight.svelte";
+  import OptionSection from "@components/OptionSection.svelte";
+  import Grid from "@components/Grid.svelte";
+  import Input from "@components/Input.svelte";
+
+  import { relativeTimeFormatUnits } from "@options/relative-time-format-options";
+  import { copyToClipboard } from "@utils/copy-to-clipboard";
 
   export let selectedLocale: string;
 

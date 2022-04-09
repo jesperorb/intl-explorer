@@ -1,14 +1,13 @@
 <script lang="ts">
-  import Select from "../Select.svelte";
-  import Grid from "../Grid.svelte";
-  import OptionSection from "../OptionSection.svelte";
-  import Highlight from "../Highlight.svelte";
+  import Select from "@components/Select.svelte";
+  import Grid from "@components/Grid.svelte";
+  import OptionSection from "@components/OptionSection.svelte";
+  import Highlight from "@components/Highlight.svelte";
+  import Input from "@components/Input.svelte";
 
-  import { numberFormatOptionsUnit } from "../../options/number-format-options";
-  import type { OptionValues } from "../../types/option-values";
-  import { copyToClipboard } from "../../utils/copyToClipboard";
-  import { unitsAsEntries } from "../../locale-data/units";
-  import Input from "../Input.svelte";
+  import { numberFormatOptionsUnit } from "@options/number-format-options";
+  import { copyToClipboard } from "@utils/copy-to-clipboard";
+  import { unitsAsEntries } from "@locale-data/units";
 
   export let selectedLocale: string;
 

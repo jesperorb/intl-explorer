@@ -62,3 +62,5 @@ declare namespace Intl {
     public resolvedOptions(): ResolvedListFormatOptions;
   }
 }
+
+type OptionValues = { [key: string]: number | boolean | string };

@@ -1,5 +1,5 @@
-import { calendars, numberingSystems } from "../locale-data/calendars";
-import type { FormatOptionsValues } from "./format-helpers";
+import { calendars, numberingSystems } from "@locale-data/calendars";
+import type { FormatOptionsValues } from "@utils/format-utils";
 
 export type DateTimeFormatOptionsKeys =
   | keyof Intl.DateTimeFormatOptions
