@@ -5,7 +5,7 @@
 </script>
 
 <label for="amount">{label}</label>
-<input type="text" bind:value id={id} />
+<input type="text" bind:value {id} />
 
 <style>
   input {

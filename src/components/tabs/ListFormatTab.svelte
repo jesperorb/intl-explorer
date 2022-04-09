@@ -5,7 +5,7 @@
   import { listFormatOptions } from "../../options/list-format-options";
   import type { OptionValues } from "../../types/option-values";
   import { copyToClipboard } from "../../utils/copyToClipboard";
-import Input from "../Input.svelte";
+  import Input from "../Input.svelte";
 
   const toArray = (string: string) => string.split(",");
   const toStyle = (string: string | boolean | number) => string as Intl.Style;

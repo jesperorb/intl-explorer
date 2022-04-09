@@ -5,7 +5,7 @@
   import type { OptionValues } from "../../types/option-values";
   import { collatorFormatOptions } from "../../options/collator-options";
   import { copyToClipboard } from "../../utils/copyToClipboard";
-import Input from "../Input.svelte";
+  import Input from "../Input.svelte";
 
   export let selectedLocale: string;
   let list = "Z,a,z,ä,1,=,à";

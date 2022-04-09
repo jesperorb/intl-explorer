@@ -5,7 +5,7 @@
   import { relativeTimeFormatUnits } from "../../options/relative-time-format-options";
   import { copyToClipboard } from "../../utils/copyToClipboard";
   import type { OptionValues } from "../../types/option-values";
-import Input from "../Input.svelte";
+  import Input from "../Input.svelte";
 
   export let selectedLocale: string;
 
