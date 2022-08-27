@@ -24,7 +24,7 @@
 
 <div>
   <div>
-    <Input id="value" label="Value" value={dayValue} />
+    <Input id="value" label="Value" bind:value={dayValue} />
   </div>
   <div class="radio">
     <label>

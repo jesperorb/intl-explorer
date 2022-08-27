@@ -20,7 +20,7 @@
 </script>
 
 <div>
-  <Input id="list" label="List" value={list} />
+  <Input id="list" label="List" bind:value={list} />
 </div>
 
 <Grid>

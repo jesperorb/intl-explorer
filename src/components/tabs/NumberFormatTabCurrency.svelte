@@ -31,7 +31,7 @@
     bind:value={selectedCurrency}
     items={Object.entries(currencies)}
   />
-  <Input id="amount" label="Amount" value={number} />
+  <Input id="amount" label="Amount" bind:value={number} />
 </div>
 
 <Grid>
