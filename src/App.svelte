@@ -15,6 +15,7 @@
   import { selectedTab } from "@store/selected-tab";
   import { selectedLocale } from "@store/selected-locale";
   import { tabEntries, Tabs } from "@tabs";
+  import SegmenterTab from "@components/tabs/SegmenterTab.svelte";
 </script>
 
 <header>
@@ -57,6 +58,9 @@
     {/if}
     {#if $selectedTab === Tabs.Collator}
       <CollatorTab selectedLocale={$selectedLocale} />
+    {/if}
+    {#if $selectedTab === Tabs.Segmenter}
+      <SegmenterTab selectedLocale={$selectedLocale} />
     {/if}
   </div>
 </main>

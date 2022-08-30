@@ -13,8 +13,13 @@
       )}"
       target="_blank"
       rel="noopener noreferrer">MDN: Intl.{getHeader(header)}</a
-    >. This is not a precise tool, it iterates every options property as is. If you have
-    found a bug, file an issue or open a PR in the
+    >. Choose a formatter in the select below and a locale that you want the output to be displayed in.
+    Each code snippet will display the output of each option to pass to the formatter. Each code snippet
+    also has a "Copy"-button that will copy the code that produces the output to your clipboard.
+  </p>
+  <p>
+    Depending on which browser you use some of these formatter will not work. If you have found a bug or want to
+    improve something, open a PR in the
     <a
       href="https://github.com/jesperorb/intl-explorer"
       target="_blank"
@@ -24,7 +29,6 @@
     >. Created by
     <a href="https://jesperorb.com" target="_blank" rel="noopener noreferrer"
       >Jesper Orb</a
-    >.
-  </p>
+    >.</p>
 </header>
 <hr />

@@ -6,6 +6,7 @@ export enum Tabs {
   RelativeTimeFormat = "RelativeTimeFormat",
   PluralRules = "PluralRules",
   Collator = "Collator",
+  Segmenter = "Segmenter",
 }
 
 export const tabEntries = Object.keys(Tabs).map((tab) => [tab, tab]);
