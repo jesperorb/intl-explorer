@@ -1,17 +1,18 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@components/*": ["src/components/*"],
-      "@options/*": ["src/options/*"],
-      "@utils/*": ["src/utils/*"],
-      "@store/*": ["src/store/*"],
-      "@locale-data/*": ["src/locale-data/*"],
-      "@tabs": ["src/tabs.ts"],
-    },
-    "lib": ["ES2020.Intl", "ES2018.Intl", "ES2021.intl", "DOM"]
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*", ".eslintrc.js", ".prettierrc.js"]
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"lib": ["ES2018.Intl", "es2021.intl", "ES2020.Intl", "ES2022.Intl"]
+	}
+	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
+	//
+	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
+	// from the referenced tsconfig.json - TypeScript does not merge them in
 }

@@ -1,50 +1,41 @@
 {
-  "name": "intl-explorer",
-  "version": "1.0.0",
-  "private": false,
-  "author": {
-    "name": "Jesper Orb",
-    "email": "github@jesperorb.com"
-  },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --no-clear --host --port 8080",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "deploy": "npm run build && node ./deploy.js",
-    "lint": "eslint \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
-    "lint:fix": "eslint --fix \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
-    "format": "prettier --write \"{,!(node_modules|public)/**/}*.{ts,svelte}\"",
-    "cy:open": "cypress open",
-    "stats": "STATS=true rollup -c"
-  },
-  "devDependencies": {
-    "@rollup/plugin-alias": "^3.1.9",
-    "@rollup/plugin-commonjs": "^21.0.3",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "@rollup/plugin-typescript": "^8.3.1",
-    "@testing-library/cypress": "^8.0.2",
-    "@tsconfig/svelte": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
-    "cypress": "^9.5.3",
-    "eslint": "^8.13.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-svelte3": "^3.4.1",
-    "gh-pages": "^3.2.3",
-    "prettier": "^2.6.2",
-    "prettier-plugin-svelte": "^2.7.0",
-    "rollup": "^2.70.1",
-    "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-visualizer": "^5.6.0",
-    "sirv-cli": "^2.0.2",
-    "svelte": "^3.47.0",
-    "svelte-check": "^2.5.0",
-    "svelte-preprocess": "^4.10.5",
-    "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
-  }
+	"name": "intl-explorer",
+	"version": "2.0.0",
+	"license": "MIT",
+	"author": {
+		"name": "Jesper Orb"
+	},
+	"private": false,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "playwright test",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.25.0",
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"@typescript-eslint/eslint-plugin": "^5.27.0",
+		"@typescript-eslint/parser": "^5.27.0",
+		"eslint": "^8.16.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"prettier": "^2.6.2",
+		"prettier-plugin-svelte": "^2.7.0",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.7.1",
+		"svelte-preprocess": "^4.10.6",
+		"tslib": "^2.3.1",
+		"typescript": "^4.7.4",
+		"vite": "^3.1.0-beta.1"
+	},
+	"type": "module",
+	"dependencies": {
+		"@mdn/browser-compat-data": "^5.2.0"
+	}
 }

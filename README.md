@@ -8,8 +8,7 @@ This is a tool for viewing output for all possible formatters for [Intl](https:/
 - [`Intl.ListFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat)
 - [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules)
 - [`Intl.Collator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator)
-
-![A screenshot of how the deployed website looks like.](screenshot.png)
+- [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter)
 
 ## Live site
 
@@ -17,16 +16,12 @@ This is a tool for viewing output for all possible formatters for [Intl](https:/
 
 ## Running
 
-1. Install dependencies: `yarn`.
-2. Run devserver: `yarn dev`.
-3. Visit: [https://localhost:5000](https://localhost:5000).
+> This repo uses [pnpm](https://pnpm.io/)
+
+1. Install dependencies: `pnpm install`.
+2. Run devserver: `pnpm dev`.
+3. Visit: [http://127.0.0.1:5173/](http://127.0.0.1:5173/).
 
 ## Building
 
-1. Run command: `yarn build`.
-
-## Deploying
-
-_Assuming code has been pushed to GitHub as it uses `gh-pages`._
-
-1. Run command: `yarn deploy`.
+1. Run command: `pnpm build`.

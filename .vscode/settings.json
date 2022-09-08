@@ -1,9 +1,9 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	}
 }
