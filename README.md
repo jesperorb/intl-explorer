@@ -19,3 +19,8 @@
 ## Building
 
 1. Run command: `pnpm build`.
+
+
+## Contributing
+
+See the [contributing guide](CONTRIBUTING.md) for detailed instructions on how to get started with our project.
