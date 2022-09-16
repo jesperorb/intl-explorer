@@ -19,7 +19,10 @@
 		<ul>
 			<li><strong><a href="/">About</a></strong></li>
 			<li><strong>Methods</strong></li>
-			{#each formatMethods as method}
+			<li><a class:active={path.includes("NumberFormat")} href={`/NumberFormat/Currency`}>NumberFormat</a></li>
+			<li><a class:active={path.includes("Currency")} class="sublink" href={`/NumberFormat/Currency`}>Currency</a></li>
+			<li><a class:active={path.includes("Unit")} class="sublink" href={`/NumberFormat/Unit`}>Unit</a></li>
+			{#each formatMethods.filter((method) => method !== "NumberFormat") as method}
 				<li><a class:active={path.includes(method)} href={`/${method}`}>{method}</a></li>
 			{/each}
 		</ul>
@@ -64,5 +67,8 @@
 	}
 	.github {
 		margin-top: 1rem;
+	}
+	.sublink {
+		margin-left: 1rem;
 	}
 </style>
