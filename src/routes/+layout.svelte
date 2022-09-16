@@ -53,8 +53,8 @@
 		main {
 			border-radius: 6px;
 			margin-top: 1.5rem;
-			transform: translate(calc(230px + 3rem));
 			z-index: 2;
+			max-width: 100%;
 		}
 		.sidebar-toggle {
 			display: none;

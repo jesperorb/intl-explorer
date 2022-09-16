@@ -36,8 +36,14 @@ html {
 	line-height: 1.5;
 }
 body {
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr;
 	margin: 0;
+}
+@media (min-width: 900px) {
+	body {
+		grid-template-columns: 280px 1fr;
+	}
 }
 a,
 a:visited {
