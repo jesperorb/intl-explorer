@@ -5,6 +5,14 @@
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { page } from '$app/stores';
 
+	export let open: boolean;
+	export let onClick: () => void;
+
+	const internalOnClick = (event: Event) => {
+		if((event.target as HTMLElement).nodeName !== "A") return;
+		onClick();
+	}
+
 	let path: string;
 
 	const getPath = (currentPath: string) => {
@@ -14,9 +22,9 @@
 	$: getPath($page.url.pathname);
 </script>
 
-<div class="sidebar">
+<div class="sidebar" class:open={open}>
 	<nav>
-		<ul>
+		<ul on:click={internalOnClick}>
 			<li><strong><a href="/">About</a></strong></li>
 			<li><strong>Methods</strong></li>
 			<li><a class:active={path.includes("NumberFormat")} href={`/NumberFormat/Currency`}>NumberFormat</a></li>
@@ -41,13 +49,29 @@
 
 <style>
 	.sidebar {
-		position: sticky;
+		position: absolute;
 		top: 0;
+		left: 0;
 		width: 230px;
 		display: flex;
 		flex-direction: column;
 		padding: 0 1.5rem;
 		background-color: var(--light-purple);
+		z-index: 1;
+		height: 100%;
+		transform: translateX(calc(-230px - 3rem));
+		transition: transform 300ms;
+		box-shadow: 2px 2px 8px 2px hsla(276, 100%, 10%, 0.03);
+	}
+	@media (min-width: 900px) {
+		.sidebar {
+			transform: translateX(0);
+			box-shadow: none;
+		}
+	}
+	.open {
+			transform: translateX(0);
+			box-shadow: none;
 	}
 	a {
 		text-decoration: none;
