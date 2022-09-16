@@ -6,8 +6,8 @@
 
 const bcd = require('@mdn/browser-compat-data');
 
-const { writeFile } = require("fs");
-const { resolve } = require("path");
+const { writeFile } = require('fs');
+const { resolve } = require('path');
 
 const formatMethods = [
 	'DateTimeFormat',
@@ -17,8 +17,7 @@ const formatMethods = [
 	'PluralRules',
 	'Collator',
 	'Segmenter'
-]
-
+];
 
 const browserTypePosition = {
 	desktop: 0,
@@ -29,20 +28,14 @@ const browserTypePosition = {
 
 const excludedBrowserNames = ['ie', 'oculus'];
 
-const getPropertyFromSupportStatement = (
-	statement,
-	key
-) => {
+const getPropertyFromSupportStatement = (statement, key) => {
 	if (Array.isArray(statement)) {
 		return statement[0][key];
 	}
 	return statement[key];
 };
 
-const getCompatDataWithBrowserData = (
-	compatData,
-	property
-) => {
+const getCompatDataWithBrowserData = (compatData, property) => {
 	const compatDataForProperty = compatData.javascript.builtins.Intl[property].__compat;
 	const browsers = compatData.browsers;
 	const support = Object.entries(compatDataForProperty?.support ?? {})
@@ -73,9 +66,13 @@ const getCompatDataWithBrowserData = (
 	};
 };
 
-formatMethods.forEach(method => {
+formatMethods.forEach((method) => {
 	const data = getCompatDataWithBrowserData(bcd, method);
-	writeFile(resolve(process.cwd(), "static",`${method}-compat-data.json`), JSON.stringify(data), (error) => {
-		console.log(error)
-	})
-})
+	writeFile(
+		resolve(process.cwd(), 'static', `${method}-compat-data.json`),
+		JSON.stringify(data),
+		(error) => {
+			console.log(error);
+		}
+	);
+});
