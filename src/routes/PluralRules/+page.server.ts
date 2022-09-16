@@ -1,6 +1,6 @@
-import { getCompatDataWithBrowserData } from '$lib/utils/compat-data';
-import bcd from '@mdn/browser-compat-data' assert { type: 'json' };
+import { loadJson } from "$lib/utils/load-json";
+import type { ServerLoadEvent } from "@sveltejs/kit";
 
-export async function load() {
-	return getCompatDataWithBrowserData(bcd, 'PluralRules');
+export async function load(loadEvent: ServerLoadEvent) {
+	return loadJson(loadEvent)
 }
