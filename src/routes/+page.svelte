@@ -2,7 +2,7 @@
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { selectedLocale } from '$lib/store/selected-locale';
-import type { OptionValues } from '$lib/types/OptionValues.types';
+	import type { OptionValues } from '$lib/types/OptionValues.types';
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
 			`new Intl.DateTimeFormat("${$selectedLocale}", ${JSON.stringify(
@@ -57,6 +57,6 @@ import type { OptionValues } from '$lib/types/OptionValues.types';
 
 <style>
 	div {
-		max-width: 800px;
+		max-width: 700px;
 	}
 </style>

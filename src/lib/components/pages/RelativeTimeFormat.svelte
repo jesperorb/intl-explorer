@@ -7,7 +7,7 @@
 	import { relativeTimeFormatUnits } from '$lib/format-options/relative-time-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { selectedLocale } from '$lib/store/selected-locale';
-import type { OptionValues } from '$lib/types/OptionValues.types';
+	import type { OptionValues } from '$lib/types/OptionValues.types';
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -20,6 +20,7 @@ import type { OptionValues } from '$lib/types/OptionValues.types';
 	let dayValue = 2;
 	let style: Intl.RelativeTimeFormatStyle = 'long';
 	let numeric: 'always' | 'auto' = 'auto';
+
 </script>
 
 <h2>Input values</h2>
