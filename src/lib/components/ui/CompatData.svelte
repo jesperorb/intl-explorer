@@ -3,8 +3,8 @@
 	import Icon from '$lib/components/ui/icons/Icon.svelte';
 	import BrowserType from './icons/BrowserType.svelte';
 	import type { VersionValue } from '@mdn/browser-compat-data';
-	export let data: BrowserCompatData;
-	const compatData = Object.entries(data.support);
+	export let data: BrowserCompatData | null;
+	const compatData = Object.entries(data?.support ?? {});
 
 	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
 		if(!versionAdded) return `Not available in ${browserName}`;
