@@ -1,15 +1,15 @@
 # Contributing to Intl Explorer
 
-A big welcome and thank you for considering contributing to *Intl Explorer*!
+A big welcome and thank you for considering contributing to _Intl Explorer_!
 
 Reading and following these guidelines will help us make the contribution process easy and effective for everyone involved. It also communicates that you agree to respect the time of the developers managing and developing these open source projects. In return, we will reciprocate that respect by addressing your issue, assessing changes, and helping you finalize your pull requests.
 
 ## Quicklinks
 
-* [Getting Started](#getting-started)
-    * [Issues](#issues)
-    * [Pull Requests](#pull-requests)
-* [License](#license)
+- [Getting Started](#getting-started)
+  - [Issues](#issues)
+  - [Pull Requests](#pull-requests)
+- [License](#license)
 
 ## Getting Started
 
@@ -34,7 +34,7 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 2. Clone the project to your machine
 3. Create a branch locally with a succinct but descriptive name
 4. Be sure to lint and format before commiting (`pnpm format`, `pnpm lint`) and fix any issues that the linter finds.
-4. Commit changes to the branch. We use [commitlint](https://github.com/conventional-changelog/commitlint) to check if your commit message follows [conventional commits format](https://www.conventionalcommits.org/en/v1.0.0/)
+5. Commit changes to the branch. We use [commitlint](https://github.com/conventional-changelog/commitlint) to check if your commit message follows [conventional commits format](https://www.conventionalcommits.org/en/v1.0.0/)
 6. Push changes to your fork
 7. Open a PR in our repository and follow the PR template so that we can efficiently review the changes.
 
