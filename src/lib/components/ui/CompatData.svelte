@@ -6,6 +6,7 @@
 
 	export let data: BrowserCompatData | null;
 	const compatData = Object.entries(data?.support ?? {});
+	const headers = data?.browserTypeHeaders ?? [];
 	const desktopBrowsers = compatData.filter(([, data]) => data.browserType === 'desktop');
 
 	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
@@ -22,36 +23,42 @@
 				class="desktop-compat-data-summary"
 				style="grid-template-columns: repeat({desktopBrowsers.length}, 20px)"
 			>
-				{#each desktopBrowsers as [browserName, data]}
+				{#each desktopBrowsers as [browserName, browserData]}
 					<div>
-						<span class="browser-name browser-supported" aria-hidden="true" class:browser-unsupported={!data.versionAdded}>
+						<span
+							class="browser-name browser-supported"
+							class:browser-partial-support={browserData.hasMobileEquivalent &&
+								!browserData.mobileVersionAdded}
+							aria-hidden="true"
+							class:browser-unsupported={!browserData.versionAdded}
+						>
 							<Icon {browserName} />
 						</span>
-						<span aria-label={getAriaLabel(browserName, data.versionAdded)} />
+						<span aria-label={getAriaLabel(browserName, browserData.versionAdded)} />
 					</div>
 				{/each}
 			</div>
 		</summary>
 		<div class="compat-data-grid" style="grid-template-columns: repeat({compatData.length}, 50px)">
-			{#each compatData as [, data]}
-				<div class="browser-type">
+			{#each headers as header}
+				<div class="browser-type" style="grid-column: {header.start} / {header.end}">
 					<span aria-hidden="true">
-						<BrowserType browserType={data.browserType} />
+						<BrowserType browserType={header.name} />
 					</span>
 				</div>
 			{/each}
-			{#each compatData as [browserName, data]}
+			{#each compatData as [browserName, browserData]}
 				<div class="browser">
 					<span class="browser-name" aria-hidden="true">
 						<Icon {browserName} />
 					</span>
-					<span aria-label={getAriaLabel(browserName, data.versionAdded)} />
+					<span aria-label={getAriaLabel(browserName, browserData.versionAdded)} />
 					<span
 						class="browser-version browser-supported"
-						class:browser-unsupported={!data.versionAdded}
+						class:browser-unsupported={!browserData.versionAdded}
 						aria-hidden="true"
 					>
-						{!data.versionAdded ? 'No' : data.versionAdded}
+						{!browserData.versionAdded ? 'No' : browserData.versionAdded}
 					</span>
 				</div>
 			{/each}
@@ -83,6 +90,9 @@
 	.browser:last-of-type {
 		border-right: none;
 	}
+	.browser-type:not(:last-of-type) {
+		border-right: 1px solid var(--gray);
+	}
 	.browser-type {
 		display: grid;
 		place-items: center;
@@ -93,6 +103,9 @@
 	}
 	.browser-supported {
 		color: rgb(0, 121, 54);
+	}
+	.browser-partial-support {
+		color: rgb(211, 162, 0);
 	}
 	.browser-unsupported {
 		color: rgb(211, 0, 56);
