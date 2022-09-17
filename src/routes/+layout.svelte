@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Sidebar from '$lib/components/sidebar.svelte';
+	import { selectedLocale } from '$lib/store/selected-locale';
 	let open = false;
 	const toggleOpen = () => (open = !open);
 </script>
@@ -10,7 +11,7 @@
 	<span/>
 </button>
 
-<Sidebar bind:open={open} onClick={toggleOpen} />
+<Sidebar bind:open={open} bind:selectedLocale={$selectedLocale} />
 
 <main>
 	<slot />

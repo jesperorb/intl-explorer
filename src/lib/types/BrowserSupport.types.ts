@@ -18,6 +18,7 @@ export type BrowserSupportWithReleaseData = {
 	notes?: string | string[];
 	release?: ReleaseStatement;
 	browserType: BrowserType;
+	browserName: string;
 	partialSupport: boolean;
 	mobileRelease?: ReleaseStatement;
 	hasMobileEquivalent: boolean;
