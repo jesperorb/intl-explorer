@@ -3,51 +3,79 @@
 	import Icon from '$lib/components/ui/icons/Icon.svelte';
 	import BrowserType from './icons/BrowserType.svelte';
 	import type { VersionValue } from '@mdn/browser-compat-data';
+
 	export let data: BrowserCompatData | null;
 	const compatData = Object.entries(data?.support ?? {});
+	const desktopBrowsers = compatData.filter(([, data]) => data.browserType === 'desktop');
 
 	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
-		if(!versionAdded) return `Not available in ${browserName}`;
+		if (!versionAdded) return `Not available in ${browserName}`;
 		return `Available in ${browserName} from version ${versionAdded}`;
-	}
+	};
 </script>
 
 {#if compatData.length}
-	<h2>Browser compatibility</h2>
-	<div class="compat-data" style="grid-template-columns: repeat({compatData.length}, 50px)">
-		{#each compatData as [,data]}
-			<div class="browser-type">
-				<span aria-hidden="true">
-					<BrowserType browserType={data.browserType} />
-				</span>
+	<details>
+		<summary>
+			<h2>Browser support</h2>
+			<div
+				class="desktop-compat-data-summary"
+				style="grid-template-columns: repeat({desktopBrowsers.length}, 20px)"
+			>
+				{#each desktopBrowsers as [browserName, data]}
+					<div>
+						<span class="browser-name browser-supported" aria-hidden="true" class:browser-unsupported={!data.versionAdded}>
+							<Icon {browserName} />
+						</span>
+						<span aria-label={getAriaLabel(browserName, data.versionAdded)} />
+					</div>
+				{/each}
 			</div>
-		{/each}
-		{#each compatData as [browserName, data]}
-			<div class="browser">
-				<span class="browser-name" aria-hidden="true">
-					<Icon {browserName} />
-				</span>
-				<span aria-label="{getAriaLabel(browserName, data.versionAdded)}" />
-				<span class="browser-version" class:unsupported={!data.versionAdded} aria-hidden="true">
-					{!data.versionAdded ? 'No' : data.versionAdded}
-				</span>
-			</div>
-		{/each}
-	</div>
+		</summary>
+		<div class="compat-data-grid" style="grid-template-columns: repeat({compatData.length}, 50px)">
+			{#each compatData as [, data]}
+				<div class="browser-type">
+					<span aria-hidden="true">
+						<BrowserType browserType={data.browserType} />
+					</span>
+				</div>
+			{/each}
+			{#each compatData as [browserName, data]}
+				<div class="browser">
+					<span class="browser-name" aria-hidden="true">
+						<Icon {browserName} />
+					</span>
+					<span aria-label={getAriaLabel(browserName, data.versionAdded)} />
+					<span
+						class="browser-version browser-supported"
+						class:browser-unsupported={!data.versionAdded}
+						aria-hidden="true"
+					>
+						{!data.versionAdded ? 'No' : data.versionAdded}
+					</span>
+				</div>
+			{/each}
+		</div>
+	</details>
 {/if}
 
 <style>
-	.compat-data {
+	h2 {
+		display: inline;
+	}
+	.desktop-compat-data-summary {
 		display: inline-grid;
-		grid-template-rows: 26px 52px;
+		margin-left: 16px;
+	}
+	.compat-data-grid {
+		display: inline-grid;
 		border: 1px solid var(--gray);
 		border-radius: 4px;
+		margin-top: 8px;
 	}
 	.browser {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+		display: grid;
+		align-content: center;
 		text-align: center;
 		border-top: 1px solid var(--gray);
 		border-right: 1px solid var(--gray);
@@ -56,16 +84,17 @@
 		border-right: none;
 	}
 	.browser-type {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		display: grid;
+		place-items: center;
 	}
 	.browser-version {
 		border-top: 1px solid var(--gray);
-		color: rgb(0, 121, 54);
 		font-size: 0.85rem;
 	}
-	.unsupported {
+	.browser-supported {
+		color: rgb(0, 121, 54);
+	}
+	.browser-unsupported {
 		color: rgb(211, 0, 56);
 	}
 </style>
