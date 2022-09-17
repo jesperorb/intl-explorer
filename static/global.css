@@ -34,6 +34,7 @@ html {
 	color: var(--black);
 	font-family: var(--font-family);
 	line-height: 1.5;
+	width: 100%;
 }
 body {
 	display: grid;

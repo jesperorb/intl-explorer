@@ -24,6 +24,7 @@
 		padding-top: 1rem;
 		margin-top: 1.5rem;
 		box-shadow: -2px -2px 8px 2px hsla(276, 100%, 10%, 0.03);
+		overflow-x: auto;
 	}
 	.sidebar-toggle {
 		width: 54px;
