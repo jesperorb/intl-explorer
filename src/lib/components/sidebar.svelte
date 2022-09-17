@@ -2,16 +2,10 @@
 	import Select from './ui/Select.svelte';
 	import { formatMethods } from '$lib/format-methods';
 	import { languageByLocale } from '$lib/locale-data/locales';
-	import { selectedLocale } from '$lib/store/selected-locale';
 	import { page } from '$app/stores';
 
 	export let open: boolean;
-	export let onClick: () => void;
-
-	const internalOnClick = (event: Event) => {
-		if((event.target as HTMLElement).nodeName !== "A") return;
-		onClick();
-	}
+	export let selectedLocale: string;
 
 	let path: string;
 
@@ -24,7 +18,7 @@
 
 <div class="sidebar" class:open={open}>
 	<nav>
-		<ul on:click={internalOnClick}>
+		<ul>
 			<li><strong><a href="/">About</a></strong></li>
 			<li><strong>Methods</strong></li>
 			<li><a class:active={path.includes("NumberFormat")} href={`/NumberFormat/Currency`}>NumberFormat</a></li>
@@ -40,7 +34,7 @@
 		placeholder="Select a locale"
 		label="Locale"
 		items={Object.entries(languageByLocale)}
-		bind:value={$selectedLocale}
+		bind:value={selectedLocale}
 	/>
 	<a class="github" href="https://github.com/jesperorb/intl-explorer" target="_blank" rel="noopener noreferrer"
 		>GitHub</a
@@ -81,7 +75,7 @@
 		border-bottom: 2px solid var(--purple);
 	}
 	.active {
-		color: var(--purple);
+		font-weight: bold;
 	}
 	li {
 		margin-bottom: 0.5rem;

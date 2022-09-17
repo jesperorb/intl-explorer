@@ -8,4 +8,4 @@ const fallback = browser ? window.navigator.language : 'en-US';
 
 export const selectedLocale = writable(stored ?? fallback);
 
-selectedLocale.subscribe((value) => (browser ? localStorage.setItem(key, value) : fallback));
+selectedLocale.subscribe((value) => (browser ? localStorage.setItem(key, value ?? fallback) : fallback));

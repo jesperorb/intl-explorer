@@ -2,9 +2,14 @@
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 	import Icon from '$lib/components/ui/icons/Icon.svelte';
 	import BrowserType from './icons/BrowserType.svelte';
-	import type { VersionValue } from '@mdn/browser-compat-data';
+	import type { BrowserName, VersionValue } from '@mdn/browser-compat-data';
 
 	export let data: BrowserCompatData | null;
+	const specUrl = data && Array.isArray(data.specUrl)
+		? data.specUrl
+		: typeof data?.specUrl === "string"
+			? [data.specUrl]
+			: [];
 	const compatData = Object.entries(data?.support ?? {});
 	const headers = data?.browserTypeHeaders ?? [];
 	const desktopBrowsers = compatData.filter(([, data]) => data.browserType === 'desktop');
@@ -34,14 +39,18 @@
 						>
 							<Icon {browserName} />
 						</span>
-						<span aria-label={getAriaLabel(browserName, browserData.versionAdded)} />
+						<span aria-label={getAriaLabel(browserData.browserName, browserData.versionAdded)} />
 					</div>
 				{/each}
 			</div>
 		</summary>
 		<div class="compat-data-grid" style="grid-template-columns: repeat({compatData.length}, 50px)">
-			{#each headers as header}
-				<div class="browser-type" style="grid-column: {header.start} / {header.end}">
+			{#each headers as header, i}
+				<div
+					class="browser-type"
+					class:browser-type-last={i === headers.length - 1}
+					style="grid-column: {header.start} / {header.end}"
+				>
 					<span aria-hidden="true">
 						<BrowserType browserType={header.name} />
 					</span>
@@ -52,7 +61,7 @@
 					<span class="browser-name" aria-hidden="true">
 						<Icon {browserName} />
 					</span>
-					<span aria-label={getAriaLabel(browserName, browserData.versionAdded)} />
+					<span aria-label={getAriaLabel(browserData.browserName, browserData.versionAdded)} />
 					<span
 						class="browser-version browser-supported"
 						class:browser-unsupported={!browserData.versionAdded}
@@ -63,10 +72,20 @@
 				</div>
 			{/each}
 		</div>
+			{#each specUrl as url}
+				<a href={url} target="_blank" rel="noopener noreferrer">Specification</a>
+			{/each}
 	</details>
 {/if}
 
 <style>
+	:root {
+		--unsupported: hsl(344, 100%, 40%);
+		--supported: hsl(147, 100%, 24%);
+		--partial: hsl(46, 100%, 40%);
+		--border-color: hsl(0, 0%, 80%);
+		--icon-color: hsl(0, 0%, 50%);
+	}
 	h2 {
 		display: inline;
 	}
@@ -76,38 +95,45 @@
 	}
 	.compat-data-grid {
 		display: inline-grid;
-		border: 1px solid var(--gray);
+		border: 1px solid var(--border-color);
 		border-radius: 4px;
 		margin-top: 8px;
 	}
 	.browser {
 		display: grid;
-		align-content: center;
+		justify-content: center;
+		align-items: center;
 		text-align: center;
-		border-top: 1px solid var(--gray);
-		border-right: 1px solid var(--gray);
+		border-top: 1px solid var(--border-color);
+		border-right: 1px solid var(--border-color);
+		color: hsl(0, 0%, 50%);
+	}
+	.browser-name {
+		margin-top: 2px;
 	}
 	.browser:last-of-type {
 		border-right: none;
 	}
-	.browser-type:not(:last-of-type) {
-		border-right: 1px solid var(--gray);
-	}
 	.browser-type {
 		display: grid;
-		place-items: center;
+		justify-content: center;
+		align-items: center;
+		color: var(--icon-color);
+	}
+	.browser-type-last {
+		border:none;
 	}
 	.browser-version {
-		border-top: 1px solid var(--gray);
+		border-top: 1px solid var(--border-color);
 		font-size: 0.85rem;
 	}
 	.browser-supported {
-		color: rgb(0, 121, 54);
+		color: var(--supported);
 	}
 	.browser-partial-support {
-		color: rgb(211, 162, 0);
+		color: var(--partial);
 	}
 	.browser-unsupported {
-		color: rgb(211, 0, 56);
+		color: var(--unsupported);
 	}
 </style>

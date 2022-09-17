@@ -59,6 +59,7 @@ const getCompatDataWithBrowserData = (compatData, property) => {
 			const release = hasReleaseVersion ? browser.releases[versionAdded] : undefined;
 			const notes = getPropertyFromSupportStatement(data, 'notes');
 			const supportData = {
+				browserName: browser.name,
 				versionAdded,
 				hasMobileEquivalent: Boolean(mobileVersion),
 				mobileVersionAdded,
