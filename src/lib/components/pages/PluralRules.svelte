@@ -4,14 +4,15 @@
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { selectedLocale } from '$lib/store/selected-locale';
-import type { OptionValues } from '$lib/types/OptionValues.types';
+	import type { OptionValues } from '$lib/types/OptionValues.types';
+
+	export let locale: string;
 
 	let type: Intl.PluralRuleType = 'cardinal';
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
-			`new Intl.PluralRules("${$selectedLocale}", ${JSON.stringify(
+			`new Intl.PluralRules("${locale}", ${JSON.stringify(
 				Object.assign({}, options, { value: undefined })
 			)}).select(${options.value})`
 		);
@@ -42,7 +43,7 @@ import type { OptionValues } from '$lib/types/OptionValues.types';
 				value: 1,
 				type
 			}}
-			output={new Intl.PluralRules($selectedLocale, {
+			output={new Intl.PluralRules(locale, {
 				type
 			}).select(1)}
 		/>
@@ -52,7 +53,7 @@ import type { OptionValues } from '$lib/types/OptionValues.types';
 				value: 2,
 				type
 			}}
-			output={new Intl.PluralRules($selectedLocale, {
+			output={new Intl.PluralRules(locale, {
 				type
 			}).select(2)}
 		/>
@@ -62,7 +63,7 @@ import type { OptionValues } from '$lib/types/OptionValues.types';
 				value: 20,
 				type
 			}}
-			output={new Intl.PluralRules($selectedLocale, {
+			output={new Intl.PluralRules(locale, {
 				type
 			}).select(20)}
 		/>
@@ -75,7 +76,7 @@ import type { OptionValues } from '$lib/types/OptionValues.types';
 				type,
 				localeMatcher: 'best fit'
 			}}
-			output={new Intl.PluralRules($selectedLocale, {
+			output={new Intl.PluralRules(locale, {
 				type,
 				localeMatcher: 'best fit'
 			}).select(1)}
@@ -87,7 +88,7 @@ import type { OptionValues } from '$lib/types/OptionValues.types';
 				type,
 				localeMatcher: 'lookup'
 			}}
-			output={new Intl.PluralRules($selectedLocale, {
+			output={new Intl.PluralRules(locale, {
 				type,
 				localeMatcher: 'lookup'
 			}).select(2)}

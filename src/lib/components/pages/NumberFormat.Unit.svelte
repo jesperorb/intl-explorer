@@ -8,15 +8,16 @@
   import { numberFormatOptionsUnit } from "$lib/format-options/number-format.options";
   import { copyToClipboard } from "$lib/utils/copy-to-clipboard";
   import { unitsAsEntries } from "$lib/locale-data/units";
-  import { selectedLocale } from "$lib/store/selected-locale";
 	import type { OptionValues } from "$lib/types/OptionValues.types";
+
+	export let locale: string;
 
   let selectedUnit = "degree";
   let number = 123456.789;
 
   let onClick = async (options: OptionValues) => {
     await copyToClipboard(
-      `new Intl.NumberFormat("${$selectedLocale}", ${JSON.stringify(
+      `new Intl.NumberFormat("${locale}", ${JSON.stringify(
         options
       )}).format(${number})`
     );
@@ -50,7 +51,7 @@
               unit: selectedUnit,
               [option]: value,
             }}
-            output={new Intl.NumberFormat($selectedLocale, {
+            output={new Intl.NumberFormat(locale, {
               style: "unit",
               unit: selectedUnit,
               [option]: value,

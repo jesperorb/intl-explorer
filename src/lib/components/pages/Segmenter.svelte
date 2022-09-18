@@ -6,14 +6,14 @@
 
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
-	import { selectedLocale } from '$lib/store/selected-locale';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 
 	let sentence = 'This is a sentence.';
+	export let locale: string;
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
-			`Array.from(new Intl.Segmenter("${$selectedLocale}", ${JSON.stringify(
+			`Array.from(new Intl.Segmenter("${locale}", ${JSON.stringify(
 				options
 			)}).segment("${sentence}"))`
 		);
@@ -22,7 +22,7 @@
 	const getOutput = (options: OptionValues) => {
 		try {
 			return JSON.stringify(
-				Array.from(new Intl.Segmenter($selectedLocale, options).segment(sentence))
+				Array.from(new Intl.Segmenter(locale, options).segment(sentence))
 			);
 		} catch (e: unknown) {
 			return 'Failed to use `Intl.Segmenter`. You are probably using an unsupported browser';

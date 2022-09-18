@@ -1,13 +1,26 @@
 <script lang="ts">
-  import RelativeTimeFormat from "$lib/components/pages/RelativeTimeFormat.svelte";
-  import CompatData from "$lib/components/ui/CompatData.svelte";
-  import Header from '$lib/components/ui/Header.svelte';
-  import type { PageData } from './$types';
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+
+	import RelativeTimeFormat from '$lib/components/pages/RelativeTimeFormat.svelte';
+	import CompatData from '$lib/components/ui/CompatData.svelte';
+	import Header from '$lib/components/ui/Header.svelte';
+
+	import { getLocaleForSSR } from '$lib/utils/get-locale';
+	import { selectedLocale } from '$lib/store/selected-locale';
+
+	import type { PageData } from './$types';
 	export let data: PageData;
+
+	const locale = getLocaleForSSR($page);
 </script>
 
 <Header header="RelativeTimeFormat" />
 
 <CompatData {data} />
 
-<RelativeTimeFormat />
+{#if browser}
+	<RelativeTimeFormat bind:locale={$selectedLocale} />
+{:else}
+	<RelativeTimeFormat {locale} />
+{/if}
