@@ -9,7 +9,7 @@
   import { copyToClipboard } from "$lib/utils/copy-to-clipboard";
   import { unitsAsEntries } from "$lib/locale-data/units";
   import { selectedLocale } from "$lib/store/selected-locale";
-import type { OptionValues } from "$lib/types/OptionValues.types";
+	import type { OptionValues } from "$lib/types/OptionValues.types";
 
   let selectedUnit = "degree";
   let number = 123456.789;

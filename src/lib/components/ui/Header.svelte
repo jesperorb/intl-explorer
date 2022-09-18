@@ -5,12 +5,21 @@
 
 <header>
 	<h1>
-		<a
+		Intl.{header}
+	</h1>
+	<a
 			href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/{String(
 				header
 			)}"
 			target="_blank"
-			rel="noopener noreferrer">Intl.{header}</a
-		>
-	</h1>
+			rel="noopener noreferrer">MDN Link for Intl.{header}</a>
 </header>
+
+<style>
+	h1 {
+		margin: 0;
+	}
+	header {
+		margin-bottom: 16px;
+	}
+</style>

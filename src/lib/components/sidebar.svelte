@@ -20,7 +20,7 @@
 	<nav>
 		<ul>
 			<li><strong><a href="/">About</a></strong></li>
-			<li><strong>Methods</strong></li>
+			<li><strong>Intl.</strong></li>
 			<li><a class:active={path.includes("NumberFormat")} href={`/NumberFormat/Currency`}>NumberFormat</a></li>
 			<li><a class:active={path.includes("Currency")} class="sublink" href={`/NumberFormat/Currency`}>Currency</a></li>
 			<li><a class:active={path.includes("Unit")} class="sublink" href={`/NumberFormat/Unit`}>Unit</a></li>
@@ -43,18 +43,16 @@
 
 <style>
 	.sidebar {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
+		z-index: 2;
+		width: 15rem;
+		padding: 2.5rem 1.5rem 1.5rem 1.5rem;
 		display: flex;
-		width: 230px;
 		flex-direction: column;
-		padding: 0 1.5rem;
-		margin-top: 0.5rem;
 		background-color: var(--light-purple);
-		z-index: 1;
-		height: 100%;
-		transform: translateX(calc(-230px - 3rem));
+		transform: translateX(-20rem);
 		transition: transform 300ms;
 		box-shadow: 2px 2px 8px 2px hsla(276, 100%, 10%, 0.03);
 	}
@@ -62,6 +60,7 @@
 	@media (min-width: 900px) {
 		.sidebar {
 			position: sticky;
+			left: unset;
 			transform: translateX(0);
 			box-shadow: none;
 		}
