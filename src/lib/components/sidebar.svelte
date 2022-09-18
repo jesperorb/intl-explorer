@@ -4,12 +4,21 @@
 	import { page } from '$app/stores';
 
 	import Select from '$lib/components/ui/Select.svelte';
+	import HamburgerMenu from '$lib/components/ui/HamburgerMenu.svelte';
 
 	import { languageByLocale } from '$lib/locale-data/locales';
 	import { routes } from '$lib/routes';
+	import { onDestroy, onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
-	export let open: boolean;
 	export let locale: string;
+
+	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
+
+	const isDesktop = Boolean(matchMedia?.matches);
+
+	let open = isDesktop;
+	const onClick = () => (open = !open);
 
 	let path: string;
 
@@ -19,20 +28,64 @@
 
 	$: getPath($page);
 
+	const onClickMenu = (event: MouseEvent) => {
+		const eventTarget = event.target as HTMLElement;
+		const clickedLink = eventTarget.tagName === 'A';
+		if (!clickedLink) return;
+		onClick();
+	};
+
+	const onMatchMediaChange = (event: MediaQueryListEventMap['change']) => {
+		open = event.matches;
+	};
+
+	onMount(() => {
+		if (browser && !isDesktop) {
+			window.addEventListener('click', onClickMenu);
+			matchMedia?.addEventListener('change', onMatchMediaChange);
+		}
+		if (browser && matchMedia) {
+			matchMedia.addEventListener('change', onMatchMediaChange);
+		}
+	});
+
+	onDestroy(() => {
+		if (browser && !isDesktop) {
+			window.removeEventListener('click', onClickMenu);
+		}
+		if (browser && matchMedia) {
+			matchMedia.removeEventListener('change', onMatchMediaChange);
+		}
+	});
 </script>
 
 <div class="sidebar" class:open>
-	<nav>
+	<nav aria-label="Main Menu">
+		<HamburgerMenu {onClick} {open} />
 		<ul>
 			<li><strong><a href="/">About</a></strong></li>
-			<li><strong>Intl.</strong></li>
+			<li aria-hidden="true" class="menu-heading"><strong>Intl.</strong></li>
 			{#each routes as route}
-				<li>
-					<a class:sublink={route.sublink} class:active={path.includes(route.path)} href={`/${route.path}?locale=${locale}`}>
+				<li aria-hidden={route.ariaHidden}>
+					<a
+						aria-label={route.ariaLabel}
+						class:sublink={route.sublink}
+						class:active={path.includes(route.path)}
+						href={`/${route.path}?locale=${locale}`}
+					>
 						{route.name}
 					</a>
 				</li>
 			{/each}
+			<li aria-hidden="true" class="menu-heading"><strong>Meta</strong></li>
+			<li>
+				<a
+					class="github"
+					href="https://github.com/jesperorb/intl-explorer"
+					target="_blank"
+					rel="noopener noreferrer">GitHub</a
+				>
+			</li>
 		</ul>
 	</nav>
 	<Select
@@ -42,12 +95,6 @@
 		items={Object.entries(languageByLocale)}
 		bind:value={locale}
 	/>
-	<a
-		class="github"
-		href="https://github.com/jesperorb/intl-explorer"
-		target="_blank"
-		rel="noopener noreferrer">GitHub</a
-	>
 </div>
 
 <style>
@@ -55,6 +102,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
+		height: calc(100vh - 4rem);
 		z-index: 2;
 		width: 15rem;
 		padding: 2.5rem 1.5rem 1.5rem 1.5rem;
@@ -63,17 +111,18 @@
 		background-color: var(--light-purple);
 		transform: translateX(-20rem);
 		transition: transform 300ms;
-		box-shadow: 2px 2px 8px 2px hsla(276, 100%, 10%, 0.03);
+		box-shadow: 4px 4px 8px 2px hsla(276, 100%, 10%, 0.1);
+	}
+
+	.open {
+		transform: translateX(0);
+		box-shadow: none;
 	}
 
 	@media (min-width: 900px) {
 		.sidebar {
 			position: sticky;
 			left: unset;
-			transform: translateX(0);
-			box-shadow: none;
-		}
-		.open {
 			transform: translateX(0);
 			box-shadow: none;
 		}
@@ -99,5 +148,8 @@
 	}
 	.sublink {
 		margin-left: 1rem;
+	}
+	.menu-heading {
+		margin-top: 2rem;
 	}
 </style>

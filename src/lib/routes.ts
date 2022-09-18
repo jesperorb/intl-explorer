@@ -2,6 +2,8 @@ export type Route = {
 	path: string;
 	name: string;
 	sublink?: boolean;
+	ariaLabel?: string;
+	ariaHidden?: boolean;
 }
 
 export const routes: Route[] = [
@@ -16,16 +18,19 @@ export const routes: Route[] = [
 	{
 		path: "NumberFormat/Currency",
 		name: "NumberFormat",
+		ariaHidden: true
 	},
 	{
 		path: "NumberFormat/Currency",
 		name: "Currency",
 		sublink: true,
+		ariaLabel: "NumberFormat Currency Style"
 	},
 	{
 		path: "NumberFormat/Unit",
 		name: "Unit",
 		sublink: true,
+		ariaLabel: "NumberFormat Unit Style"
 	},
 	{
 		path: "ListFormat",
