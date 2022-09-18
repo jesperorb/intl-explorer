@@ -1,33 +1,37 @@
 <script lang="ts">
-	import Select from './ui/Select.svelte';
-	import { formatMethods } from '$lib/format-methods';
-	import { languageByLocale } from '$lib/locale-data/locales';
+	import type { Page } from '@sveltejs/kit';
+
 	import { page } from '$app/stores';
-  import type { Page } from '@sveltejs/kit';
-  import { getLocaleFromParams } from '$lib/utils/get-locale';
+
+	import Select from '$lib/components/ui/Select.svelte';
+
+	import { languageByLocale } from '$lib/locale-data/locales';
+	import { routes } from '$lib/routes';
 
 	export let open: boolean;
 	export let locale: string;
 
 	let path: string;
 
-	const getPath = (page: Page<Record<string, string>>) => {
+	const getPath = (page: Page<Record<string, string>>): void => {
 		path = page.url.pathname;
 	};
 
 	$: getPath($page);
+
 </script>
 
-<div class="sidebar" class:open={open}>
+<div class="sidebar" class:open>
 	<nav>
 		<ul>
 			<li><strong><a href="/">About</a></strong></li>
 			<li><strong>Intl.</strong></li>
-			<li><a class:active={path.includes("NumberFormat")} href="/NumberFormat/Currency?locale={getLocaleFromParams()}">NumberFormat</a></li>
-			<li><a class:active={path.includes("Currency")} class="sublink" href="/NumberFormat/Currency?locale={getLocaleFromParams()}">Currency</a></li>
-			<li><a class:active={path.includes("Unit")} class="sublink" href="/NumberFormat/Unit?locale={getLocaleFromParams()}">Unit</a></li>
-			{#each formatMethods.filter((method) => method !== "NumberFormat") as method}
-				<li><a class:active={path.includes(method)} href={`/${method}?locale=${getLocaleFromParams()}`}>{method}</a></li>
+			{#each routes as route}
+				<li>
+					<a class:sublink={route.sublink} class:active={path.includes(route.path)} href={`/${route.path}?locale=${locale}`}>
+						{route.name}
+					</a>
+				</li>
 			{/each}
 		</ul>
 	</nav>
@@ -38,8 +42,11 @@
 		items={Object.entries(languageByLocale)}
 		bind:value={locale}
 	/>
-	<a class="github" href="https://github.com/jesperorb/intl-explorer" target="_blank" rel="noopener noreferrer"
-		>GitHub</a
+	<a
+		class="github"
+		href="https://github.com/jesperorb/intl-explorer"
+		target="_blank"
+		rel="noopener noreferrer">GitHub</a
 	>
 </div>
 
@@ -66,10 +73,10 @@
 			transform: translateX(0);
 			box-shadow: none;
 		}
-	}
-	.open {
+		.open {
 			transform: translateX(0);
 			box-shadow: none;
+		}
 	}
 	a {
 		text-decoration: none;

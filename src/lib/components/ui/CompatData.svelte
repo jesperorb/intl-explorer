@@ -2,7 +2,7 @@
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 	import Icon from '$lib/components/ui/icons/Icon.svelte';
 	import BrowserType from './icons/BrowserType.svelte';
-	import type { BrowserName, VersionValue } from '@mdn/browser-compat-data';
+	import type { VersionValue } from '@mdn/browser-compat-data';
 
 	export let data: BrowserCompatData | null;
 	const specUrl = data && Array.isArray(data.specUrl)
@@ -50,15 +50,17 @@
 					class="browser-type"
 					class:browser-type-last={i === headers.length - 1}
 					style="grid-column: {header.start} / {header.end}"
+					aria-hidden="true"
+					title={header.name}
 				>
-					<span aria-hidden="true">
+					<span>
 						<BrowserType browserType={header.name} />
 					</span>
 				</div>
 			{/each}
 			{#each compatData as [browserName, browserData]}
 				<div class="browser">
-					<span class="browser-name" aria-hidden="true">
+					<span class="browser-name" aria-hidden="true" title={browserData.browserName}>
 						<Icon {browserName} />
 					</span>
 					<span aria-label={getAriaLabel(browserData.browserName, browserData.versionAdded)} />
@@ -72,9 +74,11 @@
 				</div>
 			{/each}
 		</div>
+		<div>
 			{#each specUrl as url}
 				<a href={url} target="_blank" rel="noopener noreferrer">Specification</a>
 			{/each}
+		</div>
 	</details>
 {/if}
 
