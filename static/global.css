@@ -1,5 +1,5 @@
 :root {
-	--black: hsl(276, 100%, 5%);
+	--black: hsl(276, 100%, 10%);
 	--white: hsl(0, 100%, 100%);
 	--dark-blue: hsl(207, 95%, 8%);
 	--light-blue: hsl(221, 100%, 75%);
@@ -43,7 +43,7 @@ body {
 }
 @media (min-width: 900px) {
 	body {
-		grid-template-columns: 280px 1fr;
+		grid-template-columns: 18rem 1fr;
 	}
 }
 a,
@@ -53,6 +53,7 @@ a:visited {
 ul {
 	list-style: none;
 	padding: 0;
+	margin: 0;
 }
 label {
 	display: block;

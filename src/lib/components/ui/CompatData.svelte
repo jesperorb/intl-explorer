@@ -91,7 +91,7 @@
 	}
 	.desktop-compat-data-summary {
 		display: inline-grid;
-		margin-left: 16px;
+		margin-left: 1rem;
 	}
 	.compat-data-grid {
 		display: inline-grid;

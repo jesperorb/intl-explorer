@@ -26,12 +26,12 @@
     background-color: #011627;;
     border: 1px solid var(--white);
     border-radius: 0.25rem;
-    padding: 0.25rem .75rem;
+    padding: 0.75rem 1.25rem;
     cursor: pointer;
     color: var(--white);
     position: absolute;
     z-index: 1;
-    bottom: -2rem;
+    bottom: -1.5rem;
     right: 0.5rem;
   }
   .copy:hover {
