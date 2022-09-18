@@ -60,7 +60,7 @@
 </script>
 
 <div class="sidebar" class:open>
-	<nav aria-label="Main Menu">
+	<nav aria-label="Main Menu" aria-hidden={!open} data-testid="navigation">
 		<HamburgerMenu {onClick} {open} />
 		<ul>
 			<li><strong><a href="/">About</a></strong></li>

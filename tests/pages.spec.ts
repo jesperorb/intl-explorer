@@ -2,6 +2,10 @@ import { expect, test } from "@playwright/test";
 
 import type { Page } from "@playwright/test";
 
+const getTabKey = (browserName: string) => {
+	return browserName === "webkit" ? "Alt+Tab" : "Tab";
+};
+
 type IntlPageConfig = {
 	page: Page;
 	tabKey?: string;
@@ -84,9 +88,6 @@ test('index page has expected heading', async ({ page }) => {
 });
 
 test('DateTimeFormat', async ({ page, browserName }, { title}) => {
-	const getTabKey = (browserName: string) => {
-		return browserName === "webkit" ? "Alt+Tab" : "Tab";
-	};
 	const intlPage = new IntlPage({
 		page,
 		tabKey: getTabKey(browserName),
@@ -107,4 +108,31 @@ test('DateTimeFormat', async ({ page, browserName }, { title}) => {
 	)
 	await intlPage.page.reload()
   await intlPage.assertUrlLocale("sv");
+});
+
+
+test.describe.only('Menu', () => {
+  test.use({ viewport: { width: 600, height: 1200 } });
+	test("Menu", async ({ page, browserName }) => {
+		const intlPage = new IntlPage({
+			page,
+			tabKey: getTabKey(browserName),
+		});
+		await intlPage.page.goto("/");
+		const navigation = page.locator('[data-testid="navigation"]');
+		const menuButton = page.locator('[data-testid="menu-button"]');
+		expect(await navigation.getAttribute("aria-hidden")).toBe("true");
+		expect(await menuButton.getAttribute("aria-expanded")).toBe("false");
+		await page.setViewportSize({
+			width: 900,
+			height: 1200,
+		});
+		const navigation2 = page.locator('[data-testid="navigation"]');
+		const menuButton2 = page.locator('[data-testid="menu-button"]');
+		expect(await navigation2.getAttribute("aria-hidden")).toBe("false");
+		expect(await menuButton2.getAttribute("aria-expanded")).toBe("true");
+		intlPage.setPageUnderTest("DateTimeFormat");
+		await intlPage.goToPage();
+		await intlPage.assertTitle();
+	});
 });

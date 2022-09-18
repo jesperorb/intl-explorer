@@ -9,6 +9,7 @@
 	class:open
 	aria-label={open ? 'Close menu' : 'Open Menu'}
 	on:click={onClick}
+	data-testid="menu-button"
 	class="sidebar-toggle"
 >
 	<span />
