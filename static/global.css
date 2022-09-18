@@ -68,6 +68,10 @@ button {
 select {
 	max-width: 100%;
 }
+fieldset {
+	border-radius: 4px;
+	padding-bottom: 1.1rem;
+}
 pre,
 code,
 pre *,

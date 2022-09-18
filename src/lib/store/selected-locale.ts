@@ -1,11 +1,11 @@
 import { browser } from '$app/environment';
+import { getLocaleFromParams, localeFallback, localeKey } from '$lib/utils/get-locale';
 import { writable } from 'svelte/store';
 
-const key = '@intl-explorer/selectedLocale';
+export const selectedLocale = writable(getLocaleFromParams() ?? localeFallback);
 
-const stored = browser ? localStorage.getItem(key) : undefined;
-const fallback = browser ? window.navigator.language : 'en-US';
-
-export const selectedLocale = writable(stored ?? fallback);
-
-selectedLocale.subscribe((value) => (browser ? localStorage.setItem(key, value ?? fallback) : fallback));
+selectedLocale.subscribe((value) => {
+	if(browser) {
+		window.history.replaceState({}, "", `${window.location.origin}${window.location.pathname}?${localeKey}=${value}`)
+	}
+});

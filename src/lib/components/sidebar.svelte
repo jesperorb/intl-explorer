@@ -3,17 +3,19 @@
 	import { formatMethods } from '$lib/format-methods';
 	import { languageByLocale } from '$lib/locale-data/locales';
 	import { page } from '$app/stores';
+  import type { Page } from '@sveltejs/kit';
+  import { getLocaleFromParams } from '$lib/utils/get-locale';
 
 	export let open: boolean;
-	export let selectedLocale: string;
+	export let locale: string;
 
 	let path: string;
 
-	const getPath = (currentPath: string) => {
-		path = currentPath;
+	const getPath = (page: Page<Record<string, string>>) => {
+		path = page.url.pathname;
 	};
 
-	$: getPath($page.url.pathname);
+	$: getPath($page);
 </script>
 
 <div class="sidebar" class:open={open}>
@@ -21,11 +23,11 @@
 		<ul>
 			<li><strong><a href="/">About</a></strong></li>
 			<li><strong>Intl.</strong></li>
-			<li><a class:active={path.includes("NumberFormat")} href={`/NumberFormat/Currency`}>NumberFormat</a></li>
-			<li><a class:active={path.includes("Currency")} class="sublink" href={`/NumberFormat/Currency`}>Currency</a></li>
-			<li><a class:active={path.includes("Unit")} class="sublink" href={`/NumberFormat/Unit`}>Unit</a></li>
+			<li><a class:active={path.includes("NumberFormat")} href="/NumberFormat/Currency?locale={getLocaleFromParams()}">NumberFormat</a></li>
+			<li><a class:active={path.includes("Currency")} class="sublink" href="/NumberFormat/Currency?locale={getLocaleFromParams()}">Currency</a></li>
+			<li><a class:active={path.includes("Unit")} class="sublink" href="/NumberFormat/Unit?locale={getLocaleFromParams()}">Unit</a></li>
 			{#each formatMethods.filter((method) => method !== "NumberFormat") as method}
-				<li><a class:active={path.includes(method)} href={`/${method}`}>{method}</a></li>
+				<li><a class:active={path.includes(method)} href={`/${method}?locale=${getLocaleFromParams()}`}>{method}</a></li>
 			{/each}
 		</ul>
 	</nav>
@@ -34,7 +36,7 @@
 		placeholder="Select a locale"
 		label="Locale"
 		items={Object.entries(languageByLocale)}
-		bind:value={selectedLocale}
+		bind:value={locale}
 	/>
 	<a class="github" href="https://github.com/jesperorb/intl-explorer" target="_blank" rel="noopener noreferrer"
 		>GitHub</a

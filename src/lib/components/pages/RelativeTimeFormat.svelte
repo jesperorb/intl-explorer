@@ -6,12 +6,13 @@
 
 	import { relativeTimeFormatUnits } from '$lib/format-options/relative-time-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { selectedLocale } from '$lib/store/selected-locale';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
+
+	export let locale: string;
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
-			`new Intl.RelativeTimeFormat("${selectedLocale}", ${JSON.stringify(
+			`new Intl.RelativeTimeFormat("${locale}", ${JSON.stringify(
 				Object.assign({}, options, { value: undefined })
 			)}).format(${dayValue}, "${options.value}")`
 		);
@@ -66,7 +67,7 @@
 				<Highlight
 					{onClick}
 					values={{ value: value, style, numeric }}
-					output={new Intl.RelativeTimeFormat($selectedLocale, {
+					output={new Intl.RelativeTimeFormat(locale, {
 						style,
 						numeric
 					}).format(dayValue, value)}

@@ -6,14 +6,15 @@
 
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { selectedLocale } from '$lib/store/selected-locale';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
+
+	export let locale: string;
 
 	let list = 'Z,a,z,ä,1,=,à';
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
-			`[].sort(new Intl.Collator("${selectedLocale}", ${JSON.stringify(options)}).compare)`
+			`[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`
 		);
 	};
 </script>
@@ -37,7 +38,7 @@
 						output={list
 							.split(',')
 							.sort(
-								new Intl.Collator($selectedLocale, {
+								new Intl.Collator(locale, {
 									[option]: value
 								}).compare
 							)
