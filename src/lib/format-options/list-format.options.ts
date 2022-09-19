@@ -1,8 +1,7 @@
-import type { FormatOptionsValues } from '$lib/utils/format-utils';
+import { localeMatcher } from "./locale-matcher";
 
-export type ListFormatOptionsKeys = 'type' | 'style';
-
-export const listFormatOptions = new Map<ListFormatOptionsKeys, FormatOptionsValues>([
-	['type', ['conjunction', 'disjunction', 'unit', undefined]],
-	['style', ['long', 'short', 'narrow', undefined]]
-]);
+export const listFormatOptions = {
+	type: [undefined, 'conjunction', 'disjunction', 'unit'],
+	style: [undefined, 'long', 'short', 'narrow'],
+	...localeMatcher,
+} as const;

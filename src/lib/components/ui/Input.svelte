@@ -4,7 +4,7 @@
   export let id: string;
 </script>
 
-<label for="amount">{label}</label>
+<label for={id}>{label}</label>
 <input type="text" bind:value {id} />
 
 <style>

@@ -39,7 +39,7 @@
 <h2>Output</h2>
 
 <Grid>
-	{#each [...segmenterOptions] as [option, values]}
+	{#each Object.entries(segmenterOptions) as [option, values]}
 		<OptionSection header={option}>
 			{#each values as value}
 				{#if value !== undefined}
