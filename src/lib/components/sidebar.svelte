@@ -102,9 +102,9 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		height: calc(100vh - 4rem);
+		height: 100vh;
 		z-index: 2;
-		width: 15rem;
+		width: 18rem;
 		padding: 2.5rem 1.5rem 1.5rem 1.5rem;
 		display: flex;
 		flex-direction: column;
