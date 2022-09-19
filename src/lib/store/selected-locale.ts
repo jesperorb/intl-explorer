@@ -6,6 +6,8 @@ export const selectedLocale = writable(getLocaleFromParams() ?? localeFallback);
 
 selectedLocale.subscribe((value) => {
 	if(browser) {
-		window.history.replaceState({}, "", `${window.location.origin}${window.location.pathname}?${localeKey}=${value}`)
+		const params = new URLSearchParams(window.location.search);
+		params.set(localeKey, value);
+		window.history.replaceState({}, "", `${window.location.origin}${window.location.pathname}?${params.toString()}`)
 	}
 });

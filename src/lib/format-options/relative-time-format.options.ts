@@ -1,15 +1,10 @@
-import type { FormatOptionsValues } from '$lib/utils/format-utils';
+import { localeMatcher } from "./locale-matcher";
 
-export type RelativeTimeFormatOptionsKeys = keyof Intl.RelativeTimeFormatOptions;
-
-export const relativeTimeFormatOptions = new Map<
-	RelativeTimeFormatOptionsKeys,
-	FormatOptionsValues
->([
-	['numeric', ['always', 'auto', undefined]],
-	['style', ['long', 'short', 'narrow', undefined]],
-	['localeMatcher', ['best fit', 'lookup', undefined]]
-]);
+export const relativeTimeFormatOptions = {
+	numeric: ['always', 'auto', undefined],
+	style: ['long', 'short', 'narrow', undefined],
+	...localeMatcher,
+} as const;
 
 export const relativeTimeFormatUnits: Intl.RelativeTimeFormatUnit[] = [
 	'year',

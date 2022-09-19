@@ -21,7 +21,7 @@
 		);
 	};
 
-	const style = listFormatOptions.get('style') ?? [];
+	const style = listFormatOptions.style ?? [];
 </script>
 
 <h2>Input values</h2>
@@ -33,7 +33,7 @@
 <h2>Output</h2>
 
 <Grid>
-	{#each [...listFormatOptions] as [option, values]}
+	{#each Object.entries(listFormatOptions) as [option, values]}
 		<OptionSection header={option}>
 			{#each values as value}
 				{#if value !== undefined}

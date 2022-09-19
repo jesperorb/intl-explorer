@@ -1,8 +1,7 @@
-import type { FormatOptionsValues } from '$lib/utils/format-utils';
+import { localeMatcher } from "./locale-matcher";
 
-export type PluralRulesOptionsKeys = keyof Intl.PluralRulesOptions;
+export const pluralRulesFormatOptions = {
+	type: ['cardinal', 'ordinal', undefined],
+	...localeMatcher,
+} as const;
 
-export const pluralRulesFormatOptions = new Map<PluralRulesOptionsKeys, FormatOptionsValues>([
-	['type', ['cardinal', 'ordinal', undefined]],
-	['localeMatcher', ['best fit', 'lookup', undefined]]
-]);

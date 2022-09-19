@@ -1,8 +1,6 @@
-import type { FormatOptionsValues } from '$lib/utils/format-utils';
+import { localeMatcher } from "./locale-matcher";
 
-export type SegmenterOptionsKeys = keyof Intl.SegmenterOptions;
-
-export const segmenterOptions = new Map<SegmenterOptionsKeys, FormatOptionsValues>([
-	['granularity', ['word', 'sentence', 'grapheme', undefined]],
-	['localeMatcher', ['best fit', 'lookup', undefined]]
-]);
+export const segmenterOptions = {
+	granularity: ['word', 'sentence', 'grapheme', undefined],
+	...localeMatcher,
+} as const;
