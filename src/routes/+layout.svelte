@@ -77,7 +77,7 @@
 	}
 	label {
 		display: block;
-		margin-bottom: 4px;
+		margin-bottom: 0.5rem;
 		font-weight: bold;
 	}
 	input,

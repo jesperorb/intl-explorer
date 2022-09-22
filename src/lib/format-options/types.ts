@@ -17,3 +17,13 @@ export type AllFormatOptionsKeys = {
 	Collator: keyof AllFormatOptions["Collator"];
 	Segmenter: keyof AllFormatOptions["Segmenter"];
 }
+
+export type AllMethods = {
+	DateTimeFormat: Intl.DateTimeFormat;
+	NumberFormat: Intl.NumberFormat;
+	ListFormat: Intl.ListFormat;
+	RelativeTimeFormat: Intl.RelativeTimeFormat;
+	PluralRules: Intl.PluralRules;
+	Collator: Intl.Collator;
+	Segmenter: Intl.Segmenter;
+}

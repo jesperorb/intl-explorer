@@ -6,7 +6,7 @@
 	import Input from '$lib/components/ui/Input.svelte';
 
 	import { currencies } from '$lib/locale-data/currencies';
-	import { numberFormatOptionsCurrency } from '$lib/format-options/number-format.options';
+	import { numberFormatOptionsCommon, numberFormatOptionsCurrency } from '$lib/format-options/number-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 
@@ -14,6 +14,10 @@
 
 	let selectedCurrency = 'EUR';
 	let number = 123456.789;
+
+	const options = Object.entries({...numberFormatOptionsCurrency, ...numberFormatOptionsCommon})
+		.filter(([o]) => o !== "currency")
+		.filter(([o]) => o !== "style")
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -38,7 +42,7 @@
 <h2>Output</h2>
 
 <Grid>
-	{#each Object.entries(numberFormatOptionsCurrency) as [option, values]}
+	{#each options as [option, values]}
 		<OptionSection header={option}>
 			{#each values as value}
 				{#if value !== undefined}

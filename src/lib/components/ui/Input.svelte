@@ -2,16 +2,24 @@
   export let label: string;
   export let value: string | number;
   export let id: string;
+	export let name: string | undefined = undefined;
+	export let fullWidth: boolean | undefined = undefined;
+	export let onInput: ((event: any) => void) | undefined = undefined;
 </script>
 
-<label for={id}>{label}</label>
-<input type="text" bind:value {id} />
+<div class:fullWidth={fullWidth}>
+	<label for={id}>{label}</label>
+	<input {name} on:input={onInput} type="text" bind:value {id} class:fullWidth={fullWidth} />
+</div>
 
 <style>
   input {
-    border: 1px solid var(--black);
+    border: 1px solid var(--gray);
     border-radius: 4px;
     background-color: white;
     padding: 0.5rem;
   }
+	.fullWidth {
+		width: calc(100% - 0.5rem);
+	}
 </style>
