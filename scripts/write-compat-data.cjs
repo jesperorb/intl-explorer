@@ -27,11 +27,11 @@ const browserTypePosition = {
 };
 
 const desktopToMobileName = {
-	chrome: "chrome_android",
-	firefox: "firefox_android",
-	opera: "opera_android",
-	safari: "safari_ios",
-}
+	chrome: 'chrome_android',
+	firefox: 'firefox_android',
+	opera: 'opera_android',
+	safari: 'safari_ios'
+};
 
 const excludedBrowserNames = ['ie', 'oculus'];
 
@@ -51,8 +51,11 @@ const getCompatDataWithBrowserData = (compatData, property) => {
 		.map(([browserName, data]) => {
 			const versionAdded = getPropertyFromSupportStatement(data, 'version_added');
 			const browser = browsers[browserName];
-			const mobileVersion = browser.type === "desktop" ? supportObject[desktopToMobileName[browserName]] : undefined;
-			const mobileVersionAdded = mobileVersion ? getPropertyFromSupportStatement(mobileVersion, 'version_added') : undefined;
+			const mobileVersion =
+				browser.type === 'desktop' ? supportObject[desktopToMobileName[browserName]] : undefined;
+			const mobileVersionAdded = mobileVersion
+				? getPropertyFromSupportStatement(mobileVersion, 'version_added')
+				: undefined;
 			const mobileHasReleaseVersion = mobileVersionAdded && typeof versionAdded === 'string';
 			const mobileRelease = mobileHasReleaseVersion ? browser.releases[versionAdded] : undefined;
 			const hasReleaseVersion = versionAdded && typeof versionAdded === 'string';
@@ -84,13 +87,13 @@ const getCompatDataWithBrowserData = (compatData, property) => {
 		if (!headers[currentBrowserType]) {
 			headers[currentBrowserType] = {
 				start: index + 1,
-				name: currentBrowserType,
-			}
+				name: currentBrowserType
+			};
 		}
 		if (diff && index !== 0) {
 			headers[previousBrowserType].end = index + 1;
 		}
-		if(index === support.length - 1) {
+		if (index === support.length - 1) {
 			headers[previousBrowserType].end = support.length + 1;
 		}
 	}

@@ -1,10 +1,14 @@
-import { collatorFormatOptions } from "./collator.options"
-import { datetimeFormatOptions } from "./datetime-format.options"
-import { listFormatOptions } from "./list-format.options"
-import { numberFormatOptionsCommon, numberFormatOptionsCurrency, numberFormatOptionsUnit } from "./number-format.options"
-import { pluralRulesFormatOptions } from "./plural-rules.options"
-import { relativeTimeFormatOptions } from "./relative-time-format.options"
-import { segmenterOptions } from "./segmenter.options"
+import { collatorFormatOptions } from './collator.options';
+import { datetimeFormatOptions } from './datetime-format.options';
+import { listFormatOptions } from './list-format.options';
+import {
+	numberFormatOptionsCommon,
+	numberFormatOptionsCurrency,
+	numberFormatOptionsUnit
+} from './number-format.options';
+import { pluralRulesFormatOptions } from './plural-rules.options';
+import { relativeTimeFormatOptions } from './relative-time-format.options';
+import { segmenterOptions } from './segmenter.options';
 
 export const formatOptions = {
 	DateTimeFormat: datetimeFormatOptions,
@@ -18,4 +22,4 @@ export const formatOptions = {
 	PluralRules: pluralRulesFormatOptions,
 	Collator: collatorFormatOptions,
 	Segmenter: segmenterOptions
-}
+};

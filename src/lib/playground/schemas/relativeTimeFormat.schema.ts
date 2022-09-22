@@ -1,35 +1,34 @@
-
-import type { PlaygroundSchema } from "$lib/playground/playground.types";
+import type { PlaygroundSchema } from '$lib/playground/playground.types';
 
 export const relativeTimeFormatSchema: PlaygroundSchema<'RelativeTimeFormat'> = {
 	method: 'RelativeTimeFormat',
-	primaryFormatter: "format",
+	primaryFormatter: 'format',
 	inputValue: 2,
-	inputValueType: "number",
+	inputValueType: 'number',
 	options: [
 		{
-			name: "unit" as keyof Intl.RelativeTimeFormatOptions,
-			valueType: "string",
-			defaultValue: "day" as Intl.RelativeTimeFormatNumeric,
-			inputType: "select",
+			name: 'unit' as keyof Intl.RelativeTimeFormatOptions,
+			valueType: 'string',
+			defaultValue: 'day' as Intl.RelativeTimeFormatNumeric,
+			inputType: 'select'
 		},
 		{
-			name: "numeric",
-			valueType: "string",
+			name: 'numeric',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "style",
-			valueType: "string",
+			name: 'style',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "localeMatcher",
-			valueType: "string",
+			name: 'localeMatcher',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
-		},
+			inputType: 'select'
+		}
 	]
 };

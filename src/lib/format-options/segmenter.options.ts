@@ -1,6 +1,6 @@
-import { localeMatcher } from "./locale-matcher";
+import { localeMatcher } from './locale-matcher';
 
 export const segmenterOptions = {
 	granularity: ['word', 'sentence', 'grapheme', undefined],
-	...localeMatcher,
+	...localeMatcher
 } as const;
