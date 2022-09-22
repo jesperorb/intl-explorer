@@ -77,6 +77,10 @@
 					</a>
 				</li>
 			{/each}
+			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
+			<li>
+				<a href="/Playground">Playground</a>
+			</li>
 			<li aria-hidden="true" class="menu-heading"><strong>Meta</strong></li>
 			<li>
 				<a
