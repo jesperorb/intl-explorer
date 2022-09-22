@@ -1,4 +1,4 @@
-import { localeMatcher } from "./locale-matcher";
+import { localeMatcher } from './locale-matcher';
 
 export const relativeTimeFormatUnits: Intl.RelativeTimeFormatUnit[] = [
 	'year',
@@ -23,6 +23,5 @@ export const relativeTimeFormatOptions = {
 	numeric: ['always', 'auto', undefined],
 	style: ['long', 'short', 'narrow', undefined],
 	unit: [...relativeTimeFormatUnits],
-	...localeMatcher,
+	...localeMatcher
 } as const;
-

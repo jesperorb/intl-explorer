@@ -19,7 +19,7 @@
 	import { formatMethods } from '$lib/format-methods';
 	import { listFormatSchema } from '$lib/playground/schemas/listFormat.schema';
 	import { schemas } from '$lib/playground/schemas';
-	import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.types';
+	import type { PlaygroundSchema } from '$lib/playground/playground.types';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 
 	export const prerender = false;

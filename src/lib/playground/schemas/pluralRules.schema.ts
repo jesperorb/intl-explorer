@@ -1,17 +1,16 @@
-
-import type { PlaygroundSchema } from "$lib/playground/playground.types";
+import type { PlaygroundSchema } from '$lib/playground/playground.types';
 
 export const pluralRulesSchema: PlaygroundSchema<'PluralRules'> = {
 	method: 'PluralRules',
-	primaryFormatter: "select",
+	primaryFormatter: 'select',
 	inputValue: 2,
-	inputValueType: "number",
+	inputValueType: 'number',
 	options: [
 		{
-			name: "type",
-			valueType: "string",
+			name: 'type',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		}
 	]
 };

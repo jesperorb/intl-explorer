@@ -1,113 +1,112 @@
-
-import type { PlaygroundSchema } from "$lib/playground/playground.types";
+import type { PlaygroundSchema } from '$lib/playground/playground.types';
 
 export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 	method: 'DateTimeFormat',
-	primaryFormatter: "format",
-	inputValue: "2004-04-04T04:04:04",
-	inputValueType: "date",
+	primaryFormatter: 'format',
+	inputValue: '2004-04-04T04:04:04',
+	inputValueType: 'date',
 	options: [
 		{
-			name: "dateStyle",
-			valueType: "string",
+			name: 'dateStyle',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "timeStyle",
-			valueType: "string",
+			name: 'timeStyle',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "day",
-			valueType: "string",
+			name: 'day',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "hour",
-			valueType: "string",
+			name: 'hour',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "minute",
-			valueType: "string",
+			name: 'minute',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "second",
-			valueType: "string",
+			name: 'second',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "weekday",
-			valueType: "string",
+			name: 'weekday',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "era",
-			valueType: "string",
+			name: 'era',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "dayPeriod",
-			valueType: "string",
+			name: 'dayPeriod',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "hourCycle",
-			valueType: "string",
+			name: 'hourCycle',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "hour12",
-			valueType: "boolean",
+			name: 'hour12',
+			valueType: 'boolean',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "calendar",
-			valueType: "string",
+			name: 'calendar',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "fractionalSecondDigits",
-			valueType: "number",
+			name: 'fractionalSecondDigits',
+			valueType: 'number',
 			defaultValue: undefined,
-			inputType: "text",
+			inputType: 'text'
 		},
 		{
-			name: "numberingSystem",
-			valueType: "string",
+			name: 'numberingSystem',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "timeZoneName",
-			valueType: "string",
+			name: 'timeZoneName',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "localeMatcher",
-			valueType: "string",
+			name: 'localeMatcher',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "formatMatcher",
-			valueType: "string",
+			name: 'formatMatcher',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
-		},
+			inputType: 'select'
+		}
 	]
 };

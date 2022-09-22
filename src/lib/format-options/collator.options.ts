@@ -1,4 +1,4 @@
-import { localeMatcher } from "./locale-matcher";
+import { localeMatcher } from './locale-matcher';
 
 export const collatorFormatOptions = {
 	usage: ['sort', 'search', undefined],
@@ -6,5 +6,5 @@ export const collatorFormatOptions = {
 	caseFirst: ['upper', 'lower', 'false', undefined],
 	sensitivity: ['base', 'accent', 'case', 'variant', undefined],
 	ignorePunctuation: [true, false, undefined],
-	...localeMatcher,
+	...localeMatcher
 } as const;

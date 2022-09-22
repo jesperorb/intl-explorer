@@ -10,7 +10,7 @@ export type BrowserTypeHeader = {
 	start: number;
 	end: number;
 	name: BrowserType;
-}
+};
 
 export type BrowserSupportWithReleaseData = {
 	versionAdded: VersionValue;
@@ -29,6 +29,6 @@ export type BrowserCompatData = {
 	specUrl?: string | string[];
 	mdnUrl?: string;
 	support: BrowserSupportData;
-	browserTypeHeaders: BrowserTypeHeader[]
+	browserTypeHeaders: BrowserTypeHeader[];
 	status?: StatusBlock;
 };

@@ -1,116 +1,119 @@
-import { numberFormatOptionsCurrency, numberFormatOptionsUnit } from "$lib/format-options/number-format.options";
-import { units } from "$lib/locale-data/units";
-import type { PlaygroundSchema } from "$lib/playground/playground.types";
+import {
+	numberFormatOptionsCurrency,
+	numberFormatOptionsUnit
+} from '$lib/format-options/number-format.options';
+import { units } from '$lib/locale-data/units';
+import type { PlaygroundSchema } from '$lib/playground/playground.types';
 
 export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 	method: 'NumberFormat',
-	primaryFormatter: "format",
+	primaryFormatter: 'format',
 	inputValue: 1091,
-	inputValueType: "number",
+	inputValueType: 'number',
 	invalidOptionCombos: {
-		"style:currency": Object.keys(numberFormatOptionsUnit),
-		"style:unit": Object.keys(numberFormatOptionsCurrency)
+		'style:currency': Object.keys(numberFormatOptionsUnit),
+		'style:unit': Object.keys(numberFormatOptionsCurrency)
 	},
 	options: [
 		{
-			name: "style",
-			valueType: "string",
-			defaultValue: "currency",
-			inputType: "select",
+			name: 'style',
+			valueType: 'string',
+			defaultValue: 'currency',
+			inputType: 'select',
 			allowUndefined: false
 		},
 		/** UNIT */
 		{
-			name: "unit",
-			valueType: "string",
-			defaultValue: units["20"],
-			inputType: "select",
+			name: 'unit',
+			valueType: 'string',
+			defaultValue: units['20'],
+			inputType: 'select'
 		},
 		{
-			name: "compactDisplay",
-			valueType: "string",
+			name: 'compactDisplay',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "unitDisplay",
-			valueType: "string",
+			name: 'unitDisplay',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "notation",
-			valueType: "string",
+			name: 'notation',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		/** CURRENCY */
 		{
-			name: "currency",
-			valueType: "string",
-			defaultValue: "SEK",
-			inputType: "select",
+			name: 'currency',
+			valueType: 'string',
+			defaultValue: 'SEK',
+			inputType: 'select'
 		},
 		{
-			name: "currencySign",
-			valueType: "string",
+			name: 'currencySign',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "currencyDisplay",
-			valueType: "string",
+			name: 'currencyDisplay',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		/** COMMON */
 		{
-			name: "signDisplay",
-			valueType: "string",
+			name: 'signDisplay',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "useGrouping",
-			valueType: "boolean",
+			name: 'useGrouping',
+			valueType: 'boolean',
 			defaultValue: undefined,
-			inputType: "select",
+			inputType: 'select'
 		},
 		{
-			name: "minimumIntegerDigits",
-			valueType: "number",
+			name: 'minimumIntegerDigits',
+			valueType: 'number',
 			defaultValue: undefined,
-			inputType: "text",
+			inputType: 'text'
 		},
 		{
-			name: "minimumFractionDigits",
-			valueType: "number",
+			name: 'minimumFractionDigits',
+			valueType: 'number',
 			defaultValue: undefined,
-			inputType: "text",
+			inputType: 'text'
 		},
 		{
-			name: "maximumFractionDigits",
-			valueType: "number",
+			name: 'maximumFractionDigits',
+			valueType: 'number',
 			defaultValue: undefined,
-			inputType: "text",
+			inputType: 'text'
 		},
 		{
-			name: "minimumSignificantDigits",
-			valueType: "number",
+			name: 'minimumSignificantDigits',
+			valueType: 'number',
 			defaultValue: undefined,
-			inputType: "text",
+			inputType: 'text'
 		},
 		{
-			name: "maximumSignificantDigits",
-			valueType: "number",
+			name: 'maximumSignificantDigits',
+			valueType: 'number',
 			defaultValue: undefined,
-			inputType: "text",
+			inputType: 'text'
 		},
 		{
-			name: "localeMatcher",
-			valueType: "string",
+			name: 'localeMatcher',
+			valueType: 'string',
 			defaultValue: undefined,
-			inputType: "select",
-		},
+			inputType: 'select'
+		}
 	]
 };

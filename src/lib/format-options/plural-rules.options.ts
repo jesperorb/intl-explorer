@@ -1,7 +1,6 @@
-import { localeMatcher } from "./locale-matcher";
+import { localeMatcher } from './locale-matcher';
 
 export const pluralRulesFormatOptions = {
 	type: ['cardinal', 'ordinal', undefined],
-	...localeMatcher,
+	...localeMatcher
 } as const;
-

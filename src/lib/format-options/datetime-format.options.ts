@@ -21,22 +21,22 @@ export const datetimeFormatOptions = {
 	numberingSystem: [...numberingSystems, undefined],
 	timeZoneName: ['long', 'short', undefined],
 	formatMatcher: ['best fit', 'basic', undefined],
-	...localeMatcher,
+	...localeMatcher
 } as const;
 
 export const getDateTimeFormatOptions = (
-	option: AllFormatOptionsKeys["DateTimeFormat"] | string,
+	option: AllFormatOptionsKeys['DateTimeFormat'] | string,
 	value: string | boolean | number
 ): Partial<Intl.DateTimeFormatOptions> => {
 	if (option === 'fractionalSecondDigits') {
 		return {
-			[option as AllFormatOptionsKeys["DateTimeFormat"]]: value as number,
+			[option as AllFormatOptionsKeys['DateTimeFormat']]: value as number,
 			second: 'numeric'
 		};
 	}
 	if (option === 'hour12' || option == 'hourCycle') {
 		return {
-			[option as AllFormatOptionsKeys["DateTimeFormat"]]: value as number,
+			[option as AllFormatOptionsKeys['DateTimeFormat']]: value as number,
 			timeStyle: 'medium'
 		};
 	}
