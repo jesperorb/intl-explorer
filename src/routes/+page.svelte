@@ -23,8 +23,8 @@
 		provides language sensitive string comparison, number formatting, and date and time formatting.
 	</p>
 	<p>
-		To get started. Choose a <strong>formatter</strong> you are interested in from the navigation menu.
-		Select a locale you want to display the output in from the locale dropdown in the navigation menu.
+		To get started either: Choose a <strong>formatter</strong> you are interested in from the navigation menu.
+		Or visit <strong><a href="/Playground">The Playground</a></strong>.
 	</p>
 	<p>
 		Every code snippet has a button which lets you copy the code that produces the output to your
