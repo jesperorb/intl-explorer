@@ -20,7 +20,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			valueType: 'string',
 			defaultValue: 'currency',
 			inputType: 'select',
-			allowUndefined: false
+			removeUndefined: true
 		},
 		/** UNIT */
 		{

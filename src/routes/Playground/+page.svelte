@@ -21,6 +21,7 @@
 	import { schemas } from '$lib/playground/schemas';
 	import type { PlaygroundSchema } from '$lib/playground/playground.types';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
+	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 
 	export const prerender = false;
 	export const ssr = false;
@@ -74,6 +75,11 @@
 		const newSchema = schemas[value as keyof typeof schemas] as PlaygroundSchema<'ListFormat'>;
 		schema = { ...validateAndUpdateSchema(newSchema) };
 		setSchemaInURL(schema);
+	};
+
+	const copy = async () => {
+		if (!schema) return;
+		await copyToClipboard(schemaToCode(schema, $selectedLocale));
 	};
 </script>
 
@@ -129,7 +135,7 @@
 						value={option.value ?? option.defaultValue ?? ''}
 						items={getItemsFromOption(schema.method, option)}
 						fullWidth
-						removeEmpty={!option.allowUndefined}
+						removeEmpty={option.removeUndefined}
 					/>
 				{/if}
 				{#if option.inputType === 'text'}
@@ -165,6 +171,7 @@
 			{:else}
 				<Highlight language={typescript} code={schemaToCode(schema, locale)} />
 			{/if}
+			<button on:click={copy}> Copy code </button>
 		</div>
 	</details>
 {/if}
@@ -195,5 +202,23 @@
 	}
 	.code {
 		margin-bottom: 4rem;
+	}
+	input[type='datetime-local'] {
+		padding: 0.5rem;
+		border: 1px solid var(--gray);
+		border-radius: 4px;
+	}
+
+	button {
+		margin: 1rem 0 0 auto;
+		background-color: var(--white);
+		border-radius: 4px;
+		border: 1px solid var(--purple);
+		padding: 0.75rem 1.25rem;
+		cursor: pointer;
+		box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.1);
+	}
+	button:hover {
+		background-color: var(--light-purple);
 	}
 </style>
