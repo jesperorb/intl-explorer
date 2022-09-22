@@ -5,7 +5,7 @@
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 
-	import { numberFormatOptionsUnit } from '$lib/format-options/number-format.options';
+	import { numberFormatOptionsCommon, numberFormatOptionsUnit } from '$lib/format-options/number-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { unitsAsEntries } from '$lib/locale-data/units';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
@@ -14,6 +14,10 @@
 
 	let selectedUnit = 'degree';
 	let number = 123456.789;
+
+	const options = Object.entries({...numberFormatOptionsUnit, ...numberFormatOptionsCommon})
+		.filter(([o]) => o !== "unit")
+		.filter(([o]) => o !== "style")
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -38,7 +42,7 @@
 <h2>Output</h2>
 
 <Grid>
-	{#each Object.entries(numberFormatOptionsUnit) as [option, values]}
+	{#each options as [option, values]}
 		<OptionSection header={option}>
 			{#each values as value}
 				{#if value !== undefined}

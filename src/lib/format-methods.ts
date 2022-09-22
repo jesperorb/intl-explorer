@@ -8,4 +8,11 @@ export const formatMethods = [
 	'Segmenter'
 ] as const;
 
-export type FormatMethodsKeys = typeof formatMethods[number];
+export type FormatMethodsKeys = |
+	'DateTimeFormat' |
+	'NumberFormat' |
+	'ListFormat' |
+	'RelativeTimeFormat' |
+	'PluralRules' |
+	'Collator' |
+	'Segmenter'

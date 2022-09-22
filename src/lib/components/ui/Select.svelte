@@ -11,26 +11,34 @@
 	export let placeholder: string | undefined = undefined;
 	export let items: Type[][];
 	export let value: string | number;
+	export let fullWidth: boolean | undefined = undefined;
+	export let removeEmpty: boolean | undefined = undefined;
+	export let onChange: ((event: any) => void) | undefined = undefined;
 </script>
 
-<label for={`${name}-select`}>{label}</label>
-<select {name} bind:value id={`${name}-select`}>
-	<option value="">{placeholder ?? "undefined"}</option>
-	{#each items as [key, value]}
-		{#if value !== undefined}
-			<option value={key}>{value}</option>
+<div>
+	<label for={`${name}-select`}>{label}</label>
+	<select {name} bind:value id={`${name}-select`} on:change={onChange} class:fullWidth={fullWidth}>
+		{#if !removeEmpty}
+			<option value="">{placeholder ?? "undefined"}</option>
 		{/if}
-	{/each}
-</select>
+		{#each items as [key, value]}
+			{#if value !== undefined}
+				<option value={key}>{value}</option>
+			{/if}
+		{/each}
+	</select>
+</div>
 
 <style>
-	label {
-		margin-bottom: 0.5rem;
-	}
 	select {
 		border: 1px solid grey;
 		border-radius: 4px;
 		background-color: white;
 		padding: 0.5rem;
+		width: 100%;
+	}
+	.fullWidth {
+		width: 100%;
 	}
 </style>
