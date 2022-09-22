@@ -15,7 +15,7 @@ export type PlaygroundOption<
 	valueType: ValueType;
 	inputType: InputType;
 	defaultValue: Options[Key];
-	allowUndefined?: boolean;
+	removeUndefined?: boolean;
 	value?: Options[Key];
 };
 
