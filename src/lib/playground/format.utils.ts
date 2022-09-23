@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { FormatMethodsKeys } from "$lib/format-methods";
 import type { AllFormatOptions } from "$lib/format-options/types";
-import type { PlaygroundOption, PlaygroundSchema } from "./playground.types";
+import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
 
 import { formatOptions } from "$lib/format-options";
 

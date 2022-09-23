@@ -1,4 +1,4 @@
-import type { PlaygroundSchema } from '$lib/playground/playground.types';
+import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 
 export const listFormatSchema: PlaygroundSchema<'ListFormat'> = {
 	method: 'ListFormat',

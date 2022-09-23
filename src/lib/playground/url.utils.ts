@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 import type { FormatMethodsKeys } from '$lib/format-methods';
-import type { PlaygroundSchema } from './playground.types';
+import type { PlaygroundSchema } from './playground.schema';
 import { validateAndUpdateSchema } from './schemas/validate';
 
 export const parseSchemaFromURL = <Method extends FormatMethodsKeys>():

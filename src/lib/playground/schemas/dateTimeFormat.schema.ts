@@ -1,10 +1,22 @@
-import type { PlaygroundSchema } from '$lib/playground/playground.types';
+import type { PlaygroundSchema } from '$lib/playground/playground.schema';
+
+const invalidOptions = ["day", "hour", "minute", "second", "weekday", "era", "dayPeriod"];
 
 export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 	method: 'DateTimeFormat',
 	primaryFormatter: 'format',
 	inputValue: '2004-04-04T04:04:04',
 	inputValueType: 'date',
+	invalidOptionCombos: {
+		"dateStyle:long": invalidOptions,
+		"dateStyle:full": invalidOptions,
+		"dateStyle:medium": invalidOptions,
+		"dateStyle:short": invalidOptions,
+		"timeStyle:long": invalidOptions,
+		"timeStyle:full": invalidOptions,
+		"timeStyle:medium": invalidOptions,
+		"timeStyle:short": invalidOptions,
+	},
 	options: [
 		{
 			name: 'dateStyle',
@@ -70,7 +82,7 @@ export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 			name: 'hour12',
 			valueType: 'boolean',
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: 'radio'
 		},
 		{
 			name: 'calendar',

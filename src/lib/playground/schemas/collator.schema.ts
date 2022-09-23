@@ -1,4 +1,4 @@
-import type { PlaygroundSchema } from '$lib/playground/playground.types';
+import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 
 export const collatorSchema: PlaygroundSchema<'Collator'> = {
 	method: 'Collator',
@@ -9,12 +9,6 @@ export const collatorSchema: PlaygroundSchema<'Collator'> = {
 		{
 			name: 'usage',
 			valueType: 'string',
-			defaultValue: undefined,
-			inputType: 'select'
-		},
-		{
-			name: 'numeric',
-			valueType: 'boolean',
 			defaultValue: undefined,
 			inputType: 'select'
 		},
@@ -37,16 +31,22 @@ export const collatorSchema: PlaygroundSchema<'Collator'> = {
 			inputType: 'select'
 		},
 		{
+			name: 'numeric',
+			valueType: 'boolean',
+			defaultValue: undefined,
+			inputType: 'radio'
+		},
+		{
 			name: 'ignorePunctuation',
 			valueType: 'boolean',
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: 'radio'
 		},
 		{
 			name: 'localeMatcher',
 			valueType: 'string',
 			defaultValue: undefined,
 			inputType: 'select'
-		}
+		},
 	]
 };
