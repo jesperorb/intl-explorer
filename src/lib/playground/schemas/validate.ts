@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FormatMethodsKeys } from '$lib/format-methods';
-import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.types';
+import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.schema';
 import { schemas } from '.';
 
 export const validateAndUpdateSchema = <Method extends FormatMethodsKeys>(

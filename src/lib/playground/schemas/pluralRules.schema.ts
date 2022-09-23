@@ -1,4 +1,4 @@
-import type { PlaygroundSchema } from '$lib/playground/playground.types';
+import type { PlaygroundSchema } from "../playground.schema";
 
 export const pluralRulesSchema: PlaygroundSchema<'PluralRules'> = {
 	method: 'PluralRules',

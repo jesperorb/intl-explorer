@@ -19,7 +19,7 @@
 	import { formatMethods } from '$lib/format-methods';
 	import { listFormatSchema } from '$lib/playground/schemas/listFormat.schema';
 	import { schemas } from '$lib/playground/schemas';
-	import type { PlaygroundSchema } from '$lib/playground/playground.types';
+	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 
@@ -36,14 +36,23 @@
 	}
 
 	const onChange = (event: any) => {
+		const isRadioEvent = event.target.type === "radio";
 		const optionName = event.target.name;
-		const optionValue = event.target.value;
+		const optionValue = isRadioEvent
+			? event.target.attributes.getNamedItem("group")?.nodeValue
+			: event.target.value;
+		const radioValue = optionValue === "true"
+			? true
+			: optionValue === "false"
+				? false
+				: undefined;
+		const value = isRadioEvent ? radioValue : optionValue;
 		if (!schema) return;
 		const schemaOptions = schema.options.map((option) =>
 			option.name === optionName
 				? {
 						...option,
-						value: optionValue
+						value
 				  }
 				: option
 		);
@@ -148,6 +157,23 @@
 						fullWidth
 					/>
 				{/if}
+				{#if option.inputType === 'radio'}
+					<fieldset>
+						<legend>{option.name}</legend>
+						{#each getItemsFromOption(schema.method, option) as [name, value]}
+							<div class="radio">
+								<input
+									type="radio"
+									on:input={onChange}
+									id={option.name}
+									name={option.name}
+									group={value}
+								/>
+								<label for={option.name}>{name}</label>
+							</div>
+						{/each}
+					</fieldset>
+				{/if}
 			{/each}
 		</div>
 	</details>
@@ -220,5 +246,26 @@
 	}
 	button:hover {
 		background-color: var(--light-purple);
+	}
+	fieldset {
+		display: flex;
+		gap: 0.5rem;
+		border: none;
+	}
+	legend {
+		font-weight: bold;
+	}
+	fieldset label {
+		font-weight: normal;
+		margin: 0;
+	}
+	fieldset input {
+		margin: 0;
+		margin-right: 0.5rem;
+	}
+	.radio {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>

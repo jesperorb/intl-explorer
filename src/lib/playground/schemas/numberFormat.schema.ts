@@ -3,7 +3,7 @@ import {
 	numberFormatOptionsUnit
 } from '$lib/format-options/number-format.options';
 import { units } from '$lib/locale-data/units';
-import type { PlaygroundSchema } from '$lib/playground/playground.types';
+import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 
 export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 	method: 'NumberFormat',
@@ -77,7 +77,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			name: 'useGrouping',
 			valueType: 'boolean',
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: 'radio'
 		},
 		{
 			name: 'minimumIntegerDigits',
