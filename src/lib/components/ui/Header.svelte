@@ -16,8 +16,10 @@
 </header>
 
 <style>
-	h1 {
-		margin: 0;
+	@media (min-width: 900px) {
+		h1 {
+			margin: 0;
+		}
 	}
 	header {
 		margin-bottom: 16px;

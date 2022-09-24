@@ -60,6 +60,7 @@
 </script>
 
 <div class="sidebar" class:open>
+	<a class="skip-link" href="#main">Skip to content</a>
 	<nav aria-label="Main Menu" aria-hidden={!open} data-testid="navigation">
 		<HamburgerMenu {onClick} {open} />
 		<ul>
@@ -105,7 +106,7 @@
 	.sidebar {
 		position: fixed;
 		top: 0;
-		left: 0;
+		right: 0;
 		height: 100vh;
 		z-index: 2;
 		width: 18rem;
@@ -113,7 +114,7 @@
 		display: flex;
 		flex-direction: column;
 		background-color: var(--light-purple);
-		transform: translateX(-20rem);
+		transform: translateX(18rem);
 		transition: transform 300ms;
 		box-shadow: 4px 4px 8px 2px hsla(276, 100%, 10%, 0.1);
 	}
@@ -130,6 +131,17 @@
 			transform: translateX(0);
 			box-shadow: none;
 		}
+	}
+	.skip-link {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 20px;
+		transform: translateY(-22px);
+		transition: transform 0.3s;
+	}
+	.skip-link:focus {
+		transform: translateY(0);
 	}
 	a {
 		text-decoration: none;
