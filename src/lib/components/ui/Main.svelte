@@ -1,4 +1,4 @@
-<main>
+<main id="#main">
 	<slot />
 </main>
 
@@ -7,6 +7,7 @@
 		flex: 1;
 		background-color: var(--white);
 		padding: 1rem;
+		padding-top: 1.5rem;
 		margin-top: 1rem;
 		box-shadow: -2px -2px 8px 2px hsla(276, 100%, 10%, 0.03);
 		overflow-x: auto;
