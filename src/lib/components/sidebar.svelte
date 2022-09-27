@@ -32,6 +32,8 @@
 		const eventTarget = event.target as HTMLElement;
 		const clickedLink = eventTarget.tagName === 'A';
 		if (!clickedLink) return;
+		const menu = document.getElementById("sidebar");
+		if(!menu?.contains(eventTarget)) return;
 		onClick();
 	};
 
@@ -59,7 +61,7 @@
 	});
 </script>
 
-<div class="sidebar" class:open>
+<div class="sidebar" class:open id="sidebar">
 	<a class="skip-link" href="#main">Skip to content</a>
 	<nav aria-label="Main Menu" aria-hidden={!open} data-testid="navigation">
 		<HamburgerMenu {onClick} {open} />

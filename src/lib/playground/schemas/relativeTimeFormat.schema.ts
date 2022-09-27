@@ -10,7 +10,8 @@ export const relativeTimeFormatSchema: PlaygroundSchema<'RelativeTimeFormat'> = 
 			name: 'unit' as keyof Intl.RelativeTimeFormatOptions,
 			valueType: 'string',
 			defaultValue: 'day' as Intl.RelativeTimeFormatNumeric,
-			inputType: 'select'
+			inputType: 'select',
+			removeUndefined: true,
 		},
 		{
 			name: 'numeric',
