@@ -28,7 +28,7 @@
 		--gray: hsl(0, 0%, 55%);
 		--purple: hsl(276, 67%, 74%);
 		--teal: hsl(169, 56%, 68%);
-		--green: hsl(84, 62%, 63%);
+		--green: hsl(114, 31%, 68%);
 		--red: hsl(350, 100%, 67%);
 		--orange: hsl(14, 90%, 70%);
 		--light-purple: hsl(276, 100%, 98%);
@@ -101,7 +101,7 @@
 	pre {
 		line-height: 1.5;
 		padding: var(--spacing-1);
-		background-color: var(--dark-blue);
+		background-color: #1b2b34;
 		font-size: 0.85rem;
 		border-radius: 0.5rem;
 		overflow-x: auto;
