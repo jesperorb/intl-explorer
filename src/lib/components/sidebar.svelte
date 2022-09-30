@@ -66,7 +66,7 @@
 	<nav aria-label="Main Menu" aria-hidden={!open} data-testid="navigation">
 		<HamburgerMenu {onClick} {open} />
 		<ul>
-			<li><strong><a href="/">About</a></strong></li>
+			<li><strong><a href="/?locale={locale}">About</a></strong></li>
 			<li aria-hidden="true" class="menu-heading"><strong>Intl.</strong></li>
 			{#each routes as route}
 				<li aria-hidden={route.ariaHidden}>
@@ -82,7 +82,7 @@
 			{/each}
 			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
 			<li>
-				<a href="/Playground">Playground</a>
+				<a href="/Playground?locale={locale}">Playground</a>
 			</li>
 			<li aria-hidden="true" class="menu-heading"><strong>Meta</strong></li>
 			<li>
@@ -138,8 +138,8 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		height: 20px;
-		transform: translateY(-22px);
+		height: 22px;
+		transform: translateY(-24px);
 		transition: transform 0.3s;
 	}
 	.skip-link:focus {

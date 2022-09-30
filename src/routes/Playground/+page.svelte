@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Highlight from 'svelte-highlight';
 	import typescript from 'svelte-highlight/languages/typescript';
-	import nightowl from 'svelte-highlight/styles/night-owl';
+	import nightowl from 'svelte-highlight/styles/oceanicnext';
 
 	import Select from '$lib/components/ui/Select.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
