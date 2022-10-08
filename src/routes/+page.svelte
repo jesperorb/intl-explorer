@@ -12,6 +12,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Intl Explorer</title>
+</svelte:head>
+
 <h1>Welcome to Intl Explorer! 👋🏽</h1>
 
 <div>
