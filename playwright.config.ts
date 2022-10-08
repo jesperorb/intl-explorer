@@ -4,7 +4,7 @@ const config = {
 	testDir: 'tests',
 	forbidOnly: !!process.env.CI,
 	use: {
-		headless: false,
+		headless: true,
 		baseURL: 'http://localhost:4173'
 	},
 	projects: [
