@@ -1,4 +1,4 @@
-import type { PlaygroundSchema } from "$lib/playground/playground.schema";
+import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 
 export const relativeTimeFormatSchema: PlaygroundSchema<'RelativeTimeFormat'> = {
 	method: 'RelativeTimeFormat',
@@ -11,7 +11,7 @@ export const relativeTimeFormatSchema: PlaygroundSchema<'RelativeTimeFormat'> = 
 			valueType: 'string',
 			defaultValue: 'day' as Intl.RelativeTimeFormatNumeric,
 			inputType: 'select',
-			removeUndefined: true,
+			removeUndefined: true
 		},
 		{
 			name: 'numeric',
