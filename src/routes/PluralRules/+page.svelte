@@ -16,6 +16,10 @@
 
 </script>
 
+<svelte:head>
+	<title>PluralRules</title>
+</svelte:head>
+
 <Header header="PluralRules" />
 
 <CompatData {data} />

@@ -15,6 +15,10 @@
 	const locale = getLocaleForSSR($page);
 </script>
 
+<svelte:head>
+	<title>ListFormat</title>
+</svelte:head>
+
 <Header header="ListFormat" />
 
 <CompatData {data} />

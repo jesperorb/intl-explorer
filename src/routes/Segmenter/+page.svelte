@@ -14,6 +14,10 @@
 
 </script>
 
+<svelte:head>
+	<title>Segmenter</title>
+</svelte:head>
+
 <Header header="Segmenter" />
 
 <CompatData {data} />

@@ -15,6 +15,10 @@
 	const locale = getLocaleForSSR($page);
 </script>
 
+<svelte:head>
+	<title>Collator</title>
+</svelte:head>
+
 <Header header="Collator" />
 
 <CompatData {data} />

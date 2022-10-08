@@ -15,6 +15,10 @@
 	const locale = getLocaleForSSR($page);
 </script>
 
+<svelte:head>
+	<title>RelativeTimeFormat</title>
+</svelte:head>
+
 <Header header="RelativeTimeFormat" />
 
 <CompatData {data} />

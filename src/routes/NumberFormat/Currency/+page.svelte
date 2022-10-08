@@ -15,6 +15,10 @@
 	const locale = getLocaleForSSR($page);
 </script>
 
+<svelte:head>
+	<title>NumberFormat Currency</title>
+</svelte:head>
+
 <Header header="NumberFormat" />
 
 <CompatData {data} />

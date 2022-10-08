@@ -16,6 +16,10 @@
 
 </script>
 
+<svelte:head>
+	<title>DateTimeFormat</title>
+</svelte:head>
+
 <Header header="DateTimeFormat" />
 
 <CompatData {data} />
