@@ -1,24 +1,26 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
-import type { Page } from '@playwright/test';
-
-const getTabKey = (browserName: string) => {
+export const getTabKey = (browserName: string) => {
 	return browserName === 'webkit' ? 'Alt+Tab' : 'Tab';
 };
 
-type IntlPageConfig = {
+export type IntlPageConfig = {
 	page: Page;
 	tabKey?: string;
+	baseURL?: string;
 };
 
+// This is here because for some weird reason playwright cant import from other files :shrug:
 export class IntlPage {
-	readonly page: Page;
-	readonly tabKey: string;
+	private readonly tabKey: string;
+	private readonly baseURL: string;
 	private pageUnderTest: string;
+	public page: Page;
 
-	constructor({ page, tabKey = 'Tab' }: IntlPageConfig) {
+	constructor({ page, tabKey = 'Tab', baseURL }: IntlPageConfig) {
 		this.page = page;
 		this.tabKey = tabKey;
+		this.baseURL = baseURL ?? 'http://localhost:4173';
 		this.pageUnderTest = '';
 	}
 
@@ -35,12 +37,14 @@ export class IntlPage {
 	}
 
 	private getUrl(method: string, locale?: string): string {
-		return `http://localhost:4173/${method}?locale=${locale ?? 'en-US'}`;
+		return `${this.baseURL}/${method}?locale=${locale ?? 'en-US'}`;
 	}
 
 	public async goToPage() {
 		await this.page.goto('/');
-		await this.page.locator(`ul >> text=${this.pageUnderTest}`).click();
+		await this.page
+			.locator(`[data-testid="navigation"] a:has-text("${this.pageUnderTest}")`)
+			.click();
 		await expect(this.page).toHaveURL(this.getUrl(this.pageUnderTest));
 	}
 
@@ -84,10 +88,11 @@ test('index page has expected heading', async ({ page }) => {
 	expect(await page.textContent('h1')).toBe('Welcome to Intl Explorer! 👋🏽');
 });
 
-test('DateTimeFormat', async ({ page, browserName }, { title }) => {
+test('DateTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
 	const intlPage = new IntlPage({
 		page,
-		tabKey: getTabKey(browserName)
+		tabKey: getTabKey(browserName),
+		baseURL
 	});
 	intlPage.setPageUnderTest(title);
 	await intlPage.goToPage();
@@ -103,32 +108,106 @@ test('DateTimeFormat', async ({ page, browserName }, { title }) => {
 		'dateStyle',
 		`{ dateStyle: "full" }\n// söndag 4 april 2004`
 	);
-	await intlPage.page.reload();
-	await intlPage.assertUrlLocale('sv');
+	await page.locator('input[type="datetime-local"]').click();
+	await page.locator('input[type="datetime-local"]').fill('2022-04-04T04:04:04');
+	await intlPage.assertCodeBlockContent(
+		'dateStyle',
+		`{ dateStyle: "full" }\n// måndag 4 april 2022`
+	);
 });
 
-test.describe.only('Menu', () => {
-	test.use({ viewport: { width: 600, height: 1200 } });
-	test('Menu', async ({ page, browserName }) => {
-		const intlPage = new IntlPage({
-			page,
-			tabKey: getTabKey(browserName)
-		});
-		await intlPage.page.goto('/');
-		const navigation = page.locator('[data-testid="navigation"]');
-		const menuButton = page.locator('[data-testid="menu-button"]');
-		expect(await navigation.getAttribute('aria-hidden')).toBe('true');
-		expect(await menuButton.getAttribute('aria-expanded')).toBe('false');
-		await page.setViewportSize({
-			width: 900,
-			height: 1200
-		});
-		const navigation2 = page.locator('[data-testid="navigation"]');
-		const menuButton2 = page.locator('[data-testid="menu-button"]');
-		expect(await navigation2.getAttribute('aria-hidden')).toBe('false');
-		expect(await menuButton2.getAttribute('aria-expanded')).toBe('true');
-		intlPage.setPageUnderTest('DateTimeFormat');
-		await intlPage.goToPage();
-		await intlPage.assertTitle();
+test('RelativeTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
+	const intlPage = new IntlPage({
+		page,
+		tabKey: getTabKey(browserName),
+		baseURL
 	});
+	intlPage.setPageUnderTest(title);
+	await intlPage.goToPage();
+	await intlPage.assertTitle();
+	await intlPage.assertMDNLink();
+	await intlPage.assertCodeBlockContent(
+		'unit',
+		`{ value: "year", style: "long", numeric: "auto", }\n// in 2 years`
+	);
+	await intlPage.selectLocale('sv');
+	await intlPage.assertUrlLocale('sv');
+	await intlPage.assertCodeBlockContent(
+		'unit',
+		`{ value: "year", style: "long", numeric: "auto", }\n// om 2 år`
+	);
+	await intlPage.page.locator('input[type="text"]').fill('10');
+	await intlPage.assertCodeBlockContent(
+		'unit',
+		`{ value: "year", style: "long", numeric: "auto", }\n// om 10 år`
+	);
+	await page.locator('#styleNarrow').check();
+	await intlPage.assertCodeBlockContent(
+		'unit',
+		`{ value: "year", style: "narrow", numeric: "auto", }\n// +10 år`
+	);
+	await intlPage.page.locator('input[type="text"]').fill('1');
+	await page.locator('#numericAlways').check();
+	await intlPage.assertCodeBlockContent(
+		'unit',
+		`{ value: "year", style: "narrow", numeric: "always", }\n// +1 år`
+	);
+});
+
+test('ListFormat', async ({ page, browserName, baseURL }, { title }) => {
+	const intlPage = new IntlPage({
+		page,
+		tabKey: getTabKey(browserName),
+		baseURL
+	});
+	intlPage.setPageUnderTest(title);
+	await intlPage.goToPage();
+	await intlPage.assertTitle();
+	await intlPage.assertMDNLink();
+	await intlPage.assertCodeBlockContent(
+		'type',
+		`{ type: "conjunction" }\n// Miso, Sesam, and Mami`
+	);
+	await intlPage.selectLocale('sv');
+	await intlPage.assertUrlLocale('sv');
+	await intlPage.assertCodeBlockContent('type', `{ type: "conjunction" }\n// Miso, Sesam och Mami`);
+	await page.locator('input[type="text"]').fill('Miso,Sesam');
+	await intlPage.assertCodeBlockContent('type', `{ type: "conjunction" }\n// Miso och Sesam`);
+});
+
+test('PluralRules', async ({ page, browserName, baseURL }, { title }) => {
+	const intlPage = new IntlPage({
+		page,
+		tabKey: getTabKey(browserName),
+		baseURL
+	});
+	intlPage.setPageUnderTest(title);
+	await intlPage.goToPage();
+	await intlPage.assertTitle();
+	await intlPage.assertMDNLink();
+	await intlPage.assertCodeBlockContent('cardinal', `{ value: 1, type: "cardinal", }\n// one`);
+	await intlPage.selectLocale('sv');
+	await intlPage.assertUrlLocale('sv');
+	await intlPage.assertCodeBlockContent('cardinal', `{ value: 1, type: "cardinal", }\n// one`);
+	await page.locator('#typeOrdinal').check();
+	await intlPage.assertCodeBlockContent('ordinal', `{ value: 1, type: "ordinal", }\n// one`);
+});
+
+test('Playground', async ({ page, browserName, baseURL }, { title }) => {
+	const intlPage = new IntlPage({
+		page,
+		tabKey: getTabKey(browserName),
+		baseURL
+	});
+	intlPage.setPageUnderTest(title);
+	await intlPage.page.goto('/Playground');
+	expect(await page.textContent('h1')).toBe('Playground');
+	expect(await page.locator('#methodSelect').inputValue()).toEqual('ListFormat');
+	expect(await page.locator('#inputValue').inputValue()).toEqual('cat,hat,rat');
+	expect(await page.locator('#typeSelect').inputValue()).toEqual('');
+	expect(await page.locator('#styleSelect').inputValue()).toEqual('');
+	expect(await page.locator('#output code').textContent()).toEqual('cat, hat, and rat');
+	expect(await page.locator('#code code').textContent()).toEqual(
+		`new Intl.ListFormat("en-US").format(["cat","hat","rat"])\n`
+	);
 });

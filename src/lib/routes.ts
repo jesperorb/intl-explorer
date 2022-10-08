@@ -43,5 +43,5 @@ export const routes: Route[] = [
 	{
 		path: 'Segmenter',
 		name: 'Segmenter'
-	},
+	}
 ];

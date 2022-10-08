@@ -17,8 +17,8 @@
 </script>
 
 <div>
-	<label for={`${name}-select`}>{label}</label>
-	<select {name} bind:value id={`${name}-select`} on:change={onChange} class:fullWidth={fullWidth}>
+	<label for={`${name}Select`}>{label}</label>
+	<select {name} bind:value id={`${name}Select`} on:change={onChange} class:fullWidth={fullWidth}>
 		{#if !removeEmpty}
 			<option value="">{placeholder ?? "undefined"}</option>
 		{/if}

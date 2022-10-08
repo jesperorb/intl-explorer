@@ -66,7 +66,6 @@
 
 	const onInput = (event: any) => {
 		const value = event.target.value;
-		console.log(value);
 		if (schema?.inputValueType === 'date') {
 			schema.inputValue = value;
 		}
@@ -114,6 +113,7 @@
 			<Input
 				id="inputValue"
 				label="Input value"
+				name="inputValue"
 				value={schema.inputValue.toString()}
 				{onInput}
 				fullWidth
@@ -177,7 +177,7 @@
 			{/each}
 		</div>
 	</details>
-	<details open>
+	<details open id="output">
 		<summary>
 			<h2>Output</h2>
 		</summary>
@@ -187,7 +187,7 @@
 			<Highlight code={schemaToPrimaryFormatterOutput(schema, locale)} />
 		{/if}
 	</details>
-	<details open>
+	<details open id="code">
 		<summary>
 			<h2>Code</h2>
 		</summary>

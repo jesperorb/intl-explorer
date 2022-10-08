@@ -47,6 +47,6 @@ export const collatorSchema: PlaygroundSchema<'Collator'> = {
 			valueType: 'string',
 			defaultValue: undefined,
 			inputType: 'select'
-		},
+		}
 	]
 };
