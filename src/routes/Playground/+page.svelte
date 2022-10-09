@@ -9,7 +9,8 @@
 	import {
 		getItemsFromOption,
 		schemaToCode,
-		schemaToPrimaryFormatterOutput
+		schemaToPrimaryFormatterOutput,
+		schemaToResolvedOptions
 	} from '$lib/playground/format.utils';
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
 	import { page } from '$app/stores';
@@ -138,6 +139,7 @@
 				name="locale"
 				placeholder="Select a locale"
 				label="Locale"
+				removeEmpty
 				items={Object.entries(languageByLocale)}
 				bind:value={$selectedLocale}
 			/>
@@ -146,6 +148,7 @@
 				name="locale"
 				placeholder="Select a locale"
 				label="Locale"
+				removeEmpty
 				items={Object.entries(languageByLocale)}
 				value={locale}
 			/>
@@ -213,13 +216,25 @@
 		<summary>
 			<h2>Code</h2>
 		</summary>
-		<div class="code">
+		<div>
 			{#if browser}
 				<Highlight language={typescript} code={schemaToCode(schema, $selectedLocale)} />
 			{:else}
 				<Highlight language={typescript} code={schemaToCode(schema, locale)} />
 			{/if}
 			<button on:click={copy}> Copy code </button>
+		</div>
+	</details>
+	<details open id="resolvedOptions">
+		<summary>
+			<h2>Resolved Options</h2>
+		</summary>
+		<div class="resolved">
+			{#if browser}
+				<Highlight language={typescript} code={schemaToResolvedOptions(schema, $selectedLocale)} />
+			{:else}
+				<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
+			{/if}
 		</div>
 	</details>
 {/if}
@@ -248,7 +263,7 @@
 		gap: 1rem;
 		margin-bottom: 1rem;
 	}
-	.code {
+	.resolved {
 		margin-bottom: 4rem;
 	}
 	input[type='datetime-local'] {

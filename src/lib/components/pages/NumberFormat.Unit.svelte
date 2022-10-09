@@ -35,6 +35,7 @@
 	name="locale"
 	placeholder="Select a locale"
 	label="Locale"
+	removeEmpty
 	items={Object.entries(languageByLocale)}
 	bind:value={locale}
 />
@@ -44,6 +45,7 @@
 		name="unit"
 		placeholder="Select a unit"
 		label="Unit"
+		removeEmpty
 		bind:value={selectedUnit}
 		items={unitsAsEntries}
 	/>

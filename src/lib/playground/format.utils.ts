@@ -26,9 +26,8 @@ export const getItemsFromOption = <Method extends FormatMethodsKeys>(
 	return options?.map((option: PlaygroundOption<Method>) => [option, option]) ?? [];
 };
 
-export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>(
+const prepareSchemaForOutput =  <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
-	locale: string,
 ) => {
 	const options = schemaToFormatOptions(schema);
 	const isRelativeTime = schema.method === "RelativeTimeFormat";
@@ -43,7 +42,18 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 	const input = schema.inputValueType === "date"
 		? new Date(schema.inputValue)
 		: schema.inputValue;
-	// TODO: Yikes
+	return {
+		input,
+		secondaryInput,
+		options,
+	}
+}
+
+export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>(
+	schema: PlaygroundSchema<Method>,
+	locale: string,
+) => {
+	const { options, input, secondaryInput } = prepareSchemaForOutput(schema);
 	if (schema.method === "Collator") {
 		// @ts-ignore
 		const formattedString = (schema.inputValue as unknown[]).sort(new Intl[schema.method](
@@ -61,6 +71,18 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 		return `${JSON.stringify(Array.from(formatted), null, 2)}`
 	}
 	return `${formatted}`
+}
+
+export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
+	schema: PlaygroundSchema<Method>,
+	locale: string,
+) => {
+	const { options } = prepareSchemaForOutput(schema);
+	const intlObject = (new Intl[schema.method](
+		locale,
+		options as Record<string, string>
+	) as Intl.PluralRules);
+	return `${JSON.stringify(intlObject.resolvedOptions(), null, 2)}`
 }
 
 export const schemaToCode = <Method extends FormatMethodsKeys>(
