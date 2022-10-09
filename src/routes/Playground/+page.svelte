@@ -71,7 +71,8 @@
 			schema.inputValue = parsedValue;
 		}
 		if (schema?.inputValueType === 'number') {
-			schema.inputValue = parseInt(value, 10);
+			const parsed = parseInt(value, 10);
+			schema.inputValue = isNaN(parsed) ? 0 : parsed;
 		}
 	};
 
