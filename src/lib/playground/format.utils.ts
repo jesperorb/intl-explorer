@@ -78,9 +78,9 @@ export const schemaToCode = <Method extends FormatMethodsKeys>(
 		//@ts-ignore
 		delete options["unit"];
 	}
-	const hasOptions = Object.values(options).filter(Boolean).length > 0;
+	const hasOptions = Object.values(options).filter(v => v !== undefined).length > 0;
 	const formattedOptions = hasOptions
-		? `,\n${JSON.stringify(options, null, 4)}`
+		? `,\n${JSON.stringify(options, null, 2)}`
 		: "";
 	if (schema.method === "Collator") {
 		return `const compareFunction = new Intl.${schema.method}("${locale}"${formattedOptions}).${formatter}
