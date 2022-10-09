@@ -1,6 +1,15 @@
 import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 
-const invalidOptions = ['day', 'hour', 'minute', 'second', 'weekday', 'era', 'dayPeriod', 'timeZoneName'];
+const invalidOptions = [
+	'day',
+	'hour',
+	'minute',
+	'second',
+	'weekday',
+	'era',
+	'dayPeriod',
+	'timeZoneName'
+];
 
 export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 	method: 'DateTimeFormat',
