@@ -33,6 +33,7 @@
 	name="locale"
 	placeholder="Select a locale"
 	label="Locale"
+	removeEmpty
 	items={Object.entries(languageByLocale)}
 	bind:value={locale}
 />

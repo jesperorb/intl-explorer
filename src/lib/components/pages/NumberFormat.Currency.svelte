@@ -44,6 +44,7 @@
 		name="currencies"
 		placeholder="Select a currency"
 		label="Currency"
+		removeEmpty
 		bind:value={selectedCurrency}
 		items={Object.entries(currencies)}
 	/>
