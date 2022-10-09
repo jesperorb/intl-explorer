@@ -154,8 +154,12 @@ const getCompatDataWithBrowserData = (
 					partialSupport: Boolean(mobileVersion) && !mobileVersionAdded
 				};
 				return [browserName, supportData];
-			});
+			}) as [BrowserName, BrowserSupportWithReleaseData][];
 		const [, option] = key.split('_');
+		formattedOptions.sort(
+			([, aData], [, bData]) =>
+				browserTypePosition[aData.browserType] - browserTypePosition[bData.browserType]
+		);
 		return [option, Object.fromEntries(formattedOptions)];
 	});
 	return {
