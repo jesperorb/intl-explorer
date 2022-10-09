@@ -155,7 +155,7 @@ const getCompatDataWithBrowserData = (
 				};
 				return [browserName, supportData];
 			});
-		const [, option, ] = key.split("_");
+		const [, option] = key.split('_');
 		return [option, Object.fromEntries(formattedOptions)];
 	});
 	return {
@@ -169,7 +169,10 @@ const getCompatDataWithBrowserData = (
 };
 
 export const writeCompatData = () => {
-	const writeData = formatMethods.map(method => [method, getCompatDataWithBrowserData(bcd, method)])
+	const writeData = formatMethods.map((method) => [
+		method,
+		getCompatDataWithBrowserData(bcd, method)
+	]);
 	writeFile(
 		resolve(process.cwd(), 'static', `Playground-compat-data.json`),
 		JSON.stringify(Object.fromEntries(writeData)),
@@ -178,7 +181,7 @@ export const writeCompatData = () => {
 				console.log(error);
 			}
 		}
-	)
+	);
 	writeData.forEach(([method, data]) => {
 		writeFile(
 			resolve(process.cwd(), 'static', `${method}-compat-data.json`),
@@ -188,6 +191,6 @@ export const writeCompatData = () => {
 					console.log(error);
 				}
 			}
-		)
-	})
+		);
+	});
 };

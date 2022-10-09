@@ -88,8 +88,8 @@ export class IntlPage {
 		await checkA11y(this.page, undefined, {
 			axeOptions: {},
 			detailedReport: true,
-			detailedReportOptions: { html: true },
-		})
+			detailedReportOptions: { html: true }
+		});
 	}
 }
 
@@ -100,8 +100,8 @@ test('index page has expected heading', async ({ page }) => {
 	await checkA11y(page, undefined, {
 		axeOptions: {},
 		detailedReport: true,
-		detailedReportOptions: { html: true },
-	})
+		detailedReportOptions: { html: true }
+	});
 });
 
 test('DateTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
