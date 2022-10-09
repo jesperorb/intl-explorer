@@ -123,6 +123,7 @@
 		display: grid;
 		justify-content: center;
 		align-items: center;
+		border-right: 1px solid var(--border-color);
 		color: var(--icon-color);
 	}
 	.browser-type-last {
