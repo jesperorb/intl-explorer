@@ -3,6 +3,9 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
+	import HighlightSvelte from "svelte-highlight";
+	import typescript from 'svelte-highlight/languages/typescript';
+	import nightowl from 'svelte-highlight/styles/oceanicnext';
 
 	import {
 		datetimeFormatOptions,
@@ -12,20 +15,29 @@
 	import { languageByLocale } from '$lib/locale-data/locales';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+  import DateTime from '../ui/DateTime.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
 
-	let dateString = '2004-04-04T04:04:04';
+	let dateTimeString = '2004-04-04T19:00';
+
+	const onChange = (dateTime: string) => {
+		dateTimeString = dateTime;
+	}
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
 			`new Intl.DateTimeFormat("${locale}", ${JSON.stringify(
 				options
-			)}).format(new Date("${dateString}"))`
+			)}).format(new Date("${dateTimeString}"))`
 		);
 	};
 </script>
+
+<svelte:head>
+	{@html nightowl}
+</svelte:head>
 
 <h2>Input values</h2>
 
@@ -38,10 +50,27 @@
 	bind:value={locale}
 />
 
-<div>
-	<label for="datetime">Date</label>
-	<input type="datetime-local" id="datetime" step="1" bind:value={dateString} />
-</div>
+<DateTime defaultValue={dateTimeString} onChange={onChange} />
+
+
+<h2>Alternative use</h2>
+
+<code>Intl.DateTimeFormat</code>
+can also be used from
+<strong
+	><a
+		href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString"
+		target="_blank"
+		rel="noopener noreferrer">Date.prototype.toLocaleString()</a
+	></strong
+>
+
+<HighlightSvelte
+	language={typescript}
+	code={`const date = new Date("${dateTimeString}");
+const formatted = date.toLocaleString("${locale}", { dateStyle: "full" });
+// ${new Date(dateTimeString).toLocaleString(locale, { dateStyle: "full" } )}`}
+/>
 
 <h2>Output</h2>
 
@@ -54,7 +83,7 @@
 						{onClick}
 						values={{ [option]: value }}
 						output={new Intl.DateTimeFormat(locale, getDateTimeFormatOptions(option, value)).format(
-							new Date(dateString)
+							new Date(`${dateTimeString}`)
 						)}
 					/>
 				{/if}
@@ -62,12 +91,3 @@
 		</OptionSection>
 	{/each}
 </Grid>
-
-<style>
-	input {
-		border: 1px solid grey;
-		border-radius: 4px;
-		background-color: white;
-		padding: 0.5rem;
-	}
-</style>

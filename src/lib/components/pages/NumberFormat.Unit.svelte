@@ -4,13 +4,19 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
+	import HighlightSvelte from 'svelte-highlight';
+	import typescript from 'svelte-highlight/languages/typescript';
+	import nightowl from 'svelte-highlight/styles/oceanicnext';
 
-	import { numberFormatOptionsCommon, numberFormatOptionsUnit } from '$lib/format-options/number-format.options';
+	import {
+		numberFormatOptionsCommon,
+		numberFormatOptionsUnit
+	} from '$lib/format-options/number-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { unitsAsEntries } from '$lib/locale-data/units';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import { languageByLocale } from '$lib/locale-data/locales';
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import { languageByLocale } from '$lib/locale-data/locales';
+	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -18,9 +24,9 @@
 	let selectedUnit = 'degree';
 	let number = 123456.789;
 
-	const options = Object.entries({...numberFormatOptionsUnit, ...numberFormatOptionsCommon})
-		.filter(([o]) => o !== "unit")
-		.filter(([o]) => o !== "style")
+	const options = Object.entries({ ...numberFormatOptionsUnit, ...numberFormatOptionsCommon })
+		.filter(([o]) => o !== 'unit')
+		.filter(([o]) => o !== 'style');
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -28,6 +34,10 @@
 		);
 	};
 </script>
+
+<svelte:head>
+	{@html nightowl}
+</svelte:head>
 
 <h2>Input values</h2>
 
@@ -51,6 +61,28 @@
 	/>
 	<Input id="amount" label="Amount" bind:value={number} />
 </div>
+
+<h2>Alternative use</h2>
+
+<code>Intl.NumberFormat</code>
+can also be used from
+<strong
+	><a
+		href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"
+		target="_blank"
+		rel="noopener noreferrer">Number.prototype.toLocaleString()</a
+	></strong
+>
+
+<HighlightSvelte
+	language={typescript}
+	code={`const numberToFormat = ${number}
+const formatted = numberToFormat.toLocaleString("${locale}", {
+  style: "unit",
+  unit: "${selectedUnit}"
+});
+// ${new Intl.NumberFormat(locale, {style: "unit", unit: selectedUnit }).format(number)}`}
+/>
 
 <h2>Output</h2>
 

@@ -26,6 +26,7 @@
 	import { languageByLocale } from '$lib/locale-data/locales';
   import OptionSection from '$lib/components/ui/OptionSection.svelte';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+  import DateTime from '$lib/components/ui/DateTime.svelte';
 
 	export const prerender = false;
 	export const ssr = false;
@@ -66,11 +67,8 @@
 		setSchemaInURL(schema);
 	};
 
-	const onInput = (event: any) => {
-		const value = event.target.value;
-		if (schema?.inputValueType === 'date') {
-			schema.inputValue = value;
-		}
+	const onInput = (event: Event) => {
+		const value = (event.target as HTMLInputElement).value;
 		if (schema?.inputValueType === 'array') {
 			const parsedValue = value.split(',');
 			schema.inputValue = parsedValue;
@@ -81,8 +79,14 @@
 		}
 	};
 
-	const onChangeSchema = (event: any) => {
-		const value = event.target.value;
+	const onChangeDate = (datetime: string) => {
+		if (schema?.inputValueType === 'date') {
+			schema.inputValue = datetime;
+		}
+	}
+
+	const onChangeSchema = (event: Event) => {
+		const value = (event.target as HTMLInputElement).value;
 		const newSchema = schemas[value as keyof typeof schemas] as PlaygroundSchema<'ListFormat'>;
 		schema = { ...validateAndUpdateSchema(newSchema) };
 		setSchemaInURL(schema);
@@ -123,16 +127,7 @@
 			/>
 		{/if}
 		{#if schema.inputValueType === 'date'}
-			<div>
-				<label for="datetime">Input value</label>
-				<input
-					type="datetime-local"
-					id="datetime"
-					step="1"
-					on:input={onInput}
-					value={schema.inputValue}
-				/>
-			</div>
+			<DateTime defaultValue={schema.inputValue} onChange={onChangeDate} />
 		{/if}
 		{#if browser}
 			<Select
@@ -265,11 +260,6 @@
 	}
 	.resolved {
 		margin-bottom: 4rem;
-	}
-	input[type='datetime-local'] {
-		padding: 0.5rem;
-		border: 1px solid var(--gray);
-		border-radius: 4px;
 	}
 
 	button {

@@ -141,4 +141,10 @@
 	.token.string {
 		color: var(--green);
 	}
+	span.hljs-comment {
+		color: var(--gray);
+	}
+	code.hljs {
+		color: var(--white);
+	}
 </style>
