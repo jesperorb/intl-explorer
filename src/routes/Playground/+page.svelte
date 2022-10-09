@@ -22,6 +22,7 @@
 	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { languageByLocale } from '$lib/locale-data/locales';
 
 	export const prerender = false;
 	export const ssr = false;
@@ -36,16 +37,12 @@
 	}
 
 	const onChange = (event: any) => {
-		const isRadioEvent = event.target.type === "radio";
+		const isRadioEvent = event.target.type === 'radio';
 		const optionName = event.target.name;
 		const optionValue = isRadioEvent
-			? event.target.attributes.getNamedItem("group")?.nodeValue
+			? event.target.attributes.getNamedItem('group')?.nodeValue
 			: event.target.value;
-		const radioValue = optionValue === "true"
-			? true
-			: optionValue === "false"
-				? false
-				: undefined;
+		const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
 		const value = isRadioEvent ? radioValue : optionValue;
 		if (!schema) return;
 		const schemaOptions = schema.options.map((option) =>
@@ -130,6 +127,23 @@
 					value={schema.inputValue}
 				/>
 			</div>
+		{/if}
+		{#if browser}
+			<Select
+				name="locale"
+				placeholder="Select a locale"
+				label="Locale"
+				items={Object.entries(languageByLocale)}
+				bind:value={$selectedLocale}
+			/>
+		{:else}
+			<Select
+				name="locale"
+				placeholder="Select a locale"
+				label="Locale"
+				items={Object.entries(languageByLocale)}
+				value={locale}
+			/>
 		{/if}
 	</div>
 	<details open>

@@ -70,7 +70,7 @@ export class IntlPage {
 	}
 
 	public async selectLocale(locale: string) {
-		await this.page.locator('select[name="locale"]').selectOption(locale);
+		await this.page.locator('select[name="locale"]').nth(0).selectOption(locale);
 	}
 
 	public async assertUrlLocale(locale: string) {

@@ -9,6 +9,7 @@
 	import { numberFormatOptionsCommon, numberFormatOptionsCurrency } from '$lib/format-options/number-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
+  import { languageByLocale } from '$lib/locale-data/locales';
 
 	export let locale: string;
 
@@ -27,6 +28,14 @@
 </script>
 
 <h2>Input values</h2>
+
+<Select
+	name="locale"
+	placeholder="Select a locale"
+	label="Locale"
+	items={Object.entries(languageByLocale)}
+	bind:value={locale}
+/>
 
 <div>
 	<Select

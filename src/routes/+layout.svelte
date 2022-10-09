@@ -25,7 +25,7 @@
 		--white: hsl(0, 100%, 100%);
 		--dark-blue: hsl(207, 95%, 8%);
 		--light-blue: hsl(221, 100%, 75%);
-		--gray: hsl(0, 0%, 55%);
+		--gray: hsl(0, 0%, 60%);
 		--purple: hsl(276, 67%, 74%);
 		--teal: hsl(169, 56%, 68%);
 		--green: hsl(114, 31%, 68%);

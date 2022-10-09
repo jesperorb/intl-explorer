@@ -41,6 +41,10 @@ export const routes: Route[] = [
 		name: 'PluralRules'
 	},
 	{
+		path: 'Collator',
+		name: 'Collator'
+	},
+	{
 		path: 'Segmenter',
 		name: 'Segmenter'
 	}

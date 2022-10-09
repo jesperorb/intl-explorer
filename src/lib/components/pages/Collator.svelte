@@ -3,10 +3,12 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
+	import Select from '$lib/components/ui/Select.svelte';
 
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
+  import { languageByLocale } from '$lib/locale-data/locales';
 
 	export let locale: string;
 
@@ -20,6 +22,14 @@
 </script>
 
 <h2>Input values</h2>
+
+<Select
+	name="locale"
+	placeholder="Select a locale"
+	label="Locale"
+	items={Object.entries(languageByLocale)}
+	bind:value={locale}
+/>
 
 <div>
 	<Input id="list" label="List" bind:value={list} />
