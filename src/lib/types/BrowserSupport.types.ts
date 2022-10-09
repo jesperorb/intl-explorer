@@ -8,13 +8,13 @@ import type {
 
 export type BrowserTypeHeader = {
 	start: number;
-	end: number;
+	end?: number;
 	name: BrowserType;
 };
 
 export type BrowserSupportWithReleaseData = {
 	versionAdded: VersionValue;
-	mobileVersionAdded: VersionValue;
+	mobileVersionAdded?: VersionValue;
 	notes?: string | string[];
 	release?: ReleaseStatement;
 	browserType: BrowserType;
@@ -31,4 +31,5 @@ export type BrowserCompatData = {
 	support: BrowserSupportData;
 	browserTypeHeaders: BrowserTypeHeader[];
 	status?: StatusBlock;
+	optionsSupport?: Record<string, StatusBlock>;
 };
