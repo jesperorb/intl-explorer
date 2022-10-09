@@ -3,10 +3,13 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
+	import Select from '$lib/components/ui/Select.svelte';
+
+	import type { OptionValues } from '$lib/types/OptionValues.types';
 
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
-	import type { OptionValues } from '$lib/types/OptionValues.types';
+  import { languageByLocale } from '$lib/locale-data/locales';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
@@ -31,6 +34,14 @@
 </script>
 
 <h2>Input values</h2>
+
+<Select
+	name="locale"
+	placeholder="Select a locale"
+	label="Locale"
+	items={Object.entries(languageByLocale)}
+	bind:value={locale}
+/>
 
 <div>
 	<Input id="list" label="List" bind:value={sentence} />
