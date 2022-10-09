@@ -22,11 +22,11 @@
 
 <Header header="PluralRules" />
 
-<CompatData {data} />
+<CompatData optionsType="support" {data} />
 
 {#if browser}
-	<PluralRules bind:locale={$selectedLocale} />
+	<PluralRules browserCompatData={data}  bind:locale={$selectedLocale} />
 {:else}
-	<PluralRules {locale} />
+	<PluralRules browserCompatData={data} {locale} />
 {/if}
 

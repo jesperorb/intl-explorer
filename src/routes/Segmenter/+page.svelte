@@ -20,10 +20,10 @@
 
 <Header header="Segmenter" />
 
-<CompatData {data} />
+<CompatData optionsType="support" {data} />
 
 {#if browser}
-	<Segmenter bind:locale={$selectedLocale} />
+	<Segmenter browserCompatData={data} bind:locale={$selectedLocale} />
 {:else}
-	<Segmenter {locale} />
+	<Segmenter browserCompatData={data} {locale} />
 {/if}

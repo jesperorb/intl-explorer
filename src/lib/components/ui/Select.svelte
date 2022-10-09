@@ -6,7 +6,7 @@
 			index: number;
 		};
 	}
-	export let label: string;
+	export let label: string | undefined = undefined;
 	export let name: string;
 	export let placeholder: string | undefined = undefined;
 	export let items: Type[][];
@@ -17,7 +17,9 @@
 </script>
 
 <div>
-	<label for={`${name}Select`}>{label}</label>
+	{#if label}
+		<label for={`${name}Select`}>{label}</label>
+	{/if}
 	<select {name} bind:value id={`${name}Select`} on:change={onChange} class:fullWidth={fullWidth}>
 		{#if !removeEmpty}
 			<option value="">{placeholder ?? "undefined"}</option>

@@ -10,9 +10,11 @@
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
   import { languageByLocale } from '$lib/locale-data/locales';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -51,7 +53,7 @@
 
 <Grid>
 	{#each Object.entries(segmenterOptions) as [option, values]}
-		<OptionSection header={option}>
+		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
 					<Highlight

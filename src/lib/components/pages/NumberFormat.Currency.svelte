@@ -9,9 +9,11 @@
 	import { numberFormatOptionsCommon, numberFormatOptionsCurrency } from '$lib/format-options/number-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
   import { languageByLocale } from '$lib/locale-data/locales';
 
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	let selectedCurrency = 'EUR';
 	let number = 123456.789;
@@ -52,7 +54,7 @@
 
 <Grid>
 	{#each options as [option, values]}
-		<OptionSection header={option}>
+		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
 					<Highlight

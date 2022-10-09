@@ -7,8 +7,10 @@
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import { languageByLocale } from '$lib/locale-data/locales';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	let type: Intl.PluralRuleType = 'cardinal';
 
@@ -46,7 +48,7 @@
 <h2>Output</h2>
 
 <Grid>
-	<OptionSection header={type}>
+	<OptionSection header={type} {browserCompatData} stackedCompatView>
 		<Highlight
 			{onClick}
 			values={{

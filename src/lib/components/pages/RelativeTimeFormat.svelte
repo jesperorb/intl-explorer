@@ -9,8 +9,10 @@
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import { languageByLocale } from '$lib/locale-data/locales';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -71,7 +73,7 @@
 <h2>Output</h2>
 
 <Grid>
-	<OptionSection header={'unit'}>
+	<OptionSection header={'unit'} {browserCompatData} stackedCompatView>
 		{#each relativeTimeFormatUnits as value}
 			{#if value !== undefined}
 				<Highlight

@@ -22,11 +22,11 @@
 
 <Header header="DateTimeFormat" />
 
-<CompatData {data} />
+<CompatData optionsType="support" {data} />
 
 {#if browser}
-	<DateTimeFormat bind:locale={$selectedLocale} />
+	<DateTimeFormat browserCompatData={data}  bind:locale={$selectedLocale} />
 {:else}
-	<DateTimeFormat {locale} />
+	<DateTimeFormat browserCompatData={data} {locale} />
 {/if}
 

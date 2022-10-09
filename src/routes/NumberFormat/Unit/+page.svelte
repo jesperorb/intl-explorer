@@ -21,11 +21,11 @@
 
 <Header header="NumberFormat" />
 
-<CompatData {data} />
+<CompatData optionsType="support" {data} />
 
 {#if browser}
-	<NumberFormat bind:locale={$selectedLocale} />
+	<NumberFormat browserCompatData={data} bind:locale={$selectedLocale} />
 {:else}
-	<NumberFormat {locale} />
+	<NumberFormat browserCompatData={data} {locale} />
 {/if}
 

@@ -21,10 +21,10 @@
 
 <Header header="RelativeTimeFormat" />
 
-<CompatData {data} />
+<CompatData optionsType="support" {data} />
 
 {#if browser}
-	<RelativeTimeFormat bind:locale={$selectedLocale} />
+	<RelativeTimeFormat browserCompatData={data}  bind:locale={$selectedLocale} />
 {:else}
-	<RelativeTimeFormat {locale} />
+	<RelativeTimeFormat browserCompatData={data}  {locale} />
 {/if}

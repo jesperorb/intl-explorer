@@ -1,5 +1,9 @@
+<script lang="ts">
+	const id = "id" + Math.random().toString(16).slice(2)
+</script>
+
 <svg viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-	<mask id="path-1-inside-1_519_18896" fill="white">
+	<mask id={id} fill="white">
 		<rect x="0.38501" width="16" height="13" rx="1" />
 	</mask>
 	<rect
@@ -9,7 +13,7 @@
 		rx="1"
 		stroke="currentColor"
 		stroke-width="3"
-		mask="url(#path-1-inside-1_519_18896)"
+		mask="url(#{id})"
 	/>
 	<rect x="7.38501" y="13" width="1.5" height="2" fill="currentColor" />
 	<path

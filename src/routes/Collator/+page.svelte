@@ -21,10 +21,10 @@
 
 <Header header="Collator" />
 
-<CompatData {data} />
+<CompatData optionsType="support" {data} />
 
 {#if browser}
-	<Collator bind:locale={$selectedLocale} />
+	<Collator browserCompatData={data} bind:locale={$selectedLocale} />
 {:else}
-	<Collator {locale} />
+	<Collator browserCompatData={data} {locale} />
 {/if}
