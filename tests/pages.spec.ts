@@ -124,8 +124,8 @@ test('DateTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
 		'dateStyle',
 		`{ dateStyle: "full" }\n// söndag 4 april 2004`
 	);
-	await page.locator('input[type="datetime-local"]').click();
-	await page.locator('input[type="datetime-local"]').fill('2022-04-04T04:04:04');
+	await page.locator('input[type="date"]').click();
+	await page.locator('input[type="date"]').fill('2022-04-04');
 	await intlPage.assertCodeBlockContent(
 		'dateStyle',
 		`{ dateStyle: "full" }\n// måndag 4 april 2022`

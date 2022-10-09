@@ -4,6 +4,9 @@
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
+	import HighlightSvelte from "svelte-highlight";
+	import typescript from 'svelte-highlight/languages/typescript';
+	import nightowl from 'svelte-highlight/styles/oceanicnext';
 
 	import { listFormatOptions } from '$lib/format-options/list-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
@@ -28,6 +31,10 @@
 	const style = listFormatOptions.style ?? [];
 </script>
 
+<svelte:head>
+	{@html nightowl}
+</svelte:head>
+
 <h2>Input values</h2>
 
 <Select
@@ -42,6 +49,26 @@
 <div>
 	<Input id="list" label="List" bind:value={list} />
 </div>
+
+<h2>Alternative use</h2>
+
+<code>Intl.ListFormat</code>
+can also be used from
+<strong
+	><a
+		href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString"
+		target="_blank"
+		rel="noopener noreferrer">Array.prototype.toLocaleString()</a
+	></strong
+>
+
+<HighlightSvelte
+	language={typescript}
+	code={`const listToFormat = ${JSON.stringify(list.split(","))};
+const formatted = listToFormat.toLocaleString("${locale}", { type: "disjunction" });
+// ${new Intl.ListFormat(locale, { type: "disjunction" }).format(list.split(","))}`}
+/>
+
 
 <h2>Output</h2>
 

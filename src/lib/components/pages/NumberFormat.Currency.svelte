@@ -4,6 +4,9 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
+	import HighlightSvelte from "svelte-highlight";
+	import typescript from 'svelte-highlight/languages/typescript';
+	import nightowl from 'svelte-highlight/styles/oceanicnext';
 
 	import { currencies } from '$lib/locale-data/currencies';
 	import { numberFormatOptionsCommon, numberFormatOptionsCurrency } from '$lib/format-options/number-format.options';
@@ -29,6 +32,10 @@
 	};
 </script>
 
+<svelte:head>
+	{@html nightowl}
+</svelte:head>
+
 <h2>Input values</h2>
 
 <Select
@@ -50,6 +57,28 @@
 	/>
 	<Input id="amount" label="Amount" bind:value={number} />
 </div>
+
+<h2>Alternative use</h2>
+
+<code>Intl.NumberFormat</code>
+can also be used from
+<strong
+	><a
+		href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"
+		target="_blank"
+		rel="noopener noreferrer">Number.prototype.toLocaleString()</a
+	></strong
+>
+
+<HighlightSvelte
+	language={typescript}
+	code={`const numberToFormat = ${number};
+const formatted = numberToFormat.toLocaleString("${locale}", {
+  style: "currency",
+  unit: "${selectedCurrency}"
+});
+// ${new Intl.NumberFormat(locale, {style: 'currency', currency: selectedCurrency}).format(number)}`}
+/>
 
 <h2>Output</h2>
 
