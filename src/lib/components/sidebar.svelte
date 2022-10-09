@@ -3,10 +3,8 @@
 
 	import { page } from '$app/stores';
 
-	import Select from '$lib/components/ui/Select.svelte';
 	import HamburgerMenu from '$lib/components/ui/HamburgerMenu.svelte';
 
-	import { languageByLocale } from '$lib/locale-data/locales';
 	import { routes } from '$lib/routes';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';

@@ -10,8 +10,10 @@
 	import { unitsAsEntries } from '$lib/locale-data/units';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import { languageByLocale } from '$lib/locale-data/locales';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	let selectedUnit = 'degree';
 	let number = 123456.789;
@@ -52,7 +54,7 @@
 
 <Grid>
 	{#each options as [option, values]}
-		<OptionSection header={option}>
+		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
 					<Highlight

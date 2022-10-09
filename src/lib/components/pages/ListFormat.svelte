@@ -9,8 +9,10 @@
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import { languageByLocale } from '$lib/locale-data/locales';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	const toArray = (string: string) => string.split(',');
 	const toStyle = (string: string | boolean | number) => string as Intl.ListFormatStyle;
@@ -44,7 +46,7 @@
 
 <Grid>
 	{#each Object.entries(listFormatOptions) as [option, values]}
-		<OptionSection header={option}>
+		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
 					<Highlight

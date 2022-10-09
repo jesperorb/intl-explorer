@@ -8,9 +8,11 @@
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
   import { languageByLocale } from '$lib/locale-data/locales';
 
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	let list = 'Z,a,z,ä,1,=,à';
 
@@ -39,7 +41,7 @@
 
 <Grid>
 	{#each Object.entries(collatorFormatOptions) as [option, values]}
-		<OptionSection header={option}>
+		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
 					<Highlight

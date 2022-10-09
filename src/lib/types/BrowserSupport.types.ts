@@ -24,12 +24,13 @@ export type BrowserSupportWithReleaseData = {
 	hasMobileEquivalent: boolean;
 };
 
-export type BrowserSupportData = Record<BrowserName, BrowserSupportWithReleaseData>;
+export type OptionsSupportData = Record<string, BrowserSupportWithReleaseData>;
+export type BrowserSupportData = Record<string, BrowserSupportWithReleaseData>;
 export type BrowserCompatData = {
 	specUrl?: string | string[];
 	mdnUrl?: string;
 	support: BrowserSupportData;
 	browserTypeHeaders: BrowserTypeHeader[];
 	status?: StatusBlock;
-	optionsSupport?: Record<string, StatusBlock>;
+	optionsSupport?: OptionsSupportData;
 };

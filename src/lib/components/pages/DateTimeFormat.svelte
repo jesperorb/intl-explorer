@@ -9,10 +9,12 @@
 		getDateTimeFormatOptions
 	} from '$lib/format-options/datetime-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { languageByLocale } from '$lib/locale-data/locales';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import { languageByLocale } from '$lib/locale-data/locales';
+	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let locale: string;
+	export let browserCompatData: BrowserCompatData | null;
 
 	let dateString = '2004-04-04T04:04:04';
 
@@ -44,16 +46,15 @@
 
 <Grid>
 	{#each Object.entries(datetimeFormatOptions) as [option, values]}
-		<OptionSection header={option}>
+		<OptionSection header={option} browserCompatData={browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
 					<Highlight
 						{onClick}
 						values={{ [option]: value }}
-						output={new Intl.DateTimeFormat(
-							locale,
-							getDateTimeFormatOptions(option, value)
-						).format(new Date(dateString))}
+						output={new Intl.DateTimeFormat(locale, getDateTimeFormatOptions(option, value)).format(
+							new Date(dateString)
+						)}
 					/>
 				{/if}
 			{/each}

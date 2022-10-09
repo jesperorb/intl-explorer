@@ -23,9 +23,13 @@
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { languageByLocale } from '$lib/locale-data/locales';
+  import OptionSection from '$lib/components/ui/OptionSection.svelte';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export const prerender = false;
 	export const ssr = false;
+
+	export let data: Record<string, BrowserCompatData>;
 
 	const locale = getLocaleForSSR($page);
 
@@ -152,42 +156,45 @@
 		<div class="grid">
 			{#each schema.options as option}
 				{#if option.inputType === 'select'}
-					<Select
-						{onChange}
-						name={option.name}
-						label={option.name}
-						value={option.value ?? option.defaultValue ?? ''}
-						items={getItemsFromOption(schema.method, option)}
-						fullWidth
-						removeEmpty={option.removeUndefined}
-					/>
+					<OptionSection labelId={option.name + "Select"} header={option.name} browserCompatData={data[schema.method]} stackedCompatView>
+						<Select
+							{onChange}
+							name={option.name}
+							value={option.value ?? option.defaultValue ?? ''}
+							items={getItemsFromOption(schema.method, option)}
+							fullWidth
+							removeEmpty={option.removeUndefined}
+						/>
+					</OptionSection>
 				{/if}
 				{#if option.inputType === 'text'}
-					<Input
-						id={option.name}
-						onInput={onChange}
-						label={option.name}
-						name={option.name}
-						value={option.defaultValue ?? ''}
-						fullWidth
-					/>
+					<OptionSection labelId={option.name} header={option.name} browserCompatData={data[schema.method]} stackedCompatView>
+						<Input
+							id={option.name}
+							onInput={onChange}
+							name={option.name}
+							value={option.defaultValue ?? ''}
+							fullWidth
+						/>
+					</OptionSection>
 				{/if}
 				{#if option.inputType === 'radio'}
-					<fieldset>
-						<legend>{option.name}</legend>
-						{#each getItemsFromOption(schema.method, option) as [name, value]}
-							<div class="radio">
-								<input
-									type="radio"
-									on:input={onChange}
-									id={option.name}
-									name={option.name}
-									group={value}
-								/>
-								<label for={option.name}>{name}</label>
-							</div>
-						{/each}
-					</fieldset>
+					<OptionSection labelId={option.name} header={option.name} browserCompatData={data[schema.method]} stackedCompatView>
+						<fieldset>
+							{#each getItemsFromOption(schema.method, option) as [name, value]}
+								<div class="radio">
+									<input
+										type="radio"
+										on:input={onChange}
+										id={option.name}
+										name={option.name}
+										group={value}
+									/>
+									<label for={option.name}>{value}</label>
+								</div>
+							{/each}
+						</fieldset>
+					</OptionSection>
 				{/if}
 			{/each}
 		</div>
@@ -266,9 +273,6 @@
 		display: flex;
 		gap: 0.5rem;
 		border: none;
-	}
-	legend {
-		font-weight: bold;
 	}
 	fieldset label {
 		font-weight: normal;

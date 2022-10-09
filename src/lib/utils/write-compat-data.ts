@@ -126,13 +126,13 @@ const getCompatDataWithBrowserData = (
 			Object.entries(supportObjectForOption) as [BrowserName, SupportStatement][]
 		)
 			.filter(([browserName]) => !excludedBrowserNames.includes(browserName))
-			.map(([browserName, data]) => {
-				const versionAdded = getPropertyFromSupportStatement(data, 'version_added');
+			.map(([browserName, optionData]) => {
+				const versionAdded = getPropertyFromSupportStatement(optionData, 'version_added');
 				const browser = browsers[browserName];
 				const mobileBrowserName = desktopToMobileName[browserName];
 				const mobileVersion =
 					browser.type === 'desktop' && mobileBrowserName
-						? supportObject[mobileBrowserName]
+						? supportObjectForOption[mobileBrowserName]
 						: undefined;
 				const mobileVersionAdded = mobileVersion
 					? getPropertyFromSupportStatement(mobileVersion, 'version_added')
@@ -141,7 +141,7 @@ const getCompatDataWithBrowserData = (
 				const mobileRelease = mobileHasReleaseVersion ? browser.releases[versionAdded] : undefined;
 				const hasReleaseVersion = versionAdded && typeof versionAdded === 'string';
 				const release = hasReleaseVersion ? browser.releases[versionAdded] : undefined;
-				const notes = getPropertyFromSupportStatement(data, 'notes');
+				const notes = getPropertyFromSupportStatement(optionData, 'notes');
 				const supportData: BrowserSupportWithReleaseData = {
 					browserName: browser.name,
 					versionAdded,
@@ -155,7 +155,8 @@ const getCompatDataWithBrowserData = (
 				};
 				return [browserName, supportData];
 			});
-		return [key, Object.fromEntries(formattedOptions)];
+		const [, option, ] = key.split("_");
+		return [option, Object.fromEntries(formattedOptions)];
 	});
 	return {
 		mdnUrl: compatDataForProperty?.mdn_url,
@@ -168,8 +169,17 @@ const getCompatDataWithBrowserData = (
 };
 
 export const writeCompatData = () => {
-	formatMethods.forEach((method) => {
-		const data = getCompatDataWithBrowserData(bcd, method);
+	const writeData = formatMethods.map(method => [method, getCompatDataWithBrowserData(bcd, method)])
+	writeFile(
+		resolve(process.cwd(), 'static', `Playground-compat-data.json`),
+		JSON.stringify(Object.fromEntries(writeData)),
+		(error) => {
+			if (error) {
+				console.log(error);
+			}
+		}
+	)
+	writeData.forEach(([method, data]) => {
 		writeFile(
 			resolve(process.cwd(), 'static', `${method}-compat-data.json`),
 			JSON.stringify(data),
@@ -178,6 +188,6 @@ export const writeCompatData = () => {
 					console.log(error);
 				}
 			}
-		);
-	});
+		)
+	})
 };

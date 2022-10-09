@@ -21,10 +21,10 @@
 
 <Header header="ListFormat" />
 
-<CompatData {data} />
+<CompatData optionsType="support" {data} />
 
 {#if browser}
-	<ListFormat bind:locale={$selectedLocale} />
+	<ListFormat browserCompatData={data} bind:locale={$selectedLocale} />
 {:else}
-	<ListFormat {locale} />
+	<ListFormat browserCompatData={data} {locale} />
 {/if}
