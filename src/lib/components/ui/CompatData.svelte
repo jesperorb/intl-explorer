@@ -5,9 +5,10 @@
 	import type { VersionValue } from '@mdn/browser-compat-data';
 
 	export let data: BrowserCompatData | null;
-	const specUrl = data && Array.isArray(data.specUrl)
-		? data.specUrl
-		: typeof data?.specUrl === "string"
+	const specUrl =
+		data && Array.isArray(data.specUrl)
+			? data.specUrl
+			: typeof data?.specUrl === 'string'
 			? [data.specUrl]
 			: [];
 	const compatData = Object.entries(data?.support ?? {});
@@ -39,7 +40,7 @@
 						>
 							<Icon {browserName} />
 						</span>
-						<span aria-label={getAriaLabel(browserData.browserName, browserData.versionAdded)} />
+						<span class="sr-only">{getAriaLabel(browserData.browserName, browserData.versionAdded)}</span>
 					</div>
 				{/each}
 			</div>
@@ -63,7 +64,7 @@
 					<span class="browser-name" aria-hidden="true" title={browserData.browserName}>
 						<Icon {browserName} />
 					</span>
-					<span aria-label={getAriaLabel(browserData.browserName, browserData.versionAdded)} />
+					<span class="sr-only">{getAriaLabel(browserData.browserName, browserData.versionAdded)}</span>
 					<span
 						class="browser-version browser-supported"
 						class:browser-unsupported={!browserData.versionAdded}
@@ -125,7 +126,7 @@
 		color: var(--icon-color);
 	}
 	.browser-type-last {
-		border:none;
+		border: none;
 	}
 	.browser-version {
 		border-top: 1px solid var(--border-color);
@@ -139,5 +140,18 @@
 	}
 	.browser-unsupported {
 		color: var(--unsupported);
+	}
+	.sr-only {
+		border: 0 !important;
+		clip: rect(1px, 1px, 1px, 1px) !important;
+		-webkit-clip-path: inset(50%) !important;
+		clip-path: inset(50%) !important;
+		height: 1px !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		padding: 0 !important;
+		position: absolute !important;
+		width: 1px !important;
+		white-space: nowrap !important;
 	}
 </style>

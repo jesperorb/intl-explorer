@@ -9,6 +9,7 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
+		"types": ["axe-playwright"],
 		"lib": ["ES2018.Intl", "es2021.intl", "ES2020.Intl", "ES2022.Intl"]
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias

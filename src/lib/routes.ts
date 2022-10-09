@@ -18,7 +18,6 @@ export const routes: Route[] = [
 	{
 		path: 'NumberFormat/Currency',
 		name: 'NumberFormat',
-		ariaHidden: true
 	},
 	{
 		path: 'NumberFormat/Currency',

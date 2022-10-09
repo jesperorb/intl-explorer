@@ -9,11 +9,13 @@ specifiers:
   '@sveltejs/kit': 1.0.0-next.502
   '@typescript-eslint/eslint-plugin': ^5.38.0
   '@typescript-eslint/parser': ^5.38.0
+  axe-playwright: ^1.1.11
   eslint: ^8.24.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
   highlight.js: ^11.6.0
   husky: ^8.0.1
+  playwright-core: ^1.27.0
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.7.0
   svelte: ^3.50.1
@@ -35,11 +37,13 @@ devDependencies:
   '@sveltejs/kit': 1.0.0-next.502_svelte@3.50.1+vite@3.1.3
   '@typescript-eslint/eslint-plugin': 5.38.0_4gkcvl6qsi23tqqawfqgcwtp54
   '@typescript-eslint/parser': 5.38.0_7ilbxdl5iguzcjriqqcg2m5cku
+  axe-playwright: 1.1.11_playwright-core@1.27.0
   eslint: 8.24.0
   eslint-config-prettier: 8.5.0_eslint@8.24.0
   eslint-plugin-svelte3: 4.0.0_snydkosur25h6rjxszquwacaua
   highlight.js: 11.6.0
   husky: 8.0.1
+  playwright-core: 1.27.0
   prettier: 2.7.1
   prettier-plugin-svelte: 2.7.0_nk6d2fkgcllkkdynqbuearcure
   svelte: 3.50.1
@@ -797,6 +801,20 @@ packages:
 
   /async-sema/3.1.1:
     resolution: {integrity: sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==}
+    dev: true
+
+  /axe-core/4.4.3:
+    resolution: {integrity: sha512-32+ub6kkdhhWick/UjvEwRchgoetXqTK14INLqbGm5U2TzBkBNF3nQtLYm8ovxSkQWArjEQvftCKryjZaATu3w==}
+    engines: {node: '>=4'}
+    dev: true
+
+  /axe-playwright/1.1.11_playwright-core@1.27.0:
+    resolution: {integrity: sha512-YHmUouvF/dFNxoFFwbCjPFmEPwoJSzPgZsD0KZs3xjsR03Rf2mAh771ugre950MaBYuiyxYDlurH5BOEJBK34Q==}
+    peerDependencies:
+      playwright-core: '>1.0.0'
+    dependencies:
+      axe-core: 4.4.3
+      playwright-core: 1.27.0
     dev: true
 
   /balanced-match/1.0.2:
@@ -2337,6 +2355,12 @@ packages:
 
   /playwright-core/1.26.1:
     resolution: {integrity: sha512-hzFchhhxnEiPc4qVPs9q2ZR+5eKNifY2hQDHtg1HnTTUuphYCBP8ZRb2si+B1TR7BHirgXaPi48LIye5SgrLAA==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
+
+  /playwright-core/1.27.0:
+    resolution: {integrity: sha512-VBKaaFUVKDo3akW+o4DwbK1ZyXh46tcSwQKPK3lruh8IJd5feu55XVZx4vOkbb2uqrNdIF51sgsadYT533SdpA==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true

@@ -95,13 +95,6 @@
 			</li>
 		</ul>
 	</nav>
-	<Select
-		name="locale"
-		placeholder="Select a locale"
-		label="Locale"
-		items={Object.entries(languageByLocale)}
-		bind:value={locale}
-	/>
 </div>
 
 <style>

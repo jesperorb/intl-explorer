@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { checkA11y, injectAxe } from 'axe-playwright';
 
 export const getTabKey = (browserName: string) => {
 	return browserName === 'webkit' ? 'Alt+Tab' : 'Tab';
@@ -81,11 +82,26 @@ export class IntlPage {
 		await this.page.keyboard.press(this.tabKey);
 		await expect(this.page.locator(selector).nth(nth)).toBeFocused();
 	}
+
+	public async runAxe() {
+		await injectAxe(this.page);
+		await checkA11y(this.page, undefined, {
+			axeOptions: {},
+			detailedReport: true,
+			detailedReportOptions: { html: true },
+		})
+	}
 }
 
 test('index page has expected heading', async ({ page }) => {
 	await page.goto('/');
 	expect(await page.textContent('h1')).toBe('Welcome to Intl Explorer! 👋🏽');
+	await injectAxe(page);
+	await checkA11y(page, undefined, {
+		axeOptions: {},
+		detailedReport: true,
+		detailedReportOptions: { html: true },
+	})
 });
 
 test('DateTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
@@ -114,6 +130,7 @@ test('DateTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
 		'dateStyle',
 		`{ dateStyle: "full" }\n// måndag 4 april 2022`
 	);
+	await intlPage.runAxe();
 });
 
 test('RelativeTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
@@ -152,6 +169,7 @@ test('RelativeTimeFormat', async ({ page, browserName, baseURL }, { title }) => 
 		'unit',
 		`{ value: "year", style: "narrow", numeric: "always", }\n// +1 år`
 	);
+	await intlPage.runAxe();
 });
 
 test('ListFormat', async ({ page, browserName, baseURL }, { title }) => {
@@ -173,6 +191,7 @@ test('ListFormat', async ({ page, browserName, baseURL }, { title }) => {
 	await intlPage.assertCodeBlockContent('type', `{ type: "conjunction" }\n// Miso, Sesam och Mami`);
 	await page.locator('input[type="text"]').fill('Miso,Sesam');
 	await intlPage.assertCodeBlockContent('type', `{ type: "conjunction" }\n// Miso och Sesam`);
+	await intlPage.runAxe();
 });
 
 test('PluralRules', async ({ page, browserName, baseURL }, { title }) => {
@@ -191,6 +210,7 @@ test('PluralRules', async ({ page, browserName, baseURL }, { title }) => {
 	await intlPage.assertCodeBlockContent('cardinal', `{ value: 1, type: "cardinal", }\n// one`);
 	await page.locator('#typeOrdinal').check();
 	await intlPage.assertCodeBlockContent('ordinal', `{ value: 1, type: "ordinal", }\n// one`);
+	await intlPage.runAxe();
 });
 
 test('Playground', async ({ page, browserName, baseURL }, { title }) => {
@@ -210,4 +230,5 @@ test('Playground', async ({ page, browserName, baseURL }, { title }) => {
 	expect(await page.locator('#code code').textContent()).toEqual(
 		`new Intl.ListFormat("en-US").format(["cat","hat","rat"])\n`
 	);
+	await intlPage.runAxe();
 });
