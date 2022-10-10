@@ -5,9 +5,12 @@
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
+  import SkipLink from '$lib/components/ui/SkipLink.svelte';
 
 	const locale = getLocaleForSSR($page);
 </script>
+
+<SkipLink />
 
 {#if browser}
 	<Sidebar bind:locale={$selectedLocale} />
@@ -61,12 +64,11 @@
 		margin-top: 0;
 	}
 	body {
-		display: grid;
-		grid-template-columns: 1fr;
 		margin: 0;
 	}
 	@media (min-width: 900px) {
 		body {
+			display: grid;
 			grid-template-columns: 18rem 1fr;
 		}
 	}
