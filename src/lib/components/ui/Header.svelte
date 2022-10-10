@@ -17,13 +17,8 @@
 </header>
 
 <style>
-	@media (min-width: 900px) {
-		h1 {
-			margin: 0;
-		}
-	}
 	header {
-		margin-bottom: 16px;
+		margin-bottom: 1rem;
 	}
 	.skip-link {
 		position: fixed;

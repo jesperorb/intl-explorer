@@ -56,6 +56,10 @@
 		line-height: 1.5;
 		width: 100%;
 	}
+	h1, h2, h3 {
+		margin-bottom: 1rem;
+		margin-top: 0;
+	}
 	body {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -98,6 +102,9 @@
 	code * {
 		font-family: var(--code-font-family);
 	}
+	code {
+		margin: 0;
+	}
 	pre {
 		line-height: 1.5;
 		padding: var(--spacing-1);
@@ -105,7 +112,7 @@
 		font-size: 0.85rem;
 		border-radius: 0.5rem;
 		overflow-x: auto;
-		margin-bottom: var(--margin-1);
+		margin-bottom: var(--spacing-1);
 		color: var(--white);
 		font-family: var(--font-family);
 	}

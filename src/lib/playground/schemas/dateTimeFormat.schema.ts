@@ -14,7 +14,7 @@ const invalidOptions = [
 export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 	method: 'DateTimeFormat',
 	primaryFormatter: 'format',
-	inputValue: '2004-04-04T04:04:04',
+	inputValue: '2022-04-24T19:00',
 	inputValueType: 'date',
 	invalidOptionCombos: {
 		'dateStyle:long': invalidOptions,

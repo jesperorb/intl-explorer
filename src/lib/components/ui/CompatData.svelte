@@ -149,7 +149,11 @@
 	h2,
 	h3,
 	label {
-		display: inline;
+		display: inline-block;
+		margin: 0;
+	}
+	details {
+		margin-bottom: 1rem;
 	}
 	.desktop-compat-data-summary {
 		display: inline-flex;
