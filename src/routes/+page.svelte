@@ -3,7 +3,6 @@
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
 			`new Intl.DateTimeFormat("${$selectedLocale}", ${JSON.stringify(
