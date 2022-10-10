@@ -58,7 +58,7 @@
 
 <details class="sidebar" id="sidebar" bind:open={open}>
 	<summary>
-		<p class="{isDesktop ? "sr-only" : ""} menu-button">Menu</p>
+		<p class="menu-button">Menu</p>
 	</summary>
 	<nav aria-label="Main Menu" data-testid="navigation">
 		<ul>
@@ -119,6 +119,9 @@
 		nav {
 			padding-top: 0;
 		}
+		.menu-button {
+			margin-bottom: 1rem;
+		}
 	}
 	summary {
   	list-style: none;
@@ -148,19 +151,7 @@
 	.menu-heading {
 		margin-top: 2rem;
 	}
-	.sr-only {
-		border: 0 !important;
-		clip: rect(1px, 1px, 1px, 1px) !important;
-		-webkit-clip-path: inset(50%) !important;
-		clip-path: inset(50%) !important;
-		height: 1px !important;
-		margin: -1px !important;
-		overflow: hidden !important;
-		padding: 0 !important;
-		position: absolute !important;
-		width: 1px !important;
-		white-space: nowrap !important;
-	}
+
 	@keyframes fadeIn {
 		0%    {opacity: 0; }
 		100%  {opacity: 1;}
