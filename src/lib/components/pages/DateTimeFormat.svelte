@@ -20,7 +20,7 @@
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
 
-	let dateTimeString = '2004-04-04T19:00';
+	let dateTimeString = '2022-04-24T19:00';
 
 	const onChange = (dateTime: string) => {
 		dateTimeString = dateTime;

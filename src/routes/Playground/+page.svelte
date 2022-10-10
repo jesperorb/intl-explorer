@@ -237,10 +237,15 @@
 <style>
 	.grid {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr;
 		gap: 1rem;
 	}
 	@media (min-width: 600px) {
+		.grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+	@media (min-width: 900px) {
 		.grid {
 			grid-template-columns: 1fr 1fr 1fr;
 		}
@@ -251,6 +256,7 @@
 	h2 {
 		font-size: 1.25rem;
 		display: inline-block;
+		margin: 0.5rem 0;
 	}
 	.top {
 		display: grid;

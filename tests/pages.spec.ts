@@ -116,13 +116,13 @@ test('DateTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
 	await intlPage.assertMDNLink();
 	await intlPage.assertCodeBlockContent(
 		'dateStyle',
-		`{ dateStyle: "full" }\n// Sunday, April 4, 2004`
+		`{ dateStyle: "full" }\n// Sunday, April 24, 2022`
 	);
 	await intlPage.selectLocale('sv');
 	await intlPage.assertUrlLocale('sv');
 	await intlPage.assertCodeBlockContent(
 		'dateStyle',
-		`{ dateStyle: "full" }\n// söndag 4 april 2004`
+		`{ dateStyle: "full" }\n// söndag 24 april 2022`
 	);
 	await page.locator('input[type="date"]').click();
 	await page.locator('input[type="date"]').fill('2022-04-04');
