@@ -38,7 +38,6 @@
 		border-radius: 4px;
 		background-color: white;
 		padding: 0.5rem;
-		width: 100%;
 	}
 	.fullWidth {
 		width: 100%;

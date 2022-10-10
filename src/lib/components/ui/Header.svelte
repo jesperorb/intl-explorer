@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { FormatMethodsKeys } from '$lib/format-methods';
+  import SkipLink from './SkipLink.svelte';
 	export let header: FormatMethodsKeys;
 </script>
 
 <header>
-	<a class="skip-link" href="#main">Skip to content</a>
 	<h1>
 		Intl.{header}
 	</h1>
@@ -19,17 +19,6 @@
 <style>
 	header {
 		margin-bottom: 1rem;
-	}
-	.skip-link {
-		position: fixed;
-		top: 0;
-		left: 0;
-		height: 22px;
-		transform: translateY(-24px);
-		transition: transform 0.3s;
-	}
-	.skip-link:focus {
-		transform: translateY(0);
 	}
 	a {
 		text-decoration: none;

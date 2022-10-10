@@ -3,8 +3,6 @@
 
 	import { page } from '$app/stores';
 
-	import HamburgerMenu from '$lib/components/ui/HamburgerMenu.svelte';
-
 	import { routes } from '$lib/routes';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
@@ -13,10 +11,8 @@
 
 	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
 
-	const isDesktop = Boolean(matchMedia?.matches);
-
+	let isDesktop = Boolean(matchMedia?.matches);
 	let open = isDesktop;
-	const onClick = () => (open = !open);
 
 	let path: string;
 
@@ -27,22 +23,23 @@
 	$: getPath($page);
 
 	const onClickMenu = (event: MouseEvent) => {
+		if(isDesktop) return;
 		const eventTarget = event.target as HTMLElement;
 		const clickedLink = eventTarget.tagName === 'A';
 		if (!clickedLink) return;
 		const menu = document.getElementById("sidebar");
 		if(!menu?.contains(eventTarget)) return;
-		onClick();
+		open = false;
 	};
 
 	const onMatchMediaChange = (event: MediaQueryListEventMap['change']) => {
+		isDesktop = event.matches;
 		open = event.matches;
 	};
 
 	onMount(() => {
-		if (browser && !isDesktop) {
+		if (browser) {
 			window.addEventListener('click', onClickMenu);
-			matchMedia?.addEventListener('change', onMatchMediaChange);
 		}
 		if (browser && matchMedia) {
 			matchMedia.addEventListener('change', onMatchMediaChange);
@@ -50,7 +47,7 @@
 	});
 
 	onDestroy(() => {
-		if (browser && !isDesktop) {
+		if (browser) {
 			window.removeEventListener('click', onClickMenu);
 		}
 		if (browser && matchMedia) {
@@ -59,10 +56,11 @@
 	});
 </script>
 
-<div class="sidebar" class:open id="sidebar">
-	<a class="skip-link" href="#main">Skip to content</a>
-	<nav aria-label="Main Menu" aria-hidden={!open} data-testid="navigation">
-		<HamburgerMenu {onClick} {open} />
+<details class="sidebar" id="sidebar" bind:open={open}>
+	<summary>
+		<p class="{isDesktop ? "sr-only" : ""} menu-button">Menu</p>
+	</summary>
+	<nav aria-label="Main Menu" data-testid="navigation">
 		<ul>
 			<li><strong><a href="/?locale={locale}">About</a></strong></li>
 			<li aria-hidden="true" class="menu-heading"><strong>Intl.</strong></li>
@@ -93,52 +91,41 @@
 			</li>
 		</ul>
 	</nav>
-</div>
+</details>
 
 <style>
 	.sidebar {
-		position: fixed;
-		top: 0;
-		right: 0;
-		height: 100vh;
-		z-index: 2;
-		width: 18rem;
-		padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+		padding: 0.5rem 1rem;
 		display: flex;
 		flex-direction: column;
 		background-color: var(--light-purple);
-		transform: translateX(18rem);
-		transition: transform 300ms;
-		box-shadow: 4px 4px 8px 2px hsla(276, 100%, 10%, 0.1);
 	}
-
-	.open {
-		transform: translateX(0);
-		box-shadow: none;
+	nav {
+		padding-top: 1rem;
 	}
-
+	.menu-button {
+		text-transform: uppercase;
+		letter-spacing: 0.1rem;
+		font-weight: bold;
+		font-size: 1.25rem;
+		margin: 0;
+		user-select: none;
+		display: inline-block;
+	}
 	@media (min-width: 900px) {
 		.sidebar {
-			position: sticky;
-			left: unset;
-			transform: translateX(0);
-			box-shadow: none;
+			padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+		}
+		nav {
+			padding-top: 0;
 		}
 	}
-	.skip-link {
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 22px;
-		transform: translateY(-24px);
-		transition: transform 0.3s;
+	summary {
+  	list-style: none;
 	}
-	.skip-link:focus {
-		transform: translateY(0);
-	}
-	a {
-		text-decoration: none;
-		border-bottom: 2px solid var(--purple);
+	summary::marker,
+	summary::-webkit-details-mark {
+		display: none;
 	}
 	.active {
 		font-weight: bold;
@@ -160,5 +147,28 @@
 	}
 	.menu-heading {
 		margin-top: 2rem;
+	}
+	.sr-only {
+		border: 0 !important;
+		clip: rect(1px, 1px, 1px, 1px) !important;
+		-webkit-clip-path: inset(50%) !important;
+		clip-path: inset(50%) !important;
+		height: 1px !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		padding: 0 !important;
+		position: absolute !important;
+		width: 1px !important;
+		white-space: nowrap !important;
+	}
+	@keyframes fadeIn {
+		0%    {opacity: 0; }
+		100%  {opacity: 1;}
+	}
+
+	@media (max-width: 900px) {
+		details[open] summary ~ * {
+  		animation: fadeIn .3s;
+		}
 	}
 </style>
