@@ -3,7 +3,9 @@ import type { PlaygroundSchema } from '../playground.schema';
 export const pluralRulesSchema: PlaygroundSchema<'PluralRules'> = {
 	method: 'PluralRules',
 	primaryFormatter: 'select',
-	inputValue: 2,
+	inputValues: [2, 10],
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	secondaryFormatters: ["selectRange" as any],
 	inputValueType: 'number',
 	options: [
 		{

@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { FormatMethodsKeys } from "$lib/format-methods";
 import type { AllFormatOptions } from "$lib/format-options/types";
 import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
 
 import { formatOptions } from "$lib/format-options";
+
+export const print = (values: unknown) => {
+	return JSON.stringify(values, null, 2);
+}
 
 export const schemaToFormatOptions = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>
@@ -30,47 +33,66 @@ const prepareSchemaForOutput =  <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
 ) => {
 	const options = schemaToFormatOptions(schema);
-	const isRelativeTime = schema.method === "RelativeTimeFormat";
-	let secondaryInput = undefined;
-	// TODO: Yikes
-	if (isRelativeTime) {
-		//@ts-ignore
-		secondaryInput = options["unit"];
-		//@ts-ignore
-		delete options["unit"];
-	}
-	const input = schema.inputValueType === "date"
-		? new Date(schema.inputValue)
-		: schema.inputValue;
+	const hasOptions = Object.values(options).filter(v => v !== undefined).length > 0;
 	return {
-		input,
-		secondaryInput,
-		options,
+		// Casting to something generic so every formatter can accept options
+		options: options as Record<string, string>,
+		hasOptions,
 	}
 }
+
+const prepareInputValues = <Method extends FormatMethodsKeys>(
+	schema: PlaygroundSchema<Method>
+) =>  schema.inputValueType === "date"
+	? schema.inputValues.map(v => new Date(v))
+	: [...schema.inputValues];
 
 export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
 	locale: string,
 ) => {
-	const { options, input, secondaryInput } = prepareSchemaForOutput(schema);
+	const { options, } = prepareSchemaForOutput(schema);
 	if (schema.method === "Collator") {
-		// @ts-ignore
-		const formattedString = (schema.inputValue as unknown[]).sort(new Intl[schema.method](
+		const formattedString = (schema.inputValues[0]).sort(new Intl.Collator(
 			locale,
-			options as Record<string, string>
-		)[schema.primaryFormatter])
+			options
+		).compare)
 		return `${formattedString}`
 	}
-	// @ts-ignore
-	const formatted = new Intl[schema.method](
+	// Casting to specific formatter to circumvent type errors, the types are too dynamic
+	const primaryFormatter = schema.primaryFormatter as "formatToParts";
+	const formatted = (new Intl[schema.method](
 		locale,
-		options as Record<string, string>
-	)[schema.primaryFormatter](input, secondaryInput)
+		options
+	) as Intl.DateTimeFormat)[primaryFormatter](...prepareInputValues(schema))
 	if(schema.method === "Segmenter") {
-		return `${JSON.stringify(Array.from(formatted), null, 2)}`
+		return `${print(Array.from(formatted))}`
 	}
 	return `${formatted}`
+}
+
+export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKeys>(
+	schema: PlaygroundSchema<Method>,
+	locale: string,
+) => {
+	const { options } = prepareSchemaForOutput(schema);
+	return schema.secondaryFormatters?.map(formatter => {
+		try {
+			const output = (new Intl[schema.method](
+				locale,
+				options
+			) as Intl.DateTimeFormat)[(formatter as "formatToParts")](...prepareInputValues(schema))
+			return {
+				name: formatter,
+				output: print(output)
+			}
+		} catch(_error) {
+			return {
+				name: formatter,
+				output: "Your browser does not support this."
+			}
+		}
+	}) ?? [];
 }
 
 export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
@@ -80,38 +102,27 @@ export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
 	const { options } = prepareSchemaForOutput(schema);
 	const intlObject = (new Intl[schema.method](
 		locale,
-		options as Record<string, string>
+		options
 	) as Intl.PluralRules);
-	return `${JSON.stringify(intlObject.resolvedOptions(), null, 2)}`
+	return `${print(intlObject.resolvedOptions())}`
 }
 
 export const schemaToCode = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
 	locale: string
 ) => {
-	const input = JSON.stringify(schema.inputValue);
+	const { options, hasOptions } = prepareSchemaForOutput(schema);
+	const stringInput = JSON.stringify(schema.inputValues[0]);
 	const formatter = String(schema.primaryFormatter);
-	const isRelativeTime = schema.method === "RelativeTimeFormat";
-	const options = schemaToFormatOptions(schema);
-	let secondaryInput = undefined;
-	if (isRelativeTime) {
-		//@ts-ignore
-		secondaryInput = options["unit"];
-		//@ts-ignore
-		delete options["unit"];
-	}
-	const hasOptions = Object.values(options).filter(v => v !== undefined).length > 0;
 	const formattedOptions = hasOptions
-		? `,\n${JSON.stringify(options, null, 2)}`
+		? `,\n${print(options)}`
 		: "";
 	if (schema.method === "Collator") {
 		return `const compareFunction = new Intl.${schema.method}("${locale}"${formattedOptions}).${formatter}
 
-${JSON.stringify(schema.inputValue)}.sort(compareFunction)
+${stringInput}.sort(compareFunction)
 `;
 	}
-
-
-	return `new Intl.${schema.method}("${locale}"${formattedOptions})${hasOptions ? "\n" : ""}.${formatter}(${input}${secondaryInput ? `, "${secondaryInput}"` : ""})
+	return `new Intl.${schema.method}("${locale}"${formattedOptions})${hasOptions ? "\n" : ""}.${formatter}(${stringInput})
 `;
 }

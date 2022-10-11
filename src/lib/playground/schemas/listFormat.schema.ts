@@ -3,14 +3,8 @@ import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 export const listFormatSchema: PlaygroundSchema<'ListFormat'> = {
 	method: 'ListFormat',
 	primaryFormatter: 'format',
-	secondaryFormatters: [
-		{
-			name: 'formatToParts',
-			inputValues: ['cat', 'hat', 'rat'],
-			inputValueType: 'array'
-		}
-	],
-	inputValue: ['cat', 'hat', 'rat'],
+	secondaryFormatters: ["formatToParts"],
+	inputValues: [['cat', 'hat', 'rat']],
 	inputValueType: 'array',
 	options: [
 		{

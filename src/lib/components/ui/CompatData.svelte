@@ -152,8 +152,8 @@
 		display: inline-block;
 		margin: 0;
 	}
-	details {
-		margin-bottom: 1rem;
+	label {
+		margin-bottom: 0.5rem;
 	}
 	.desktop-compat-data-summary {
 		display: inline-flex;

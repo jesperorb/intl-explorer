@@ -156,4 +156,8 @@
 	code.hljs {
 		color: var(--white);
 	}
+	a {
+		text-decoration: none;
+		border-bottom: 2px solid var(--purple);
+	}
 </style>

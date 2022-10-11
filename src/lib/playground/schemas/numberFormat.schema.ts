@@ -8,8 +8,9 @@ import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 	method: 'NumberFormat',
 	primaryFormatter: 'format',
-	inputValue: 1091,
+	inputValues: [1091, 2000],
 	inputValueType: 'number',
+	secondaryFormatters:  ['formatToParts', "formatRange", "formatRangeToParts"],
 	invalidOptionCombos: {
 		'style:currency': Object.keys(numberFormatOptionsUnit),
 		'style:unit': Object.keys(numberFormatOptionsCurrency)

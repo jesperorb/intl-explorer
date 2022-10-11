@@ -3,7 +3,7 @@ import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 export const collatorSchema: PlaygroundSchema<'Collator'> = {
 	method: 'Collator',
 	primaryFormatter: 'compare',
-	inputValue: ['cat', 'hat', 'rat'],
+	inputValues: [["Z","a","z","ä","1","=","à"]],
 	inputValueType: 'array',
 	options: [
 		{
