@@ -12,8 +12,4 @@
 	.skip-link:focus {
 		transform: translateY(0);
 	}
-	a {
-		text-decoration: none;
-		border-bottom: 2px solid var(--purple);
-	}
 </style>

@@ -25,12 +25,8 @@ export type PlaygroundSchema<
 > = {
 	method: Method;
 	primaryFormatter: Formatter;
-	secondaryFormatters?: {
-		name: Formatter;
-		inputValues: any;
-		inputValueType: InputValueType;
-	}[];
-	inputValue: any;
+	secondaryFormatters?: Formatter[];
+	inputValues: any[];
 	inputValueType: InputValueType;
 	options: PlaygroundOption<Method>[];
 	invalidOptionCombos?: {

@@ -10,23 +10,25 @@
 		getItemsFromOption,
 		schemaToCode,
 		schemaToPrimaryFormatterOutput,
-		schemaToResolvedOptions
+		schemaToResolvedOptions,
+		schemaToSecondaryFormattersOutput
 	} from '$lib/playground/format.utils';
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { parseSchemaFromURL, setSchemaInURL } from '$lib/playground/url.utils';
-	import { formatMethods } from '$lib/format-methods';
+	import { formatMethods, type FormatMethodsKeys } from '$lib/format-methods';
 	import { listFormatSchema } from '$lib/playground/schemas/listFormat.schema';
 	import { schemas } from '$lib/playground/schemas';
 	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { languageByLocale } from '$lib/locale-data/locales';
-  import OptionSection from '$lib/components/ui/OptionSection.svelte';
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-  import DateTime from '$lib/components/ui/DateTime.svelte';
+	import OptionSection from '$lib/components/ui/OptionSection.svelte';
+	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import DateTime from '$lib/components/ui/DateTime.svelte';
+  import MdnLink from '$lib/components/ui/MDNLink.svelte';
 
 	export const prerender = false;
 	export const ssr = false;
@@ -43,6 +45,7 @@
 	}
 
 	const onChange = (event: any) => {
+		if (!schema) return;
 		const isRadioEvent = event.target.type === 'radio';
 		const optionName = event.target.name;
 		const optionValue = isRadioEvent
@@ -50,7 +53,6 @@
 			: event.target.value;
 		const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
 		const value = isRadioEvent ? radioValue : optionValue;
-		if (!schema) return;
 		const schemaOptions = schema.options.map((option) =>
 			option.name === optionName
 				? {
@@ -63,6 +65,11 @@
 			...schema,
 			options: schemaOptions
 		};
+		const isRelativeTimeUnit =
+			(schema.method as FormatMethodsKeys) === 'RelativeTimeFormat' && optionName === 'unit';
+		if (isRelativeTimeUnit) {
+			newSchema.inputValues[1] = optionValue;
+		}
 		schema = validateAndUpdateSchema(newSchema);
 		setSchemaInURL(schema);
 	};
@@ -71,19 +78,19 @@
 		const value = (event.target as HTMLInputElement).value;
 		if (schema?.inputValueType === 'array') {
 			const parsedValue = value.split(',');
-			schema.inputValue = parsedValue;
+			schema.inputValues[0] = parsedValue;
 		}
 		if (schema?.inputValueType === 'number') {
 			const parsed = parseInt(value, 10);
-			schema.inputValue = isNaN(parsed) ? 0 : parsed;
+			schema.inputValues[0] = isNaN(parsed) ? 0 : parsed;
 		}
 	};
 
 	const onChangeDate = (datetime: string) => {
 		if (schema?.inputValueType === 'date') {
-			schema.inputValue = datetime;
+			schema.inputValues[0] = datetime;
 		}
-	}
+	};
 
 	const onChangeSchema = (event: Event) => {
 		const value = (event.target as HTMLInputElement).value;
@@ -105,6 +112,10 @@
 
 <h1>Playground</h1>
 
+<p>
+	<MdnLink header={schema?.method ?? ""} />
+</p>
+
 {#if schema}
 	<div class="top">
 		<Select
@@ -121,13 +132,13 @@
 				id="inputValue"
 				label="Input value"
 				name="inputValue"
-				value={schema.inputValue.toString()}
+				value={schema.inputValues[0].toString()}
 				{onInput}
 				fullWidth
 			/>
 		{/if}
 		{#if schema.inputValueType === 'date'}
-			<DateTime defaultValue={schema.inputValue} onChange={onChangeDate} />
+			<DateTime defaultValue={schema.inputValues[0]} onChange={onChangeDate} />
 		{/if}
 		{#if browser}
 			<Select
@@ -154,7 +165,12 @@
 		<div class="grid">
 			{#each schema.options as option}
 				{#if option.inputType === 'select'}
-					<OptionSection labelId={option.name + "Select"} header={option.name} browserCompatData={data[schema.method]} stackedCompatView>
+					<OptionSection
+						labelId={option.name + 'Select'}
+						header={option.name}
+						browserCompatData={data[schema.method]}
+						stackedCompatView
+					>
 						<Select
 							{onChange}
 							name={option.name}
@@ -166,7 +182,12 @@
 					</OptionSection>
 				{/if}
 				{#if option.inputType === 'text'}
-					<OptionSection labelId={option.name} header={option.name} browserCompatData={data[schema.method]} stackedCompatView>
+					<OptionSection
+						labelId={option.name}
+						header={option.name}
+						browserCompatData={data[schema.method]}
+						stackedCompatView
+					>
 						<Input
 							id={option.name}
 							onInput={onChange}
@@ -177,7 +198,12 @@
 					</OptionSection>
 				{/if}
 				{#if option.inputType === 'radio'}
-					<OptionSection labelId={option.name} header={option.name} browserCompatData={data[schema.method]} stackedCompatView>
+					<OptionSection
+						labelId={option.name}
+						header={option.name}
+						browserCompatData={data[schema.method]}
+						stackedCompatView
+					>
 						<fieldset>
 							{#each getItemsFromOption(schema.method, option) as [name, value]}
 								<div class="radio">
@@ -232,6 +258,24 @@
 			{/if}
 		</div>
 	</details>
+
+	{#if schema.secondaryFormatters}
+		<details open id="secondaryFormatters">
+			<summary>
+				<h2>Secondary Formatters</h2>
+			</summary>
+			{#each schemaToSecondaryFormattersOutput(schema, $selectedLocale) as formatter}
+				<h3>{formatter.name}</h3>
+				<div>
+					{#if browser}
+						<Highlight language={typescript} code={formatter.output} />
+					{:else}
+						<Highlight language={typescript} code={formatter.output} />
+					{/if}
+				</div>
+			{/each}
+		</details>
+	{/if}
 {/if}
 
 <style>
@@ -249,6 +293,12 @@
 		.grid {
 			grid-template-columns: 1fr 1fr 1fr;
 		}
+		.top {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem;
+			margin-bottom: 1rem;
+		}
 	}
 	h1 {
 		margin: 0 0 1rem 0;
@@ -257,15 +307,6 @@
 		font-size: 1.25rem;
 		display: inline-block;
 		margin: 0.5rem 0;
-	}
-	.top {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		margin-bottom: 1rem;
-	}
-	.resolved {
-		margin-bottom: 4rem;
 	}
 
 	button {
