@@ -132,38 +132,6 @@
 		color: var(--white);
 		font-family: var(--font-family);
 	}
-
-	.token.comment {
-		color: var(--gray);
-	}
-
-	.token.punctuation {
-		color: var(--purple);
-	}
-
-	.token.operator {
-		color: var(--teal);
-	}
-
-	.token.key {
-		color: var(--white);
-	}
-
-	.token.function {
-		color: var(--light-blue);
-	}
-
-	.token.boolean {
-		color: var(--red);
-	}
-
-	.token.number {
-		color: var(--orange);
-	}
-
-	.token.string {
-		color: var(--green);
-	}
 	span.hljs-comment {
 		color: var(--gray);
 	}

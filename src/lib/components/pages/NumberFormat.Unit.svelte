@@ -4,9 +4,6 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
-	import HighlightSvelte from 'svelte-highlight';
-	import typescript from 'svelte-highlight/languages/typescript';
-	import nightowl from 'svelte-highlight/styles/oceanicnext';
 
 	import {
 		numberFormatOptionsCommon,
@@ -17,6 +14,7 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import { languageByLocale } from '$lib/locale-data/locales';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import Token from '../ui/Highlight/Token.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -34,10 +32,6 @@
 		);
 	};
 </script>
-
-<svelte:head>
-	{@html nightowl}
-</svelte:head>
 
 <h2>Input values</h2>
 
@@ -74,15 +68,25 @@ can also be used from
 	></strong
 >
 
-<HighlightSvelte
-	language={typescript}
-	code={`const numberToFormat = ${number}
-const formatted = numberToFormat.toLocaleString("${locale}", {
-  style: "unit",
-  unit: "${selectedUnit}"
-});
-// ${new Intl.NumberFormat(locale, {style: "unit", unit: selectedUnit }).format(number)}`}
-/>
+<code>
+	<pre>
+		<Token t="punctuation">const</Token><Token> numberToFormat = </Token>
+		<Token t="number">{number}</Token><Token>;</Token><br />
+		<Token t="punctuation">const</Token><Token> formatted = numberToFormat.</Token><Token t="function">toLocaleString</Token
+				><Token>(</Token><Token t="string">"{locale}"</Token><Token>, {`{`}</Token><br />
+		<Token t="number">style</Token><Token>:</Token><Token t="string"> "unit"</Token><Token>,</Token><br
+				/>
+		<Token t="number">unit</Token><Token>:</Token><Token t="string"> "{selectedUnit}"</Token><Token
+					>,</Token
+				><br />
+		<Token>{`}`});</Token><br />
+		<Token t="comment"
+					>// {new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(
+						number
+					)}</Token
+				>
+	</pre>
+</code>
 
 <h2>Output</h2>
 
@@ -109,3 +113,9 @@ const formatted = numberToFormat.toLocaleString("${locale}", {
 		</OptionSection>
 	{/each}
 </Grid>
+
+<style>
+	pre {
+		white-space: normal;
+	}
+</style>

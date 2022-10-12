@@ -3,11 +3,8 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
-	import HighlightSvelte from "svelte-highlight";
-	import typescript from 'svelte-highlight/languages/typescript';
-	import nightowl from 'svelte-highlight/styles/oceanicnext';
-
 	import {
+
 		datetimeFormatOptions,
 		getDateTimeFormatOptions
 	} from '$lib/format-options/datetime-format.options';
@@ -16,6 +13,7 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
   import DateTime from '../ui/DateTime.svelte';
+  import Token from '../ui/Highlight/Token.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -34,10 +32,6 @@
 		);
 	};
 </script>
-
-<svelte:head>
-	{@html nightowl}
-</svelte:head>
 
 <h2>Input values</h2>
 
@@ -65,12 +59,14 @@ can also be used from
 	></strong
 >
 
-<HighlightSvelte
-	language={typescript}
-	code={`const date = new Date("${dateTimeString}");
-const formatted = date.toLocaleString("${locale}", { dateStyle: "full" });
-// ${new Date(dateTimeString).toLocaleString(locale, { dateStyle: "full" } )}`}
-/>
+<code>
+	<pre>
+	<Token t="punctuation">const</Token><Token> date = </Token><Token t="punctuation">new</Token> <Token t="class">Date</Token><Token>(</Token>
+<Token t="string">"{dateTimeString}"</Token><Token>);</Token><br/>
+<Token t="punctuation">const</Token><Token> formatted = date.</Token><Token t="function">toLocaleString</Token><Token>(</Token><Token t="string">"{locale}"</Token><Token>);</Token><br/>
+<Token t="comment">// {new Date(dateTimeString).toLocaleString(locale)}</Token>
+	</pre>
+</code>
 
 <h2>Output</h2>
 
@@ -91,3 +87,9 @@ const formatted = date.toLocaleString("${locale}", { dateStyle: "full" });
 		</OptionSection>
 	{/each}
 </Grid>
+
+<style>
+	pre {
+		white-space: normal;
+	}
+</style>
