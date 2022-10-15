@@ -1,8 +1,10 @@
+
 # Intl Explorer
 
-> Intl Explorer is a tool for experimenting and trying out the [ECMAScript Internationalization API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl). The API is available under the namespace Intl in JavaScript and provides language sensitive string comparison, number formatting, and date and time formatting.
 
-![Screenshot of the live site](screenshot.png)
+Intl Explorer is an interactive tool for experimenting and trying out the [ECMAScript Internationalization API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl). The API is available under the namespace Intl in JavaScript and provides language sensitive string comparison, number formatting, and date and time formatting.
+
+<img width="1064" alt="Screenshot 2022-10-15 at 09 46 51" src="https://user-images.githubusercontent.com/21122051/195975711-8845dd28-7090-47e9-b366-525ad9091f65.png">
 
 ## Live site
 
