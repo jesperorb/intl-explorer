@@ -29,6 +29,7 @@
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 	import DateTime from '$lib/components/ui/DateTime.svelte';
   import MdnLink from '$lib/components/ui/MDNLink.svelte';
+  import CompatData from '$lib/components/ui/CompatData.svelte';
 
 	export const prerender = false;
 	export const ssr = false;
@@ -112,9 +113,13 @@
 
 <h1>Playground</h1>
 
-<p>
-	<MdnLink header={schema?.method ?? ""} />
-</p>
+{#if schema}
+	<p>
+		<MdnLink header={schema.method} />
+	</p>
+	{@debug schema}
+	<CompatData data={data[schema.method]} />
+{/if}
 
 {#if schema}
 	<div class="top">

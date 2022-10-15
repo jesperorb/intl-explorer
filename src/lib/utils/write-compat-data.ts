@@ -70,20 +70,12 @@ const getCompatDataWithBrowserData = (
 			const mobileVersionAdded = mobileVersion
 				? getPropertyFromSupportStatement(mobileVersion, 'version_added')
 				: undefined;
-			const mobileHasReleaseVersion = mobileVersionAdded && typeof versionAdded === 'string';
-			const mobileRelease = mobileHasReleaseVersion ? browser.releases[versionAdded] : undefined;
-			const hasReleaseVersion = versionAdded && typeof versionAdded === 'string';
-			const release = hasReleaseVersion ? browser.releases[versionAdded] : undefined;
-			const notes = getPropertyFromSupportStatement(data, 'notes');
 			const supportData: BrowserSupportWithReleaseData = {
 				browserName: browser.name,
 				versionAdded,
 				hasMobileEquivalent: Boolean(mobileVersion),
 				mobileVersionAdded,
-				notes,
-				release,
 				browserType: browser.type,
-				mobileRelease,
 				partialSupport: Boolean(mobileVersion) && !mobileVersionAdded
 			};
 			return [browserName, supportData];
@@ -137,20 +129,12 @@ const getCompatDataWithBrowserData = (
 				const mobileVersionAdded = mobileVersion
 					? getPropertyFromSupportStatement(mobileVersion, 'version_added')
 					: undefined;
-				const mobileHasReleaseVersion = mobileVersionAdded && typeof versionAdded === 'string';
-				const mobileRelease = mobileHasReleaseVersion ? browser.releases[versionAdded] : undefined;
-				const hasReleaseVersion = versionAdded && typeof versionAdded === 'string';
-				const release = hasReleaseVersion ? browser.releases[versionAdded] : undefined;
-				const notes = getPropertyFromSupportStatement(optionData, 'notes');
 				const supportData: BrowserSupportWithReleaseData = {
 					browserName: browser.name,
 					versionAdded,
 					hasMobileEquivalent: Boolean(mobileVersion),
 					mobileVersionAdded,
-					notes,
-					release,
 					browserType: browser.type,
-					mobileRelease,
 					partialSupport: Boolean(mobileVersion) && !mobileVersionAdded
 				};
 				return [browserName, supportData];
@@ -165,7 +149,6 @@ const getCompatDataWithBrowserData = (
 	return {
 		mdnUrl: compatDataForProperty?.mdn_url,
 		specUrl: compatDataForProperty?.spec_url,
-		status: compatDataForProperty?.status,
 		browserTypeHeaders: Object.values(headers),
 		support: Object.fromEntries(support) as BrowserSupportData,
 		optionsSupport: Object.fromEntries(options)
