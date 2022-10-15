@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
+	import { page, navigating} from '$app/stores';
 
 	import ListFormat from '$lib/components/pages/ListFormat.svelte';
 	import CompatData from '$lib/components/ui/CompatData.svelte';
@@ -10,6 +10,7 @@
 	import { selectedLocale } from '$lib/store/selected-locale';
 
 	import type { PageData } from './$types';
+  import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	export let data: PageData;
 
 	const locale = getLocaleForSSR($page);
@@ -18,6 +19,10 @@
 <svelte:head>
 	<title>ListFormat</title>
 </svelte:head>
+
+{#if $navigating }
+	<ProgressBar />
+{/if}
 
 <Header header="ListFormat" />
 
