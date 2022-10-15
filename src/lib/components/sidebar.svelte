@@ -153,13 +153,13 @@
 	}
 
 	@keyframes fadeIn {
-		0%    {opacity: 0; }
-		100%  {opacity: 1;}
+		0%    {opacity: 0; transform: translateX(-10px) }
+		100%  {opacity: 1; transform: translateX(0) }
 	}
 
 	@media (max-width: 900px) {
 		details[open] summary ~ * {
-  		animation: fadeIn .3s;
+  		animation: fadeIn .5s;
 		}
 	}
 </style>

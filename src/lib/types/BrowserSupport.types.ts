@@ -1,8 +1,5 @@
 import type {
-	BrowserName,
 	BrowserType,
-	ReleaseStatement,
-	StatusBlock,
 	VersionValue
 } from '@mdn/browser-compat-data';
 
@@ -15,12 +12,9 @@ export type BrowserTypeHeader = {
 export type BrowserSupportWithReleaseData = {
 	versionAdded: VersionValue;
 	mobileVersionAdded?: VersionValue;
-	notes?: string | string[];
-	release?: ReleaseStatement;
 	browserType: BrowserType;
 	browserName: string;
 	partialSupport: boolean;
-	mobileRelease?: ReleaseStatement;
 	hasMobileEquivalent: boolean;
 };
 
@@ -31,6 +25,5 @@ export type BrowserCompatData = {
 	mdnUrl?: string;
 	support: BrowserSupportData;
 	browserTypeHeaders: BrowserTypeHeader[];
-	status?: StatusBlock;
 	optionsSupport?: OptionsSupportData;
 };

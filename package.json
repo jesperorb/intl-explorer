@@ -22,7 +22,7 @@
 	"devDependencies": {
 		"@commitlint/cli": "^17.1.2",
 		"@commitlint/config-conventional": "^17.1.0",
-		"@mdn/browser-compat-data": "^5.2.3",
+		"@mdn/browser-compat-data": "5.2.6",
 		"@playwright/test": "^1.26.1",
 		"@sveltejs/adapter-vercel": "1.0.0-next.78",
 		"@sveltejs/kit": "1.0.0-next.513",
