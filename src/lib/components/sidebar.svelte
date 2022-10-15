@@ -157,9 +157,8 @@
 		100%  {opacity: 1; transform: translateX(0) }
 	}
 
-	@media (max-width: 900px) {
-		details[open] summary ~ * {
-  		animation: fadeIn .5s;
-		}
+	details[open] summary ~ * {
+  	animation: fadeIn .3s;
 	}
+
 </style>

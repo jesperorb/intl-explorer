@@ -2,7 +2,7 @@
 	import Sidebar from '$lib/components/sidebar.svelte';
 	import Main from '$lib/components/ui/Main.svelte';
 	import { selectedLocale } from '$lib/store/selected-locale';
-	import { page } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
   import SkipLink from '$lib/components/ui/SkipLink.svelte';

@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
+	import { navigating, page } from '$app/stores';
 
 	import Collator from '$lib/components/pages/Collator.svelte';
 	import CompatData from '$lib/components/ui/CompatData.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
+  import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
@@ -19,6 +20,9 @@
 	<title>Collator</title>
 </svelte:head>
 
+{#if $navigating }
+	<ProgressBar />
+{/if}
 <Header header="Collator" />
 
 <CompatData optionsType="support" {data} />

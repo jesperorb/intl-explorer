@@ -14,7 +14,7 @@
 		schemaToSecondaryFormattersOutput
 	} from '$lib/playground/format.utils';
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
-	import { page } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { parseSchemaFromURL, setSchemaInURL } from '$lib/playground/url.utils';
@@ -29,6 +29,7 @@
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 	import DateTime from '$lib/components/ui/DateTime.svelte';
   import MdnLink from '$lib/components/ui/MDNLink.svelte';
+  import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 
 	export const prerender = false;
 	export const ssr = false;
@@ -109,6 +110,10 @@
 	<title>Playground</title>
 	{@html nightowl}
 </svelte:head>
+
+{#if $navigating }
+	<ProgressBar />
+{/if}
 
 <h1>Playground</h1>
 
