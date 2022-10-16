@@ -1,7 +1,4 @@
-import type {
-	BrowserType,
-	VersionValue
-} from '@mdn/browser-compat-data';
+import type { BrowserType, VersionValue } from '@mdn/browser-compat-data';
 
 export type BrowserTypeHeader = {
 	start: number;

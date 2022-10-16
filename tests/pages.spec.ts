@@ -227,53 +227,52 @@ test('a11y', async ({ page, browserName }) => {
 		detailedReport: true,
 		detailedReportOptions: { html: true }
 	};
-	await page.goto("/");
+	await page.goto('/');
 	await page.waitForTimeout(300);
 	await injectAxe(page);
 	await test.step('DateTimeFormat why no work', async () => {
 		test.skip();
 		await page.locator(`[data-testid="navigation"] a:has-text("DateTimeFormat")`).click();
 		await page.waitForNavigation({ url: '**/DateTimeFormat' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 	await test.step('RelativeTimeFormat', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("RelativeTimeFormat")`).click();
 		await page.waitForNavigation({ url: '**/RelativeTimeFormat' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 	await test.step('NumberFormat/Currency', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("NumberFormat/Currency")`).click();
 		await page.waitForNavigation({ url: '**/NumberFormat/Currency' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 	await test.step('NumberFormat/Unit', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("NumberFormat/Unit")`).click();
 		await page.waitForNavigation({ url: '**/NumberFormat/Unit' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 	await test.step('ListFormat', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("ListFormat")`).click();
 		await page.waitForNavigation({ url: '**/ListFormat' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 	await test.step('PluralRules', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("PluralRules")`).click();
 		await page.waitForNavigation({ url: '**/PluralRules' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 	await test.step('Collator', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("Collator")`).click();
-		await page.waitForNavigation({ url: '**/Collator' }),
-		await checkA11y(page, undefined, options);
+		await page.waitForNavigation({ url: '**/Collator' }), await checkA11y(page, undefined, options);
 	});
 	await test.step('Segmenter', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("Segmenter")`).click();
 		await page.waitForNavigation({ url: '**/Segmenter' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 	await test.step('Playground', async () => {
 		await page.locator(`[data-testid="navigation"] a:has-text("Playground")`).click();
 		await page.waitForNavigation({ url: '**/Playground' }),
-		await checkA11y(page, undefined, options);
+			await checkA11y(page, undefined, options);
 	});
 });

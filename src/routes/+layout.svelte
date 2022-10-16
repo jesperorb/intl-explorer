@@ -1,24 +1,36 @@
 <script lang="ts">
-	import Sidebar from '$lib/components/sidebar.svelte';
-	import Main from '$lib/components/ui/Main.svelte';
-	import { selectedLocale } from '$lib/store/selected-locale';
+	import type { Page } from '@sveltejs/kit';
+	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
-	import { browser } from '$app/environment';
-	import { getLocaleForSSR } from '$lib/utils/get-locale';
-  import SkipLink from '$lib/components/ui/SkipLink.svelte';
 
-	const locale = getLocaleForSSR($page);
+	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Main from '$lib/components/ui/Main.svelte';
+	import SkipLink from '$lib/components/ui/SkipLink.svelte';
+	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
+	import Header from '$lib/components/ui/Header.svelte';
+
+	let routeId: FormatMethodsKeys;
+	const getRouteId = (page: Page<Record<string, string>>): void => {
+		routeId = page.routeId as FormatMethodsKeys;
+	};
+	$: getRouteId($page);
 </script>
+
+<svelte:head>
+	<title>{routeId ?? 'Intl Explorer'}</title>
+</svelte:head>
 
 <SkipLink />
 
-{#if browser}
-	<Sidebar bind:locale={$selectedLocale} />
-{:else}
-	<Sidebar {locale} />
-{/if}
+<Sidebar />
 
 <Main>
+	{#if $navigating}
+		<ProgressBar />
+	{/if}
+	{#if routeId}
+		<Header header={routeId} />
+	{/if}
 	<slot />
 </Main>
 
@@ -59,7 +71,9 @@
 		line-height: 1.5;
 		width: 100%;
 	}
-	h1, h2, h3 {
+	h1,
+	h2,
+	h3 {
 		margin-bottom: 1rem;
 		margin-top: 0;
 	}

@@ -13,3 +13,4 @@ package-lock.json
 yarn.lock
 format.utils.ts
 static/*.json
+/.vercel

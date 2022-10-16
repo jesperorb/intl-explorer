@@ -38,5 +38,6 @@
 		border-radius: 4px;
 		background-color: white;
 		padding: 0.5rem;
+		font-family: var(--font-family);
 	}
 </style>
