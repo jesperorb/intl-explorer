@@ -3,7 +3,7 @@
 	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
 
-	import Sidebar from '$lib/components/sidebar1.svelte';
+	import Sidebar from '$lib/components/Sidebar.svelte';
 	import Main from '$lib/components/ui/Main.svelte';
 	import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
