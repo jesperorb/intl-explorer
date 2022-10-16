@@ -3,9 +3,9 @@ import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 export const relativeTimeFormatSchema: PlaygroundSchema<'RelativeTimeFormat'> = {
 	method: 'RelativeTimeFormat',
 	primaryFormatter: 'format',
-	inputValues: [2, "days"],
+	inputValues: [2, 'days'],
 	inputValueType: 'number',
-	secondaryFormatters: ["formatToParts"],
+	secondaryFormatters: ['formatToParts'],
 	options: [
 		{
 			name: 'unit' as keyof Intl.RelativeTimeFormatOptions,

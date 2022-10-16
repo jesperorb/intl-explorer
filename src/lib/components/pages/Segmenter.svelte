@@ -4,13 +4,14 @@
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
+  import Spacer from '$lib/components/ui/Spacer.svelte';
 
 	import type { OptionValues } from '$lib/types/OptionValues.types';
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
   import { languageByLocale } from '$lib/locale-data/locales';
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;

@@ -1,11 +1,10 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { page, navigating } from '$app/stores';
+  import { page } from '$app/stores';
 
 	import DateTimeFormat from '$lib/components/pages/DateTimeFormat.svelte';
 	import CompatData from '$lib/components/ui/CompatData.svelte';
-	import Header from '$lib/components/ui/Header.svelte';
-  import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
+  import Spacer from '$lib/components/ui/Spacer.svelte';
 
   import { selectedLocale } from '$lib/store/selected-locale';
   import { getLocaleForSSR } from '$lib/utils/get-locale';
@@ -17,17 +16,8 @@
 
 </script>
 
-<svelte:head>
-	<title>DateTimeFormat</title>
-</svelte:head>
-
-{#if $navigating }
-	<ProgressBar />
-{/if}
-
-<Header header="DateTimeFormat" />
-
 <CompatData optionsType="support" {data} />
+<Spacer />
 
 {#if browser}
 	<DateTimeFormat browserCompatData={data}  bind:locale={$selectedLocale} />

@@ -6,10 +6,11 @@
 	import { routes } from '$lib/routes';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
-
-	export let locale: string;
+  import { getLocaleForSSR } from '$lib/utils/get-locale';
+  import { selectedLocale } from '$lib/store/selected-locale';
 
 	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
+	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
 
 	let isDesktop = Boolean(matchMedia?.matches);
 	let open = isDesktop;

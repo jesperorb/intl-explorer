@@ -10,7 +10,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 	primaryFormatter: 'format',
 	inputValues: [1091, 2000],
 	inputValueType: 'number',
-	secondaryFormatters:  ['formatToParts', "formatRange", "formatRangeToParts"],
+	secondaryFormatters: ['formatToParts', 'formatRange', 'formatRangeToParts'],
 	invalidOptionCombos: {
 		'style:currency': Object.keys(numberFormatOptionsUnit),
 		'style:unit': Object.keys(numberFormatOptionsCurrency)
