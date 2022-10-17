@@ -3,6 +3,7 @@ import { writeFile } from 'node:fs';
 import { resolve } from 'node:path';
 import bcd, {
 	type BrowserName,
+	type Browsers,
 	type BrowserType,
 	type CompatData,
 	type Identifier,
@@ -42,48 +43,59 @@ const getPropertyFromSupportStatement = <Key extends keyof SimpleSupportStatemen
 	return statement[key];
 };
 
-const getCompatDataWithBrowserData = (
-	compatData: CompatData,
-	property: FormatMethodsKeys
-): BrowserCompatData => {
-	const compatDataForProperty = compatData.javascript.builtins.Intl[property].__compat;
-	let filteredOptions = Object.entries(
-		compatData.javascript.builtins.Intl[property][property]
-	).filter(([key]) => key.includes('options'));
-	if (filteredOptions && filteredOptions[0] && filteredOptions[0][0] === 'options_parameter') {
-		filteredOptions = Object.entries(filteredOptions[0][1]).filter(([key]) =>
-			key.includes('options')
-		) as any;
+const getSupportDataForProperty = (value: Identifier) => {
+	return Object.entries(value.__compat?.support ?? {}) as [BrowserName, SupportStatement][];
+};
+
+const getOptionsForProperty = (compatData: CompatData, property: FormatMethodsKeys) => {
+	const allPropertiesOnMethod = compatData.javascript.builtins.Intl[property][property];
+	const options = Object.entries(allPropertiesOnMethod).filter(([key]) => key.includes('options'));
+	const hasNestedObjectProperty = options && options[0] && options[0][0] === 'options_parameter';
+	if (hasNestedObjectProperty) {
+		return Object.entries(options[0][1]).filter(([key]) => key.includes('options'));
 	}
-	const { browsers } = compatData;
-	const supportObject = compatDataForProperty?.support ?? {};
-	const support = (Object.entries(supportObject) as [BrowserName, SupportStatement][])
-		.filter(([browserName]) => !excludedBrowserNames.includes(browserName))
-		.map(([browserName, data]) => {
-			const versionAdded = getPropertyFromSupportStatement(data, 'version_added');
-			const browser = browsers[browserName];
-			const mobileBrowserName = desktopToMobileName[browserName];
-			const mobileVersion =
-				browser.type === 'desktop' && mobileBrowserName
-					? supportObject[mobileBrowserName]
-					: undefined;
-			const mobileVersionAdded = mobileVersion
-				? getPropertyFromSupportStatement(mobileVersion, 'version_added')
+	return options;
+};
+
+const browserToSupportData =
+	(browsers: Browsers) =>
+	(
+		[browserName, data]: [BrowserName, SupportStatement],
+		_index: number,
+		array: [BrowserName, SupportStatement][]
+	): [BrowserName, BrowserSupportWithReleaseData] => {
+		const versionAdded = getPropertyFromSupportStatement(data, 'version_added');
+		const browser = browsers[browserName];
+		const mobileBrowserName = desktopToMobileName[browserName];
+		const mobileVersion =
+			browser.type === 'desktop' && mobileBrowserName
+				? array.find(([name]) => name === mobileBrowserName)
 				: undefined;
-			const supportData: BrowserSupportWithReleaseData = {
-				browserName: browser.name,
-				versionAdded,
-				hasMobileEquivalent: Boolean(mobileVersion),
-				mobileVersionAdded,
-				browserType: browser.type,
-				partialSupport: Boolean(mobileVersion) && !mobileVersionAdded
-			};
-			return [browserName, supportData];
-		}) as [BrowserName, BrowserSupportWithReleaseData][];
-	support.sort(
-		([, aData], [, bData]) =>
-			browserTypePosition[aData.browserType] - browserTypePosition[bData.browserType]
-	);
+		const mobileVersionAdded = mobileVersion
+			? getPropertyFromSupportStatement(mobileVersion[1], 'version_added')
+			: undefined;
+		const supportData: BrowserSupportWithReleaseData = {
+			browserName: browser.name,
+			versionAdded,
+			hasMobileEquivalent: Boolean(mobileVersion),
+			mobileVersionAdded,
+			browserType: browser.type,
+			partialSupport: Boolean(mobileVersion) && !mobileVersionAdded
+		};
+		return [browserName, supportData];
+	};
+
+const sortCompatData = (
+	[, aData]: [BrowserName, BrowserSupportWithReleaseData],
+	[, bData]: [BrowserName, BrowserSupportWithReleaseData]
+) => {
+	return browserTypePosition[aData.browserType] - browserTypePosition[bData.browserType];
+};
+
+const filterExludedBrowsers = ([browserName]: [BrowserName, SupportStatement]) =>
+	!excludedBrowserNames.includes(browserName);
+
+const createHeaders = (support: [BrowserName, BrowserSupportWithReleaseData][]) => {
 	const headers: Partial<Record<BrowserType, BrowserTypeHeader>> = {};
 	for (let index = 0; index < support.length; index++) {
 		const previous = support[index - 1];
@@ -99,57 +111,39 @@ const getCompatDataWithBrowserData = (
 		}
 		if (previousBrowserType && diff && index !== 0) {
 			if (headers[previousBrowserType]) {
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				//@ts-ignore
-				headers[previousBrowserType].end = index + 1;
+				(headers[previousBrowserType] as BrowserTypeHeader).end = index + 1;
 			}
 		}
 		if (index === support.length - 1 && previousBrowserType && headers[previousBrowserType]) {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			//@ts-ignore
-			headers[previousBrowserType].end = support.length + 1;
+			(headers[previousBrowserType] as BrowserTypeHeader).end = support.length + 1;
 		}
 	}
-	// TODO: Makes this more generic
-	const options = filteredOptions.map(([key, value]) => {
-		const optionsCompat = (value as Identifier).__compat;
-		const supportObjectForOption = optionsCompat?.support ?? {};
-		const formattedOptions = (
-			Object.entries(supportObjectForOption) as [BrowserName, SupportStatement][]
-		)
-			.filter(([browserName]) => !excludedBrowserNames.includes(browserName))
-			.map(([browserName, optionData]) => {
-				const versionAdded = getPropertyFromSupportStatement(optionData, 'version_added');
-				const browser = browsers[browserName];
-				const mobileBrowserName = desktopToMobileName[browserName];
-				const mobileVersion =
-					browser.type === 'desktop' && mobileBrowserName
-						? supportObjectForOption[mobileBrowserName]
-						: undefined;
-				const mobileVersionAdded = mobileVersion
-					? getPropertyFromSupportStatement(mobileVersion, 'version_added')
-					: undefined;
-				const supportData: BrowserSupportWithReleaseData = {
-					browserName: browser.name,
-					versionAdded,
-					hasMobileEquivalent: Boolean(mobileVersion),
-					mobileVersionAdded,
-					browserType: browser.type,
-					partialSupport: Boolean(mobileVersion) && !mobileVersionAdded
-				};
-				return [browserName, supportData];
-			}) as [BrowserName, BrowserSupportWithReleaseData][];
+	return headers;
+}
+
+const getCompatDataWithBrowserData = (
+	compatData: CompatData,
+	property: FormatMethodsKeys
+): BrowserCompatData => {
+	const { browsers } = compatData;
+	const propertyData = compatData.javascript.builtins.Intl[property];
+	const support = getSupportDataForProperty(propertyData)
+		.filter(filterExludedBrowsers)
+		.map(browserToSupportData(browsers))
+		.sort(sortCompatData);
+	const options = getOptionsForProperty(compatData, property).map(([key, value]) => {
+		const supportDataForOption = getSupportDataForProperty(value as Identifier);
+		const formattedOptions = supportDataForOption
+			.filter(filterExludedBrowsers)
+			.map(browserToSupportData(browsers))
+			.sort(sortCompatData);
 		const [, option] = key.split('_');
-		formattedOptions.sort(
-			([, aData], [, bData]) =>
-				browserTypePosition[aData.browserType] - browserTypePosition[bData.browserType]
-		);
 		return [option, Object.fromEntries(formattedOptions)];
 	});
 	return {
-		mdnUrl: compatDataForProperty?.mdn_url,
-		specUrl: compatDataForProperty?.spec_url,
-		browserTypeHeaders: Object.values(headers),
+		mdnUrl: propertyData?.__compat?.mdn_url,
+		specUrl: propertyData?.__compat?.spec_url,
+		browserTypeHeaders: Object.values(createHeaders(support)),
 		support: Object.fromEntries(support) as BrowserSupportData,
 		optionsSupport: Object.fromEntries(options)
 	};
