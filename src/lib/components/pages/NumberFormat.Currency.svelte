@@ -4,9 +4,8 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
-	import HighlightSvelte from "svelte-highlight";
-	import typescript from 'svelte-highlight/languages/typescript';
-	import nightowl from 'svelte-highlight/styles/oceanicnext';
+  import Token from '../ui/Highlight/Token.svelte';
+  import CodeBlock from '../ui/CodeBlock.svelte';
 
 	import { currencies } from '$lib/locale-data/currencies';
 	import { numberFormatOptionsCommon, numberFormatOptionsCurrency } from '$lib/format-options/number-format.options';
@@ -31,10 +30,6 @@
 		);
 	};
 </script>
-
-<svelte:head>
-	{@html nightowl}
-</svelte:head>
 
 <h2>Input values</h2>
 
@@ -70,15 +65,19 @@ can also be used from
 	></strong
 >
 
-<HighlightSvelte
-	language={typescript}
-	code={`const numberToFormat = ${number};
-const formatted = numberToFormat.toLocaleString("${locale}", {
-  style: "currency",
-  unit: "${selectedCurrency}"
-});
-// ${new Intl.NumberFormat(locale, {style: 'currency', currency: selectedCurrency}).format(number)}`}
-/>
+<CodeBlock>
+	<Token t="punctuation">const </Token><Token> numberToFormat =</Token>
+	<Token t="number">{` ${number}`}</Token><Token>;</Token><br />
+	<Token t="punctuation">const </Token><Token> formatted = numberToFormat.</Token><Token t="function"
+				>toLocaleString</Token
+			><Token>(</Token><Token t="string">"{locale}"</Token>
+	<Token>);</Token><br />
+	<Token t="comment"
+				>// {new Intl.NumberFormat(locale, { style: 'currency', currency: selectedCurrency }).format(
+					number
+				)}</Token
+			>
+</CodeBlock>
 
 <h2>Output</h2>
 
