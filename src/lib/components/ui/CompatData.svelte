@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-	import Icon from '$lib/components/ui/icons/Icon.svelte';
-	import BrowserType from './icons/BrowserType.svelte';
 	import type { VersionValue } from '@mdn/browser-compat-data';
 	import { browser } from '$app/environment';
 	import { onDestroy, onMount } from 'svelte';
@@ -75,12 +73,18 @@
 				{#each desktopBrowsers as [browserName, browserData]}
 					<div>
 						<span
-							class="browser-name browser-supported"
-							class:browser-partial-support={browserData.partialSupport}
 							aria-hidden="true"
-							class:browser-unsupported={!browserData.versionAdded}
 						>
-							<Icon {browserName} />
+							<img
+								height="16"
+								width="16"
+								src="/icons/{browserName}_{browserData.partialSupport
+									? 'partial_support'
+									: browserData.versionAdded
+									? 'supported'
+									: 'unsupported'}.svg"
+								alt=""
+							/>
 						</span>
 						<span class="sr-only"
 							>{getAriaLabel(browserData.browserName, browserData.versionAdded)}</span
@@ -104,14 +108,25 @@
 					title={header.name}
 				>
 					<span>
-						<BrowserType browserType={header.name} />
+						<img height="16" width="16" src="/icons/{header.name}.svg" alt="" />
 					</span>
 				</div>
 			{/each}
 			{#each compatData as [browserName, browserData]}
 				<div class="browser" class:browser-media-desktop={isDesktop}>
 					<span class="browser-name" aria-hidden="true" title={browserData.browserName}>
-						<Icon {browserName} />
+						<img
+							height="16"
+							width="16"
+							src="/icons/{browserName
+								.replace('_android', '')
+								.replace('_ios', '')}_{browserData.partialSupport
+								? 'partial_support'
+								: browserData.versionAdded
+								? 'supported'
+								: 'unsupported'}.svg"
+							alt={browserName}
+						/>
 					</span>
 					<span class="sr-only"
 						>{getAriaLabel(browserData.browserName, browserData.versionAdded)}</span
@@ -120,9 +135,8 @@
 						<span>{browserData.browserName}</span>
 					{/if}
 					<span
-						class="browser-version browser-supported"
+						class="browser-version"
 						class:browser-version-version-media-desktop={isDesktop}
-						class:browser-unsupported={!browserData.versionAdded}
 						aria-hidden="true"
 					>
 						{!browserData.versionAdded ? 'No' : browserData.versionAdded}
@@ -140,9 +154,6 @@
 
 <style>
 	:root {
-		--unsupported: hsl(344, 100%, 40%);
-		--supported: hsl(147, 100%, 24%);
-		--partial: hsl(46, 100%, 40%);
 		--border-color: hsl(0, 0%, 80%);
 		--icon-color: hsl(0, 0%, 50%);
 	}
@@ -155,6 +166,7 @@
 	label {
 		margin-bottom: 0.5rem;
 	}
+
 	.desktop-compat-data-summary {
 		display: inline-flex;
 	}
@@ -180,9 +192,6 @@
 		border-bottom: 1px solid var(--border-color);
 	}
 
-	.browser-name {
-		margin-top: 2px;
-	}
 	.browser:last-of-type {
 		border-bottom: none;
 		border-right: none;
@@ -201,16 +210,6 @@
 	.browser-version {
 		font-size: 0.85rem;
 	}
-	.browser-supported {
-		color: var(--supported);
-	}
-	.browser-partial-support {
-		color: var(--partial);
-	}
-	.browser-unsupported {
-		color: var(--unsupported);
-	}
-
 	.browser-media-desktop {
 		display: grid;
 		align-items: center;
