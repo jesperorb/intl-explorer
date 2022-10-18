@@ -3,8 +3,10 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
+	import DateTime from '../ui/DateTime.svelte';
+	import Token from '../ui/Highlight/Token.svelte';
+	import CodeBlock from '../ui/CodeBlock.svelte';
 	import {
-
 		datetimeFormatOptions,
 		getDateTimeFormatOptions
 	} from '$lib/format-options/datetime-format.options';
@@ -12,8 +14,6 @@
 	import { languageByLocale } from '$lib/locale-data/locales';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-  import DateTime from '../ui/DateTime.svelte';
-  import Token from '../ui/Highlight/Token.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -22,7 +22,7 @@
 
 	const onChange = (dateTime: string) => {
 		dateTimeString = dateTime;
-	}
+	};
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -44,8 +44,7 @@
 	bind:value={locale}
 />
 
-<DateTime defaultValue={dateTimeString} onChange={onChange} />
-
+<DateTime defaultValue={dateTimeString} {onChange} />
 
 <h2>Alternative use</h2>
 
@@ -59,20 +58,20 @@ can also be used from
 	></strong
 >
 
-<code>
-	<pre>
-	<Token t="punctuation">const</Token><Token> date = </Token><Token t="punctuation">new</Token> <Token t="class">Date</Token><Token>(</Token>
-<Token t="string">"{dateTimeString}"</Token><Token>);</Token><br/>
-<Token t="punctuation">const</Token><Token> formatted = date.</Token><Token t="function">toLocaleString</Token><Token>(</Token><Token t="string">"{locale}"</Token><Token>);</Token><br/>
-<Token t="comment">// {new Date(dateTimeString).toLocaleString(locale)}</Token>
-	</pre>
-</code>
+<CodeBlock>
+	<Token t="punctuation">const </Token><Token>date = </Token><Token t="punctuation">new </Token><Token t="class">Date</Token><Token>(</Token>
+	<Token t="string">"{dateTimeString}"</Token><Token>);</Token><br />
+	<Token t="punctuation">const </Token><Token>formatted = date.</Token><Token t="function"
+		>toLocaleString</Token
+	><Token>(</Token><Token t="string">"{locale}"</Token><Token>);</Token><br />
+	<Token t="comment">// {new Date(dateTimeString).toLocaleString(locale)}</Token>
+</CodeBlock>
 
 <h2>Output</h2>
 
 <Grid>
 	{#each Object.entries(datetimeFormatOptions) as [option, values]}
-		<OptionSection header={option} browserCompatData={browserCompatData} stackedCompatView>
+		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
 					<Highlight
@@ -87,9 +86,3 @@ can also be used from
 		</OptionSection>
 	{/each}
 </Grid>
-
-<style>
-	pre {
-		white-space: normal;
-	}
-</style>

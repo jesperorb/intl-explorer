@@ -10,9 +10,7 @@
 		| 'class' = 'key';
 </script>
 
-<span class="token {t}">
-	<slot />
-</span>
+<span class="token {t}"><slot /></span>
 
 <style>
 	.token.comment {

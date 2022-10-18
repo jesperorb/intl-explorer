@@ -1,5 +1,6 @@
 <script lang="ts">
 	import HighlightValue from '$lib/components/ui/HighlightValue.svelte';
+  import CodeBlock from './CodeBlock.svelte';
 	import Token from './Highlight/Token.svelte';
 	type OptionValues = { [key: string]: number | boolean | string };
 
@@ -12,22 +13,18 @@
 </script>
 
 <div class="highlight">
-	<code>
-		<pre>
-			<Token t="punctuation">{'{'}</Token>
-			{#each Object.entries(values) as [key, value]}
-				<Token t="key">{key}</Token><Token t="operator">:</Token>
-				<HighlightValue
-					{value}
-				/>
-				{#if Object.keys(values).length > 1}
-					<Token t="punctuation">, </Token>
-				{/if}
-			{/each}
-			<Token t="punctuation">{'}'}</Token><br />
-			<Token t="comment">// {output}</Token>
-		</pre>
-	</code>
+	<CodeBlock>
+		<Token t="punctuation">{'{ '}</Token>
+		{#each Object.entries(values) as [key, value]}
+			<Token t="key">{key}</Token><Token t="operator">{`:`}</Token>
+			<HighlightValue {value} />
+			{#if Object.keys(values).length > 1}
+				<Token t="punctuation">{`, `}</Token>
+			{/if}
+		{/each}
+		<Token t="punctuation">{` }`}</Token><br />
+		<Token t="comment">// {output}</Token>
+	</CodeBlock>
 	<button
 		class="copy"
 		aria-label="Copy values for options: {JSON.stringify(values)}"
@@ -54,8 +51,5 @@
 	}
 	.copy:hover {
 		background-color: rgb(14, 73, 121);
-	}
-	pre {
-		white-space: normal;
 	}
 </style>

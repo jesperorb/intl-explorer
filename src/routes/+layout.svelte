@@ -118,25 +118,13 @@
 	code * {
 		font-family: var(--code-font-family);
 	}
-	code {
-		margin: 0;
-	}
-	pre {
-		line-height: 1.5;
-		padding: var(--spacing-1);
-		background-color: #1b2b34;
-		font-size: 0.85rem;
-		border-radius: 0.5rem;
-		overflow-x: auto;
-		margin-bottom: var(--spacing-1);
-		color: var(--white);
-		font-family: var(--font-family);
-	}
 	span.hljs-comment {
 		color: var(--gray);
 	}
 	code.hljs {
 		color: var(--white);
+		border-radius: 8px;
+		font-size: 0.85rem;
 	}
 	a {
 		text-decoration: none;

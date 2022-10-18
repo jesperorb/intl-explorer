@@ -61,7 +61,7 @@ export class IntlPage {
 	}
 
 	public async getCodeBlockByTitle(title: string) {
-		return this.page.locator(`[data-testid="option-section-${title}"] pre`).first();
+		return this.page.locator(`[data-testid="option-section-${title}"] code`).first();
 	}
 
 	public async assertCodeBlockContent(title: string, content: string) {
@@ -108,19 +108,19 @@ test('DateTimeFormat', async ({ page, browserName, baseURL }, { title }) => {
 	await intlPage.assertMDNLink();
 	await intlPage.assertCodeBlockContent(
 		'dateStyle',
-		`{ dateStyle: "full" }\n// Sunday, April 24, 2022`
+		`{  dateStyle: "full"   } // Sunday, April 24, 2022`
 	);
 	await intlPage.selectLocale('sv');
 	await intlPage.assertUrlLocale('sv');
 	await intlPage.assertCodeBlockContent(
 		'dateStyle',
-		`{ dateStyle: "full" }\n// söndag 24 april 2022`
+		`{  dateStyle: "full"   } // söndag 24 april 2022`
 	);
 	await page.locator('input[type="date"]').click();
 	await page.locator('input[type="date"]').fill('2022-04-04');
 	await intlPage.assertCodeBlockContent(
 		'dateStyle',
-		`{ dateStyle: "full" }\n// måndag 4 april 2022`
+		`{  dateStyle: "full"   } // måndag 4 april 2022`
 	);
 });
 
@@ -136,29 +136,29 @@ test('RelativeTimeFormat', async ({ page, browserName, baseURL }, { title }) => 
 	await intlPage.assertMDNLink();
 	await intlPage.assertCodeBlockContent(
 		'unit',
-		`{ value: "year", style: "long", numeric: "auto", }\n// in 2 years`
+		`{  value: "year" , style: "long" , numeric: "auto" ,   } // in 2 years`
 	);
 	await intlPage.selectLocale('sv');
 	await intlPage.assertUrlLocale('sv');
 	await intlPage.assertCodeBlockContent(
 		'unit',
-		`{ value: "year", style: "long", numeric: "auto", }\n// om 2 år`
+		`{  value: "year" , style: "long" , numeric: "auto" ,   } // om 2 år`
 	);
 	await intlPage.page.locator('input[type="text"]').fill('10');
 	await intlPage.assertCodeBlockContent(
 		'unit',
-		`{ value: "year", style: "long", numeric: "auto", }\n// om 10 år`
+		`{  value: "year" , style: "long" , numeric: "auto" ,   } // om 10 år`
 	);
 	await page.locator('#styleNarrow').check();
 	await intlPage.assertCodeBlockContent(
 		'unit',
-		`{ value: "year", style: "narrow", numeric: "auto", }\n// +10 år`
+		`{  value: "year" , style: "narrow" , numeric: "auto" ,   } // +10 år`
 	);
 	await intlPage.page.locator('input[type="text"]').fill('1');
 	await page.locator('#numericAlways').check();
 	await intlPage.assertCodeBlockContent(
 		'unit',
-		`{ value: "year", style: "narrow", numeric: "always", }\n// +1 år`
+		`{  value: "year" , style: "narrow" , numeric: "always" ,   } // +1 år`
 	);
 });
 
@@ -174,13 +174,13 @@ test('ListFormat', async ({ page, browserName, baseURL }, { title }) => {
 	await intlPage.assertMDNLink();
 	await intlPage.assertCodeBlockContent(
 		'type',
-		`{ type: "conjunction" }\n// Miso, Sesam, and Mami`
+		`{  type: "conjunction"   } // Miso, Sesam, and Mami`
 	);
 	await intlPage.selectLocale('sv');
 	await intlPage.assertUrlLocale('sv');
-	await intlPage.assertCodeBlockContent('type', `{ type: "conjunction" }\n// Miso, Sesam och Mami`);
+	await intlPage.assertCodeBlockContent('type', `{  type: "conjunction"   } // Miso, Sesam och Mami`);
 	await page.locator('input[type="text"]').fill('Miso,Sesam');
-	await intlPage.assertCodeBlockContent('type', `{ type: "conjunction" }\n// Miso och Sesam`);
+	await intlPage.assertCodeBlockContent('type', `{  type: "conjunction"   } // Miso och Sesam`);
 });
 
 test('PluralRules', async ({ page, browserName, baseURL }, { title }) => {
@@ -193,12 +193,12 @@ test('PluralRules', async ({ page, browserName, baseURL }, { title }) => {
 	await intlPage.goToPage();
 	await intlPage.assertTitle();
 	await intlPage.assertMDNLink();
-	await intlPage.assertCodeBlockContent('cardinal', `{ value: 1, type: "cardinal", }\n// one`);
+	await intlPage.assertCodeBlockContent('cardinal', `{  value: 1 , type: "cardinal" ,   } // one`);
 	await intlPage.selectLocale('sv');
 	await intlPage.assertUrlLocale('sv');
-	await intlPage.assertCodeBlockContent('cardinal', `{ value: 1, type: "cardinal", }\n// one`);
+	await intlPage.assertCodeBlockContent('cardinal', `{  value: 1 , type: "cardinal" ,   } // one`);
 	await page.locator('#typeOrdinal').check();
-	await intlPage.assertCodeBlockContent('ordinal', `{ value: 1, type: "ordinal", }\n// one`);
+	await intlPage.assertCodeBlockContent('ordinal', `{  value: 1 , type: "ordinal" ,   } // one`);
 });
 
 test('Playground', async ({ page, browserName, baseURL }, { title }) => {

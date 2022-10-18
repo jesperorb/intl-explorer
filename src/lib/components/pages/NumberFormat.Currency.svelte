@@ -4,6 +4,8 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
+  import Token from '../ui/Highlight/Token.svelte';
+  import CodeBlock from '../ui/CodeBlock.svelte';
 
 	import { currencies } from '$lib/locale-data/currencies';
 	import { numberFormatOptionsCommon, numberFormatOptionsCurrency } from '$lib/format-options/number-format.options';
@@ -11,7 +13,6 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
   import { languageByLocale } from '$lib/locale-data/locales';
-  import Token from '../ui/Highlight/Token.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -64,26 +65,19 @@ can also be used from
 	></strong
 >
 
-<code>
-	<pre>
-<Token t="punctuation">const</Token><Token> numberToFormat = </Token>
-<Token t="number">{number}</Token><Token>;</Token><br />
-<Token t="punctuation">const</Token><Token> formatted = numberToFormat.</Token><Token t="function"
-			>toLocaleString</Token
-		><Token>(</Token><Token t="string">"{locale}"</Token><Token>, {`{`}<br /></Token>
-<Token t="number">style</Token><Token>:</Token><Token t="string"> "currency"</Token><Token>,</Token
-		><br />
-<Token t="number">unit</Token><Token>:</Token><Token t="string"> "{selectedCurrency}"</Token><Token
-			>,</Token
-		><br />
-<Token>{`}`});</Token><br />
-<Token t="comment"
-			>// {new Intl.NumberFormat(locale, { style: 'currency', currency: selectedCurrency }).format(
-				number
-			)}</Token
-		>
-	</pre>
-</code>
+<CodeBlock>
+	<Token t="punctuation">const </Token><Token> numberToFormat =</Token>
+	<Token t="number">{` ${number}`}</Token><Token>;</Token><br />
+	<Token t="punctuation">const </Token><Token> formatted = numberToFormat.</Token><Token t="function"
+				>toLocaleString</Token
+			><Token>(</Token><Token t="string">"{locale}"</Token>
+	<Token>);</Token><br />
+	<Token t="comment"
+				>// {new Intl.NumberFormat(locale, { style: 'currency', currency: selectedCurrency }).format(
+					number
+				)}</Token
+			>
+</CodeBlock>
 
 <h2>Output</h2>
 
@@ -110,9 +104,3 @@ can also be used from
 		</OptionSection>
 	{/each}
 </Grid>
-
-<style>
-	pre {
-		white-space: normal;
-	}
-</style>
