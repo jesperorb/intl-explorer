@@ -3,8 +3,12 @@
 	import CompatData from './CompatData.svelte';
 
 	export let header: string;
-	export let labelId: string|undefined = undefined;
+	export let labelId: string | undefined = undefined;
 	export let browserCompatData: BrowserCompatData | null = null;
+	export let optionsType: keyof Pick<
+		BrowserCompatData,
+		'optionsSupport' | 'support' | 'formattersSupport'
+	> = 'optionsSupport';
 	export let stackedCompatView: boolean | undefined = false;
 </script>
 
@@ -14,8 +18,8 @@
 		option={header}
 		data={browserCompatData}
 		title={header}
-		labelId={labelId}
-		optionsType="optionsSupport"
+		{labelId}
+		{optionsType}
 	/>
 	<slot />
 </section>

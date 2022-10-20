@@ -28,7 +28,8 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 	import DateTime from '$lib/components/ui/DateTime.svelte';
-  import MdnLink from '$lib/components/ui/MDNLink.svelte';
+	import MdnLink from '$lib/components/ui/MDNLink.svelte';
+  import Spacer from '$lib/components/ui/Spacer.svelte';
 
 	export const prerender = false;
 	export const ssr = false;
@@ -113,6 +114,7 @@
 	<p>
 		<MdnLink header={schema.method} />
 	</p>
+	<Spacer />
 	<div class="top">
 		<Select
 			name="method"
@@ -201,7 +203,7 @@
 						stackedCompatView
 					>
 						<fieldset>
-							{#each getItemsFromOption(schema.method, option) as [name, value]}
+							{#each getItemsFromOption(schema.method, option) as [_, value]}
 								<div class="radio">
 									<input
 										type="radio"
@@ -246,7 +248,7 @@
 		<summary>
 			<h2>Resolved Options</h2>
 		</summary>
-		<div class="resolved">
+		<div>
 			{#if browser}
 				<Highlight language={typescript} code={schemaToResolvedOptions(schema, $selectedLocale)} />
 			{:else}
@@ -261,14 +263,18 @@
 				<h2>Secondary Formatters</h2>
 			</summary>
 			{#each schemaToSecondaryFormattersOutput(schema, $selectedLocale) as formatter}
-				<h3>{formatter.name}</h3>
-				<div>
+				<OptionSection
+					header={formatter.name}
+					optionsType="formattersSupport"
+					browserCompatData={data[schema.method]}
+					stackedCompatView
+				>
 					{#if browser}
 						<Highlight language={typescript} code={formatter.output} />
 					{:else}
 						<Highlight language={typescript} code={formatter.output} />
 					{/if}
-				</div>
+				</OptionSection>
 			{/each}
 		</details>
 	{/if}

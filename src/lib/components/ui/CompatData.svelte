@@ -6,7 +6,7 @@
 
 	export let data: BrowserCompatData | null = null;
 	export let title: string = 'Browser Support';
-	export let optionsType: keyof Pick<BrowserCompatData, 'optionsSupport' | 'support'> = 'support';
+	export let optionsType: keyof Pick<BrowserCompatData, 'optionsSupport' | 'support' | "formattersSupport"> = 'support';
 	export let option: string | undefined = undefined;
 	export let labelId: string | undefined = undefined;
 	export let stackedView: boolean | undefined = false;

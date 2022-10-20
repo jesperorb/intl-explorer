@@ -32,6 +32,11 @@ const desktopToMobileName: Partial<Record<BrowserName, BrowserName>> = {
 };
 
 const excludedBrowserNames: BrowserName[] = ['ie', 'oculus'];
+const secondaryFormatterNames = [
+	'formatRange',
+	'formatToParts',
+	'formatRangeToParts',
+];
 
 const getPropertyFromSupportStatement = <Key extends keyof SimpleSupportStatement>(
 	statement: SupportStatement,
@@ -55,6 +60,13 @@ const getOptionsForProperty = (compatData: CompatData, property: FormatMethodsKe
 		return Object.entries(options[0][1]).filter(([key]) => key.includes('options'));
 	}
 	return options;
+};
+
+const getFormattersForProperty = (compatData: CompatData, property: FormatMethodsKeys) => {
+	const allPropertiesOnMethod = compatData.javascript.builtins.Intl[property];
+	return Object.entries(allPropertiesOnMethod).filter(([key]) =>
+		secondaryFormatterNames.includes(key)
+	);
 };
 
 const browserToSupportData =
@@ -119,7 +131,7 @@ const createHeaders = (support: [BrowserName, BrowserSupportWithReleaseData][]) 
 		}
 	}
 	return headers;
-}
+};
 
 const getCompatDataWithBrowserData = (
 	compatData: CompatData,
@@ -140,12 +152,21 @@ const getCompatDataWithBrowserData = (
 		const [, option] = key.split('_');
 		return [option, Object.fromEntries(formattedOptions)];
 	});
+	const formatters = getFormattersForProperty(compatData, property).map(([key, value]) => {
+		const supportDataForFormatter = getSupportDataForProperty(value as Identifier);
+		const formattedOptions = supportDataForFormatter
+			.filter(filterExludedBrowsers)
+			.map(browserToSupportData(browsers))
+			.sort(sortCompatData);
+		return [key, Object.fromEntries(formattedOptions)];
+	});
 	return {
 		mdnUrl: propertyData?.__compat?.mdn_url,
 		specUrl: propertyData?.__compat?.spec_url,
 		browserTypeHeaders: Object.values(createHeaders(support)),
 		support: Object.fromEntries(support) as BrowserSupportData,
-		optionsSupport: Object.fromEntries(options)
+		optionsSupport: Object.fromEntries(options),
+		formattersSupport: Object.fromEntries(formatters)
 	};
 };
 
