@@ -84,31 +84,41 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			name: 'minimumIntegerDigits',
 			valueType: 'number',
 			defaultValue: undefined,
-			inputType: 'text'
+			inputType: 'text',
+			max: 21,
+			min: 0,
 		},
 		{
 			name: 'minimumFractionDigits',
 			valueType: 'number',
 			defaultValue: undefined,
-			inputType: 'text'
+			inputType: 'text',
+			max: 20,
+			min: 0
 		},
 		{
 			name: 'maximumFractionDigits',
 			valueType: 'number',
 			defaultValue: undefined,
-			inputType: 'text'
+			inputType: 'text',
+			max: 20,
+			min: 0
 		},
 		{
 			name: 'minimumSignificantDigits',
 			valueType: 'number',
 			defaultValue: undefined,
-			inputType: 'text'
+			inputType: 'text',
+			max: 21,
+			min: 0
 		},
 		{
 			name: 'maximumSignificantDigits',
 			valueType: 'number',
 			defaultValue: undefined,
-			inputType: 'text'
+			inputType: 'text',
+			max: 21,
+			min: 0
 		},
 		{
 			name: 'localeMatcher',

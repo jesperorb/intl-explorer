@@ -10,6 +10,7 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import { languageByLocale } from '$lib/locale-data/locales';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+  import Spacer from '../ui/Spacer.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -70,6 +71,8 @@
 		</fieldset>
 	</div>
 </div>
+
+<Spacer/>
 
 <h2>Output</h2>
 
