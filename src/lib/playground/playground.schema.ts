@@ -17,6 +17,9 @@ export type PlaygroundOption<
 	defaultValue: Options[Key];
 	removeUndefined?: boolean;
 	value?: Options[Key];
+	pattern?: string;
+	max?: number;
+	min?: number;
 };
 
 export type PlaygroundSchema<

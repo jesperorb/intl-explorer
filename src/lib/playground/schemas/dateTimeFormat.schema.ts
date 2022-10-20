@@ -8,7 +8,8 @@ const invalidOptions = [
 	'weekday',
 	'era',
 	'dayPeriod',
-	'timeZoneName'
+	'timeZoneName',
+	'fractionalSecondDigits'
 ];
 
 export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
@@ -104,7 +105,9 @@ export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 			name: 'fractionalSecondDigits',
 			valueType: 'number',
 			defaultValue: undefined,
-			inputType: 'text'
+			inputType: 'text',
+			max: 3,
+			min: 0
 		},
 		{
 			name: 'numberingSystem',

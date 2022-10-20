@@ -21,7 +21,7 @@
 	import { formatMethods, type FormatMethodsKeys } from '$lib/format-methods';
 	import { listFormatSchema } from '$lib/playground/schemas/listFormat.schema';
 	import { schemas } from '$lib/playground/schemas';
-	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
+	import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.schema';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { languageByLocale } from '$lib/locale-data/locales';
@@ -45,26 +45,36 @@
 		schema = listFormatSchema;
 	}
 
-	const onChange = (event: any) => {
+	const clampValue = (option: PlaygroundOption<"ListFormat">, value:  string | boolean | null | undefined) => {
+		if(option.valueType !== "number") return value;
+		if(typeof value !== "string") return value;
+		const parsed = parseInt(value, 10);
+		if(isNaN(parsed)) return option.defaultValue;
+		const clampedMax = option.max && parsed > option.max ? option.max : parsed;
+		return option.min && parsed < option.min ? Math.max(option.min, clampedMax) : clampedMax;
+	}
+
+	const onChangeOption = (event: Event) => {
+		const target = event.target as HTMLInputElement;
 		if (!schema) return;
-		const isRadioEvent = event.target.type === 'radio';
-		const optionName = event.target.name;
+		const isRadioEvent = target.type === 'radio';
+		const optionName = target.name;
 		const optionValue = isRadioEvent
-			? event.target.attributes.getNamedItem('group')?.nodeValue
-			: event.target.value;
+			? target.attributes.getNamedItem('group')?.nodeValue
+			: target.value;
 		const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
 		const value = isRadioEvent ? radioValue : optionValue;
 		const schemaOptions = schema.options.map((option) =>
 			option.name === optionName
 				? {
 						...option,
-						value
+						value: clampValue(option, value)
 				  }
 				: option
 		);
 		const newSchema: PlaygroundSchema<'ListFormat'> = {
 			...schema,
-			options: schemaOptions
+			options: schemaOptions as unknown as PlaygroundOption<'ListFormat'>[]
 		};
 		const isRelativeTimeUnit =
 			(schema.method as FormatMethodsKeys) === 'RelativeTimeFormat' && optionName === 'unit';
@@ -170,7 +180,7 @@
 						stackedCompatView
 					>
 						<Select
-							{onChange}
+							onChange={onChangeOption}
 							name={option.name}
 							value={option.value ?? option.defaultValue ?? ''}
 							items={getItemsFromOption(schema.method, option)}
@@ -188,10 +198,13 @@
 					>
 						<Input
 							id={option.name}
-							onInput={onChange}
+							onInput={onChangeOption}
 							name={option.name}
-							value={option.defaultValue ?? ''}
+							value={option.value ?? option.defaultValue ?? ''}
 							fullWidth
+							pattern={option.pattern}
+							max={option.max}
+							min={option.min}
 						/>
 					</OptionSection>
 				{/if}
@@ -207,7 +220,7 @@
 								<div class="radio">
 									<input
 										type="radio"
-										on:input={onChange}
+										on:input={onChangeOption}
 										id={option.name}
 										name={option.name}
 										group={value}
