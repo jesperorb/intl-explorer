@@ -17,10 +17,12 @@ export type BrowserSupportWithReleaseData = {
 
 export type OptionsSupportData = Record<string, BrowserSupportWithReleaseData>;
 export type BrowserSupportData = Record<string, BrowserSupportWithReleaseData>;
+export type FormattersSupportData = Record<string, BrowserSupportWithReleaseData>;
 export type BrowserCompatData = {
 	specUrl?: string | string[];
 	mdnUrl?: string;
 	support: BrowserSupportData;
 	browserTypeHeaders: BrowserTypeHeader[];
 	optionsSupport?: OptionsSupportData;
+	formattersSupport?: FormattersSupportData;
 };
