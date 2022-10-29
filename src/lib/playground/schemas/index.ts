@@ -15,3 +15,5 @@ export const schemas = {
 	Collator: collatorSchema,
 	Segmenter: segmenterSchema
 };
+
+export type SchemaKeys = keyof typeof schemas;
