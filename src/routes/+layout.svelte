@@ -11,7 +11,7 @@
 
 	let routeId: FormatMethodsKeys;
 	const getRouteId = (page: Page<Record<string, string>>): void => {
-		routeId = page.routeId as FormatMethodsKeys;
+		routeId = page.routeId?.replace("/", "") as FormatMethodsKeys;
 	};
 	$: getRouteId($page);
 </script>
