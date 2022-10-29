@@ -36,6 +36,7 @@ const secondaryFormatterNames = [
 	'formatRange',
 	'formatToParts',
 	'formatRangeToParts',
+	'selectRange'
 ];
 
 const getPropertyFromSupportStatement = <Key extends keyof SimpleSupportStatement>(
