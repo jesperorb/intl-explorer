@@ -29,7 +29,7 @@
 <div>
 	<p>
 		<strong>Intl Explorer</strong> is a tool for experimenting and trying out the
-		<a href="ECMAScript Internationalization AP" target="_blank" rel="noopener noreferrer"
+		<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl" target="_blank" rel="noopener noreferrer"
 			>ECMAScript Internationalization API</a
 		>. The API is available under the namespace <strong><code>Intl</code></strong> in JavaScript and
 		provides language sensitive string comparison, number formatting, and date and time formatting.
