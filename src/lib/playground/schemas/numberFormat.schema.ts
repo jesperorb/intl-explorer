@@ -13,15 +13,15 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 	secondaryFormatters: ['formatToParts', 'formatRange', 'formatRangeToParts'],
 	invalidOptionCombos: {
 		'style:currency': Object.keys(numberFormatOptionsUnit),
-		'style:unit': Object.keys(numberFormatOptionsCurrency)
+		'style:unit': Object.keys(numberFormatOptionsCurrency),
+		'style:undefined': [...Object.keys(numberFormatOptionsCurrency), ... Object.keys(numberFormatOptionsUnit)]
 	},
 	options: [
 		{
 			name: 'style',
 			valueType: 'string',
-			defaultValue: 'currency',
+			defaultValue: undefined,
 			inputType: 'select',
-			removeUndefined: true
 		},
 		/** UNIT */
 		{

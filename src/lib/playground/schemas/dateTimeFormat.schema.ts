@@ -6,6 +6,7 @@ const invalidOptions = [
 	'minute',
 	'second',
 	'weekday',
+	'month',
 	'era',
 	'dayPeriod',
 	'timeZoneName',
@@ -67,6 +68,12 @@ export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 		},
 		{
 			name: 'weekday',
+			valueType: 'string',
+			defaultValue: undefined,
+			inputType: 'select'
+		},
+		{
+			name: "month",
 			valueType: 'string',
 			defaultValue: undefined,
 			inputType: 'select'
