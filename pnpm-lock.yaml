@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.1.2
   '@commitlint/config-conventional': ^17.1.0
-  '@mdn/browser-compat-data': 5.2.11
+  '@mdn/browser-compat-data': 5.2.39
   '@playwright/test': ^1.27.1
   '@sveltejs/adapter-vercel': 1.0.0-next.80
   '@sveltejs/kit': 1.0.0-next.528
@@ -29,7 +29,7 @@ specifiers:
 devDependencies:
   '@commitlint/cli': 17.1.2
   '@commitlint/config-conventional': 17.1.0
-  '@mdn/browser-compat-data': 5.2.11
+  '@mdn/browser-compat-data': 5.2.39
   '@playwright/test': 1.27.1
   '@sveltejs/adapter-vercel': 1.0.0-next.80
   '@sveltejs/kit': 1.0.0-next.528_svelte@3.52.0+vite@3.2.1
@@ -340,8 +340,8 @@ packages:
       - supports-color
     dev: true
 
-  /@mdn/browser-compat-data/5.2.11:
-    resolution: {integrity: sha512-pBl13TtAgT9zce4p2BFz14XZq9UezBogIebKnN6Q9+eUt6QBfgEkTWZhvimM0aBQrmRMiV+TYrLzWBGhhxfiag==}
+  /@mdn/browser-compat-data/5.2.39:
+    resolution: {integrity: sha512-m8EJuQlHl6GeBkryBfJCl9gOOw/5dCqQVzRWj6hBbDG3NTaJyypa5784lae/uklYildVwiqbP0iGl3LUEhECPg==}
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
