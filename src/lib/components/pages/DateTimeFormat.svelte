@@ -63,8 +63,8 @@ can also be used from
 	<Token t="string">"{dateTimeString}"</Token><Token>);</Token><br />
 	<Token t="punctuation">const </Token><Token>formatted = date.</Token><Token t="function"
 		>toLocaleString</Token
-	><Token>(</Token><Token t="string">"{locale}"</Token><Token>);</Token><br />
-	<Token t="comment">// {new Date(dateTimeString).toLocaleString(locale)}</Token>
+	><Token>(</Token><Token t="string" noWrap>"{locale}"</Token><Token>);</Token><br />
+	<Token t="comment"><span aria-hidden="true">//</span> {new Date(dateTimeString).toLocaleString(locale)}</Token>
 </CodeBlock>
 
 <h2>Output</h2>
