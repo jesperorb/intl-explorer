@@ -60,12 +60,15 @@ can also be used from
 
 <CodeBlock>
 		<Token t="punctuation">const </Token><Token>listToFormat = [</Token>
-		{#each splitList as item }
-			<Token t="string">"{item}"</Token><Token>,</Token>
+		{#each splitList as item, i }
+			<Token t="string">"{item}"</Token>
+			{#if Object.keys(splitList).length > 1 && i < Object.keys(splitList).length - 1}
+				<Token>,</Token>
+			{/if}
 		{/each}
 		<Token>]</Token><br/>
-<Token t="punctuation">const </Token><Token> formatted = listToFormat.</Token><Token t="function">toLocaleString</Token><Token>(</Token><Token t="string">"{locale}"</Token><Token>)</Token> <br />
-<Token t="comment">// {new Intl.ListFormat(locale).format(list.split(","))}</Token>
+<Token t="punctuation">const </Token><Token> formatted = listToFormat.</Token><Token t="function">toLocaleString</Token><Token>(</Token><Token t="string" noWrap>"{locale}"</Token><Token>)</Token> <br />
+<Token t="comment"><span aria-hidden="true">//</span> {new Intl.ListFormat(locale).format(list.split(","))}</Token>
 </CodeBlock>
 
 <h2>Output</h2>

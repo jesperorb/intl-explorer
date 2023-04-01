@@ -10,24 +10,29 @@
 	let internalOnClick = () => {
 		onClick(values);
 	};
+	const formatAriaLabelForCopyButton = (values: OptionValues) => {
+		const valuesAsReadbleString = Object.entries(values)
+			.map(([key, value]) => `${key} equals ${value}`)
+		return `Copy code for options: ${new Intl.ListFormat().format(valuesAsReadbleString)}`;
+	};
 </script>
 
 <div class="highlight">
 	<CodeBlock>
 		<Token t="punctuation">{'{ '}</Token>
-		{#each Object.entries(values) as [key, value]}
+		{#each Object.entries(values) as [key, value], i}
 			<Token t="key">{key}</Token><Token t="operator">{`:`}</Token>
-			<HighlightValue {value} />
-			{#if Object.keys(values).length > 1}
+			<HighlightValue noWrap {value} />
+			{#if Object.keys(values).length > 1 && i < Object.keys(values).length - 1}
 				<Token t="punctuation">{`, `}</Token>
 			{/if}
 		{/each}
 		<Token t="punctuation">{` }`}</Token><br />
-		<Token t="comment">// {output}</Token>
+		<Token t="comment"><span aria-hidden="true">//</span> {output}</Token>
 	</CodeBlock>
 	<button
 		class="copy"
-		aria-label="Copy values for options: {JSON.stringify(values)}"
+		aria-label="{formatAriaLabelForCopyButton(values)}"
 		on:click={internalOnClick}>Copy</button
 	>
 </div>

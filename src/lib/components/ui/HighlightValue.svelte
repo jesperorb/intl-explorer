@@ -3,9 +3,10 @@
 
   type Value = number | boolean | string;
   export let value: number | boolean | string;
+  export let noWrap: boolean = false;
 	const valueType = typeof value as any;
   const formattedValue = (value: Value) =>
     typeof value === "string" ? `"${value}"` : value;
 </script>
 
-<Token t={valueType}>{formattedValue(value)}</Token>
+<Token {noWrap} t={valueType}>{formattedValue(value)}</Token>

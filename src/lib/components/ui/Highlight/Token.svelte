@@ -8,11 +8,15 @@
 		| 'number'
 		| 'string'
 		| 'class' = 'key';
+	export let noWrap: boolean = false
 </script>
 
-<span class="token {t}"><slot /></span>
+<span class="token {t}" class:noWrap={noWrap}><slot /></span>
 
 <style>
+	.noWrap {
+		white-space: nowrap;
+	}
 	.token.comment {
 		color: var(--gray);
 	}

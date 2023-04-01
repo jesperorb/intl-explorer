@@ -73,9 +73,9 @@ can also be used from
 		<Token t="punctuation">const </Token><Token> numberToFormat =</Token>
 		<Token t="number">{` ${number}`}</Token><Token>;</Token><br />
 		<Token t="punctuation">const </Token><Token> formatted = numberToFormat.</Token><Token t="function">toLocaleString</Token
-				><Token>(</Token><Token t="string">"{locale}"</Token><Token>{`);`}</Token><br />
+				><Token>(</Token><Token t="string" noWrap>"{locale}"</Token><Token>{`);`}</Token><br />
 		<Token t="comment"
-					>// {new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(
+					><span aria-hidden="true">//</span> {new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(
 						number
 					)}</Token
 				>
