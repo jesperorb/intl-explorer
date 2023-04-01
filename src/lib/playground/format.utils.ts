@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FormatMethodsKeys } from "$lib/format-methods";
 import type { AllFormatOptions } from "$lib/format-options/types";
 import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
@@ -51,24 +52,29 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 	schema: PlaygroundSchema<Method>,
 	locale: string,
 ) => {
-	const { options, } = prepareSchemaForOutput(schema);
-	if (schema.method === "Collator") {
-		const formattedString = (schema.inputValues[0]).sort(new Intl.Collator(
+	const { options } = prepareSchemaForOutput(schema);
+	try {
+		if (schema.method === "Collator") {
+			const formattedString = (schema.inputValues[0]).sort(new Intl.Collator(
+				locale,
+				options
+			).compare)
+			return `${formattedString}`
+		}
+		// Casting to specific formatter to circumvent type errors, the types are too dynamic
+		const primaryFormatter = schema.primaryFormatter as "formatToParts";
+		const formatted = (new Intl[schema.method](
 			locale,
-			options
-		).compare)
-		return `${formattedString}`
+			// To dynamic to interpret this correctly
+			options as any
+		) as Intl.DateTimeFormat)[primaryFormatter](...prepareInputValues(schema))
+		if(schema.method === "Segmenter") {
+			return `${print(Array.from(formatted))}`
+		}
+		return `${formatted}`
+	} catch (error) {
+		return `${(error as { message: string}).message}`;
 	}
-	// Casting to specific formatter to circumvent type errors, the types are too dynamic
-	const primaryFormatter = schema.primaryFormatter as "formatToParts";
-	const formatted = (new Intl[schema.method](
-		locale,
-		options
-	) as Intl.DateTimeFormat)[primaryFormatter](...prepareInputValues(schema))
-	if(schema.method === "Segmenter") {
-		return `${print(Array.from(formatted))}`
-	}
-	return `${formatted}`
 }
 
 export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKeys>(
@@ -80,7 +86,8 @@ export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKe
 		try {
 			const output = (new Intl[schema.method](
 				locale,
-				options
+				// To dynamic to interpret this correctly
+				options as any
 			) as Intl.DateTimeFormat)[(formatter as "formatToParts")](...prepareInputValues(schema))
 			return {
 				name: formatter,
@@ -102,7 +109,8 @@ export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
 	const { options } = prepareSchemaForOutput(schema);
 	const intlObject = (new Intl[schema.method](
 		locale,
-		options
+		// To dynamic to interpret this correctly
+		options as any
 	) as Intl.PluralRules);
 	return `${print(intlObject.resolvedOptions())}`
 }

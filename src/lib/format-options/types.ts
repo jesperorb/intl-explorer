@@ -6,6 +6,7 @@ export type AllFormatOptions = {
 	PluralRules: Intl.PluralRulesOptions;
 	Collator: Intl.CollatorOptions;
 	Segmenter: Intl.SegmenterOptions;
+	DisplayNames: Intl.DisplayNamesOptions;
 };
 
 export type AllFormatOptionsKeys = {
@@ -16,6 +17,7 @@ export type AllFormatOptionsKeys = {
 	PluralRules: keyof AllFormatOptions['PluralRules'];
 	Collator: keyof AllFormatOptions['Collator'];
 	Segmenter: keyof AllFormatOptions['Segmenter'];
+	DisplayNames: keyof AllFormatOptions['DisplayNames'];
 };
 
 export type AllMethods = {
@@ -26,4 +28,5 @@ export type AllMethods = {
 	PluralRules: Intl.PluralRules;
 	Collator: Intl.Collator;
 	Segmenter: Intl.Segmenter;
+	DisplayNames: Intl.DisplayNames;
 };

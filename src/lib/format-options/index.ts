@@ -1,5 +1,6 @@
 import { collatorFormatOptions } from './collator.options';
 import { datetimeFormatOptions } from './datetime-format.options';
+import { displayNamesOptions } from './display-names.options';
 import { listFormatOptions } from './list-format.options';
 import {
 	numberFormatOptionsCommon,
@@ -21,5 +22,6 @@ export const formatOptions = {
 	RelativeTimeFormat: relativeTimeFormatOptions,
 	PluralRules: pluralRulesFormatOptions,
 	Collator: collatorFormatOptions,
-	Segmenter: segmenterOptions
+	Segmenter: segmenterOptions,
+	DisplayNames: displayNamesOptions,
 };

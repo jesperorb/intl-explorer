@@ -5,7 +5,8 @@ export const formatMethods = [
 	'RelativeTimeFormat',
 	'PluralRules',
 	'Collator',
-	'Segmenter'
+	'Segmenter',
+	'DisplayNames'
 ] as const;
 
 export type FormatMethodsKeys =
@@ -15,4 +16,5 @@ export type FormatMethodsKeys =
 	| 'RelativeTimeFormat'
 	| 'PluralRules'
 	| 'Collator'
-	| 'Segmenter';
+	| 'Segmenter'
+	| 'DisplayNames';
