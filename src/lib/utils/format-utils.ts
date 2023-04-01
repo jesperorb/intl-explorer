@@ -13,3 +13,22 @@ export const clampValue = (
 	const clampedMax = option.max && parsed > option.max ? option.max : parsed;
 	return option.min && parsed < option.min ? Math.max(option.min, clampedMax) : clampedMax;
 };
+
+export const fallbackDisplayNames: Record<Intl.DisplayNamesOptions["type"], string> = {
+	language: 'en-US',
+	region: 'US',
+	script: 'Latn',
+	calendar: 'gregory',
+	dateTimeField: 'month',
+	currency: 'USD'
+}
+
+export const tryDisplayNames = (code: string, language: string, options: Intl.DisplayNamesOptions): string => {
+	try {
+		return (
+			new Intl.DisplayNames(language, options).of(code) ?? fallbackDisplayNames[options.type]
+		);
+	} catch (e) {
+		return fallbackDisplayNames[options.type];
+	}
+};

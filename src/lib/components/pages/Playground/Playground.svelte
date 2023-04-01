@@ -22,7 +22,7 @@
 	import { parseSchemaFromURL, setSchemaInURL } from '$lib/playground/url.utils';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { clampValue } from '$lib/utils/format-utils';
+	import { clampValue, fallbackDisplayNames } from '$lib/utils/format-utils';
 	import { schemas, type SchemaKeys } from '$lib/playground/schemas';
   import { onMount } from 'svelte';
   import { listFormatSchema } from '$lib/playground/schemas/listFormat.schema';
@@ -65,8 +65,13 @@
 		};
 		const isRelativeTimeUnit =
 			(schema.method as FormatMethodsKeys) === 'RelativeTimeFormat' && optionName === 'unit';
+		const isDisplayNamesType =
+			(schema.method as FormatMethodsKeys) === 'DisplayNames' && optionName === 'type';
 		if (isRelativeTimeUnit) {
 			newSchema.inputValues[1] = optionValue;
+		}
+		if(isDisplayNamesType) {
+			newSchema.inputValues[0] = fallbackDisplayNames[value as unknown as Intl.DisplayNamesType];
 		}
 		schema = validateAndUpdateSchema(newSchema);
 		setSchemaInURL(schema);
@@ -81,6 +86,9 @@
 		if (schema?.inputValueType === 'number') {
 			const parsed = parseInt(value, 10);
 			schema.inputValues[0] = isNaN(parsed) ? 0 : parsed;
+		}
+		if (schema?.inputValueType === 'string') {
+			schema.inputValues[0] = value;
 		}
 	};
 

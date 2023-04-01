@@ -46,5 +46,9 @@ export const routes: Route[] = [
 	{
 		path: 'Segmenter',
 		name: 'Segmenter'
+	},
+	{
+		path: 'DisplayNames',
+		name: 'DisplayNames'
 	}
 ];

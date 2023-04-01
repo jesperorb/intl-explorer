@@ -25,7 +25,7 @@
 		fullWidth
 		removeEmpty
 	/>
-	{#if schema.inputValueType === 'number' || schema.inputValueType === 'array'}
+	{#if schema.inputValueType === 'number' || schema.inputValueType === 'array' || schema.inputValueType === 'string'}
 		<Input
 			id="inputValue"
 			label="Input value"
