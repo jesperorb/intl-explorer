@@ -7,9 +7,6 @@
 
 	import { selectedLocale } from '$lib/store/selected-locale';
 
-	export const prerender = false;
-	export const ssr = false;
-
 	export let data: Record<string, BrowserCompatData>;
 </script>
 

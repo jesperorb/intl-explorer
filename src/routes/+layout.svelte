@@ -10,12 +10,14 @@
 	import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
-	
-	inject({ mode: dev ? 'development' : 'production' });
-	
+
+	inject({
+		mode: dev ? 'development' : 'production',
+	});
+
 	let routeId: FormatMethodsKeys;
 	const getRouteId = (page: Page<Record<string, string>>): void => {
-		routeId = page.routeId?.replace("/", "") as FormatMethodsKeys;
+		routeId = page.route.id?.replace('/', '') as FormatMethodsKeys;
 	};
 	$: getRouteId($page);
 </script>
