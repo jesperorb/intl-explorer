@@ -1,9 +1,10 @@
 import type { ServerLoadEvent } from '@sveltejs/kit';
 
-export const loadJson = async ({ routeId, url }: ServerLoadEvent) => {
+export const loadJson = async ({ route, fetch }: ServerLoadEvent) => {
 	try {
-		const route = routeId?.includes('NumberFormat') ? 'NumberFormat' : routeId;
-		const response = await fetch(`${url.protocol}${url.host}${route}-compat-data.json`);
+		const isNumberFormat = route.id?.includes('NumberFormat')
+		const routeName = isNumberFormat ? '/NumberFormat' : route.id;
+		const response = await fetch(`.${routeName}-compat-data.json`);
 		return response.json();
 	} catch (e: unknown) {
 		return null;
