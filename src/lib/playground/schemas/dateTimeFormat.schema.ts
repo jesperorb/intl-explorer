@@ -85,6 +85,12 @@ export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 			inputType: 'select'
 		},
 		{
+			name: 'year',
+			valueType: 'string',
+			defaultValue: undefined,
+			inputType: 'select'
+		},
+		{
 			name: 'dayPeriod',
 			valueType: 'string',
 			defaultValue: undefined,
