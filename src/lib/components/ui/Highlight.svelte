@@ -2,6 +2,7 @@
 	import HighlightValue from '$lib/components/ui/HighlightValue.svelte';
   import CodeBlock from './CodeBlock.svelte';
 	import Token from './Highlight/Token.svelte';
+  import CopyToClipboard from './icons/CopyToClipboard.svelte';
 	type OptionValues = { [key: string]: number | boolean | string };
 
 	export let values: OptionValues;
@@ -18,22 +19,11 @@
 </script>
 
 <div class="highlight">
-	<CodeBlock>
-		<Token t="punctuation">{'{ '}</Token>
-		{#each Object.entries(values) as [key, value], i}
-			<Token t="key">{key}</Token><Token t="operator">{`:`}</Token>
-			<HighlightValue noWrap {value} />
-			{#if Object.keys(values).length > 1 && i < Object.keys(values).length - 1}
-				<Token t="punctuation">{`, `}</Token>
-			{/if}
-		{/each}
-		<Token t="punctuation">{` }`}</Token><br />
-		<Token t="comment"><span aria-hidden="true">//</span> {output}</Token>
-	</CodeBlock>
+<CodeBlock><Token v={`{`} t="punctuation" /><br />{#each Object.entries(values) as [key, value], i}{"\t"}<Token v={`${key}`} t="key"/><Token noTrim v={`: `} t="operator" /><HighlightValue noWrap {value} />{#if Object.keys(values).length > 1 && i < Object.keys(values).length - 1}<Token v={`, `} t="punctuation" /><br/>{/if}{/each}<br /><Token v={` }`} t="punctuation" /><br/><Token t="comment" ariaHidden noTrim v={"// "}/><Token t="comment" v={output} /></CodeBlock>
 	<button
 		class="copy"
 		aria-label="{formatAriaLabelForCopyButton(values)}"
-		on:click={internalOnClick}>Copy</button
+		on:click={internalOnClick}><CopyToClipboard /></button
 	>
 </div>
 
@@ -43,18 +33,19 @@
 		margin-bottom: 1.5rem;
 	}
 	.copy {
-		background-color: #011627;
-		border: 1px solid var(--white);
-		border-radius: 0.25rem;
-		padding: 0.75rem 1.25rem;
+		background-color: transparent;
+		border: none;
+		border-top-right-radius: 0.5rem;
+		border-bottom-left-radius: 0.5rem;
+		padding: 1rem 1.5rem;
 		cursor: pointer;
 		color: var(--white);
 		position: absolute;
 		z-index: 1;
-		bottom: -1.5rem;
-		right: 0.5rem;
+		top: 0;
+		right: 0;
 	}
 	.copy:hover {
-		background-color: rgb(14, 73, 121);
+		background-color: var(--purple);
 	}
 </style>

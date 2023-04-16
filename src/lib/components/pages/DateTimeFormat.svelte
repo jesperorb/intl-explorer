@@ -57,14 +57,9 @@ can also be used from
 		rel="noopener noreferrer">Date.prototype.toLocaleString()</a
 	></strong
 >
-
 <CodeBlock>
-	<Token t="punctuation">const </Token><Token>date = </Token><Token t="punctuation">new </Token><Token t="class">Date</Token><Token>(</Token>
-	<Token t="string">"{dateTimeString}"</Token><Token>);</Token><br />
-	<Token t="punctuation">const </Token><Token>formatted = date.</Token><Token t="function"
-		>toLocaleString</Token
-	><Token>(</Token><Token t="string" noWrap>"{locale}"</Token><Token>);</Token><br />
-	<Token t="comment"><span aria-hidden="true">//</span> {new Date(dateTimeString).toLocaleString(locale)}</Token>
+<Token v="new" t="punctuation" /> <Token v="Date" t="class" />{"("}<Token v="{`"${dateTimeString}"`}" t="string" />{")"}
+ .<Token v="toLocaleString" t="function" />{"("}<Token v="{`"${locale}"`}" t="string" />{")"}{"\n"}<Token v="// " ariaHidden noTrim t="comment"/><Token v={`${new Date(dateTimeString).toLocaleString(locale)}`} t="comment" />
 </CodeBlock>
 
 <h2>Output</h2>

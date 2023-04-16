@@ -9,4 +9,4 @@
     typeof value === "string" ? `"${value}"` : value;
 </script>
 
-<Token {noWrap} t={valueType}>{formattedValue(value)}</Token>
+<Token v={`${formattedValue(value)}`} {noWrap} t={valueType} />

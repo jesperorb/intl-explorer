@@ -14,3 +14,8 @@ yarn.lock
 format.utils.ts
 static/*.json
 /.vercel
+
+CodeBlock.svelte
+HighlightValue.svelte
+Highlight.svelte
+Token.svelte

@@ -16,7 +16,7 @@ export const routes: Route[] = [
 		name: 'RelativeTimeFormat'
 	},
 	{
-		path: 'NumberFormat/Currency',
+		path: 'NumberFormat',
 		name: 'NumberFormat'
 	},
 	{

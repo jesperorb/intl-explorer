@@ -69,17 +69,7 @@ can also be used from
 	></strong
 >
 
-<CodeBlock>
-		<Token t="punctuation">const </Token><Token> numberToFormat =</Token>
-		<Token t="number">{` ${number}`}</Token><Token>;</Token><br />
-		<Token t="punctuation">const </Token><Token> formatted = numberToFormat.</Token><Token t="function">toLocaleString</Token
-				><Token>(</Token><Token t="string" noWrap>"{locale}"</Token><Token>{`);`}</Token><br />
-		<Token t="comment"
-					><span aria-hidden="true">//</span> {new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(
-						number
-					)}</Token
-				>
-</CodeBlock>
+<CodeBlock><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(number)} t="comment"/></CodeBlock>
 
 <h2>Output</h2>
 

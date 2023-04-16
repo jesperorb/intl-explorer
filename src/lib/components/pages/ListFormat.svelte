@@ -28,7 +28,6 @@
 	};
 
 	const style = listFormatOptions.style ?? [];
-	const splitList = list.split(",")
 </script>
 
 <h2>Input values</h2>
@@ -45,7 +44,6 @@
 <div>
 	<Input id="list" label="List" bind:value={list} />
 </div>
-
 <h2>Alternative use</h2>
 
 <code>Intl.ListFormat</code>
@@ -58,18 +56,7 @@ can also be used from
 	></strong
 >
 
-<CodeBlock>
-		<Token t="punctuation">const </Token><Token>listToFormat = [</Token>
-		{#each splitList as item, i }
-			<Token t="string">"{item}"</Token>
-			{#if Object.keys(splitList).length > 1 && i < Object.keys(splitList).length - 1}
-				<Token>,</Token>
-			{/if}
-		{/each}
-		<Token>]</Token><br/>
-<Token t="punctuation">const </Token><Token> formatted = listToFormat.</Token><Token t="function">toLocaleString</Token><Token>(</Token><Token t="string" noWrap>"{locale}"</Token><Token>)</Token> <br />
-<Token t="comment"><span aria-hidden="true">//</span> {new Intl.ListFormat(locale).format(list.split(","))}</Token>
-</CodeBlock>
+<CodeBlock><Token v="["/>{#each  list.split(",") as item, i }<Token v={item} t="string" />{#if Object.keys( list.split(",")).length > 1 && i < Object.keys(list.split(",")).length - 1}<Token noTrim v=", "/>{/if}{/each}<Token v="]" /><br/>{"\t"}<Token v="." /><Token v="toLocaleString" t="function"/><Token v="(" /><Token t="string" v={`"${locale}"`} /><Token v=")" /> <br /><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.ListFormat(locale).format(list.split(","))} t="comment" /></CodeBlock>
 
 <h2>Output</h2>
 
