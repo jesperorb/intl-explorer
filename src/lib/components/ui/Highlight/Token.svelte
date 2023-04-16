@@ -9,10 +9,11 @@
 		| 'string'
 		| 'class' = 'key';
 	export let noWrap: boolean = false
+	export let v: string;
+	export let ariaHidden: boolean = false;
+	export let noTrim: boolean = false;
 </script>
-
-<span class="token {t}" class:noWrap={noWrap}><slot /></span>
-
+<span aria-hidden="{ariaHidden}" class="token {t}" class:noWrap={noWrap}>{noTrim ? v : v.toString().trim()}</span>
 <style>
 	.noWrap {
 		white-space: nowrap;

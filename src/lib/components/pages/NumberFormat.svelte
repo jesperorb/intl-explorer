@@ -7,26 +7,22 @@
 	import Token from '../ui/Highlight/Token.svelte';
 	import CodeBlock from '../ui/CodeBlock.svelte';
 
-	import { currencies } from '$lib/locale-data/currencies';
 	import {
 		numberFormatOptionsCommon,
-		numberFormatOptionsCurrency
+		numberFormatOptionsUnit
 	} from '$lib/format-options/number-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 	import { languageByLocale } from '$lib/locale-data/locales';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
+	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
 
-	let selectedCurrency = 'EUR';
 	let number = 123456.789;
 
-	const options = Object.entries({ ...numberFormatOptionsCurrency, ...numberFormatOptionsCommon })
-		.filter(([o]) => o !== 'currency')
+	const options = Object.entries({ ...numberFormatOptionsUnit, ...numberFormatOptionsCommon })
+		.filter(([o]) => o !== 'unit')
 		.filter(([o]) => o !== 'style');
 
 	let onClick = async (options: OptionValues) => {
@@ -42,19 +38,14 @@
 	name="locale"
 	placeholder="Select a locale"
 	label="Locale"
+	removeEmpty
 	items={Object.entries(languageByLocale)}
 	bind:value={locale}
 />
 
-<Select
-	name="currencies"
-	placeholder="Select a currency"
-	label="Currency"
-	removeEmpty
-	bind:value={selectedCurrency}
-	items={Object.entries(currencies)}
-/>
-<Input id="amount" label="Amount" bind:value={number} />
+<div>
+	<Input id="amount" label="Amount" bind:value={number} />
+</div>
 
 <h2>Alternative use</h2>
 
@@ -68,7 +59,7 @@ can also be used from
 	></strong
 >
 
-<CodeBlock><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.NumberFormat(locale, { style: 'currency', currency: selectedCurrency }).format(number)} t="comment"/></CodeBlock>
+<CodeBlock><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.NumberFormat(locale).format(number)} t="comment"/></CodeBlock>
 
 <h2>Output</h2>
 
@@ -80,13 +71,9 @@ can also be used from
 					<Highlight
 						{onClick}
 						values={{
-							[option]: value,
-							style: 'currency',
-							currency: selectedCurrency
+							[option]: value
 						}}
 						output={new Intl.NumberFormat(locale, {
-							style: 'currency',
-							currency: selectedCurrency,
 							[option]: value
 						}).format(number)}
 					/>
