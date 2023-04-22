@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { inject } from '@vercel/analytics';
 	import { dev } from '$app/environment';
 	import type { Page } from '@sveltejs/kit';
 	import type { FormatMethodsKeys } from '$lib/format-methods';
@@ -10,10 +9,6 @@
 	import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
-
-	inject({
-		mode: dev ? 'development' : 'production',
-	});
 
 	let routeId: FormatMethodsKeys;
 	const getRouteId = (page: Page<Record<string, string>>): void => {
