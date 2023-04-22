@@ -19,6 +19,7 @@
 
 <svelte:head>
 	<title>{routeId ?? 'Intl Explorer'}</title>
+	<script async src="https://umami-jesperorb.vercel.app/script.js" data-website-id="1a2d166c-93b7-4f2b-b61f-ae3e221cf760"></script>
 </svelte:head>
 
 <SkipLink />
