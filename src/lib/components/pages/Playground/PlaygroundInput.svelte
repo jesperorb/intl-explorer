@@ -6,7 +6,9 @@
 	import DateTime from '$lib/components/ui/DateTime.svelte';
 
 	import { formatMethods } from '$lib/format-methods';
-	import { languageByLocaleAsEntries } from '$lib/locale-data/locales';
+	import { languageByLocaleAsComboBoxOptions, languageByLocaleAsEntries } from '$lib/locale-data/locales';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
 
 	export let schema: PlaygroundSchema<'ListFormat'>;
 	export let locale: string;
@@ -38,14 +40,14 @@
 	{#if schema.inputValueType === 'date'}
 		<DateTime defaultValue={schema.inputValues[0]} onChange={onChangeDate} />
 	{/if}
-	<Select
-		name="locale"
-		placeholder="Select a locale"
-		label="Locale"
-		removeEmpty
-		items={languageByLocaleAsEntries}
-		bind:value={locale}
-	/>
+	<ComboBoxContext>
+		<ComboBox
+			label="Locale"
+			name="locale"
+			bind:value={locale}
+			options={languageByLocaleAsComboBoxOptions}
+		/>
+	</ComboBoxContext>
 </div>
 
 <style>

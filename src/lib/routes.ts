@@ -8,14 +8,6 @@ export type Route = {
 
 export const routes: Route[] = [
 	{
-		path: 'DateTimeFormat',
-		name: 'DateTimeFormat'
-	},
-	{
-		path: 'RelativeTimeFormat',
-		name: 'RelativeTimeFormat'
-	},
-	{
 		path: 'NumberFormat',
 		name: 'NumberFormat'
 	},
@@ -30,6 +22,14 @@ export const routes: Route[] = [
 		name: 'Unit',
 		sublink: true,
 		ariaLabel: 'NumberFormat Unit Style'
+	},
+	{
+		path: 'DateTimeFormat',
+		name: 'DateTimeFormat'
+	},
+	{
+		path: 'RelativeTimeFormat',
+		name: 'RelativeTimeFormat'
 	},
 	{
 		path: 'ListFormat',

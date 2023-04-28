@@ -64,6 +64,10 @@
 	<nav aria-label="Main Menu" data-testid="navigation">
 		<ul>
 			<li><strong><a href="/?locale={locale}">About</a></strong></li>
+			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
+			<li>
+				<a href="/Playground?locale={locale}">Playground</a>
+			</li>
 			<li aria-hidden="true" class="menu-heading"><strong>Intl.</strong></li>
 			{#each routes as route}
 				<li aria-hidden={route.ariaHidden}>
@@ -77,10 +81,6 @@
 					</a>
 				</li>
 			{/each}
-			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
-			<li>
-				<a href="/Playground?locale={locale}">Playground</a>
-			</li>
 			<li aria-hidden="true" class="menu-heading"><strong>Meta</strong></li>
 			<li>
 				<a

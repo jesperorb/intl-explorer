@@ -2,6 +2,8 @@
   interface Option { label: string, value: string; disabled?: boolean  }
 </script>
 <script lang="ts">
+  import { onMount } from "svelte";
+
   import { uid, onClickOutside } from "./ComboBoxContext.svelte";
 
   export let disabled: boolean | undefined = undefined;
@@ -13,7 +15,7 @@
   export let placeholder: string | undefined = undefined;
   export let readonly: boolean | undefined = undefined;
   export let required: boolean | undefined = undefined;
-  export let value = "";
+  export let value: string;
 
   export let filter = (text: string) => {
     const sanitized = text.trim().toLowerCase();
@@ -31,7 +33,12 @@
   let inputElement: HTMLInputElement;
   let list: Option[] = [];
   let isListOpen: boolean = false;
-	let selectedOption: any;
+	let selectedOption: Option | undefined;
+
+  onMount(() => {
+    selectedOption = options.find(o => o.value === value);
+  })
+
 
   async function onInputKeyup(event: KeyboardEvent) {
     const target = event.target as HTMLInputElement | null;
@@ -82,7 +89,7 @@
     const target = event.target as HTMLInputElement | null;
     await showList(target?.value);
     // Scroll selected option into view.
-    listElement.querySelector(`[role="option"][data-value="${value}"]`)?.scrollIntoView();
+    // listElement.querySelector(`[role="option"][data-value="${value}"]`)?.scrollIntoView();
   }
 
   function onOptionClick(event: MouseEvent) {
@@ -162,7 +169,7 @@
     if (!isListOpen) return;
 
     if (selectedOption) {
-      inputElement.value = selectedOption.text;
+      inputElement.value = selectedOption.label;
     }
 
     isListOpen = false;
@@ -173,7 +180,7 @@
 		value = optionElement?.dataset.value ?? "";
 		
     selectedOption = {
-      text: optionElement?.dataset.text ?? "",
+      label: optionElement?.dataset.label ?? "",
       value: optionElement?.dataset.value ?? ""
     };
 	}
@@ -205,6 +212,7 @@
       {name}
       type="text"
       {disabled}
+      value={selectedOption?.label}
       autocapitalize="none"
       autocomplete="off"
       {readonly}
@@ -232,7 +240,7 @@
 						class:--disabled={option.disabled}
             role="option"
             tabindex={option.disabled === true ? undefined : -1}
-            data-text={option.label}
+            data-label={option.label}
             data-value={option.value}
             aria-selected={value === option.value}
 						aria-disabled={option.disabled}
@@ -266,11 +274,11 @@
 		--border-radius: 1em;
 		
 		--option-border: ;
-		--option-padding: ;
+		--option-padding: 0.5rem;
 		
 		display: flex;
 		flex-direction: column;
-		gap: 0.5em;
+    margin-bottom: 0.5rem;
 	}
 	
   .input-container {
@@ -280,8 +288,9 @@
 	.combobox__input {
 		margin: 0;
 		width: 100%;
-		padding: 0.8rem 1rem;
-		border: 0.175rem solid gray;
+    max-width: 30rem;
+		padding: 0.5rem;
+		border: 1px solid gray;
 		border-radius: 0.3rem;
 	}
 	
@@ -290,19 +299,20 @@
 	}
 	
 	.combobox:focus-within .combobox__input {
-		border-color: var(--accent-color);
+    box-shadow: 0px 0px 2px #0066ff;
+    border: 1px solid #0066ff;
 	}
 
   .combobox__list {
 		/* Reset */
 		list-style: none;
 		margin: 0;
-    padding: 0.3rem;
+    padding: 0.5rem;
 		/* Position and Size */
     position: absolute;
     inset-inline-start: 0;
     inset-block-start: calc(100% + 0.3rem);
-		min-width: 100%;
+		min-width: 30rem;
 		max-height: 40vh;
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
@@ -310,7 +320,7 @@
     
     background-color: var(--background-color);
     border-radius: 0.3em;
-		border: 0.175rem solid var(--accent-color);
+		border: 1px solid var(--accent-color);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;    
   }
 	
@@ -322,9 +332,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-		padding: 0.8rem 1rem;
+		padding: 0.5rem;
 		border: 0.2rem solid transparent;
 		border-radius: 0.3rem;
+    max-width: 30rem;
   }
 
   .list__option > :global(*) {
@@ -340,7 +351,9 @@
   .list__option:not([aria-disabled="true"]):hover {
 		outline: none;
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.1);
+    outline: none;
+    box-shadow: 0px 0px 2px #0066ff;
+    border: 1px solid #0066ff;
   }
 	
 	.list__option:active {

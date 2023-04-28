@@ -3,13 +3,15 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
-	import Select from '$lib/components/ui/Select.svelte';
 
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-  import { languageByLocale } from '$lib/locale-data/locales';
+  import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
+  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
+  import { selectedLocale } from '$lib/store/selected-locale';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -25,14 +27,14 @@
 
 <h2>Input values</h2>
 
-<Select
-	name="locale"
-	placeholder="Select a locale"
-	label="Locale"
-	removeEmpty
-	items={Object.entries(languageByLocale)}
-	bind:value={locale}
-/>
+<ComboBoxContext>
+	<ComboBox
+		label="Locale"
+		name="locale"
+		bind:value={$selectedLocale}
+		options={languageByLocaleAsComboBoxOptions}
+	/>
+</ComboBoxContext>
 
 <div>
 	<Input id="list" label="List" bind:value={list} />
