@@ -3,15 +3,17 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
-	import Select from '$lib/components/ui/Select.svelte';
 
 	import { listFormatOptions } from '$lib/format-options/list-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import { languageByLocale } from '$lib/locale-data/locales';
+  import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
   import Token from '../ui/Highlight/Token.svelte';
   import CodeBlock from '../ui/CodeBlock.svelte';
+  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+  import { selectedLocale } from '$lib/store/selected-locale';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -32,14 +34,14 @@
 
 <h2>Input values</h2>
 
-<Select
-	name="locale"
-	placeholder="Select a locale"
-	label="Locale"
-	removeEmpty
-	items={Object.entries(languageByLocale)}
-	bind:value={locale}
-/>
+<ComboBoxContext>
+	<ComboBox
+		label="Locale"
+		name="locale"
+		bind:value={$selectedLocale}
+		options={languageByLocaleAsComboBoxOptions}
+	/>
+</ComboBoxContext>
 
 <div>
 	<Input id="list" label="List" bind:value={list} />

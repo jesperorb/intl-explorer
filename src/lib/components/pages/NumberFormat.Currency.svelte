@@ -15,9 +15,10 @@
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-	import { languageByLocale } from '$lib/locale-data/locales';
+	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
   import ComboBox from '../ui/ComboBox/ComboBox.svelte';
   import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
+  import { selectedLocale } from '$lib/store/selected-locale';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -38,13 +39,14 @@
 
 <h2>Input values</h2>
 
-<Select
-	name="locale"
-	placeholder="Select a locale"
-	label="Locale"
-	items={Object.entries(languageByLocale)}
-	bind:value={locale}
-/>
+<ComboBoxContext>
+	<ComboBox
+		label="Locale"
+		name="locale"
+		bind:value={$selectedLocale}
+		options={languageByLocaleAsComboBoxOptions}
+	/>
+</ComboBoxContext>
 
 <Select
 	name="currencies"

@@ -1,11 +1,13 @@
 <script lang="ts">
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
-	import Select from '$lib/components/ui/Select.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
-	import { languageByLocale } from '$lib/locale-data/locales';
+	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
 	import DisplayNamesHighlight from '../ui/DisplayNamesHighlight.svelte';
 	import Spacer from '../ui/Spacer.svelte';
+  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+  import { selectedLocale } from '$lib/store/selected-locale';
 
 	export let locale: string;
 
@@ -19,14 +21,14 @@
 
 <h2>Input values</h2>
 
-<Select
-	name="locale"
-	placeholder="Select a locale"
-	label="Locale"
-	removeEmpty
-	items={Object.entries(languageByLocale)}
-	bind:value={locale}
-/>
+<ComboBoxContext>
+	<ComboBox
+		label="Locale"
+		name="locale"
+		bind:value={$selectedLocale}
+		options={languageByLocaleAsComboBoxOptions}
+	/>
+</ComboBoxContext>
 
 <h2>Output</h2>
 

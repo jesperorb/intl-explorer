@@ -35,21 +35,8 @@
 		provides language sensitive string comparison, number formatting, and date and time formatting.
 	</p>
 	<p>
-		To get started either: Choose a <strong>formatter</strong> you are interested in from the navigation menu.
-		Or visit <strong><a href="/Playground">The Playground</a></strong>.
+		To get started either visit <strong><a href="/Playground">The Playground</a></strong> or choose <strong>formatter</strong> you are interested in from the navigation menu.
 	</p>
-	<p>
-		Every code snippet has a button which lets you copy the code that produces the output to your
-		clipboard. Try it by pressing the button labeled <em>"Copy"</em> below:
-	</p>
-
-	<Highlight
-		{onClick}
-		values={{ dateStyle: 'short' }}
-		output={new Intl.DateTimeFormat($selectedLocale, { dateStyle: 'long' }).format(
-			new Date('2022-09-22')
-		)}
-	/>
 
 	<p>
 		The source code for this tool can be found at <a
