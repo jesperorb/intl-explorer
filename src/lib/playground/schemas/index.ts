@@ -8,8 +8,8 @@ import { relativeTimeFormatSchema } from './relativeTimeFormat.schema';
 import { segmenterSchema } from './segmenter.schema';
 
 export const schemas = {
-	ListFormat: listFormatSchema,
 	NumberFormat: numberFormatSchema,
+	ListFormat: listFormatSchema,
 	PluralRules: pluralRulesSchema,
 	DateTimeFormat: dateTimeFormatSchema,
 	RelativeTimeFormat: relativeTimeFormatSchema,

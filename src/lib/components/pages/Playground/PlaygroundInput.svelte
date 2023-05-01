@@ -6,11 +6,11 @@
 	import DateTime from '$lib/components/ui/DateTime.svelte';
 
 	import { formatMethods } from '$lib/format-methods';
-	import { languageByLocaleAsComboBoxOptions, languageByLocaleAsEntries } from '$lib/locale-data/locales';
+	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
   import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
 
-	export let schema: PlaygroundSchema<'ListFormat'>;
+	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let locale: string;
 	export let onChangeSchema: (event: Event) => void;
 	export let onInput: (event: Event) => void;

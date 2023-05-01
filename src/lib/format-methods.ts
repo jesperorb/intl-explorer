@@ -1,8 +1,8 @@
 export const formatMethods = [
-	'DateTimeFormat',
 	'NumberFormat',
-	'ListFormat',
+	'DateTimeFormat',
 	'RelativeTimeFormat',
+	'ListFormat',
 	'PluralRules',
 	'Collator',
 	'Segmenter',

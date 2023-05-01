@@ -3,7 +3,7 @@ import type { PlaygroundOption } from '$lib/playground/playground.schema';
 export const defaultNumberRange = [1, 2, 3, 4, 5];
 
 export const clampValue = (
-	option: PlaygroundOption<'ListFormat'>,
+	option: PlaygroundOption<'NumberFormat'>,
 	value: string | boolean | null | undefined
 ) => {
 	if (option.valueType !== 'number') return value;

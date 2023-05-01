@@ -2,7 +2,6 @@ import {
 	numberFormatOptionsCurrency,
 	numberFormatOptionsUnit
 } from '$lib/format-options/number-format.options';
-import { units } from '$lib/locale-data/units';
 import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 
 export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
@@ -20,14 +19,14 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 		{
 			name: 'style',
 			valueType: 'string',
-			defaultValue: undefined,
+			defaultValue: "currency",
 			inputType: 'select',
 		},
 		/** UNIT */
 		{
 			name: 'unit',
 			valueType: 'string',
-			defaultValue: units['20'],
+			defaultValue: undefined,
 			inputType: 'select'
 		},
 		{
@@ -52,7 +51,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 		{
 			name: 'currency',
 			valueType: 'string',
-			defaultValue: 'SEK',
+			defaultValue: 'USD',
 			inputType: 'select'
 		},
 		{
@@ -86,7 +85,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			defaultValue: undefined,
 			inputType: 'text',
 			max: 21,
-			min: 0,
+			min: 1,
 		},
 		{
 			name: 'minimumFractionDigits',
@@ -94,7 +93,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			defaultValue: undefined,
 			inputType: 'text',
 			max: 20,
-			min: 0
+			min: 1
 		},
 		{
 			name: 'maximumFractionDigits',
@@ -102,7 +101,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			defaultValue: undefined,
 			inputType: 'text',
 			max: 20,
-			min: 0
+			min: 1
 		},
 		{
 			name: 'minimumSignificantDigits',
@@ -110,7 +109,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			defaultValue: undefined,
 			inputType: 'text',
 			max: 21,
-			min: 0
+			min: 1
 		},
 		{
 			name: 'maximumSignificantDigits',
@@ -118,7 +117,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			defaultValue: undefined,
 			inputType: 'text',
 			max: 21,
-			min: 0
+			min: 1
 		},
 		{
 			name: 'localeMatcher',
