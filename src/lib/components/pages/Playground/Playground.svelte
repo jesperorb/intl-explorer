@@ -11,7 +11,6 @@
 	import PlaygroundOptions from './PlaygroundOptions.svelte';
 	import PlaygroundInput from './PlaygroundInput.svelte';
 	import PlaygroundSecondaryFormatters from './PlaygroundSecondaryFormatters.svelte';
-	import CopyButton from './CopyButton.svelte';
 
 	import {
 		schemaToCode,
@@ -25,19 +24,20 @@
 	import { clampValue, fallbackDisplayNames } from '$lib/utils/format-utils';
 	import { schemas, type SchemaKeys } from '$lib/playground/schemas';
   import { onMount } from 'svelte';
-  import { listFormatSchema } from '$lib/playground/schemas/listFormat.schema';
+  import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
+  import CopyButton from '$lib/components/ui/CopyButton.svelte';
 
 	export let data: { [key: string]: BrowserCompatData };
 	export let locale: string;
 
-	let schema = parseSchemaFromURL<'ListFormat'>();
+	let schema = parseSchemaFromURL<'NumberFormat'>();
 	let secondaryFormatters = schema ? schemaToSecondaryFormattersOutput(schema, locale) : [];
 	let browserCompatData = schema ? { ...data[schema.method] } : null;
 
 	onMount(() => {
 		if(!schema) {
-			setSchemaInURL(listFormatSchema);
-			schema = listFormatSchema;
+			setSchemaInURL(numberFormatSchema);
+			schema = numberFormatSchema;
 		}
 	})
 
@@ -59,9 +59,9 @@
 				  }
 				: option
 		);
-		const newSchema: PlaygroundSchema<'ListFormat'> = {
+		const newSchema: PlaygroundSchema<'NumberFormat'> = {
 			...schema,
-			options: schemaOptions as unknown as PlaygroundOption<'ListFormat'>[]
+			options: schemaOptions as unknown as PlaygroundOption<'NumberFormat'>[]
 		};
 		const isRelativeTimeUnit =
 			(schema.method as FormatMethodsKeys) === 'RelativeTimeFormat' && optionName === 'unit';
@@ -84,7 +84,7 @@
 			schema.inputValues[0] = parsedValue;
 		}
 		if (schema?.inputValueType === 'number') {
-			const parsed = parseInt(value, 10);
+			const parsed = parseFloat(value);
 			schema.inputValues[0] = isNaN(parsed) ? 0 : parsed;
 		}
 		if (schema?.inputValueType === 'string') {
@@ -101,7 +101,7 @@
 	const onChangeSchema = (event: Event) => {
 		const value = (event.target as HTMLInputElement).value;
 		const newSchema = validateAndUpdateSchema(
-			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<'ListFormat'>
+			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<'NumberFormat'>
 		);
 		schema = newSchema;
 		secondaryFormatters = schemaToSecondaryFormattersOutput(newSchema, locale);
@@ -130,9 +130,9 @@
 		<summary>
 			<h2>Code</h2>
 		</summary>
-		<div>
+		<div class="highlight">
 			<Highlight language={typescript} code={schemaToCode(schema, locale)} />
-			<CopyButton {copy} />
+			<CopyButton onClick={copy} label="Copy code"  />
 		</div>
 	</details>
 	<details open id="resolvedOptions">
@@ -151,5 +151,9 @@
 		font-size: 1.25rem;
 		display: inline-block;
 		margin: 0.5rem 0;
+	}
+	.highlight {
+		position: relative;
+		min-height: 4rem;
 	}
 </style>

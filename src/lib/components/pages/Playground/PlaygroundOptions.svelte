@@ -8,7 +8,7 @@
 
 	import { getItemsFromOption } from '$lib/playground/format.utils';
 
-	export let schema: PlaygroundSchema<'ListFormat'>;
+	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let browserCompatData: BrowserCompatData | null;
 	export let onChangeOption: (event: Event) => void;
 </script>
@@ -27,7 +27,7 @@
 					<Select
 						onChange={onChangeOption}
 						name={option.name}
-						value={option.value ?? option.defaultValue ?? ''}
+						value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
 						items={getItemsFromOption(schema.method, option)}
 						fullWidth
 						removeEmpty={option.removeUndefined}
@@ -38,7 +38,7 @@
 						id={option.name}
 						onInput={onChangeOption}
 						name={option.name}
-						value={option.value ?? option.defaultValue ?? ''}
+						value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
 						fullWidth
 						pattern={option.pattern}
 						max={option.max}
