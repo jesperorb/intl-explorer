@@ -23,5 +23,5 @@ export const formatOptions = {
 	PluralRules: pluralRulesFormatOptions,
 	Collator: collatorFormatOptions,
 	Segmenter: segmenterOptions,
-	DisplayNames: displayNamesOptions,
+	DisplayNames: displayNamesOptions
 };

@@ -53,9 +53,7 @@
         break;
       case "ArrowDown":
         await showList(target?.value);
-        const option = listElement.querySelector(`[role="option"]:not([aria-disabled="true"])`) as HTMLElement | null;
-        option?.focus();
-
+        (listElement.querySelector(`[role="option"]:not([aria-disabled="true"])`) as HTMLElement | null)?.focus();
         event.preventDefault();
         event.stopPropagation();
         break;
@@ -105,28 +103,23 @@
   function onListKeyDown(event: KeyboardEvent) {
     let flag = false;
     const target = event.target as HTMLElement | null;
-
+    let prevOptionElement = target?.previousElementSibling as HTMLElement | null;
+    let nextOptionElement = target?.nextElementSibling as HTMLElement | null;
     switch (event.key) {
       case "ArrowUp":
-        let prevOptionElement = target?.previousElementSibling as HTMLElement | null;
-
         while (prevOptionElement) {
           if (prevOptionElement.matches(`[role="option"]:not([aria-disabled="true"])`)) break;
           prevOptionElement = prevOptionElement.previousElementSibling as HTMLElement | null;
         }
-
         prevOptionElement?.focus();
         flag = true;
         break;
 
       case "ArrowDown":
-        let nextOptionElement = target?.nextElementSibling as HTMLElement | null;
-
         while (nextOptionElement) {
           if (nextOptionElement.matches(`[role="option"]:not([aria-disabled="true"])`)) break;
           nextOptionElement = nextOptionElement.nextElementSibling as HTMLElement | null;
         }
-
         nextOptionElement?.focus();
         flag = true;
         break;

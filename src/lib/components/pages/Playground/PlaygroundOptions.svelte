@@ -47,14 +47,14 @@
 				{/if}
 				{#if option.inputType === 'radio'}
 					<fieldset>
-						{#each getItemsFromOption(schema.method, option) as [_, value]}
+						{#each getItemsFromOption(schema.method, option) as [, value]}
 							<div class="radio">
 								<input
 									type="radio"
 									on:input={onChangeOption}
 									id={option.name}
 									name={option.name}
-									group={value}
+									group={value} 
 								/>
 								<label for={option.name}>{value}</label>
 							</div>

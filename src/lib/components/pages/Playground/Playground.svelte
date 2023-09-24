@@ -124,7 +124,7 @@
 		<summary>
 			<h2>Output</h2>
 		</summary>
-		<Highlight code={schemaToPrimaryFormatterOutput(schema, locale)} />
+		<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
 	</details>
 	<details open id="code">
 		<summary>

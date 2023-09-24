@@ -19,3 +19,4 @@ CodeBlock.svelte
 HighlightValue.svelte
 Highlight.svelte
 Token.svelte
+.cjs

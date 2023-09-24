@@ -26,7 +26,7 @@ const config = {
 				...devices['Desktop Firefox']
 			}
 		}
-	],
+	]
 };
 
 export default config;

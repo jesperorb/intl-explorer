@@ -73,7 +73,7 @@ export const dateTimeFormatSchema: PlaygroundSchema<'DateTimeFormat'> = {
 			inputType: 'select'
 		},
 		{
-			name: "month",
+			name: 'month',
 			valueType: 'string',
 			defaultValue: undefined,
 			inputType: 'select'

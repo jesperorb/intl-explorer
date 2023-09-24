@@ -437,5 +437,7 @@ export const languageByLocale = {
 	zu: 'Zulu'
 } as const;
 
-export const languageByLocaleAsComboBoxOptions = Object.entries(languageByLocale).map(([key, value]) => ({ label: value, value: key }))
-export const languageByLocaleAsEntries = Object.entries(languageByLocale)
+export const languageByLocaleAsComboBoxOptions = Object.entries(languageByLocale).map(
+	([key, value]) => ({ label: value, value: key })
+);
+export const languageByLocaleAsEntries = Object.entries(languageByLocale);
