@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dev } from '$app/environment';
+	/* eslint svelte/valid-compile: ["error", { ignoreWarnings: true }] */
 	import type { Page } from '@sveltejs/kit';
 	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
@@ -36,6 +36,7 @@
 	<slot />
 </Main>
 
+<!-- Ignore -->
 <style global>
 	:root {
 		--black: hsl(276, 100%, 10%);
@@ -60,7 +61,7 @@
 
 	*,
 	*::after,
-	**::before {
+	*::before {
 		box-sizing: border-box;
 	}
 

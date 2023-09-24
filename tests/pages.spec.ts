@@ -178,7 +178,10 @@ test('ListFormat', async ({ page, browserName, baseURL }, { title }) => {
 	);
 	await intlPage.selectLocale('sv');
 	await intlPage.assertUrlLocale('sv');
-	await intlPage.assertCodeBlockContent('type', `{  type: "conjunction"   } // Miso, Sesam och Mami`);
+	await intlPage.assertCodeBlockContent(
+		'type',
+		`{  type: "conjunction"   } // Miso, Sesam och Mami`
+	);
 	await page.locator('input[type="text"]').fill('Miso,Sesam');
 	await intlPage.assertCodeBlockContent('type', `{  type: "conjunction"   } // Miso och Sesam`);
 });

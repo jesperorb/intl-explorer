@@ -33,6 +33,7 @@
 		open = false;
 	};
 
+	// eslint-disable-next-line no-undef
 	const onMatchMediaChange = (event: MediaQueryListEventMap['change']) => {
 		isDesktop = event.matches;
 		open = event.matches;

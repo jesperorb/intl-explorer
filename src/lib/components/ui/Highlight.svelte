@@ -3,7 +3,6 @@
   import CodeBlock from './CodeBlock.svelte';
   import CopyButton from './CopyButton.svelte';
 	import Token from './Highlight/Token.svelte';
-  import CopyToClipboard from './icons/CopyToClipboard.svelte';
 	type OptionValues = { [key: string]: number | boolean | string };
 
 	export let values: OptionValues;

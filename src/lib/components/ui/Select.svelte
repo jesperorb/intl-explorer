@@ -1,4 +1,5 @@
 <script lang="ts">
+	// eslint-disable-next-line no-undef
 	type Type = $$Generic;
 	interface $$Slots {
 		default: {
@@ -13,7 +14,7 @@
 	export let value: string | number;
 	export let fullWidth: boolean | undefined = undefined;
 	export let removeEmpty: boolean | undefined = undefined;
-	export let onChange: ((event: any) => void) | undefined = undefined;
+	export let onChange: ((event: Event) => void) | undefined = undefined;
 </script>
 
 <div>

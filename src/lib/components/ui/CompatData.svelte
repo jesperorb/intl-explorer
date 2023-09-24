@@ -33,6 +33,7 @@
 
 	let isDesktop = Boolean(!stackedView && matchMedia?.matches);
 
+	// eslint-disable-next-line no-undef
 	const onMatchMediaChange = (event: MediaQueryListEventMap['change']) => {
 		if (stackedView) return;
 		isDesktop = event.matches;

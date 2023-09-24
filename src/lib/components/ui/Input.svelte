@@ -4,7 +4,7 @@
 	export let id: string;
 	export let name: string | undefined = undefined;
 	export let fullWidth: boolean | undefined = undefined;
-	export let onInput: ((event: any) => void) | undefined = undefined;
+	export let onInput: ((event: Event) => void) | undefined = undefined;
 	export let pattern: string | undefined = undefined;
 	export let max: number | undefined = undefined;
 	export let min: number | undefined = undefined;

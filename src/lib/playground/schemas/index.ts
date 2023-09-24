@@ -15,7 +15,7 @@ export const schemas = {
 	RelativeTimeFormat: relativeTimeFormatSchema,
 	Collator: collatorSchema,
 	Segmenter: segmenterSchema,
-	DisplayNames: displayNamesSchema,
+	DisplayNames: displayNamesSchema
 };
 
 export type SchemaKeys = keyof typeof schemas;

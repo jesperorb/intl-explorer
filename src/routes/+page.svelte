@@ -1,17 +1,6 @@
 <script lang="ts">
-	import Highlight from '$lib/components/ui/Highlight.svelte';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { selectedLocale } from '$lib/store/selected-locale';
-	import type { OptionValues } from '$lib/types/OptionValues.types';
   import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
   import { navigating } from '$app/stores';
-	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`new Intl.DateTimeFormat("${$selectedLocale}", ${JSON.stringify(
-				options
-			)}).format(new Date("2022-09-22"))`
-		);
-	};
 </script>
 
 <svelte:head>

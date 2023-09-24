@@ -4,7 +4,6 @@
 
 	import NumberFormat from '$lib/components/pages/NumberFormat.svelte';
 	import CompatData from '$lib/components/ui/CompatData.svelte';
-  import Spacer from '$lib/components/ui/Spacer.svelte';
 
   import { selectedLocale } from '$lib/store/selected-locale';
   import { getLocaleForSSR } from '$lib/utils/get-locale';

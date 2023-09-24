@@ -11,6 +11,7 @@
 </script>
 
 <svelte:head>
+	<!-- eslint-disable -->
 	{@html nightowl}
 </svelte:head>
 

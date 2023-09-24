@@ -4,7 +4,7 @@
   type Value = number | boolean | string;
   export let value: number | boolean | string;
   export let noWrap: boolean = false;
-	const valueType = typeof value as any;
+	const valueType = typeof value as "string";
   const formattedValue = (value: Value) =>
     typeof value === "string" ? `"${value}"` : value;
 </script>

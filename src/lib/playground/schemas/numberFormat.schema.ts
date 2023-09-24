@@ -13,14 +13,17 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 	invalidOptionCombos: {
 		'style:currency': Object.keys(numberFormatOptionsUnit),
 		'style:unit': Object.keys(numberFormatOptionsCurrency),
-		'style:undefined': [...Object.keys(numberFormatOptionsCurrency), ... Object.keys(numberFormatOptionsUnit)]
+		'style:undefined': [
+			...Object.keys(numberFormatOptionsCurrency),
+			...Object.keys(numberFormatOptionsUnit)
+		]
 	},
 	options: [
 		{
 			name: 'style',
 			valueType: 'string',
-			defaultValue: "currency",
-			inputType: 'select',
+			defaultValue: 'currency',
+			inputType: 'select'
 		},
 		/** UNIT */
 		{
@@ -85,7 +88,7 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			defaultValue: undefined,
 			inputType: 'text',
 			max: 21,
-			min: 1,
+			min: 1
 		},
 		{
 			name: 'minimumFractionDigits',

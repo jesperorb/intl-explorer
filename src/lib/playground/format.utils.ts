@@ -42,7 +42,7 @@ const prepareSchemaForOutput =  <Method extends FormatMethodsKeys>(
 	}
 }
 
-const prepareInputValues = <Method extends FormatMethodsKeys>(
+export const prepareInputValues = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>
 ) =>  schema.inputValueType === "date"
 	? schema.inputValues.map(v => new Date(v))
