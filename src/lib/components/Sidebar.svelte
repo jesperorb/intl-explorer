@@ -8,6 +8,7 @@
 	import { browser } from '$app/environment';
   import { getLocaleForSSR } from '$lib/utils/get-locale';
   import { selectedLocale } from '$lib/store/selected-locale';
+	import { testIds } from '$lib/utils/dom-utils';
 
 	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
 	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
@@ -62,7 +63,7 @@
 	<summary>
 		<p class="menu-button">Menu</p>
 	</summary>
-	<nav aria-label="Main Menu" data-testid="navigation">
+	<nav aria-label="Main Menu" data-testid={testIds.navigation}>
 		<ul>
 			<li><strong><a href="/?locale={locale}">About</a></strong></li>
 			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
