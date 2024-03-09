@@ -29,6 +29,6 @@
 		padding: 0.5rem;
 	}
 	.fullWidth {
-		width: calc(100% - 0.5rem);
+		width: 100%;
 	}
 </style>

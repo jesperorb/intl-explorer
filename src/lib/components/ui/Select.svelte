@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChevronUp from "./icons/ChevronUp.svelte";
+	import ChevronUp from './icons/ChevronUp.svelte';
 
 	// eslint-disable-next-line no-undef
 	type Type = $$Generic;
@@ -23,7 +23,6 @@
 	{#if label}
 		<label for={`${name}Select`}>{label}</label>
 	{/if}
-	<div class="wrapper">
 	<select {name} bind:value id={`${name}Select`} on:change={onChange} class:fullWidth>
 		{#if !removeEmpty}
 			<option value="">{placeholder ?? 'undefined'}</option>
@@ -34,29 +33,9 @@
 			{/if}
 		{/each}
 	</select>
-	<div class="icon"><ChevronUp /></div>
-	</div>
 </div>
 
 <style>
-	.wrapper {
-		position: relative;
-	}
-	select {
-		border: 1px solid var(--lightgray);
-		border-radius: 4px;
-		background-color: white;
-		padding: 0.5rem;
-		-webkit-appearance: none;
-		appearance: none;
-	}
-	.icon {
-		font-size: 0.85rem;
-		color: var(--gray);
-		top: 5px;
-		right: 0.5rem;
-		position: absolute;
-	}
 	.fullWidth {
 		width: 100%;
 	}
