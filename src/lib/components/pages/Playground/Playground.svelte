@@ -26,13 +26,14 @@
   import { onMount } from 'svelte';
   import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
   import CopyButton from '$lib/components/ui/CopyButton.svelte';
+	import CompatData from '$lib/components/ui/CompatData.svelte';
 
 	export let data: { [key: string]: BrowserCompatData };
 	export let locale: string;
 
 	let schema = parseSchemaFromURL<'NumberFormat'>();
 	let secondaryFormatters = schema ? schemaToSecondaryFormattersOutput(schema, locale) : [];
-	let browserCompatData = schema ? { ...data[schema.method] } : null;
+	$: browserCompatData = schema ? { ...data[schema.method] } : null;
 
 	onMount(() => {
 		if(!schema) {
@@ -117,9 +118,10 @@
 
 {#if schema}
 	<p><MdnLink header={schema.method} /></p>
+	<CompatData data={browserCompatData} />
 	<Spacer />
 	<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />
-	<PlaygroundOptions {browserCompatData} {schema} {onChangeOption} />
+	<PlaygroundOptions bind:browserCompatData {schema} {onChangeOption} />
 	<details open id="output">
 		<summary>
 			<h2>Output</h2>
@@ -143,7 +145,7 @@
 			<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
 		</div>
 	</details>
-	<PlaygroundSecondaryFormatters {secondaryFormatters} />
+	<PlaygroundSecondaryFormatters bind:browserCompatData {secondaryFormatters} />
 {/if}
 
 <style>

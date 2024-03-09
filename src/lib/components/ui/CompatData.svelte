@@ -10,30 +10,29 @@
 	export let option: string | undefined = undefined;
 	export let labelId: string | undefined = undefined;
 	export let stackedView: boolean | undefined = false;
-	const specUrl =
+	$: specUrl =
 		data && Array.isArray(data.specUrl)
 			? data.specUrl
 			: typeof data?.specUrl === 'string'
 			? [data.specUrl]
 			: [];
 
-	const compatDataValue = data ? data[optionsType] : {};
-	const compatData = Object.entries(
+	$: compatDataValue = data ? data[optionsType] : {};
+	$: compatData = Object.entries(
 		(option && compatDataValue ? compatDataValue[option] : compatDataValue) ?? {}
 	);
-	const headers = data?.browserTypeHeaders ?? [];
-	const desktopBrowsers = compatData?.filter(([, data]) => data.browserType === 'desktop');
+	$: headers = data?.browserTypeHeaders ?? [];
+	$: desktopBrowsers = compatData?.filter(([, data]) => data.browserType === 'desktop');
 
 	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
 		if (!versionAdded) return `Not available in ${browserName}`;
 		return `Available in ${browserName} from version ${versionAdded}`;
 	};
 
-	const matchMedia = browser && !stackedView ? window.matchMedia('(min-width: 900px)') : null;
+	$: matchMedia = browser && !stackedView ? window.matchMedia('(min-width: 900px)') : null;
 
-	let isDesktop = Boolean(!stackedView && matchMedia?.matches);
+	$: isDesktop = Boolean(!stackedView && matchMedia?.matches);
 
-	// eslint-disable-next-line no-undef
 	const onMatchMediaChange = (event: MediaQueryListEventMap['change']) => {
 		if (stackedView) return;
 		isDesktop = event.matches;
