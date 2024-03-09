@@ -34,7 +34,7 @@
 		gap: 1rem;
 	}
 	input {
-		border: 1px solid grey;
+		border: 1px solid var(--lightgray);
 		border-radius: 4px;
 		background-color: white;
 		padding: 0.5rem;

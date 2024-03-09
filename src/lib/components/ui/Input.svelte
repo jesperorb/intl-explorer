@@ -23,7 +23,7 @@
 
 <style>
 	input {
-		border: 1px solid var(--gray);
+		border: 1px solid var(--lightgray);
 		border-radius: 4px;
 		background-color: white;
 		padding: 0.5rem;

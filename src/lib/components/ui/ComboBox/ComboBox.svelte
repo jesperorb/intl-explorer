@@ -5,6 +5,7 @@
   import { onMount } from "svelte";
 
   import { uid, onClickOutside } from "./ComboBoxContext.svelte";
+  import ChevronUp from "../icons/ChevronUp.svelte";
 
   export let disabled: boolean | undefined = undefined;
   export let error: string | undefined = undefined;
@@ -191,33 +192,33 @@
 
   <div class="input-container" use:onClickOutside={hideList}>
     <slot name="icon-start" />
-
-    <input
-      bind:this={inputElement}
-      on:focus
-      on:blur
-      on:input
-      on:keyup={onInputKeyup}
-      on:keydown={onInputKeydown}
-      on:mousedown={onInputClick}
-      class="combobox__input"
-      {id}
-      {name}
-      type="text"
-      {disabled}
-      value={selectedOption?.label}
-      autocapitalize="none"
-      autocomplete="off"
-      {readonly}
-      {placeholder}
-      spellcheck="false"
-			role="combobox"
-			aria-autocomplete="list"
-			aria-expanded={isListOpen}
-      aria-controls=""
-      aria-required={required ? "true" : undefined}
-    />
-
+    <span class="input-wrapper">
+      <input
+        bind:this={inputElement}
+        on:focus
+        on:blur
+        on:input
+        on:keyup={onInputKeyup}
+        on:keydown={onInputKeydown}
+        on:mousedown={onInputClick}
+        class="combobox__input"
+        {id}
+        {name}
+        type="text"
+        {disabled}
+        value={selectedOption?.label}
+        autocapitalize="none"
+        autocomplete="off"
+        {readonly}
+        {placeholder}
+        spellcheck="false"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={isListOpen}
+        aria-controls=""
+        aria-required={required ? "true" : undefined}
+      /><div class="chevron"><ChevronUp /></div>
+    </span>
     <ul
       class="combobox__list"
       role="listbox"
@@ -265,8 +266,6 @@
 		--accent-color: #06113C;
 		--background-color: white;
 		--border-radius: 1em;
-		
-		--option-border: ;
 		--option-padding: 0.5rem;
 		
 		display: flex;
@@ -274,7 +273,7 @@
     margin-bottom: 0.5rem;
 	}
 	
-  .input-container {
+  .input-container, .input-wrapper {
     position: relative;
   }
 	
@@ -283,9 +282,21 @@
 		width: 100%;
     max-width: 30rem;
 		padding: 0.5rem;
-		border: 1px solid gray;
+		border: 1px solid var(--lightgray);
 		border-radius: 0.3rem;
 	}
+
+  .chevron {
+		font-size: 0.85rem;
+		color: var(--gray);
+    top: -1px;
+    right: 0.5rem;
+		position: absolute;
+	}
+
+  .icon {
+    color: var(--lightgray);
+  }
 	
 	.combobox__input:focus {
 		outline: none;
@@ -313,8 +324,8 @@
     
     background-color: var(--background-color);
     border-radius: 0.3em;
-		border: 1px solid var(--accent-color);
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;    
+		border: 1px solid var(--lightgray);
+    box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;    
   }
 	
 	.list__no-results {

@@ -22,8 +22,8 @@
 	.wrapper {
 		position: relative;
 		background-color: var(--white);
+		border: 1px solid hsl(0, 0%, 90%);
 		padding: 1rem;
-		box-shadow: -2px -2px 8px 2px hsla(276, 100%, 10%, 0.03);
 		overflow-x: auto;
 	}
 </style>
