@@ -140,6 +140,18 @@
 		border-bottom: 2px solid var(--purple);
 	}
 
+	select {
+		border: 1px solid var(--lightgray);
+		border-radius: 4px;
+		padding: 0.5rem;
+		appearance: none;
+		--webkit-appearance: none;
+		background: white;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+	}
+
 	details > summary {
 		cursor: pointer;
 	}
