@@ -20,7 +20,8 @@
 			<OptionSection
 				labelId={option.name}
 				header={option.name}
-				{browserCompatData}
+				optionsType="optionsSupport"
+				bind:browserCompatData
 				stackedCompatView
 			>
 				{#if option.inputType === 'select'}
