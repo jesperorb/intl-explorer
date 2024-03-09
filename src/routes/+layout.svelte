@@ -19,7 +19,12 @@
 
 <svelte:head>
 	<title>{routeId ?? 'Intl Explorer'}</title>
-	<script async src="https://umami-jesperorb.vercel.app/script.js" data-website-id="1a2d166c-93b7-4f2b-b61f-ae3e221cf760" data-do-not-track="true"></script>
+	<script
+		async
+		src="https://umami-jesperorb.vercel.app/script.js"
+		data-website-id="1a2d166c-93b7-4f2b-b61f-ae3e221cf760"
+		data-do-not-track="true"
+	></script>
 </svelte:head>
 
 <SkipLink />
@@ -39,11 +44,12 @@
 <!-- Ignore -->
 <style global>
 	:root {
-		--black: hsl(276, 100%, 10%);
+		--black: hsl(276, 100%, 12%);
 		--white: hsl(0, 100%, 100%);
 		--dark-blue: hsl(207, 95%, 8%);
 		--light-blue: hsl(221, 100%, 75%);
 		--gray: hsl(0, 0%, 60%);
+		--lightgray: hsl(0, 0%, 80%);
 		--purple: hsl(276, 67%, 74%);
 		--teal: hsl(169, 56%, 68%);
 		--green: hsl(114, 31%, 68%);
@@ -132,5 +138,9 @@
 	a {
 		text-decoration: none;
 		border-bottom: 2px solid var(--purple);
+	}
+
+	details > summary {
+		cursor: pointer;
 	}
 </style>
