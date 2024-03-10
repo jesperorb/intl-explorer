@@ -14,6 +14,7 @@
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import { trackEvent } from '$lib/utils/analytics';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
@@ -25,6 +26,11 @@
 				options
 			)}).segment("${sentence}"))`
 		);
+		trackEvent("Copy Code", {
+			method: "Segmenter",
+			options: JSON.stringify(options),
+			locale,
+		})
 	};
 
 	const getOutput = (options: OptionValues) => {

@@ -10,6 +10,7 @@
   import { selectedLocale } from '$lib/store/selected-locale';
 	import { testIds } from '$lib/utils/dom-utils';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import OpenInNewTab from '$lib/components/ui/icons/OpenInNewTab.svelte';
 
 	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
 	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
@@ -97,7 +98,8 @@
 					class="github"
 					href="https://github.com/jesperorb/intl-explorer"
 					target="_blank"
-					rel="noopener noreferrer">GitHub</a
+					data-umami-event="GitHub Link"
+					rel="noopener noreferrer">GitHub <OpenInNewTab /></a
 				>
 			</li>
 		</ul>
