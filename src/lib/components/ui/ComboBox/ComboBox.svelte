@@ -10,7 +10,7 @@
 	import { onMount } from 'svelte';
 
 	import { uid, onClickOutside } from './ComboBoxContext.svelte';
-	import ChevronUp from '../icons/ChevronUp.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let disabled: boolean | undefined = undefined;
 	export let error: string | undefined = undefined;
@@ -195,7 +195,7 @@
 			</span>
 		{/if}
 	</label>
-
+	<Spacing size={2} />
 	<div class="input-container" use:onClickOutside={hideList}>
 		<slot name="icon-start" />
 		<input
@@ -268,11 +268,10 @@
 		--accent-color: #06113c;
 		--background-color: white;
 		--border-radius: 1em;
-		--option-padding: 0.5rem;
+		--option-padding: var(--spacing-2);
 
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 0.5rem;
 	}
 
 	.input-container{
@@ -280,12 +279,11 @@
 	}
 
 	.combobox__input {
-		margin: 0;
 		width: 100%;
 		max-width: 30rem;
 		border: 1px solid var(--lightgray);
 		border-radius: 4px;
-		padding: 0.5rem;
+		padding: var(--spacing-2);
 		appearance: none;
 		--webkit-appearance: none;
 		background: white;
@@ -310,8 +308,7 @@
 	.combobox__list {
 		/* Reset */
 		list-style: none;
-		margin: 0;
-		padding: 0.5rem;
+		padding: var(--spacing-2);
 		/* Position and Size */
 		position: absolute;
 		inset-inline-start: 0;
@@ -336,7 +333,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 0.5rem;
+		padding: var(--spacing-2);
 		border: 0.2rem solid transparent;
 		border-radius: 0.3rem;
 		max-width: 30rem;

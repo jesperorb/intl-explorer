@@ -45,7 +45,4 @@
 	div {
 		max-width: 700px;
 	}
-	h1 {
-		margin: 0;
-	}
 </style>

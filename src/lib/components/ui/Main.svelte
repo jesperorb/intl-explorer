@@ -14,16 +14,15 @@
 			max-width: 100%;
 		}
 		.wrapper {
-			margin-top: 1rem;
-			margin-bottom: 1rem;
 			border-radius: 6px 0 0 6px;
+			margin-top: var(--spacing-4);
 		}
 	}
 	.wrapper {
 		position: relative;
+		padding: var(--spacing-4);
 		background-color: var(--white);
-		border: 1px solid hsl(0, 0%, 90%);
-		padding: 1rem;
+		border: 1px solid var(--lightergray);
 		overflow-x: auto;
 	}
 </style>

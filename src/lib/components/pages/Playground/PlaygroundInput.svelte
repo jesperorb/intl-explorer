@@ -55,8 +55,7 @@
 		.top {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-			gap: 1rem;
-			margin-bottom: 1rem;
+			gap: var(--spacing-4);
 		}
 	}
 </style>

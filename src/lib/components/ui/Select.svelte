@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChevronUp from './icons/ChevronUp.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	// eslint-disable-next-line no-undef
 	type Type = $$Generic;
@@ -23,6 +23,7 @@
 	{#if label}
 		<label for={`${name}Select`}>{label}</label>
 	{/if}
+	<Spacing size={1} /> 
 	<select {name} bind:value id={`${name}Select`} on:change={onChange} class:fullWidth>
 		{#if !removeEmpty}
 			<option value="">{placeholder ?? 'undefined'}</option>

@@ -3,10 +3,10 @@
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
-	import DisplayNamesHighlight from '../ui/DisplayNamesHighlight.svelte';
-	import Spacer from '../ui/Spacer.svelte';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+	import DisplayNamesHighlight from '$lib/components/ui/DisplayNamesHighlight.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
 
 	export let locale: string;
@@ -20,7 +20,7 @@
 </script>
 
 <h2>Input values</h2>
-
+<Spacing />
 <ComboBoxContext>
 	<ComboBox
 		label="Locale"
@@ -29,13 +29,14 @@
 		options={languageByLocaleAsComboBoxOptions}
 	/>
 </ComboBoxContext>
-
+<Spacing />
 <h2>Output</h2>
-
+<Spacing />
 <Grid>
 	<OptionSection header={'region'}>
-		<Spacer />
+		<Spacing size={1} />
 		<Input id="region" label="region" bind:value={code} />
+		<Spacing size={2} />
 		<DisplayNamesHighlight
 			bind:locale
 			bind:value={code}
@@ -62,8 +63,9 @@
 		/>
 	</OptionSection>
 	<OptionSection header={'language'}>
-		<Spacer />
+		<Spacing size={1} />
 		<Input id="language" label="language" bind:value={language} />
+		<Spacing size={2} />
 		<DisplayNamesHighlight
 			bind:locale
 			bind:value={language}
@@ -82,8 +84,9 @@
 		/>
 	</OptionSection>
 	<OptionSection header={'currency'}>
-		<Spacer />
+		<Spacing size={1} />
 		<Input id="currency" label="currency" bind:value={currency} />
+		<Spacing size={2} />
 		<DisplayNamesHighlight
 			bind:locale
 			bind:value={currency}
@@ -93,8 +96,9 @@
 		/>
 	</OptionSection>
 	<OptionSection header={'script'}>
-		<Spacer />
+		<Spacing size={1} />
 		<Input id="script" label="script" bind:value={script} />
+		<Spacing size={2} />
 		<DisplayNamesHighlight
 			bind:locale
 			bind:value={script}
@@ -104,8 +108,9 @@
 		/>
 	</OptionSection>
 	<OptionSection header={'calendar'}>
-		<Spacer />
+		<Spacing size={1} />
 		<Input id="calendar" label="calendar" bind:value={calendar} />
+		<Spacing size={2} />
 		<DisplayNamesHighlight
 			bind:locale
 			bind:value={calendar}
@@ -115,8 +120,9 @@
 		/>
 	</OptionSection>
 	<OptionSection header={'dateTimeField'}>
-		<Spacer />
+		<Spacing size={1} />
 		<Input id="dateTimeField" label="dateTimeField" bind:value={dateTimeField} />
+		<Spacing size={2} />
 		<DisplayNamesHighlight
 			bind:locale
 			bind:value={dateTimeField}

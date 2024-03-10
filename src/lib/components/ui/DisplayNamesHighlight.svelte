@@ -2,7 +2,7 @@
   import type { OptionValues } from "$lib/types/OptionValues.types";
   import { copyToClipboard } from "$lib/utils/copy-to-clipboard";
   import { tryDisplayNames } from "$lib/utils/format-utils";
-  import Highlight from "./Highlight.svelte";
+  import Highlight from "$lib/components/ui/Highlight.svelte";
 
   export let value: string;
   export let locale: string;

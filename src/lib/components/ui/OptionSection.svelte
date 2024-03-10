@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-	import CompatData from './CompatData.svelte';
+	import CompatData from '$lib/components/ui/CompatData.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let header: string;
 	export let labelId: string | undefined = undefined;
@@ -21,5 +22,7 @@
 		{labelId}
 		{optionsType}
 	/>
+	<Spacing size={1} />
 	<slot />
+	<Spacing size={2} />
 </section>

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+
 	export let defaultValue: string;
 	export let onChange: (datetime: string) => void;
 
@@ -20,10 +22,12 @@
 <div class="datetime">
 	<div>
 		<label for="date">Date</label>
+		<Spacing size={1} /> 
 		<input type="date" id="date" on:input={onChangeDate} value={dateString} />
 	</div>
 	<div>
 		<label for="time">Time</label>
+		<Spacing size={1} /> 
 		<input type="time" id="time" on:input={onChangeTime} value={timeString} />
 	</div>
 </div>
@@ -32,12 +36,5 @@
 	.datetime {
 		display: flex;
 		gap: 1rem;
-	}
-	input {
-		border: 1px solid var(--lightgray);
-		border-radius: 4px;
-		background-color: white;
-		padding: 0.5rem;
-		font-family: var(--font-family);
 	}
 </style>

@@ -8,12 +8,12 @@
 	.sidebar-toggle {
 		width: 2rem;
 		height: 2rem;
-		padding: 0.5rem 1rem;
+		padding: var(--spacing-2) var(--spacing-4);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
 		cursor: pointer;
-		background-color: white;
+		background-color: var(--white);
 		border-radius: 4px;
 		border: 1px solid var(--light-purple);
 		box-shadow: 4px 4px 8px 2px hsla(276, 100%, 20%, 0.1);

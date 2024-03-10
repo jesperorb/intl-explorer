@@ -4,7 +4,7 @@
 
 	import NumberFormat from '$lib/components/pages/NumberFormat.Currency.svelte';
 	import CompatData from '$lib/components/ui/CompatData.svelte';
-  import Spacer from '$lib/components/ui/Spacer.svelte';
+  import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
@@ -16,7 +16,7 @@
 </script>
 
 <CompatData optionsType="support" {data} />
-<Spacer />
+<Spacing />
 
 {#if browser}
 	<NumberFormat browserCompatData={data}  bind:locale={$selectedLocale} />
