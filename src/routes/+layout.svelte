@@ -18,6 +18,7 @@
 
 <svelte:head>
 	<title>{routeId ?? 'Intl Explorer'}</title>
+	<script defer src="https://umami-xi-eosin.vercel.app/script.js" data-website-id="a1ca3232-d4d8-44ac-92f0-656a91ceb36c"></script>
 </svelte:head>
 
 <SkipLink />
