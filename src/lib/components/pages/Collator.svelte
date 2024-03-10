@@ -13,6 +13,7 @@
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
+	import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -23,6 +24,11 @@
 		await copyToClipboard(
 			`[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`
 		);
+		trackEvent("Copy Code", {
+			method: "Collator",
+			options: JSON.stringify(options),
+			locale,
+		})
 	};
 </script>
 

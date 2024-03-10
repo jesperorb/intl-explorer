@@ -13,6 +13,7 @@
   import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
+	import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -23,6 +24,11 @@
 				Object.assign({}, options, { value: undefined })
 			)}).format(${dayValue}, "${options.value}")`
 		);
+		trackEvent("Copy Code", {
+			method: "RelativeTimeFormat",
+			options: JSON.stringify(options),
+			locale,
+		})
 	};
 
 	let dayValue = 2;

@@ -17,6 +17,7 @@
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -33,6 +34,11 @@
 				options
 			)}).format(new Date("${dateTimeString}"))`
 		);
+		trackEvent("Copy Code", {
+			method: "DateTimeFormat",
+			options: JSON.stringify(options),
+			locale,
+		})
 	};
 </script>
 

@@ -3,7 +3,7 @@ export type AnalyticEvents = 'Change Schema'
   | 'Copy Code'
   | 'Change Option'
   | 'Parse Schema'
-  | 'View Browser Support'
+  | 'Change Locale'
 
 export const trackEvent = (
   name: AnalyticEvents,

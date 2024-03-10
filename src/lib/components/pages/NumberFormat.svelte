@@ -18,6 +18,7 @@
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -32,6 +33,11 @@
 		await copyToClipboard(
 			`new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`
 		);
+		trackEvent("Copy Code", {
+			method: "NumberFormat",
+			options: JSON.stringify(options),
+			locale,
+		})
 	};
 </script>
 

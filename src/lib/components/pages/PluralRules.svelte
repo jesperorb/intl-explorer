@@ -11,6 +11,7 @@
   import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -23,6 +24,11 @@
 				Object.assign({}, options, { value: undefined })
 			)}).select(${options.value})`
 		);
+		trackEvent("Copy Code", {
+			method: "PluralRules",
+			options: JSON.stringify(options),
+			locale,
+		})
 	};
 </script>
 

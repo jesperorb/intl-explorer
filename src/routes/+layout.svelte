@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Page } from '@sveltejs/kit';
+	import { dev } from '$app/environment';
 	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
 
@@ -18,7 +19,9 @@
 
 <svelte:head>
 	<title>{routeId ?? 'Intl Explorer'}</title>
+	{#if !dev}
 	<script defer src="https://umami-xi-eosin.vercel.app/script.js" data-website-id="a1ca3232-d4d8-44ac-92f0-656a91ceb36c"></script>
+	{/if}
 </svelte:head>
 
 <SkipLink />
