@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+
 	export let label: string | undefined = undefined;
 	export let value: string | number;
 	export let id: string;
@@ -14,6 +16,7 @@
 	{#if label}
 		<label for={id}>{label}</label>
 	{/if}
+	<Spacing size={1} /> 
 	{#if onInput}
 		<input {name} {max} {min} type="text" on:input={onInput} {value} {id} class:fullWidth {pattern} />
 	{:else}
@@ -22,12 +25,6 @@
 </div>
 
 <style>
-	input {
-		border: 1px solid var(--lightgray);
-		border-radius: 4px;
-		background-color: white;
-		padding: 0.5rem;
-	}
 	.fullWidth {
 		width: 100%;
 	}

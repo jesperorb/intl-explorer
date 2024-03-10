@@ -3,10 +3,15 @@
 	import type { VersionValue } from '@mdn/browser-compat-data';
 	import { browser } from '$app/environment';
 	import { onDestroy, onMount } from 'svelte';
+	import Details from '$lib/components/ui/details/Details.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let data: BrowserCompatData | null = null;
 	export let title: string = 'Browser Support';
-	export let optionsType: keyof Pick<BrowserCompatData, 'optionsSupport' | 'support' | "formattersSupport"> = 'support';
+	export let optionsType: keyof Pick<
+		BrowserCompatData,
+		'optionsSupport' | 'support' | 'formattersSupport'
+	> = 'support';
 	export let option: string | undefined = undefined;
 	export let labelId: string | undefined = undefined;
 	export let stackedView: boolean | undefined = false;
@@ -14,8 +19,8 @@
 		data && Array.isArray(data.specUrl)
 			? data.specUrl
 			: typeof data?.specUrl === 'string'
-			? [data.specUrl]
-			: [];
+				? [data.specUrl]
+				: [];
 
 	$: compatDataValue = data ? data[optionsType] : {};
 	$: compatData = Object.entries(
@@ -52,14 +57,16 @@
 </script>
 
 {#if !compatData.length}
-	{#if labelId}
-		<label for={labelId}>{title}</label>
-	{:else}
-		<h3>{title}</h3>
-	{/if}
+	<div class="wrapper">
+		{#if labelId}
+			<label for={labelId}>{title}</label>
+		{:else}
+			<h3>{title}</h3>
+		{/if}
+	</div>
 {:else}
-	<details>
-		<summary>
+	<Details>
+		<div slot="summary">
 			{#if option}
 				{#if labelId}
 					<label for={labelId}>{title}</label>
@@ -72,17 +79,15 @@
 			<div class="desktop-compat-data-summary">
 				{#each desktopBrowsers as [browserName, browserData]}
 					<div>
-						<span
-							aria-hidden="true"
-						>
+						<span aria-hidden="true">
 							<img
 								height="16"
 								width="16"
 								src="/icons/{browserName}_{browserData.partialSupport
 									? 'partial_support'
 									: browserData.versionAdded
-									? 'supported'
-									: 'unsupported'}.svg"
+										? 'supported'
+										: 'unsupported'}.svg"
 								alt=""
 							/>
 						</span>
@@ -92,7 +97,7 @@
 					</div>
 				{/each}
 			</div>
-		</summary>
+		</div>
 		<div
 			class="compat-data-grid"
 			style={isDesktop ? `grid-template-columns: repeat(${compatData.length}, 1fr)` : undefined}
@@ -123,8 +128,8 @@
 								.replace('_ios', '')}_{browserData.partialSupport
 								? 'partial_support'
 								: browserData.versionAdded
-								? 'supported'
-								: 'unsupported'}.svg"
+									? 'supported'
+									: 'unsupported'}.svg"
 							alt={browserName}
 						/>
 					</span>
@@ -144,12 +149,13 @@
 				</div>
 			{/each}
 		</div>
+		<Spacing size={2} />
 		<div>
 			{#each specUrl as url}
 				<a href={url} target="_blank" rel="noopener noreferrer">Specification</a>
 			{/each}
 		</div>
-	</details>
+	</Details>
 {/if}
 
 <style>
@@ -161,10 +167,6 @@
 	h3,
 	label {
 		display: inline-block;
-		margin: 0;
-	}
-	label {
-		margin-bottom: 0.5rem;
 	}
 
 	.desktop-compat-data-summary {
@@ -177,14 +179,12 @@
 		width: 100%;
 		grid-template-columns: 1fr 4fr;
 		grid-template-rows: auto;
-		border: 1px solid var(--border-color);
 		border-radius: 4px;
-		margin-top: 8px;
 	}
 
 	.browser {
 		display: flex;
-		padding: 0 0.25rem;
+		padding: var(--spacing-1);
 		justify-content: space-between;
 		gap: 1rem;
 		text-align: center;
@@ -240,5 +240,12 @@
 		position: absolute !important;
 		width: 1px !important;
 		white-space: nowrap !important;
+	}
+
+	.wrapper {
+    padding: var(--spacing-2);
+		padding-left: 0;
+		border: 1px solid transparent;
+    border-radius: 4px;
 	}
 </style>

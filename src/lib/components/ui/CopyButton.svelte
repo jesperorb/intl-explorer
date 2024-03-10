@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CopyToClipboard from './icons/CopyToClipboard.svelte';
+	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
 	export let label: string;
 	export let onClick: () => void;
 </script>
@@ -12,7 +12,7 @@
 		border: none;
 		border-top-right-radius: 0.5rem;
 		border-bottom-left-radius: 0.5rem;
-		padding: 1rem 1.5rem;
+		padding: var(--spacing-4);
 		cursor: pointer;
 		color: var(--white);
 		position: absolute;

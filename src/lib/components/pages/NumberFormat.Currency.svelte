@@ -4,8 +4,8 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
-	import Token from '../ui/Highlight/Token.svelte';
-	import CodeBlock from '../ui/CodeBlock.svelte';
+	import Token from '$lib/components/ui/Highlight/Token.svelte';
+	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
 
 	import { currencies } from '$lib/locale-data/currencies';
 	import {
@@ -16,9 +16,10 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -38,6 +39,7 @@
 </script>
 
 <h2>Input values</h2>
+<Spacing />
 
 <ComboBoxContext>
 	<ComboBox
@@ -47,6 +49,7 @@
 		options={languageByLocaleAsComboBoxOptions}
 	/>
 </ComboBoxContext>
+<Spacing />
 
 <Select
 	name="currencies"
@@ -56,10 +59,11 @@
 	bind:value={selectedCurrency}
 	items={Object.entries(currencies)}
 />
+<Spacing />
 <Input id="amount" label="Amount" bind:value={number} />
-
+<Spacing />
 <h2>Alternative use</h2>
-
+<Spacing />
 <code>Intl.NumberFormat</code>
 can also be used from
 <strong
@@ -69,16 +73,17 @@ can also be used from
 		rel="noopener noreferrer">Number.prototype.toLocaleString()</a
 	></strong
 >
-
+<Spacing size={2} />
 <CodeBlock><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.NumberFormat(locale, { style: 'currency', currency: selectedCurrency }).format(number)} t="comment"/></CodeBlock>
-
+<Spacing size={2} />
 <h2>Output</h2>
-
+<Spacing />
 <Grid>
 	{#each options as [option, values]}
 		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
+					<Spacing size={1} />
 					<Highlight
 						{onClick}
 						values={{

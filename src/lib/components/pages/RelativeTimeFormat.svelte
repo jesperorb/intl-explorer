@@ -9,9 +9,9 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-  import Spacer from '../ui/Spacer.svelte';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+  import Spacing from '$lib/components/ui/Spacing.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
 
 	export let locale: string;
@@ -32,7 +32,7 @@
 </script>
 
 <h2>Input values</h2>
-
+<Spacing />
 <ComboBoxContext>
 	<ComboBox
 		label="Locale"
@@ -41,11 +41,12 @@
 		options={languageByLocaleAsComboBoxOptions}
 	/>
 </ComboBoxContext>
-
+<Spacing />
 <div>
 	<div>
 		<Input id="value" label="Value" bind:value={dayValue} />
 	</div>
+	<Spacing />
 	<fieldset class="style-radio-buttons">
 		<legend>Style</legend>
 		<div class="radio">
@@ -61,6 +62,7 @@
 			<label for="styleNarrow">narrow </label>
 		</div>
 	</fieldset>
+	<Spacing />
 	<div>
 		<fieldset class="numeric-radio-buttons">
 			<legend>Numeric</legend>
@@ -74,7 +76,7 @@
 	</div>
 </div>
 
-<Spacer/>
+<Spacing/>
 
 <h2>Output</h2>
 
@@ -82,6 +84,7 @@
 	<OptionSection header={'unit'} {browserCompatData} stackedCompatView>
 		{#each relativeTimeFormatUnits as value}
 			{#if value !== undefined}
+				<Spacing size={1} />
 				<Highlight
 					{onClick}
 					values={{ value: value, style, numeric }}
@@ -96,16 +99,9 @@
 </Grid>
 
 <style>
-	input[type='radio'] {
-		margin: 0;
-	}
-	label {
-		margin: 0;
-	}
 	.style-radio-buttons {
 		display: inline-grid;
 		grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 1rem;
 	}
 	.numeric-radio-buttons {
 		display: inline-grid;

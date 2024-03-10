@@ -2,9 +2,9 @@
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
-	import DateTime from '../ui/DateTime.svelte';
-	import Token from '../ui/Highlight/Token.svelte';
-	import CodeBlock from '../ui/CodeBlock.svelte';
+	import DateTime from '$lib/components/ui/DateTime.svelte';
+	import Token from '$lib/components/ui/Highlight/Token.svelte';
+	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
 	import {
 		datetimeFormatOptions,
 		getDateTimeFormatOptions
@@ -13,9 +13,10 @@
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -36,6 +37,7 @@
 </script>
 
 <h2>Input values</h2>
+<Spacing />
 
 <ComboBoxContext>
 	<ComboBox
@@ -45,10 +47,11 @@
 		options={languageByLocaleAsComboBoxOptions}
 	/>
 </ComboBoxContext>
-
+<Spacing size={2} />
 <DateTime defaultValue={dateTimeString} {onChange} />
-
+<Spacing />
 <h2>Alternative use</h2>
+<Spacing />
 
 <code>Intl.DateTimeFormat</code>
 can also be used from
@@ -59,18 +62,20 @@ can also be used from
 		rel="noopener noreferrer">Date.prototype.toLocaleString()</a
 	></strong
 >
+<Spacing size={2} />
 <CodeBlock>
 <Token v="new" t="punctuation" /> <Token v="Date" t="class" />{"("}<Token v="{`"${dateTimeString}"`}" t="string" />{")"}
  .<Token v="toLocaleString" t="function" />{"("}<Token v="{`"${locale}"`}" t="string" />{")"}{"\n"}<Token v="// " ariaHidden noTrim t="comment"/><Token v={`${new Date(dateTimeString).toLocaleString(locale)}`} t="comment" />
 </CodeBlock>
-
+<Spacing size={2} />
 <h2>Output</h2>
-
+<Spacing />
 <Grid>
 	{#each Object.entries(datetimeFormatOptions) as [option, values]}
 		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
+					<Spacing size={1} />
 					<Highlight
 						{onClick}
 						values={{ [option]: value }}

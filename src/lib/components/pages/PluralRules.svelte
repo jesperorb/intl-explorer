@@ -8,8 +8,9 @@
   import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
   import { selectedLocale } from '$lib/store/selected-locale';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -27,6 +28,8 @@
 
 <h2>Input values</h2>
 
+<Spacing />
+
 <ComboBoxContext>
 	<ComboBox
 		label="Locale"
@@ -35,6 +38,8 @@
 		options={languageByLocaleAsComboBoxOptions}
 	/>
 </ComboBoxContext>
+
+<Spacing />
 
 <fieldset>
 	<legend>type</legend>
@@ -48,10 +53,15 @@
 	</div>
 </fieldset>
 
+<Spacing />
+
 <h2>Output</h2>
+
+<Spacing />
 
 <Grid>
 	<OptionSection header={type} {browserCompatData} stackedCompatView>
+		<Spacing size={1} />
 		<Highlight
 			{onClick}
 			values={{
@@ -84,6 +94,7 @@
 		/>
 	</OptionSection>
 	<OptionSection header={'localeMatcher'}>
+		<Spacing size={1} />
 		<Highlight
 			{onClick}
 			values={{
@@ -112,16 +123,9 @@
 </Grid>
 
 <style>
-	input[type='radio'] {
-		margin: 0;
-	}
-	label {
-		margin: 0;
-	}
 	fieldset {
 		display: inline-grid;
 		grid-template-columns: 1fr 1fr;
-		margin-bottom: 1rem;
     gap: 0.5rem;
 	}
 	.radio {

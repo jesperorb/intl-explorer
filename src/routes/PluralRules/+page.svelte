@@ -4,7 +4,7 @@
 
 	import PluralRules from '$lib/components/pages/PluralRules.svelte';
 	import CompatData from '$lib/components/ui/CompatData.svelte';
-  import Spacer from '$lib/components/ui/Spacer.svelte';
+  import Spacing from '$lib/components/ui/Spacing.svelte';
 
   import { getLocaleForSSR } from '$lib/utils/get-locale';
   import { selectedLocale } from '$lib/store/selected-locale';
@@ -17,7 +17,7 @@
 </script>
 
 <CompatData optionsType="support" {data} />
-<Spacer />
+<Spacing />
 
 {#if browser}
 	<PluralRules browserCompatData={data}  bind:locale={$selectedLocale} />

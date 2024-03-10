@@ -3,6 +3,8 @@ import type { FormatMethodsKeys } from '$lib/format-methods';
 import type { PlaygroundSchema } from './playground.schema';
 import { validateAndUpdateSchema } from './schemas/validate';
 
+export const getSchemaParam = () => browser ? new URLSearchParams(window.location.search).get('schema') : undefined;
+
 export const parseSchemaFromURL = <Method extends FormatMethodsKeys>():
 	| PlaygroundSchema<Method>
 	| undefined => {
@@ -13,15 +15,12 @@ export const parseSchemaFromURL = <Method extends FormatMethodsKeys>():
 	return parsedParams ? validateAndUpdateSchema(parsedParams) : undefined;
 };
 
-export const setSchemaInURL = <Method extends FormatMethodsKeys>(
+
+export const createSchemaUrl = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>
 ) => {
 	const baseEncoded = btoa(JSON.stringify({ schema }));
 	const params = new URLSearchParams(window.location.search);
 	params.set('schema', baseEncoded);
-	window.history.replaceState(
-		{},
-		'',
-		`${window.location.origin}${window.location.pathname}?${params.toString()}`
-	);
+	return `${window.location.origin}${window.location.pathname}?${params.toString()}`
 };

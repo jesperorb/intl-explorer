@@ -7,65 +7,65 @@
 	import Input from '$lib/components/ui/Input.svelte';
 
 	import { getItemsFromOption } from '$lib/playground/format.utils';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let browserCompatData: BrowserCompatData | null;
 	export let onChangeOption: (event: Event) => void;
 </script>
 
-<details open>
-	<summary><h2>Options</h2></summary>
-	<div class="grid">
-		{#each schema.options as option}
-			<OptionSection
-				labelId={option.name}
-				header={option.name}
-				optionsType="optionsSupport"
-				bind:browserCompatData
-				stackedCompatView
-			>
-				{#if option.inputType === 'select'}
-					<Select
-						onChange={onChangeOption}
-						name={option.name}
-						value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
-						items={getItemsFromOption(schema.method, option)}
-						fullWidth
-						removeEmpty={option.removeUndefined}
-					/>
-				{/if}
-				{#if option.inputType === 'text'}
-					<Input
-						id={option.name}
-						onInput={onChangeOption}
-						name={option.name}
-						value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
-						fullWidth
-						pattern={option.pattern}
-						max={option.max}
-						min={option.min}
-					/>
-				{/if}
-				{#if option.inputType === 'radio'}
-					<fieldset>
-						{#each getItemsFromOption(schema.method, option) as [, value]}
-							<div class="radio">
-								<input
-									type="radio"
-									on:input={onChangeOption}
-									id={option.name}
-									name={option.name}
-									group={value} 
-								/>
-								<label for={option.name}>{value}</label>
-							</div>
-						{/each}
-					</fieldset>
-				{/if}
-			</OptionSection>
-		{/each}
-	</div>
-</details>
+<h2>Options</h2>
+<Spacing size={2} />
+<div class="grid">
+	{#each schema.options as option}
+		<OptionSection
+			labelId={option.name}
+			header={option.name}
+			optionsType="optionsSupport"
+			bind:browserCompatData
+			stackedCompatView
+		>
+			{#if option.inputType === 'select'}
+				<Select
+					onChange={onChangeOption}
+					name={option.name}
+					value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
+					items={getItemsFromOption(schema.method, option)}
+					fullWidth
+					removeEmpty={option.removeUndefined}
+				/>
+			{/if}
+			{#if option.inputType === 'text'}
+				<Input
+					id={option.name}
+					onInput={onChangeOption}
+					name={option.name}
+					value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
+					fullWidth
+					pattern={option.pattern}
+					max={option.max}
+					min={option.min}
+				/>
+			{/if}
+			{#if option.inputType === 'radio'}
+				<fieldset>
+					{#each getItemsFromOption(schema.method, option) as [ value]}
+						<div class="radio">
+							<input
+								type="radio"
+								on:input={onChangeOption}
+								id={option.name}
+								name={option.name}
+								group={value}
+							/>
+							<label for={option.name}>{value}</label>
+						</div>
+					{/each}
+				</fieldset>
+			{/if}
+		</OptionSection>
+	{/each}
+</div>
 
 <style>
 	.grid {
@@ -86,7 +86,6 @@
 	h2 {
 		font-size: 1.25rem;
 		display: inline-block;
-		margin: 0.5rem 0;
 	}
 	fieldset {
 		display: flex;
@@ -95,11 +94,6 @@
 	}
 	fieldset label {
 		font-weight: normal;
-		margin: 0;
-	}
-	fieldset input {
-		margin: 0;
-		margin-right: 0.5rem;
 	}
 	.radio {
 		display: flex;

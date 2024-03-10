@@ -3,14 +3,15 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
   import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
 
 	export let locale: string;
@@ -27,6 +28,8 @@
 
 <h2>Input values</h2>
 
+<Spacing />
+
 <ComboBoxContext>
 	<ComboBox
 		label="Locale"
@@ -36,17 +39,24 @@
 	/>
 </ComboBoxContext>
 
+<Spacing />
+
 <div>
 	<Input id="list" label="List" bind:value={list} />
 </div>
 
+<Spacing />
+
 <h2>Output</h2>
+
+<Spacing />
 
 <Grid>
 	{#each Object.entries(collatorFormatOptions) as [option, values]}
 		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
+					<Spacing size={1} />
 					<Highlight
 						{onClick}
 						values={{ [option]: value }}

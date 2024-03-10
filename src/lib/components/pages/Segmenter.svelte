@@ -10,9 +10,10 @@
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
   import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
-  import ComboBoxContext from '../ui/ComboBox/ComboBoxContext.svelte';
-  import ComboBox from '../ui/ComboBox/ComboBox.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
   import { selectedLocale } from '$lib/store/selected-locale';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
@@ -38,7 +39,7 @@
 </script>
 
 <h2>Input values</h2>
-
+<Spacing />
 <ComboBoxContext>
 	<ComboBox
 		label="Locale"
@@ -47,18 +48,19 @@
 		options={languageByLocaleAsComboBoxOptions}
 	/>
 </ComboBoxContext>
-
+<Spacing />
 <div>
 	<Input id="list" label="List" bind:value={sentence} />
 </div>
-
+<Spacing />
 <h2>Output</h2>
-
+<Spacing />
 <Grid>
 	{#each Object.entries(segmenterOptions) as [option, values]}
 		<OptionSection header={option} {browserCompatData} stackedCompatView>
 			{#each values as value}
 				{#if value !== undefined}
+					<Spacing size={1} />
 					<Highlight
 						{onClick}
 						values={{ [option]: value }}

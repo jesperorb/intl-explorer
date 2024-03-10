@@ -9,6 +9,7 @@
   import { getLocaleForSSR } from '$lib/utils/get-locale';
   import { selectedLocale } from '$lib/store/selected-locale';
 	import { testIds } from '$lib/utils/dom-utils';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
 	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
@@ -66,11 +67,15 @@
 	<nav aria-label="Main Menu" data-testid={testIds.navigation}>
 		<ul>
 			<li><strong><a href="/?locale={locale}">About</a></strong></li>
+			<Spacing />
 			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
+			<Spacing size={1} />
 			<li>
 				<a href="/Playground?locale={locale}">Playground</a>
 			</li>
+			<Spacing />
 			<li aria-hidden="true" class="menu-heading"><strong>Intl.</strong></li>
+			<Spacing size={1} />
 			{#each routes as route}
 				<li aria-hidden={route.ariaHidden}>
 					<a
@@ -82,8 +87,11 @@
 						{route.name}
 					</a>
 				</li>
+				<Spacing size={1} />
 			{/each}
+			<Spacing />
 			<li aria-hidden="true" class="menu-heading"><strong>Meta</strong></li>
+			<Spacing size={1} />
 			<li>
 				<a
 					class="github"
@@ -98,32 +106,31 @@
 
 <style>
 	.sidebar {
-		padding: 0.5rem 1rem;
+		padding: var(--spacing-2) var(--spacing-4);
 		display: flex;
 		flex-direction: column;
 		background-color: var(--light-purple);
 	}
 	nav {
-		padding-top: 1rem;
+		padding-top: var(--spacing-4);
 	}
 	.menu-button {
 		text-transform: uppercase;
 		letter-spacing: 0.1rem;
 		font-weight: bold;
 		font-size: 1.25rem;
-		margin: 0;
 		user-select: none;
 		display: inline-block;
 	}
 	@media (min-width: 900px) {
 		.sidebar {
-			padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+			padding: var(--spacing-10) var(--spacing-6)var(--spacing-6) var(--spacing-6);
+		}
+		summary {
+			margin-bottom: var(--spacing-4);
 		}
 		nav {
 			padding-top: 0;
-		}
-		.menu-button {
-			margin-bottom: 1rem;
 		}
 	}
 	summary {
@@ -135,24 +142,6 @@
 	}
 	.active {
 		font-weight: bold;
-	}
-	li {
-		margin-bottom: 0.5rem;
-	}
-	li:first-of-type {
-		margin-bottom: 1rem;
-	}
-	li:last-of-type {
-		margin-bottom: 2rem;
-	}
-	.github {
-		margin-top: 1rem;
-	}
-	.sublink {
-		margin-left: 1rem;
-	}
-	.menu-heading {
-		margin-top: 2rem;
 	}
 
 	@keyframes fadeIn {

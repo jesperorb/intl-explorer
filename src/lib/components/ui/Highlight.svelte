@@ -1,8 +1,8 @@
 <script lang="ts">
 	import HighlightValue from '$lib/components/ui/HighlightValue.svelte';
-  import CodeBlock from './CodeBlock.svelte';
-  import CopyButton from './CopyButton.svelte';
-	import Token from './Highlight/Token.svelte';
+  import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
+  import CopyButton from '$lib/components/ui/CopyButton.svelte';
+	import Token from '$lib/components/ui/Highlight/Token.svelte';
 	type OptionValues = { [key: string]: number | boolean | string };
 
 	export let values: OptionValues;
@@ -26,6 +26,5 @@
 <style>
 	.highlight {
 		position: relative;
-		margin-bottom: 1.5rem;
 	}
 </style>

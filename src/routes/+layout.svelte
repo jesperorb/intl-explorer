@@ -1,5 +1,4 @@
 <script lang="ts">
-	/* eslint svelte/valid-compile: ["error", { ignoreWarnings: true }] */
 	import type { Page } from '@sveltejs/kit';
 	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
@@ -10,7 +9,7 @@
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
 
-	let routeId: FormatMethodsKeys;
+	let routeId: FormatMethodsKeys | "Playground";
 	const getRouteId = (page: Page<Record<string, string>>): void => {
 		routeId = page.route.id?.replace('/', '') as FormatMethodsKeys;
 	};
@@ -19,12 +18,6 @@
 
 <svelte:head>
 	<title>{routeId ?? 'Intl Explorer'}</title>
-	<script
-		async
-		src="https://umami-jesperorb.vercel.app/script.js"
-		data-website-id="1a2d166c-93b7-4f2b-b61f-ae3e221cf760"
-		data-do-not-track="true"
-	></script>
 </svelte:head>
 
 <SkipLink />
@@ -35,7 +28,7 @@
 	{#if $navigating}
 		<ProgressBar />
 	{/if}
-	{#if routeId}
+	{#if routeId && routeId !== "Playground"}
 		<Header header={routeId} />
 	{/if}
 	<slot />
@@ -50,6 +43,7 @@
 		--light-blue: hsl(221, 100%, 75%);
 		--gray: hsl(0, 0%, 60%);
 		--lightgray: hsl(0, 0%, 80%);
+		--lightergray: hsl(0, 0%, 90%);
 		--purple: hsl(276, 67%, 74%);
 		--teal: hsl(169, 56%, 68%);
 		--green: hsl(114, 31%, 68%);
@@ -61,8 +55,18 @@
 			'Segoe UI Emoji', 'Segoe UI Symbol';
 		--code-font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 
-		--spacing-1: 1rem;
-		--spacing-1-5: 1.5rem;
+		--spacing-1: 0.25rem;
+		--spacing-2: 0.5rem;
+		--spacing-3: 0.75rem;
+		--spacing-4: 1rem;
+		--spacing-5: 1.25rem;
+		--spacing-6: 1.5rem;
+		--spacing-7: 1.75rem;
+		--spacing-8: 2rem;
+		--spacing-9: 2.25rem;
+		--spacing-10: 2.5rem;
+		--spacing-11: 2.75rem;
+		--spacing-12: 3rem;
 	}
 
 	*,
@@ -80,46 +84,33 @@
 		line-height: 1.5;
 		width: 100%;
 	}
-	h1,
-	h2,
-	h3 {
-		margin-bottom: 1rem;
-		margin-top: 0;
-	}
-	body {
-		margin: 0;
-	}
 	@media (min-width: 900px) {
 		body {
 			display: grid;
 			grid-template-columns: 18rem 1fr;
 		}
 	}
+	pre, ul, body, h1, h2, h3, h4, h5, h6, p {
+		margin: 0;
+		padding: 0;
+	}
 	a,
 	a:visited {
 		color: var(--black);
 	}
+
 	ul {
 		list-style: none;
-		padding: 0;
-		margin: 0;
 	}
 	label {
 		display: block;
-		margin-bottom: 0.5rem;
 		font-weight: bold;
-	}
-	input,
-	select,
-	button {
-		margin-bottom: var(--spacing-1);
 	}
 	select {
 		max-width: 100%;
 	}
 	fieldset {
 		border-radius: 4px;
-		padding-bottom: 1.1rem;
 	}
 	pre,
 	code,
@@ -143,16 +134,20 @@
 	select {
 		border: 1px solid var(--lightgray);
 		border-radius: 4px;
-		padding: 0.5rem;
+		padding: var(--spacing-2);
 		appearance: none;
 		--webkit-appearance: none;
-		background: white;
+		background: var(--white);
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 		background-repeat: no-repeat;
-		background-position: right 0.5rem center;
+		background-position: right var(--spacing-2) center;
 	}
 
-	details > summary {
-		cursor: pointer;
+	input {
+		border: 1px solid var(--lightgray);
+		border-radius: 4px;
+		background-color: var(--white);
+		padding: var(--spacing-2);
+		font-family: var(--font-family);	
 	}
 </style>

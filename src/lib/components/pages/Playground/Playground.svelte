@@ -6,8 +6,7 @@
 	import Highlight from 'svelte-highlight';
 	import typescript from 'svelte-highlight/languages/typescript';
 
-	import MdnLink from '$lib/components/ui/MDNLink.svelte';
-	import Spacer from '$lib/components/ui/Spacer.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import PlaygroundOptions from './PlaygroundOptions.svelte';
 	import PlaygroundInput from './PlaygroundInput.svelte';
 	import PlaygroundSecondaryFormatters from './PlaygroundSecondaryFormatters.svelte';
@@ -18,29 +17,33 @@
 		schemaToResolvedOptions,
 		schemaToSecondaryFormattersOutput
 	} from '$lib/playground/format.utils';
-	import { parseSchemaFromURL, setSchemaInURL } from '$lib/playground/url.utils';
+	import { createSchemaUrl, getSchemaParam, parseSchemaFromURL } from '$lib/playground/url.utils';
 	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { clampValue, fallbackDisplayNames } from '$lib/utils/format-utils';
 	import { schemas, type SchemaKeys } from '$lib/playground/schemas';
-  import { onMount } from 'svelte';
-  import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
-  import CopyButton from '$lib/components/ui/CopyButton.svelte';
+	import { onMount } from 'svelte';
+	import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
+	import CopyButton from '$lib/components/ui/CopyButton.svelte';
 	import CompatData from '$lib/components/ui/CompatData.svelte';
+	import Header from '$lib/components/ui/Header.svelte';
+	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	export let data: { [key: string]: BrowserCompatData };
 	export let locale: string;
 
-	let schema = parseSchemaFromURL<'NumberFormat'>();
-	let secondaryFormatters = schema ? schemaToSecondaryFormattersOutput(schema, locale) : [];
+	$: schema = validateAndUpdateSchema(numberFormatSchema);
 	$: browserCompatData = schema ? { ...data[schema.method] } : null;
 
 	onMount(() => {
-		if(!schema) {
-			setSchemaInURL(numberFormatSchema);
-			schema = numberFormatSchema;
+		if (getSchemaParam()) {
+			const parsedSchema = parseSchemaFromURL<'NumberFormat'>();
+			if(parsedSchema) {
+				schema = validateAndUpdateSchema(parsedSchema);
+			}
 		}
-	})
+	});
 
 	const onChangeOption = (event: Event) => {
 		const target = event.target as HTMLInputElement;
@@ -57,8 +60,8 @@
 				? {
 						...option,
 						value: clampValue(option, value)
-				  }
-				: option
+					}
+				: {...option}
 		);
 		const newSchema: PlaygroundSchema<'NumberFormat'> = {
 			...schema,
@@ -71,11 +74,10 @@
 		if (isRelativeTimeUnit) {
 			newSchema.inputValues[1] = optionValue;
 		}
-		if(isDisplayNamesType) {
+		if (isDisplayNamesType) {
 			newSchema.inputValues[0] = fallbackDisplayNames[value as unknown as Intl.DisplayNamesType];
 		}
 		schema = validateAndUpdateSchema(newSchema);
-		setSchemaInURL(schema);
 	};
 
 	const onInput = (event: Event) => {
@@ -105,9 +107,6 @@
 			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<'NumberFormat'>
 		);
 		schema = newSchema;
-		secondaryFormatters = schemaToSecondaryFormattersOutput(newSchema, locale);
-		browserCompatData = { ...data[newSchema.method] };
-		setSchemaInURL(newSchema);
 	};
 
 	const copy = async () => {
@@ -117,42 +116,45 @@
 </script>
 
 {#if schema}
-	<p><MdnLink header={schema.method} /></p>
+	<Header header="Playground" link={schema.method}>
+		<Button onClick={() => {
+			if (!schema) return;
+			copyToClipboard(createSchemaUrl(schema));
+		}}>Copy Schema URL <CopyToClipboard /></Button>
+	</Header>
 	<CompatData data={browserCompatData} />
-	<Spacer />
+	<Spacing />
 	<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />
+	<Spacing />
 	<PlaygroundOptions bind:browserCompatData {schema} {onChangeOption} />
-	<details open id="output">
-		<summary>
-			<h2>Output</h2>
-		</summary>
-		<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
-	</details>
-	<details open id="code">
-		<summary>
-			<h2>Code</h2>
-		</summary>
-		<div class="highlight">
-			<Highlight language={typescript} code={schemaToCode(schema, locale)} />
-			<CopyButton onClick={copy} label="Copy code"  />
-		</div>
-	</details>
-	<details open id="resolvedOptions">
-		<summary>
-			<h2>Resolved Options</h2>
-		</summary>
-		<div>
-			<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
-		</div>
-	</details>
-	<PlaygroundSecondaryFormatters bind:browserCompatData {secondaryFormatters} />
+	<Spacing />
+	<h2>Output</h2>
+	<Spacing size={2} />
+	<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
+	<Spacing />
+	<h2>Code</h2>
+	<Spacing size={2} />
+	<div class="highlight">
+		<Highlight language={typescript} code={schemaToCode(schema, locale)} />
+		<CopyButton onClick={copy} label="Copy code" />
+	</div>
+	<Spacing />
+	<h2>Resolved Options</h2>
+	<Spacing size={2} />
+	<div>
+		<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
+	</div>
+	<Spacing />
+	<PlaygroundSecondaryFormatters
+		bind:browserCompatData
+		secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale) ?? []}
+	/>
 {/if}
 
 <style>
 	h2 {
 		font-size: 1.25rem;
 		display: inline-block;
-		margin: 0.5rem 0;
 	}
 	.highlight {
 		position: relative;
