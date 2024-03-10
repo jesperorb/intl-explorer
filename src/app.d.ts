@@ -6,3 +6,11 @@ declare namespace App {
 	// interface PageData {}
 	// interface Platform {}
 }
+
+type UmamiAnalytics = {
+	track: (name: string, data?: Record<string, unknown>) => void
+}
+
+declare interface Window {
+  umami?: UmamiAnalytics
+}

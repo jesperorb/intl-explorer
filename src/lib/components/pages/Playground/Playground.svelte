@@ -29,6 +29,7 @@
 	import Header from '$lib/components/ui/Header.svelte';
 	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import { trackEvent } from '$lib/utils/analytics';
 
 	export let data: { [key: string]: BrowserCompatData };
 	export let locale: string;
@@ -39,7 +40,7 @@
 	onMount(() => {
 		if (getSchemaParam()) {
 			const parsedSchema = parseSchemaFromURL<'NumberFormat'>();
-			if(parsedSchema) {
+			if (parsedSchema) {
 				schema = validateAndUpdateSchema(parsedSchema);
 			}
 		}
@@ -61,7 +62,7 @@
 						...option,
 						value: clampValue(option, value)
 					}
-				: {...option}
+				: { ...option }
 		);
 		const newSchema: PlaygroundSchema<'NumberFormat'> = {
 			...schema,
@@ -78,6 +79,12 @@
 			newSchema.inputValues[0] = fallbackDisplayNames[value as unknown as Intl.DisplayNamesType];
 		}
 		schema = validateAndUpdateSchema(newSchema);
+		trackEvent('Change Option', {
+			method: newSchema.method,
+			option: optionName,
+			value,
+			locale,
+		});
 	};
 
 	const onInput = (event: Event) => {
@@ -107,20 +114,34 @@
 			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<'NumberFormat'>
 		);
 		schema = newSchema;
+		trackEvent('Change Schema', {
+			method: schema.method,
+			locale,
+		});
 	};
 
 	const copy = async () => {
 		if (!schema) return;
 		await copyToClipboard(schemaToCode(schema, locale));
+		trackEvent('Copy Code', {
+			method: schema.method,
+			locale,
+		});
 	};
 </script>
 
 {#if schema}
 	<Header header="Playground" link={schema.method}>
-		<Button onClick={() => {
-			if (!schema) return;
-			copyToClipboard(createSchemaUrl(schema));
-		}}>Copy Schema URL <CopyToClipboard /></Button>
+		<Button
+			onClick={() => {
+				if (!schema) return;
+				copyToClipboard(createSchemaUrl(schema));
+				trackEvent('Copy Schema', {
+					method: schema.method,
+					locale,
+				});
+			}}>Copy Schema URL <CopyToClipboard /></Button
+		>
 	</Header>
 	<CompatData data={browserCompatData} />
 	<Spacing />
