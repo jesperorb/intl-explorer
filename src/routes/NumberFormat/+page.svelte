@@ -15,7 +15,7 @@
 	const locale = getLocaleForSSR($page);
 </script>
 
-<CompatData optionsType="support" {data} />
+<CompatData {data} />
 <Spacing />
 <p>
 	See also <a href="NumberFormat/Currency">Currency</a> and <a href="/NumberFormat/Unit">Unit</a>.

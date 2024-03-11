@@ -1,10 +1,10 @@
 <script lang="ts">
-	import typescript from 'svelte-highlight/languages/typescript';
 	import { Highlight } from 'svelte-highlight';
-
-	import OptionSection from '$lib/components/ui/OptionSection.svelte';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import typescript from 'svelte-highlight/languages/typescript';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import OptionSection from '$lib/components/ui/OptionSection.svelte';
+
+	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
 
 	export let secondaryFormatters: { name: string; output: string }[];
 	export let browserCompatData: BrowserCompatData | null;
