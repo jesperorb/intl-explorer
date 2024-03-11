@@ -1,9 +1,10 @@
-import { localeMatcher } from './locale-matcher';
+
+import { style, localeMatcher } from './common.options';
 
 export const displayNamesOptions = {
-	style: ['long', 'short', 'narrow', undefined],
+	style,
 	type: ['language', 'region', 'script', 'calendar', 'dateTimeField', 'currency', undefined],
 	languageDisplay: ['dialect', 'standard', undefined],
 	fallback: ['code', 'none', undefined],
-	...localeMatcher
+	localeMatcher
 } as const;

@@ -6,7 +6,8 @@ export const formatMethods = [
 	'PluralRules',
 	'Collator',
 	'Segmenter',
-	'DisplayNames'
+	'DisplayNames',
+	'DurationFormat',
 ] as const;
 
 export type FormatMethodsKeys =
@@ -17,4 +18,5 @@ export type FormatMethodsKeys =
 	| 'PluralRules'
 	| 'Collator'
 	| 'Segmenter'
-	| 'DisplayNames';
+	| 'DisplayNames'
+	| 'DurationFormat';

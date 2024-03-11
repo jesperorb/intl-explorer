@@ -6,8 +6,8 @@
 	import { routes } from '$lib/routes';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
-  import { getLocaleForSSR } from '$lib/utils/get-locale';
-  import { selectedLocale } from '$lib/store/selected-locale';
+	import { getLocaleForSSR } from '$lib/utils/get-locale';
+	import { selectedLocale } from '$lib/store/selected-locale';
 	import { testIds } from '$lib/utils/dom-utils';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import OpenInNewTab from '$lib/components/ui/icons/OpenInNewTab.svelte';
@@ -27,12 +27,12 @@
 	$: getPath($page);
 
 	const onClickMenu = (event: MouseEvent) => {
-		if(isDesktop) return;
+		if (isDesktop) return;
 		const eventTarget = event.target as HTMLElement;
 		const clickedLink = eventTarget.tagName === 'A';
 		if (!clickedLink) return;
-		const menu = document.getElementById("sidebar");
-		if(!menu?.contains(eventTarget)) return;
+		const menu = document.getElementById('sidebar');
+		if (!menu?.contains(eventTarget)) return;
 		open = false;
 	};
 
@@ -61,7 +61,7 @@
 	});
 </script>
 
-<details class="sidebar" id="sidebar" bind:open={open}>
+<details class="sidebar" id="sidebar" bind:open>
 	<summary>
 		<p class="menu-button">Menu</p>
 	</summary>
@@ -86,6 +86,9 @@
 						href={`/${route.path}?locale=${locale}`}
 					>
 						{route.name}
+						{#if route.experimental}
+							<img height="16" width="16" src="/icons/experimental.svg" alt="Experimental" />
+						{/if}
 					</a>
 				</li>
 				<Spacing size={1} />
@@ -126,7 +129,7 @@
 	}
 	@media (min-width: 900px) {
 		.sidebar {
-			padding: var(--spacing-10) var(--spacing-6)var(--spacing-6) var(--spacing-6);
+			padding: var(--spacing-10) var(--spacing-6) var(--spacing-6) var(--spacing-6);
 		}
 		summary {
 			margin-bottom: var(--spacing-4);
@@ -136,7 +139,7 @@
 		}
 	}
 	summary {
-  	list-style: none;
+		list-style: none;
 	}
 	summary::marker,
 	summary::-webkit-details-mark {
@@ -147,12 +150,17 @@
 	}
 
 	@keyframes fadeIn {
-		0%    {opacity: 0; transform: translateX(-10px) }
-		100%  {opacity: 1; transform: translateX(0) }
+		0% {
+			opacity: 0;
+			transform: translateX(-10px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateX(0);
+		}
 	}
 
 	details[open] summary ~ * {
-  	animation: fadeIn .3s;
+		animation: fadeIn 0.3s;
 	}
-
 </style>

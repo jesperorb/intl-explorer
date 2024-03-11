@@ -4,6 +4,7 @@ import type { AllFormatOptions } from "$lib/format-options/types";
 import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
 
 import { formatOptions } from "$lib/format-options";
+import { durationValues } from "$lib/format-options/duration-format.options";
 
 export const print = (values: unknown) => {
 	return JSON.stringify(values, null, 2);
@@ -30,7 +31,7 @@ export const getItemsFromOption = <Method extends FormatMethodsKeys>(
 	return options?.map((option: PlaygroundOption<Method>) => [option, option]) ?? [];
 };
 
-const prepareSchemaForOutput =  <Method extends FormatMethodsKeys>(
+const prepareSchemaForOutput = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
 ) => {
 	const options = schemaToFormatOptions(schema);
@@ -42,11 +43,24 @@ const prepareSchemaForOutput =  <Method extends FormatMethodsKeys>(
 	}
 }
 
+export const formatDurationFormatValues = (
+	inputValues: any[]
+) => 
+	Object.fromEntries(
+		durationValues.map((duration, i) => [duration, Number(inputValues[0][i] ?? 0)])
+	)
+
 export const prepareInputValues = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>
-) =>  schema.inputValueType === "date"
-	? schema.inputValues.map(v => new Date(v))
-	: [...schema.inputValues];
+) => {
+	if (schema.inputValueType === "date") {
+		return schema.inputValues.map(v => new Date(v))
+	}
+	if (schema.method === "DurationFormat") {
+		return [formatDurationFormatValues(schema.inputValues)]
+	}
+	return [...schema.inputValues];
+};
 
 export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
@@ -73,7 +87,7 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 		}
 		return `${formatted}`
 	} catch (error) {
-		return `${(error as { message: string}).message}`;
+		return `${(error as { message: string }).message}`;
 	}
 }
 
@@ -93,10 +107,10 @@ export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKe
 				name: formatter,
 				output: print(output)
 			}
-		} catch(_error) {
+		} catch (error) {
 			return {
 				name: formatter,
-				output: "Your browser does not support this."
+				output: `${(error as { message: string }).message}`
 			}
 		}
 	}) ?? [];
@@ -107,12 +121,16 @@ export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
 	locale: string,
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
-	const intlObject = (new Intl[schema.method](
-		locale,
-		// To dynamic to interpret this correctly
-		options as any
-	) as Intl.PluralRules);
-	return `${print(intlObject.resolvedOptions())}`
+	try {
+		const intlObject = (new Intl[schema.method](
+			locale,
+			// To dynamic to interpret this correctly
+			options as any
+		) as Intl.PluralRules);
+		return `${print(intlObject.resolvedOptions())}`
+	} catch (error) {
+		return `${(error as { message: string }).message}`
+	}
 }
 
 export const schemaToCode = <Method extends FormatMethodsKeys>(
@@ -131,6 +149,9 @@ export const schemaToCode = <Method extends FormatMethodsKeys>(
 ${stringInput}.sort(compareFunction)
 `;
 	}
-	return `new Intl.${schema.method}("${locale}"${formattedOptions})${hasOptions ? "\n" : ""}.${formatter}(${stringInput})
+	const formattedInput = schema.method === "DurationFormat"
+		? print(formatDurationFormatValues(schema.inputValues))
+		: stringInput;
+	return `new Intl.${schema.method}("${locale}"${formattedOptions})${hasOptions ? "\n" : ""}.${formatter}(${formattedInput})
 `;
 }

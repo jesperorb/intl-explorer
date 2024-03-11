@@ -4,6 +4,7 @@ export type Route = {
 	sublink?: boolean;
 	ariaLabel?: string;
 	ariaHidden?: boolean;
+	experimental?: boolean;
 };
 
 export const routes: Route[] = [
@@ -50,5 +51,10 @@ export const routes: Route[] = [
 	{
 		path: 'DisplayNames',
 		name: 'DisplayNames'
+	},
+	{
+		path: 'DurationFormat',
+		name: 'DurationFormat',
+		experimental: true,
 	}
 ];
