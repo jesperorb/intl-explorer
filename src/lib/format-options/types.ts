@@ -7,6 +7,7 @@ export type AllFormatOptions = {
 	Collator: Intl.CollatorOptions;
 	Segmenter: Intl.SegmenterOptions;
 	DisplayNames: Intl.DisplayNamesOptions;
+	DurationFormat: Intl.DurationFormatOptions;
 };
 
 export type AllFormatOptionsKeys = {
@@ -18,6 +19,7 @@ export type AllFormatOptionsKeys = {
 	Collator: keyof AllFormatOptions['Collator'];
 	Segmenter: keyof AllFormatOptions['Segmenter'];
 	DisplayNames: keyof AllFormatOptions['DisplayNames'];
+	DurationFormat: keyof AllFormatOptions["DurationFormat"];
 };
 
 export type AllMethods = {
@@ -29,4 +31,5 @@ export type AllMethods = {
 	Collator: Intl.Collator;
 	Segmenter: Intl.Segmenter;
 	DisplayNames: Intl.DisplayNames;
+	DurationFormat: Intl.DurationFormat;
 };

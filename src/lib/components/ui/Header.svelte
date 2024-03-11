@@ -17,6 +17,9 @@
 <header>
 	<h1>
 		{formatHeader(header)}
+		{#if header === "DurationFormat" || link === "DurationFormat"}
+			<img height="22" width="22" src="/icons/experimental.svg" alt="Experimental" />
+		{/if}
 	</h1>
 	<div>
 		<div class="wrapper">
