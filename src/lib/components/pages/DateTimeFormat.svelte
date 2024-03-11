@@ -5,19 +5,18 @@
 	import DateTime from '$lib/components/ui/DateTime.svelte';
 	import Token from '$lib/components/ui/Highlight/Token.svelte';
 	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import PageLayout from '$lib/components/pages/PageLayout.svelte';
+
 	import {
 		datetimeFormatOptions,
 		getDateTimeFormatOptions
 	} from '$lib/format-options/datetime-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
-  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
-  import { selectedLocale } from '$lib/store/selected-locale';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import { trackEvent } from '$lib/utils/analytics';
+
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -42,55 +41,40 @@
 	};
 </script>
 
-<h2>Input values</h2>
-<Spacing />
+<PageLayout>
+	<DateTime slot="input" defaultValue={dateTimeString} {onChange} />
+	<div slot="alternativeUse">
+		<code>Intl.DateTimeFormat</code>
+		can also be used from
+		<strong
+			><a
+				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString"
+				target="_blank"
+				rel="noopener noreferrer">Date.prototype.toLocaleString()</a
+			></strong
+		>
+	</div>
+	<CodeBlock slot="alternativeCode">
+		<Token v="new" t="punctuation" /> <Token v="Date" t="class" />{"("}<Token v="{`"${dateTimeString}"`}" t="string" />{")"}
+		 .<Token v="toLocaleString" t="function" />{"("}<Token v="{`"${locale}"`}" t="string" />{")"}{"\n"}<Token v="// " ariaHidden noTrim t="comment"/><Token v={`${new Date(dateTimeString).toLocaleString(locale)}`} t="comment" />
+	</CodeBlock>
+	<Grid slot="output">
+		{#each Object.entries(datetimeFormatOptions) as [option, values]}
+			<OptionSection header={option} {browserCompatData} stackedCompatView>
+				{#each values as value}
+					{#if value !== undefined}
+						<Spacing size={1} />
+						<Highlight
+							{onClick}
+							values={{ [option]: value }}
+							output={new Intl.DateTimeFormat(locale, getDateTimeFormatOptions(option, value)).format(
+								new Date(`${dateTimeString}`)
+							)}
+						/>
+					{/if}
+				{/each}
+			</OptionSection>
+		{/each}
+	</Grid>
+</PageLayout>
 
-<ComboBoxContext>
-	<ComboBox
-		label="Locale"
-		name="locale"
-		bind:value={$selectedLocale}
-		options={languageByLocaleAsComboBoxOptions}
-	/>
-</ComboBoxContext>
-<Spacing size={2} />
-<DateTime defaultValue={dateTimeString} {onChange} />
-<Spacing />
-<h2>Alternative use</h2>
-<Spacing />
-
-<code>Intl.DateTimeFormat</code>
-can also be used from
-<strong
-	><a
-		href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString"
-		target="_blank"
-		rel="noopener noreferrer">Date.prototype.toLocaleString()</a
-	></strong
->
-<Spacing size={2} />
-<CodeBlock>
-<Token v="new" t="punctuation" /> <Token v="Date" t="class" />{"("}<Token v="{`"${dateTimeString}"`}" t="string" />{")"}
- .<Token v="toLocaleString" t="function" />{"("}<Token v="{`"${locale}"`}" t="string" />{")"}{"\n"}<Token v="// " ariaHidden noTrim t="comment"/><Token v={`${new Date(dateTimeString).toLocaleString(locale)}`} t="comment" />
-</CodeBlock>
-<Spacing size={2} />
-<h2>Output</h2>
-<Spacing />
-<Grid>
-	{#each Object.entries(datetimeFormatOptions) as [option, values]}
-		<OptionSection header={option} {browserCompatData} stackedCompatView>
-			{#each values as value}
-				{#if value !== undefined}
-					<Spacing size={1} />
-					<Highlight
-						{onClick}
-						values={{ [option]: value }}
-						output={new Intl.DateTimeFormat(locale, getDateTimeFormatOptions(option, value)).format(
-							new Date(`${dateTimeString}`)
-						)}
-					/>
-				{/if}
-			{/each}
-		</OptionSection>
-	{/each}
-</Grid>

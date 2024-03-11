@@ -7,6 +7,12 @@
 	import typescript from 'svelte-highlight/languages/typescript';
 
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import CopyButton from '$lib/components/ui/CopyButton.svelte';
+	import CompatData from '$lib/components/ui/CompatData.svelte';
+	import Header from '$lib/components/ui/Header.svelte';
+	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
+
 	import PlaygroundOptions from './PlaygroundOptions.svelte';
 	import PlaygroundInput from './PlaygroundInput.svelte';
 	import PlaygroundSecondaryFormatters from './PlaygroundSecondaryFormatters.svelte';
@@ -24,11 +30,6 @@
 	import { schemas, type SchemaKeys } from '$lib/playground/schemas';
 	import { onMount } from 'svelte';
 	import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
-	import CopyButton from '$lib/components/ui/CopyButton.svelte';
-	import CompatData from '$lib/components/ui/CompatData.svelte';
-	import Header from '$lib/components/ui/Header.svelte';
-	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
 	import { trackEvent } from '$lib/utils/analytics';
 
 	export let data: { [key: string]: BrowserCompatData };

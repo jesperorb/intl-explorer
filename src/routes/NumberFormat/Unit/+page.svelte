@@ -15,7 +15,7 @@
 	const locale = getLocaleForSSR($page);
 </script>
 
-<CompatData optionsType="support" {data} />
+<CompatData {data} />
 <Spacing />
 
 {#if browser}

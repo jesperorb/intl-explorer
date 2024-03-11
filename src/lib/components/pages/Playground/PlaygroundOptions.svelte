@@ -5,9 +5,9 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import { getItemsFromOption } from '$lib/playground/format.utils';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let browserCompatData: BrowserCompatData | null;

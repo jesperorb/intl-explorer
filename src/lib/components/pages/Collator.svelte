@@ -4,16 +4,13 @@
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 
+  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
-  import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
-  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
-  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
-  import { selectedLocale } from '$lib/store/selected-locale';
-	import { trackEvent } from '$lib/utils/analytics';
+  import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
 	export let browserCompatData: BrowserCompatData | null;
@@ -32,51 +29,31 @@
 	};
 </script>
 
-<h2>Input values</h2>
+<PageLayout>
+	<Input slot="input" id="list" label="List" bind:value={list} />
+	<Grid slot="output">
+		{#each Object.entries(collatorFormatOptions) as [option, values]}
+			<OptionSection header={option} {browserCompatData} stackedCompatView>
+				{#each values as value}
+					{#if value !== undefined}
+						<Spacing size={1} />
+						<Highlight
+							{onClick}
+							values={{ [option]: value }}
+							output={list
+								.split(',')
+								.sort(
+									new Intl.Collator(locale, {
+										[option]: value
+									}).compare
+								)
+								.join(',')}
+						/>
+					{/if}
+				{/each}
+			</OptionSection>
+		{/each}
+	</Grid>
+</PageLayout>
 
-<Spacing />
 
-<ComboBoxContext>
-	<ComboBox
-		label="Locale"
-		name="locale"
-		bind:value={$selectedLocale}
-		options={languageByLocaleAsComboBoxOptions}
-	/>
-</ComboBoxContext>
-
-<Spacing />
-
-<div>
-	<Input id="list" label="List" bind:value={list} />
-</div>
-
-<Spacing />
-
-<h2>Output</h2>
-
-<Spacing />
-
-<Grid>
-	{#each Object.entries(collatorFormatOptions) as [option, values]}
-		<OptionSection header={option} {browserCompatData} stackedCompatView>
-			{#each values as value}
-				{#if value !== undefined}
-					<Spacing size={1} />
-					<Highlight
-						{onClick}
-						values={{ [option]: value }}
-						output={list
-							.split(',')
-							.sort(
-								new Intl.Collator(locale, {
-									[option]: value
-								}).compare
-							)
-							.join(',')}
-					/>
-				{/if}
-			{/each}
-		</OptionSection>
-	{/each}
-</Grid>

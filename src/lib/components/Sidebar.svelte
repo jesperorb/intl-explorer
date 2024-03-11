@@ -72,7 +72,7 @@
 			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
 			<Spacing size={1} />
 			<li>
-				<a href="/Playground?locale={locale}">Playground</a>
+				<a href="/Playground?locale={locale}" class:active={path.includes("Playground")}>Playground</a>
 			</li>
 			<Spacing />
 			<li aria-hidden="true" class="menu-heading"><strong>Intl.</strong></li>

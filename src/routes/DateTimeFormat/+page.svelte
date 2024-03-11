@@ -16,7 +16,7 @@
 
 </script>
 
-<CompatData optionsType="support" {data} />
+<CompatData {data} />
 <Spacing />
 
 {#if browser}

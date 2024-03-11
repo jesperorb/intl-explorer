@@ -4,11 +4,11 @@
 	import Select from '$lib/components/ui/Select.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import DateTime from '$lib/components/ui/DateTime.svelte';
+  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
 
 	import { formatMethods } from '$lib/format-methods';
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
-  import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
-  import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let locale: string;
