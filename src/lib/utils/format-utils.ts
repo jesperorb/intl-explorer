@@ -10,6 +10,7 @@ export const clampValue = (
 	if (typeof value !== 'string') return value;
 	const parsed = parseInt(value, 10);
 	if (isNaN(parsed)) return option.defaultValue;
+	if(!option.max && !option.min) return parsed;
 	const clampedMax = option.max && parsed > option.max ? option.max : parsed;
 	return option.min && parsed < option.min ? Math.max(option.min, clampedMax) : clampedMax;
 };

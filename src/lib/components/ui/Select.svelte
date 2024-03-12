@@ -17,6 +17,7 @@
 	export let fullWidth: boolean | undefined = undefined;
 	export let removeEmpty: boolean | undefined = undefined;
 	export let onChange: ((event: Event) => void) | undefined = undefined;
+	const getValue = (value: Type) => (value as string | number).toString();
 </script>
 
 <div>
@@ -30,7 +31,7 @@
 		{/if}
 		{#each items as [key, value]}
 			{#if value !== undefined}
-				<option value={key}>{value}</option>
+				<option value={getValue(key)}>{value}</option>
 			{/if}
 		{/each}
 	</select>

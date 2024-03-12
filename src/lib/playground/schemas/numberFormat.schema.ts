@@ -123,6 +123,30 @@ export const numberFormatSchema: PlaygroundSchema<'NumberFormat'> = {
 			min: 1
 		},
 		{
+			name: 'roundingIncrement',
+			valueType: 'number',
+			defaultValue: undefined,
+			inputType: 'select'
+		},
+		{
+			name: 'roundingMode',
+			valueType: 'string',
+			defaultValue: undefined,
+			inputType: 'select'
+		},
+		{
+			name: 'roundingPriority',
+			valueType: 'string',
+			defaultValue: undefined,
+			inputType: 'select'
+		},
+		{
+			name: 'trailingZeroDisplay',
+			valueType: 'string',
+			defaultValue: undefined,
+			inputType: 'select'
+		},
+		{
 			name: 'localeMatcher',
 			valueType: 'string',
 			defaultValue: undefined,

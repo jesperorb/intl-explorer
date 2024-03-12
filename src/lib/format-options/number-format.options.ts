@@ -1,7 +1,7 @@
 import { currencies } from '$lib/locale-data/currencies';
 import { units } from '$lib/locale-data/units';
 import { defaultNumberRange } from '$lib/utils/format-utils';
-import { localeMatcher, style } from './common.options';
+import { localeMatcher, roundingIncrement, roundingMode, roundingPriority, trailingZeroDisplay, style } from './common.options';
 
 export const numberFormatOptionsCommon = {
 	style: ['currency', 'unit'],
@@ -12,6 +12,10 @@ export const numberFormatOptionsCommon = {
 	maximumFractionDigits: [...defaultNumberRange, undefined],
 	minimumSignificantDigits: [...defaultNumberRange, undefined],
 	maximumSignificantDigits: [...defaultNumberRange, undefined],
+	roundingIncrement,
+	roundingMode,
+	roundingPriority,
+	trailingZeroDisplay,
 	localeMatcher
 } as const;
 

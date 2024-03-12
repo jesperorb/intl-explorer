@@ -14,8 +14,6 @@
 
 	const locale = getLocaleForSSR($page);
 
-  export const ssr = false;
-
 </script>
 
 <CompatData {data} />
