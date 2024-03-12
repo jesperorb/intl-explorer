@@ -24,6 +24,17 @@
 			code,
 		})
 	};
+	const tryFormat = (
+		options: Intl.PluralRulesOptions | undefined = undefined,
+		number: number
+	) => {
+		try {
+			return new Intl.PluralRules(locale, options).select(number)
+		} catch (e) {
+			return 'Failed to use `Intl.PluralRules`. You are probably using an unsupported browser';
+		}
+	};
+	
 </script>
 
 <PageLayout>
@@ -47,9 +58,9 @@
 					value: 1,
 					type
 				}}
-				output={new Intl.PluralRules(locale, {
+				output={tryFormat({
 					type
-				}).select(1)}
+				}, 1)}
 			/>
 			<Highlight
 				{onClick}
@@ -57,9 +68,9 @@
 					value: 2,
 					type
 				}}
-				output={new Intl.PluralRules(locale, {
+				output={tryFormat({
 					type
-				}).select(2)}
+				}, 2)}
 			/>
 			<Highlight
 				{onClick}
@@ -67,9 +78,9 @@
 					value: 20,
 					type
 				}}
-				output={new Intl.PluralRules(locale, {
+				output={tryFormat({
 					type
-				}).select(20)}
+				}, 20)}
 			/>
 		</OptionSection>
 		<OptionSection header={'localeMatcher'}>
@@ -81,10 +92,10 @@
 					type,
 					localeMatcher: 'best fit'
 				}}
-				output={new Intl.PluralRules(locale, {
+				output={tryFormat({
 					type,
 					localeMatcher: 'best fit'
-				}).select(1)}
+				}, 1)}
 			/>
 			<Highlight
 				{onClick}
@@ -93,10 +104,10 @@
 					type,
 					localeMatcher: 'lookup'
 				}}
-				output={new Intl.PluralRules(locale, {
+				output={tryFormat({
 					type,
 					localeMatcher: 'lookup'
-				}).select(2)}
+				}, 2)}
 			/>
 		</OptionSection>
 	</Grid>

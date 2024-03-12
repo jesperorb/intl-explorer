@@ -54,11 +54,11 @@
 							<input
 								type="radio"
 								on:input={onChangeOption}
-								id={option.name}
+								id={option.name + value}
 								name={option.name}
 								group={value}
 							/>
-							<label for={option.name}>{value}</label>
+							<label for={option.name + value}>{value}</label>
 						</div>
 					{/each}
 				</fieldset>

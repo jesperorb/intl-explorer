@@ -51,11 +51,11 @@ export class IntlPage {
 
 	public async goToPage() {
 		await this.clickOnNavigationLink();
-		await expect(this.page).toHaveURL(new RegExp(this.getUrl(this.pageUnderTest)));
+		await expect(this.page).toHaveURL(this.getUrl(this.pageUnderTest));
 	}
 
-	public async assertTitle() {
-		expect(await this.page.textContent('h1')).toBe(`Intl.${this.pageUnderTest}`);
+	public async assertTitle(prefix = true) {
+		expect(await this.page.textContent('h1')).toBe(`${prefix ? "Intl." : ""}${this.pageUnderTest}`);
 	}
 
 	public async assertMDNLink() {

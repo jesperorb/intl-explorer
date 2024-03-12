@@ -22,10 +22,10 @@
 
 <div>
 	{#if label}
-		<label for={`${name}Select`}>{label}</label>
+		<label for={name}>{label}</label>
 	{/if}
 	<Spacing size={1} /> 
-	<select {name} bind:value id={`${name}Select`} on:change={onChange} class:fullWidth>
+	<select {name} bind:value id={name} on:change={onChange} class:fullWidth>
 		{#if !removeEmpty}
 			<option value="">{placeholder ?? 'undefined'}</option>
 		{/if}
