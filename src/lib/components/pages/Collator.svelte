@@ -18,13 +18,10 @@
 	let list = 'Z,a,z,ä,1,=,à';
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`
-		);
+		const code = `[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`
+		await copyToClipboard(code);
 		trackEvent("Copy Code", {
-			method: "Collator",
-			options: JSON.stringify(options),
-			locale,
+			code,
 		})
 	};
 </script>

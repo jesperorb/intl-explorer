@@ -9,7 +9,5 @@
 		header
 	)}"
 	target="_blank"
-	data-umami-event="MDN Link"
-	data-umami-event-method="{header}"
 	rel="noopener noreferrer">MDN<OpenInNewTab /></a
 >

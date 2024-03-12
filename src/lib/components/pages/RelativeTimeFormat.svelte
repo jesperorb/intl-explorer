@@ -16,15 +16,12 @@
 	export let browserCompatData: BrowserCompatData | null;
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`new Intl.RelativeTimeFormat("${locale}", ${JSON.stringify(
+		const code = `new Intl.RelativeTimeFormat("${locale}", ${JSON.stringify(
 				Object.assign({}, options, { value: undefined })
 			)}).format(${dayValue}, "${options.value}")`
-		);
+		await copyToClipboard(code);
 		trackEvent('Copy Code', {
-			method: 'RelativeTimeFormat',
-			options: JSON.stringify(options),
-			locale
+			code,
 		});
 	};
 

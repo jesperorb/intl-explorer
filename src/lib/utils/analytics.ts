@@ -1,9 +1,6 @@
-export type AnalyticEvents = 'Change Schema'
+export type AnalyticEvents = 
   | 'Copy Schema'
   | 'Copy Code'
-  | 'Change Option'
-  | 'Parse Schema'
-  | 'Change Locale'
 
 export const trackEvent = (
   name: AnalyticEvents,

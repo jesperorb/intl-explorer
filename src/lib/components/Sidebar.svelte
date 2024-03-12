@@ -101,7 +101,6 @@
 					class="github"
 					href="https://github.com/jesperorb/intl-explorer"
 					target="_blank"
-					data-umami-event="GitHub Link"
 					rel="noopener noreferrer">GitHub <OpenInNewTab /></a
 				>
 			</li>

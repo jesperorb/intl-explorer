@@ -28,15 +28,12 @@
 	};
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`new Intl.DateTimeFormat("${locale}", ${JSON.stringify(
+		const code = `new Intl.DateTimeFormat("${locale}", ${JSON.stringify(
 				options
-			)}).format(new Date("${dateTimeString}"))`
-		);
+			)}).format(new Date("${dateTimeString}"))`;
+		await copyToClipboard(code);
 		trackEvent("Copy Code", {
-			method: "DateTimeFormat",
-			options: JSON.stringify(options),
-			locale,
+			code
 		})
 	};
 </script>

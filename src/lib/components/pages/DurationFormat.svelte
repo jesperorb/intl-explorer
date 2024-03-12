@@ -30,13 +30,10 @@
 	};
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`new Intl.DurationFormat("${locale}", ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`
-		);
+		const code = `new Intl.DurationFormat("${locale}", ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`;
+		await copyToClipboard(code);
 		trackEvent('Copy Code', {
-			method: 'DurationFormat',
-			options: JSON.stringify(options),
-			locale
+			code,
 		});
 	};
 
