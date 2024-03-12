@@ -36,6 +36,18 @@
 			code
 		})
 	};
+
+	const tryFormat = (
+		options: Intl.DateTimeFormatOptions | undefined = undefined,
+		dateTime: string
+	) => {
+		try {
+			return new Intl.DateTimeFormat(locale, options)
+				.format(new Date(`${dateTime}`))
+		} catch (e) {
+			return 'Failed to use `Intl.DateTimeFormat`. You are probably using an unsupported browser';
+		}
+	};
 </script>
 
 <PageLayout>
@@ -64,9 +76,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={new Intl.DateTimeFormat(locale, getDateTimeFormatOptions(option, value)).format(
-								new Date(`${dateTimeString}`)
-							)}
+							output={tryFormat(getDateTimeFormatOptions(option, value), dateTimeString)}
 						/>
 					{/if}
 				{/each}

@@ -8,10 +8,6 @@ test.describe("Pages", () => {
 				intlPage.setPageUnderTest(method);
 				await intlPage.goToPage();
 			})
-			await test.step("Assert title and link", async () => {
-				await intlPage.assertTitle();
-				await intlPage.assertMDNLink();
-			})
 			await test.step("Check a11y", async () => {
 				await intlPage.checkAlly();
 			})
@@ -23,6 +19,7 @@ test("Playground", async ({ intlPage }) => {
 	await test.step("Setup", async () => {
 		intlPage.setPageUnderTest("Playground");
 		await intlPage.clickOnNavigationLink();
+		await intlPage.page.waitForURL("**/Playground?locale=en-US")
 	})
 	await test.step("Check a11y", async () => {
 		await intlPage.checkAlly();

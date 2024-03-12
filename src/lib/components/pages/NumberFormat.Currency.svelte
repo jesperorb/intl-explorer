@@ -37,6 +37,18 @@
 			code,
 		})
 	};
+
+	const tryFormat = (
+		options: Intl.NumberFormatOptions | undefined = undefined,
+		number: number
+	) => {
+		try {
+			return new Intl.NumberFormat(locale, options)
+				.format(number)
+		} catch (e) {
+			return 'Failed to use `Intl.NumberFormat`. You are probably using an unsupported browser';
+		}
+	};
 </script>
 
 <PageLayout>
@@ -77,11 +89,11 @@
 								style: 'currency',
 								currency: selectedCurrency
 							}}
-							output={new Intl.NumberFormat(locale, {
+							output={tryFormat({
 								style: 'currency',
 								currency: selectedCurrency,
 								[option]: value
-							}).format(number)}
+							}, number)}
 						/>
 					{/if}
 				{/each}

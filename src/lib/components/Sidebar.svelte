@@ -67,18 +67,13 @@
 	</summary>
 	<nav aria-label="Main Menu" data-testid={testIds.navigation}>
 		<ul>
-			<li><strong><a href="/?locale={locale}">About</a></strong></li>
-			<Spacing />
-			<li aria-hidden="true" class="menu-heading"><strong>Playground</strong></li>
-			<Spacing size={1} />
-			<li>
-				<a href="/Playground?locale={locale}" class:active={path.includes("Playground")}>Playground</a>
+			<li class="last-item"><strong><a href="/?locale={locale}">About</a></strong></li>
+			<li class="last-item">
+				<strong><a href="/Playground?locale={locale}" class:active={path.includes("Playground")}>Playground</a></strong>
 			</li>
-			<Spacing />
-			<li aria-hidden="true" class="menu-heading"><strong>Intl.</strong></li>
-			<Spacing size={1} />
-			{#each routes as route}
-				<li aria-hidden={route.ariaHidden}>
+			<li class="menu-heading"><strong>Intl.</strong></li>
+			{#each routes as route, i}
+				<li aria-hidden={route.ariaHidden} class="route" class:last-item={i === routes.length - 1}>
 					<a
 						aria-label={route.ariaLabel}
 						class:sublink={route.sublink}
@@ -91,11 +86,8 @@
 						{/if}
 					</a>
 				</li>
-				<Spacing size={1} />
 			{/each}
-			<Spacing />
-			<li aria-hidden="true" class="menu-heading"><strong>Meta</strong></li>
-			<Spacing size={1} />
+			<li class="menu-heading"><strong>Meta</strong></li>
 			<li>
 				<a
 					class="github"
@@ -109,6 +101,12 @@
 </details>
 
 <style>
+	.menu-heading, .route {
+		margin-bottom: var(--spacing-1);
+	}
+	.last-item {
+		margin-bottom: var(--spacing-4);
+	}
 	.sidebar {
 		padding: var(--spacing-2) var(--spacing-4);
 		display: flex;
