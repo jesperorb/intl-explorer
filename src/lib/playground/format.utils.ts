@@ -77,10 +77,10 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 		}
 		// Casting to specific formatter to circumvent type errors, the types are too dynamic
 		const primaryFormatter = schema.primaryFormatter as "formatToParts";
+		//@ts-expect-error too complex type
 		const formatted = (new Intl[schema.method](
 			locale,
-			// To dynamic to interpret this correctly
-			options as any
+			options
 		) as Intl.DateTimeFormat)[primaryFormatter](...prepareInputValues(schema))
 		if(schema.method === "Segmenter") {
 			return `${print(Array.from(formatted))}`
@@ -98,10 +98,10 @@ export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKe
 	const { options } = prepareSchemaForOutput(schema);
 	return schema.secondaryFormatters?.map(formatter => {
 		try {
+			//@ts-expect-error too complex type
 			const output = (new Intl[schema.method](
 				locale,
-				// To dynamic to interpret this correctly
-				options as any
+				options
 			) as Intl.DateTimeFormat)[(formatter as "formatToParts")](...prepareInputValues(schema))
 			return {
 				name: formatter,
@@ -122,10 +122,10 @@ export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
 	try {
+		//@ts-expect-error too complex type
 		const intlObject = (new Intl[schema.method](
 			locale,
-			// To dynamic to interpret this correctly
-			options as any
+			options
 		) as Intl.PluralRules);
 		return `${print(intlObject.resolvedOptions())}`
 	} catch (error) {
