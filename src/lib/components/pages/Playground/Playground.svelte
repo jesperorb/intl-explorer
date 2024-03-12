@@ -80,12 +80,6 @@
 			newSchema.inputValues[0] = fallbackDisplayNames[value as unknown as Intl.DisplayNamesType];
 		}
 		schema = validateAndUpdateSchema(newSchema);
-		trackEvent('Change Option', {
-			method: newSchema.method,
-			option: optionName,
-			value,
-			locale,
-		});
 	};
 
 	const onInput = (event: Event) => {
@@ -115,18 +109,14 @@
 			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<'NumberFormat'>
 		);
 		schema = newSchema;
-		trackEvent('Change Schema', {
-			method: schema.method,
-			locale,
-		});
 	};
 
 	const copy = async () => {
 		if (!schema) return;
-		await copyToClipboard(schemaToCode(schema, locale));
+		const code = schemaToCode(schema, locale);
+		await copyToClipboard(code);
 		trackEvent('Copy Code', {
-			method: schema.method,
-			locale,
+			code
 		});
 	};
 </script>
@@ -139,7 +129,6 @@
 				copyToClipboard(createSchemaUrl(schema));
 				trackEvent('Copy Schema', {
 					method: schema.method,
-					locale,
 				});
 			}}>Copy Schema URL <CopyToClipboard /></Button
 		>

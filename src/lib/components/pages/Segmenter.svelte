@@ -18,15 +18,12 @@
 	export let browserCompatData: BrowserCompatData | null;
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`Array.from(new Intl.Segmenter("${locale}", ${JSON.stringify(
+		const code = `Array.from(new Intl.Segmenter("${locale}", ${JSON.stringify(
 				options
-			)}).segment("${sentence}"))`
-		);
+			)}).segment("${sentence}"))`;
+		await copyToClipboard(code);
 		trackEvent("Copy Code", {
-			method: "Segmenter",
-			options: JSON.stringify(options),
-			locale,
+			code,
 		})
 	};
 

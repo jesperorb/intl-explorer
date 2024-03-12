@@ -16,15 +16,12 @@
 	let type: Intl.PluralRuleType = 'cardinal';
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`new Intl.PluralRules("${locale}", ${JSON.stringify(
+		const code = `new Intl.PluralRules("${locale}", ${JSON.stringify(
 				Object.assign({}, options, { value: undefined })
-			)}).select(${options.value})`
-		);
+			)}).select(${options.value})`;
+		await copyToClipboard(code);
 		trackEvent("Copy Code", {
-			method: "PluralRules",
-			options: JSON.stringify(options),
-			locale,
+			code,
 		})
 	};
 </script>

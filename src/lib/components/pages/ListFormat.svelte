@@ -23,13 +23,10 @@
 	let list = 'Miso,Sesam,Mami';
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`new Intl.ListFormat("${locale}", ${JSON.stringify(options)}).format([])`
-		);
+		const code = 	`new Intl.ListFormat("${locale}", ${JSON.stringify(options)}).format([])`;
+		await copyToClipboard(code);
 		trackEvent("Copy Code", {
-			method: "ListFormat",
-			options: JSON.stringify(options),
-			locale,
+			code
 		})
 	};
 

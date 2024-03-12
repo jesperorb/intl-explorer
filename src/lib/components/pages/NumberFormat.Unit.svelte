@@ -30,13 +30,10 @@
 		.filter(([o]) => o !== 'style');
 
 	let onClick = async (options: OptionValues) => {
-		await copyToClipboard(
-			`new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`
-		);
+		const code = `new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`;
+		await copyToClipboard(code);
 		trackEvent("Copy Code", {
-			method: "NumberFormat",
-			options: JSON.stringify(options),
-			locale,
+			code,
 		})
 	};
 </script>

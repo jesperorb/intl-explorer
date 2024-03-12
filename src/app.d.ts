@@ -7,12 +7,12 @@ declare namespace App {
 	// interface Platform {}
 }
 
-type UmamiAnalytics = {
+type Analytics = {
 	track: (name: string, data?: Record<string, unknown>) => void
 }
 
 declare interface Window {
-	umami?: UmamiAnalytics
+	umami?: Analytics
 }
 
 declare namespace Intl {
