@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 
 	import NumberFormat from '$lib/components/pages/NumberFormat.Currency.svelte';
-	import CompatData from '$lib/components/ui/CompatData.svelte';
+	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
   import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import { selectedLocale } from '$lib/store/selected-locale';
@@ -15,7 +15,7 @@
 	const locale = getLocaleForSSR($page);
 </script>
 
-<CompatData {data} />
+<BrowserSupport {data} />
 <Spacing />
 
 {#if browser}

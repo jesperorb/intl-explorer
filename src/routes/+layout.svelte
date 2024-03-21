@@ -51,8 +51,11 @@
 		--purple: hsl(276, 67%, 74%);
 		--teal: hsl(169, 56%, 68%);
 		--green: hsl(114, 31%, 68%);
+		--darkgreen: hsl(114, 31%, 39%);
 		--red: hsl(350, 100%, 67%);
+		--darkred:  hsl(350, 100%, 46%);
 		--orange: hsl(14, 90%, 70%);
+		--yellow: hsl(40, 94%, 32%);
 		--light-purple: hsl(276, 100%, 98%);
 
 		--font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
@@ -91,7 +94,7 @@
 	@media (min-width: 900px) {
 		body {
 			display: grid;
-			grid-template-columns: 18rem 1fr;
+			grid-template-columns: 12rem 1fr;
 		}
 	}
 	pre, ul, body, h1, h2, h3, h4, h5, h6, p {
@@ -105,10 +108,6 @@
 
 	ul {
 		list-style: none;
-	}
-	label {
-		display: block;
-		font-weight: bold;
 	}
 	select {
 		max-width: 100%;
@@ -153,5 +152,13 @@
 		background-color: var(--white);
 		padding: var(--spacing-2);
 		font-family: var(--font-family);	
+	}
+
+	hr {
+		margin: 0;
+		border-width: 0px 0px thin;
+		border-style: solid;
+		border-color: var(--lightergray);
+		background-color: initial;
 	}
 </style>

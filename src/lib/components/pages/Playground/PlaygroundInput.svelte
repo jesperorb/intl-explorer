@@ -6,9 +6,12 @@
 	import DateTime from '$lib/components/ui/DateTime.svelte';
   import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
   import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
+	import Grid from '$lib/components/ui/Grid.svelte';
 
 	import { formatMethods } from '$lib/format-methods';
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let locale: string;
@@ -17,45 +20,39 @@
 	export let onChangeDate: (datetime: string) => void;
 </script>
 
-<div class="top">
-	<Select
-		name="method"
-		label="Method"
-		onChange={onChangeSchema}
-		value={schema.method}
-		items={formatMethods.map((method) => [method, method])}
-		fullWidth
-		removeEmpty
-	/>
-	{#if schema.inputValueType === 'number' || schema.inputValueType === 'array' || schema.inputValueType === 'string'}
-		<Input
-			id="inputValue"
-			label="Input value"
-			name="inputValue"
-			value={schema.inputValues[0].toString()}
-			{onInput}
+<Card>
+	<Grid>
+		<Select
+			name="method"
+			label="Method"
+			onChange={onChangeSchema}
+			value={schema.method}
+			items={formatMethods.map((method) => [method, method])}
 			fullWidth
+			removeEmpty
 		/>
-	{/if}
-	{#if schema.inputValueType === 'date'}
-		<DateTime defaultValue={schema.inputValues[0]} onChange={onChangeDate} />
-	{/if}
-	<ComboBoxContext>
-		<ComboBox
-			label="Locale"
-			name="locale"
-			bind:value={locale}
-			options={languageByLocaleAsComboBoxOptions}
-		/>
-	</ComboBoxContext>
-</div>
-
-<style>
-	@media (min-width: 900px) {
-		.top {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: var(--spacing-4);
-		}
-	}
-</style>
+		<Spacing size={2} />
+		{#if schema.inputValueType === 'number' || schema.inputValueType === 'array' || schema.inputValueType === 'string'}
+			<Input
+				id="inputValue"
+				label="Input value"
+				name="inputValue"
+				value={schema.inputValues[0].toString()}
+				{onInput}
+				fullWidth
+			/>
+		{/if}
+		{#if schema.inputValueType === 'date'}
+			<DateTime defaultValue={schema.inputValues[0]} onChange={onChangeDate} />
+		{/if}
+		<Spacing size={2} />
+		<ComboBoxContext>
+			<ComboBox
+				label="Locale"
+				name="locale"
+				bind:value={locale}
+				options={languageByLocaleAsComboBoxOptions}
+			/>
+		</ComboBoxContext>
+	</Grid>
+</Card>

@@ -14,12 +14,12 @@
 	} from '$lib/format-options/number-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { trackEvent } from '$lib/utils/analytics';
 
 
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let number = 123456.789;
 
@@ -63,7 +63,7 @@
 	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.NumberFormat(locale).format(number)} t="comment"/></CodeBlock>
 	<Grid slot="output">
 		{#each options as [option, values]}
-			<OptionSection header={option} {browserCompatData} stackedCompatView>
+			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

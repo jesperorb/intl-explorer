@@ -6,14 +6,14 @@
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
   import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let list = 'Z,a,z,ä,1,=,à';
 
@@ -30,7 +30,7 @@
 	<Input slot="input" id="list" label="List" bind:value={list} />
 	<Grid slot="output">
 		{#each Object.entries(collatorFormatOptions) as [option, values]}
-			<OptionSection header={option} {browserCompatData} stackedCompatView>
+			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

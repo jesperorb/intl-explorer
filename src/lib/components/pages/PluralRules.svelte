@@ -6,12 +6,12 @@
   import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let type: Intl.PluralRuleType = 'cardinal';
 
@@ -50,7 +50,7 @@
 		</div>
 	</fieldset>
 	<Grid slot="output">
-		<OptionSection header={type} {browserCompatData} stackedCompatView>
+		<OptionSection header={type} support={browserCompatData?.optionsSupport?.[type]}>
 			<Spacing size={1} />
 			<Highlight
 				{onClick}

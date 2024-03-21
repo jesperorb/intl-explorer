@@ -9,11 +9,11 @@
 	import { relativeTimeFormatUnits } from '$lib/format-options/relative-time-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { trackEvent } from '$lib/utils/analytics';
 
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.RelativeTimeFormat("${locale}", ${JSON.stringify(
@@ -71,7 +71,7 @@
 		</div>
 	</div>
 	<Grid slot="output">
-		<OptionSection header={'unit'} {browserCompatData} stackedCompatView>
+		<OptionSection header={'unit'} support={browserCompatData?.optionsSupport?.unit}>
 			{#each relativeTimeFormatUnits as value}
 				{#if value !== undefined}
 					<Spacing size={1} />

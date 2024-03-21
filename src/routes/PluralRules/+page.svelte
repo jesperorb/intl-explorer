@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
 
 	import PluralRules from '$lib/components/pages/PluralRules.svelte';
-	import CompatData from '$lib/components/ui/CompatData.svelte';
+	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
   import Spacing from '$lib/components/ui/Spacing.svelte';
 
   import { getLocaleForSSR } from '$lib/utils/get-locale';
@@ -16,7 +16,7 @@
 
 </script>
 
-<CompatData {data} />
+<BrowserSupport {data} />
 <Spacing />
 
 {#if browser}

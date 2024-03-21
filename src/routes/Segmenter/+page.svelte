@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Segmenter from '$lib/components/pages/Segmenter.svelte';
-	import CompatData from '$lib/components/ui/CompatData.svelte';
+	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import { selectedLocale } from '$lib/store/selected-locale';
@@ -15,7 +15,7 @@
 
 </script>
 
-<CompatData {data} />
+<BrowserSupport {data} />
 <Spacing />
 
 {#if browser}

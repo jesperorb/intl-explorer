@@ -1,28 +1,25 @@
 import type { BrowserType, VersionValue } from '@mdn/browser-compat-data';
 
-export type BrowserTypeHeader = {
-	start: number;
-	end?: number;
-	name: BrowserType;
-};
+export type BrowserCoverage = "full" | "partial" | "none";
 
-export type BrowserSupportWithReleaseData = {
+export type BrowserReleaseData = {
 	versionAdded: VersionValue;
-	mobileVersionAdded?: VersionValue;
 	browserType: BrowserType;
 	browserName: string;
-	partialSupport: boolean;
-	hasMobileEquivalent: boolean;
 };
 
-export type OptionsSupportData = Record<string, BrowserSupportWithReleaseData>;
-export type BrowserSupportData = Record<string, BrowserSupportWithReleaseData>;
-export type FormattersSupportData = Record<string, BrowserSupportWithReleaseData>;
-export type BrowserCompatData = {
+export type BrowserSupportForOption = {
+	coverage: BrowserCoverage;
+	support: Record<string, BrowserReleaseData>
+}
+
+export type BrowserSupportDataForOptions = Record<string, BrowserSupportForOption>;
+
+export type BrowserSupportDataForMethod = {
 	specUrl?: string | string[];
 	mdnUrl?: string;
-	support: BrowserSupportData;
-	browserTypeHeaders: BrowserTypeHeader[];
-	optionsSupport?: OptionsSupportData;
-	formattersSupport?: FormattersSupportData;
+	support: Record<string, BrowserReleaseData>;
+	coverage: BrowserCoverage;
+	optionsSupport?: BrowserSupportDataForOptions;
+	formattersSupport?: BrowserSupportDataForOptions;
 };

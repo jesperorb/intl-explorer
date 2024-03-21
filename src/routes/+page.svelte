@@ -26,7 +26,7 @@
 	</p>
 	<Spacing />
 	<p>
-		To get started either visit <strong><a href="/Playground">The Playground</a></strong> or choose <strong>formatter</strong> you are interested in from the navigation menu.
+		To get started either visit <a href="/Playground">The Playground</a> or choose formatter you are interested in from the navigation menu.
 	</p>
 	<Spacing />
 	<p>

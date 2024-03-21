@@ -52,10 +52,6 @@
     width: 1px;
   }
 	
-	.ui :global(.label) {
-		font-weight: bold;
-	}
-
   .ui :global(.icon) {
     width: 24px;
     height: 24px;
