@@ -14,12 +14,11 @@
 	} from '$lib/format-options/datetime-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { trackEvent } from '$lib/utils/analytics';
 
-
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let dateTimeString = '2022-04-24T19:00';
 
@@ -69,7 +68,7 @@
 	</CodeBlock>
 	<Grid slot="output">
 		{#each Object.entries(datetimeFormatOptions) as [option, values]}
-			<OptionSection header={option} {browserCompatData} stackedCompatView>
+			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

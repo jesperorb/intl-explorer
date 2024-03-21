@@ -3,27 +3,27 @@
 	import typescript from 'svelte-highlight/languages/typescript';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
-
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForOptions } from '$lib/types/BrowserSupport.types';
+	import Card from '$lib/components/ui/Card.svelte';
 
 	export let secondaryFormatters: { name: string; output: string }[];
-	export let browserCompatData: BrowserCompatData | null;
+	export let support: BrowserSupportDataForOptions | undefined = undefined;
 </script>
 
 {#if secondaryFormatters.length}
 	<h2>Secondary Formatters</h2>
 	<Spacing size={2} />
+	<hr />
+	<Spacing />
 	{#each secondaryFormatters as formatter}
-		<OptionSection
-			header={formatter.name}
-			optionsType="formattersSupport"
-			bind:browserCompatData
-			stackedCompatView
-		>
-			<Spacing size={1} />
+	<Card>
+		<OptionSection header={formatter.name} support={support?.[formatter.name]} hideFullSupport={false}>
+			<Spacing />
 			<Highlight language={typescript} code={formatter.output} />
+			<Spacing />
 		</OptionSection>
-		<Spacing />
+	</Card>
+	<Spacing />
 	{/each}
 {/if}
 

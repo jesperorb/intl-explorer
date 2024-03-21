@@ -11,10 +11,9 @@ import bcd, {
 	type SupportStatement
 } from '@mdn/browser-compat-data';
 import type {
-	BrowserCompatData,
-	BrowserSupportData,
-	BrowserSupportWithReleaseData,
-	BrowserTypeHeader
+	BrowserSupportDataForMethod,
+	BrowserCoverage,
+	BrowserReleaseData,
 } from '$lib/types/BrowserSupport.types';
 
 const browserTypePosition: Record<BrowserType, number> = {
@@ -22,13 +21,6 @@ const browserTypePosition: Record<BrowserType, number> = {
 	mobile: 1,
 	server: 3,
 	xr: 4
-};
-
-const desktopToMobileName: Partial<Record<BrowserName, BrowserName>> = {
-	chrome: 'chrome_android',
-	firefox: 'firefox_android',
-	opera: 'opera_android',
-	safari: 'safari_ios'
 };
 
 const excludedBrowserNames: BrowserName[] = ['ie', 'oculus'];
@@ -72,35 +64,22 @@ const getFormattersForProperty = (compatData: CompatData, property: FormatMethod
 
 const browserToSupportData =
 	(browsers: Browsers) =>
-	(
-		[browserName, data]: [BrowserName, SupportStatement],
-		_index: number,
-		array: [BrowserName, SupportStatement][]
-	): [BrowserName, BrowserSupportWithReleaseData] => {
-		const versionAdded = getPropertyFromSupportStatement(data, 'version_added');
-		const browser = browsers[browserName];
-		const mobileBrowserName = desktopToMobileName[browserName];
-		const mobileVersion =
-			browser.type === 'desktop' && mobileBrowserName
-				? array.find(([name]) => name === mobileBrowserName)
-				: undefined;
-		const mobileVersionAdded = mobileVersion
-			? getPropertyFromSupportStatement(mobileVersion[1], 'version_added')
-			: undefined;
-		const supportData: BrowserSupportWithReleaseData = {
-			browserName: browser.name,
-			versionAdded,
-			hasMobileEquivalent: Boolean(mobileVersion),
-			mobileVersionAdded,
-			browserType: browser.type,
-			partialSupport: Boolean(mobileVersion) && !mobileVersionAdded
+		(
+			[browserName, data]: [BrowserName, SupportStatement],
+		): [BrowserName, BrowserReleaseData] => {
+			const versionAdded = getPropertyFromSupportStatement(data, 'version_added');
+			const browser = browsers[browserName];
+			const supportData: BrowserReleaseData = {
+				browserName: browser.name,
+				versionAdded,
+				browserType: browser.type,
+			};
+			return [browserName, supportData];
 		};
-		return [browserName, supportData];
-	};
 
 const sortCompatData = (
-	[, aData]: [BrowserName, BrowserSupportWithReleaseData],
-	[, bData]: [BrowserName, BrowserSupportWithReleaseData]
+	[, aData]: [BrowserName, BrowserReleaseData],
+	[, bData]: [BrowserName, BrowserReleaseData]
 ) => {
 	return browserTypePosition[aData.browserType] - browserTypePosition[bData.browserType];
 };
@@ -108,36 +87,22 @@ const sortCompatData = (
 const filterExludedBrowsers = ([browserName]: [BrowserName, SupportStatement]) =>
 	!excludedBrowserNames.includes(browserName);
 
-const createHeaders = (support: [BrowserName, BrowserSupportWithReleaseData][]) => {
-	const headers: Partial<Record<BrowserType, BrowserTypeHeader>> = {};
-	for (let index = 0; index < support.length; index++) {
-		const previous = support[index - 1];
-		const current = support[index];
-		const currentBrowserType = current ? current[1].browserType : undefined;
-		const previousBrowserType = previous ? previous[1].browserType : undefined;
-		const diff = currentBrowserType !== previousBrowserType;
-		if (currentBrowserType && !headers[currentBrowserType]) {
-			headers[currentBrowserType] = {
-				start: index + 1,
-				name: currentBrowserType
-			};
-		}
-		if (previousBrowserType && diff && index !== 0) {
-			if (headers[previousBrowserType]) {
-				(headers[previousBrowserType] as BrowserTypeHeader).end = index + 1;
-			}
-		}
-		if (index === support.length - 1 && previousBrowserType && headers[previousBrowserType]) {
-			(headers[previousBrowserType] as BrowserTypeHeader).end = support.length + 1;
-		}
+export const getCoverage = (data: [BrowserName, BrowserReleaseData][]): BrowserCoverage => {
+	const withVersion = data
+		.filter(([, browserSupport]) => Boolean(browserSupport.versionAdded))
+	if (withVersion.length === 0) {
+		return "none";
 	}
-	return headers;
-};
+	if (withVersion.length === data.length) {
+		return "full";
+	}
+	return "partial"
+}
 
 const getCompatDataWithBrowserData = (
 	compatData: CompatData,
 	property: FormatMethodsKeys
-): BrowserCompatData => {
+): BrowserSupportDataForMethod => {
 	const { browsers } = compatData;
 	const propertyData = compatData.javascript.builtins.Intl[property];
 	const support = getSupportDataForProperty(propertyData)
@@ -151,7 +116,13 @@ const getCompatDataWithBrowserData = (
 			.map(browserToSupportData(browsers))
 			.sort(sortCompatData);
 		const [, option] = key.split('_');
-		return [option, Object.fromEntries(formattedOptions)];
+		return [
+			option,
+			{
+				coverage: getCoverage(formattedOptions),
+				support: Object.fromEntries(formattedOptions)
+			}
+		];
 	});
 	const formatters = getFormattersForProperty(compatData, property).map(([key, value]) => {
 		const supportDataForFormatter = getSupportDataForProperty(value as Identifier);
@@ -159,13 +130,19 @@ const getCompatDataWithBrowserData = (
 			.filter(filterExludedBrowsers)
 			.map(browserToSupportData(browsers))
 			.sort(sortCompatData);
-		return [key, Object.fromEntries(formattedOptions)];
+		return [
+			key,
+			{
+				coverage: getCoverage(formattedOptions),
+				support: Object.fromEntries(formattedOptions)
+			}
+		];
 	});
 	return {
 		mdnUrl: propertyData?.__compat?.mdn_url,
 		specUrl: propertyData?.__compat?.spec_url,
-		browserTypeHeaders: Object.values(createHeaders(support)),
-		support: Object.fromEntries(support) as BrowserSupportData,
+		support: Object.fromEntries(support) as Record<string, BrowserReleaseData>,
+		coverage: getCoverage(support),
 		optionsSupport: Object.fromEntries(options),
 		formattersSupport: Object.fromEntries(formatters)
 	};

@@ -7,9 +7,9 @@
 <style>
 	button {
 		background-color: var(--white);
-		border: 1px solid var(--gray);
+		border: 1px solid var(--lightergray);
     border-radius: 4px;
-		padding: var(--spacing-1) var(--spacing-2);
+		padding: var(--spacing-2) var(--spacing-3);
 		cursor: pointer;
 		color: var(--black);
     text-align: center;

@@ -3,9 +3,10 @@
 
   export let open: boolean | undefined = undefined;
   export let id: string | undefined = undefined;
+  export let fullWidth: boolean | undefined = true;
 </script>
 
-<details open={open} id={id}>
+<details open={open} id={id} class:fullWidth={fullWidth}>
   <summary>
     <span class="summary-title">
       <slot name="summary"></slot>
@@ -23,6 +24,11 @@
     border: 1px solid var(--lightergray);
     padding: var(--spacing-2);
     border-radius: 4px;
+    display: inline-block;
+  }
+
+  .fullWidth {
+    display: block;
   }
 
   details[open] > summary {

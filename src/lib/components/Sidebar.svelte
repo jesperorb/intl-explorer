@@ -9,7 +9,6 @@
 	import { getLocaleForSSR } from '$lib/utils/get-locale';
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { testIds } from '$lib/utils/dom-utils';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import OpenInNewTab from '$lib/components/ui/icons/OpenInNewTab.svelte';
 
 	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
@@ -67,11 +66,11 @@
 	</summary>
 	<nav aria-label="Main Menu" data-testid={testIds.navigation}>
 		<ul>
-			<li class="last-item"><strong><a href="/?locale={locale}">About</a></strong></li>
+			<li class="last-item" class:active={path === "/"}><a href="/?locale={locale}">About</a></li>
 			<li class="last-item">
-				<strong><a href="/Playground?locale={locale}" class:active={path.includes("Playground")}>Playground</a></strong>
+				<a href="/Playground?locale={locale}" class:active={path.includes("Playground")}>Playground</a>
 			</li>
-			<li class="menu-heading"><strong>Intl.</strong></li>
+			<li class="menu-heading">Intl.</li>
 			{#each routes as route, i}
 				<li aria-hidden={route.ariaHidden} class="route" class:last-item={i === routes.length - 1}>
 					<a
@@ -87,7 +86,7 @@
 					</a>
 				</li>
 			{/each}
-			<li class="menu-heading"><strong>Meta</strong></li>
+			<li class="menu-heading">Meta</li>
 			<li>
 				<a
 					class="github"
@@ -103,6 +102,9 @@
 <style>
 	.menu-heading, .route {
 		margin-bottom: var(--spacing-1);
+	}
+	.menu-heading {
+		font-size: 1.25rem;
 	}
 	.last-item {
 		margin-bottom: var(--spacing-4);
@@ -123,17 +125,6 @@
 		font-size: 1.25rem;
 		user-select: none;
 		display: inline-block;
-	}
-	@media (min-width: 900px) {
-		.sidebar {
-			padding: var(--spacing-10) var(--spacing-6) var(--spacing-6) var(--spacing-6);
-		}
-		summary {
-			margin-bottom: var(--spacing-4);
-		}
-		nav {
-			padding-top: 0;
-		}
 	}
 	summary {
 		list-style: none;

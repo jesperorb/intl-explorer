@@ -7,7 +7,7 @@
   import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
@@ -15,7 +15,7 @@
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let onClick = async (options: OptionValues) => {
 		const code = `Array.from(new Intl.Segmenter("${locale}", ${JSON.stringify(
@@ -42,7 +42,7 @@
 	<Input slot="input" id="list" label="List" bind:value={sentence} />
 	<Grid slot="output">
 		{#each Object.entries(segmenterOptions) as [option, values]}
-			<OptionSection header={option} {browserCompatData} stackedCompatView>
+			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

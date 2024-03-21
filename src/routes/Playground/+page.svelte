@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 
 	import nightowl from 'svelte-highlight/styles/oceanicnext';
 
@@ -7,7 +7,7 @@
 
 	import { selectedLocale } from '$lib/store/selected-locale';
 
-	export let data: Record<string, BrowserCompatData>;
+	export let data: Record<string, BrowserSupportDataForMethod>;
 </script>
 
 <svelte:head>

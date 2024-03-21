@@ -21,7 +21,7 @@
 			<img height="22" width="22" src="/icons/experimental.svg" alt="Experimental" />
 		{/if}
 	</h1>
-	<div>
+	<div class="metadata">
 		<div class="wrapper">
 			<slot></slot>
 		</div>
@@ -33,7 +33,6 @@
 <style>
 	header {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
 		flex-wrap: nowrap;
 	}

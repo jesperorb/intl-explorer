@@ -1,14 +1,13 @@
 <script lang="ts">
 	import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.schema';
 	import type { FormatMethodsKeys } from '$lib/format-methods';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 
 	import Highlight from 'svelte-highlight';
 	import typescript from 'svelte-highlight/languages/typescript';
 
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import CopyButton from '$lib/components/ui/CopyButton.svelte';
-	import CompatData from '$lib/components/ui/CompatData.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
 	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -31,12 +30,14 @@
 	import { onMount } from 'svelte';
 	import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
 	import { trackEvent } from '$lib/utils/analytics';
+	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
+	import Grid from '$lib/components/ui/Grid.svelte';
 
-	export let data: { [key: string]: BrowserCompatData };
+	export let data: { [key: string]: BrowserSupportDataForMethod };
 	export let locale: string;
 
 	$: schema = validateAndUpdateSchema(numberFormatSchema);
-	$: browserCompatData = schema ? { ...data[schema.method] } : null;
+	$: browserSupportData = schema ? { ...data[schema.method] } : { ...data.NumberFormat };
 
 	onMount(() => {
 		if (getSchemaParam()) {
@@ -122,47 +123,77 @@
 </script>
 
 {#if schema}
-	<Header header="Playground" link={schema.method}>
-		<Button
-			onClick={() => {
-				if (!schema) return;
-				copyToClipboard(createSchemaUrl(schema));
-				trackEvent('Copy Schema', {
-					method: schema.method,
-				});
-			}}>Copy Schema URL <CopyToClipboard /></Button
-		>
-	</Header>
-	<CompatData data={browserCompatData} />
-	<Spacing />
-	<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />
-	<Spacing />
-	<PlaygroundOptions bind:browserCompatData {schema} {onChangeOption} />
-	<Spacing />
-	<h2>Output</h2>
-	<Spacing size={2} />
-	<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
-	<Spacing />
-	<h2>Code</h2>
-	<Spacing size={2} />
-	<div class="highlight">
-		<Highlight language={typescript} code={schemaToCode(schema, locale)} />
-		<CopyButton onClick={copy} label="Copy code" />
+	<div class="columns">
+		<div class="main">
+			<Header header="Playground" link={schema.method} />
+			<Grid>
+				<BrowserSupport bind:data={browserSupportData} />
+				<Button
+					onClick={() => {
+						if (!schema) return;
+						copyToClipboard(createSchemaUrl(schema));
+						trackEvent('Copy Schema', {
+							method: schema.method
+						});
+					}}>Copy Schema URL <CopyToClipboard /></Button
+				>
+			</Grid>
+			<Spacing />
+			<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />
+			<Spacing />
+			<PlaygroundOptions
+				bind:support={browserSupportData.optionsSupport}
+				{schema}
+				{onChangeOption}
+			/>
+			<Spacing />
+			<PlaygroundSecondaryFormatters
+				bind:support={browserSupportData.formattersSupport}
+				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale) ?? []}
+			/>
+		</div>
+		<div class="output">
+			<div class="output-inner">
+				<h2>Output</h2>
+				<Spacing size={2} />
+				<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
+				<Spacing />
+				<h2>Code</h2>
+				<Spacing size={2} />
+				<div class="highlight">
+					<Highlight language={typescript} code={schemaToCode(schema, locale)} />
+					<CopyButton onClick={copy} label="Copy code" />
+				</div>
+				<Spacing />
+				<h2>Resolved Options</h2>
+				<Spacing size={2} />
+				<div>
+					<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
+				</div>
+			</div>
+		</div>
 	</div>
-	<Spacing />
-	<h2>Resolved Options</h2>
-	<Spacing size={2} />
-	<div>
-		<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
-	</div>
-	<Spacing />
-	<PlaygroundSecondaryFormatters
-		bind:browserCompatData
-		secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale) ?? []}
-	/>
 {/if}
 
 <style>
+	.main {
+		padding-right: 0;
+	}
+	.output {
+		padding: var(--spacing-4);
+		padding-top: var(--spacing-6);
+		border-top-left-radius: 4px;
+	}
+	.output-inner {
+		position: sticky;
+		top: var(--spacing-4);
+	}
+	.columns {
+		display: grid;
+		position: relative;
+		grid-template-columns: 2fr 1fr;
+		gap: var(--spacing-4);
+	}
 	h2 {
 		font-size: 1.25rem;
 		display: inline-block;

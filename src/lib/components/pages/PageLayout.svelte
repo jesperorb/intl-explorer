@@ -2,34 +2,48 @@
 	import Spacing from "$lib/components/ui/Spacing.svelte";
 	import ComboBox from "$lib/components/ui/ComboBox/ComboBox.svelte";
 	import ComboBoxContext from "$lib/components/ui/ComboBox/ComboBoxContext.svelte";
+	import Card from "$lib/components/ui/Card.svelte"
 	import { languageByLocaleAsComboBoxOptions } from "$lib/locale-data/locales";
   import { selectedLocale } from '$lib/store/selected-locale';
+	import Grid from "$lib/components/ui/Grid.svelte";
 </script>
 
-<h2>Input</h2>
+<Card>
+	<h2>Input</h2>
+	<Spacing size={2} />
+	<hr />
+	<Spacing size={2} />
+	<Grid>
+		<ComboBoxContext>
+			<ComboBox
+				label="Locale"
+				name="locale"
+				bind:value={$selectedLocale}
+				options={languageByLocaleAsComboBoxOptions}
+			/>
+		</ComboBoxContext>
+		{#if $$slots.input}
+			<Spacing />
+			<slot name="input" />
+			<Spacing />
+		{:else}
+			<Spacing />
+		{/if} 
+	</Grid>
+</Card>
 <Spacing />
-<ComboBoxContext>
-	<ComboBox
-		label="Locale"
-		name="locale"
-		bind:value={$selectedLocale}
-		options={languageByLocaleAsComboBoxOptions}
-	/>
-</ComboBoxContext>
-{#if $$slots.input}
-	<Spacing />
-	<slot name="input" />
-	<Spacing />
-{:else}
-	<Spacing />
-{/if} 
 {#if $$slots.alternativeUse}
-  <h2>Alternative use</h2>
-  <slot name="alternativeUse" />
-  <Spacing size={2} />
-  <slot name="alternativeCode" />
-  <Spacing size={2} />
+	<Card>
+		<h2>Alternative use</h2>
+		<slot name="alternativeUse" />
+		<Spacing size={2} />
+		<slot name="alternativeCode" />
+		<Spacing size={2} />
+	</Card>
+	<Spacing />
 {/if}
 <h2>Output</h2>
+<Spacing size={2} />
+<hr />
 <Spacing />
 <slot name="output" />

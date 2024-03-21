@@ -8,13 +8,13 @@
 
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { trackEvent } from '$lib/utils/analytics';
 	import { durationFormatOptions } from '$lib/format-options/duration-format.options';
 	import { clampValue } from '$lib/utils/format-utils';
 
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let duration: Record<string, string | number> = {
 		years: 2,
@@ -69,7 +69,7 @@
 	</Grid>
 	<Grid slot="output">
 		{#each Object.entries(durationFormatOptions) as [option, values]}
-			<OptionSection header={option} {browserCompatData} stackedCompatView>
+			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

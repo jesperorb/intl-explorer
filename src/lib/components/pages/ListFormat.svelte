@@ -7,7 +7,7 @@
 	import { listFormatOptions } from '$lib/format-options/list-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
   import Token from '$lib/components/ui/Highlight/Token.svelte';
   import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
@@ -15,7 +15,7 @@
 	import PageLayout from './PageLayout.svelte';
 
 	export let locale: string;
-	export let browserCompatData: BrowserCompatData | null;
+	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const toArray = (string: string) => string.split(',');
 	const toStyle = (string: string | boolean | number) => string as Intl.ListFormatStyle;
@@ -49,7 +49,7 @@
 	<CodeBlock slot="alternativeCode"><Token v="["/>{#each  list.split(",") as item, i }<Token v={item} t="string" />{#if Object.keys( list.split(",")).length > 1 && i < Object.keys(list.split(",")).length - 1}<Token noTrim v=", "/>{/if}{/each}<Token v="]" /><br/>{"\t"}<Token v="." /><Token v="toLocaleString" t="function"/><Token v="(" /><Token t="string" v={`"${locale}"`} /><Token v=")" /> <br /><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.ListFormat(locale).format(list.split(","))} t="comment" /></CodeBlock>
 	<Grid slot="output">
 		{#each Object.entries(listFormatOptions) as [option, values]}
-			<OptionSection header={option} {browserCompatData} stackedCompatView>
+			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

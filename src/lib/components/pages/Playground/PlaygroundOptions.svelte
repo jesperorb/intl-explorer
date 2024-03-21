@@ -1,16 +1,20 @@
 <script lang="ts">
 	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
-	import type { BrowserCompatData } from '$lib/types/BrowserSupport.types';
+	import type {
+		BrowserSupportDataForOptions,
+	} from '$lib/types/BrowserSupport.types';
 
-	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Select from '$lib/components/ui/Select.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import { getItemsFromOption } from '$lib/playground/format.utils';
+	import OptionCard from '$lib/components/ui/OptionCard.svelte';
+	import Details from '$lib/components/ui/details/Details.svelte';
+	import BrowserSupportGrid from '$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
-	export let browserCompatData: BrowserCompatData | null;
+	export let support: BrowserSupportDataForOptions | undefined;
 	export let onChangeOption: (event: Event) => void;
 </script>
 
@@ -18,13 +22,7 @@
 <Spacing size={2} />
 <div class="grid">
 	{#each schema.options as option}
-		<OptionSection
-			labelId={option.name}
-			header={option.name}
-			optionsType="optionsSupport"
-			bind:browserCompatData
-			stackedCompatView
-		>
+		<OptionCard option={option.name} hideFullSupport support={support?.[option.name]?.coverage}>
 			{#if option.inputType === 'select'}
 				<Select
 					onChange={onChangeOption}
@@ -49,7 +47,7 @@
 			{/if}
 			{#if option.inputType === 'radio'}
 				<fieldset>
-					{#each getItemsFromOption(schema.method, option) as [ value]}
+					{#each getItemsFromOption(schema.method, option) as [value]}
 						<div class="radio">
 							<input
 								type="radio"
@@ -63,7 +61,14 @@
 					{/each}
 				</fieldset>
 			{/if}
-		</OptionSection>
+			{#if support?.[option.name]?.support}
+				<Spacing />
+				<Details>
+					<p slot="summary">Browser details</p>
+					<BrowserSupportGrid data={support[option.name]?.support} />
+				</Details>
+			{/if}
+		</OptionCard>
 	{/each}
 </div>
 
@@ -73,14 +78,9 @@
 		grid-template-columns: 1fr;
 		gap: 1rem;
 	}
-	@media (min-width: 600px) {
+	@media (min-width: 1200px) {
 		.grid {
 			grid-template-columns: 1fr 1fr;
-		}
-	}
-	@media (min-width: 900px) {
-		.grid {
-			grid-template-columns: 1fr 1fr 1fr;
 		}
 	}
 	h2 {
