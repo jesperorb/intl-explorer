@@ -5,6 +5,7 @@ import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
 
 import { formatOptions } from "$lib/format-options";
 import { durationValues } from "$lib/format-options/duration-format.options";
+import { optionIsActive } from "./schemas/validate";
 
 export const print = (values: unknown) => {
 	return JSON.stringify(values, null, 2);
@@ -16,7 +17,9 @@ export const schemaToFormatOptions = <Method extends FormatMethodsKeys>(
 	const formatOptions: Partial<AllFormatOptions[Method]> = {};
 	for (const option of schema.options) {
 		const value = option.value ?? option.defaultValue;
-		formatOptions[option.name] = value === "" ? undefined : value;
+		if(optionIsActive(option)) {
+			formatOptions[option.name] = value === "" ? undefined : value;
+		}
 	}
 	return formatOptions as AllFormatOptions[Method];
 }

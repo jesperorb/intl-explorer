@@ -52,6 +52,7 @@
 		const target = event.target as HTMLInputElement;
 		if (!schema) return;
 		const isRadioEvent = target.type === 'radio';
+		const isCheckBox = target.type === 'checkbox';
 		const optionName = target.name;
 		const optionValue = isRadioEvent
 			? target.attributes.getNamedItem('group')?.nodeValue
@@ -59,12 +60,17 @@
 		const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
 		const value = isRadioEvent ? radioValue : optionValue;
 		const schemaOptions = schema.options.map((option) =>
-			option.name === optionName
+			option.name === optionName && !isCheckBox
 				? {
 						...option,
 						value: clampValue(option, value)
 					}
-				: { ...option }
+				: {
+						...option,
+						selected: option.name === optionName
+							? target.checked
+							: option.selected
+					}
 		);
 		const newSchema: PlaygroundSchema<'NumberFormat'> = {
 			...schema,

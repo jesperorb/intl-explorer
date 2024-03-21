@@ -3,6 +3,14 @@ import type { FormatMethodsKeys } from '$lib/format-methods';
 import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.schema';
 import { schemas } from '.';
 
+export const optionIsActive = <Method extends FormatMethodsKeys>(
+	option: PlaygroundOption<Method>
+) => {
+	return option.selected !== undefined
+		? option.selected
+		: Boolean(option.value ?? option.defaultValue);
+}
+
 export const validateAndUpdateSchema = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>
 ): PlaygroundSchema<Method> => {
@@ -15,12 +23,14 @@ export const validateAndUpdateSchema = <Method extends FormatMethodsKeys>(
 	const options: PlaygroundOption<Method>[] = [];
 	for (const option of templateSchemaOptions) {
 		const value = mappedSchemaOptions[option.name]?.value;
+		const selected = mappedSchemaOptions[option.name]?.selected;
 		invalidOptions =
 			templateSchema.invalidOptionCombos && !invalidOptions
 				? templateSchema.invalidOptionCombos[`${option.name}:${value ?? option.defaultValue}`]
 				: invalidOptions;
 		options.push({
 			...option,
+			selected,
 			value
 		} as any);
 	}
