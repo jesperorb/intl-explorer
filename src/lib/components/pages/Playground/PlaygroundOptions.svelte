@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
-	import type {
-		BrowserSupportDataForOptions,
-	} from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForOptions } from '$lib/types/BrowserSupport.types';
 
 	import Select from '$lib/components/ui/Select.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
@@ -22,7 +20,16 @@
 <Spacing size={2} />
 <div class="grid">
 	{#each schema.options as option}
-		<OptionCard option={option.name} hideFullSupport support={support?.[option.name]?.coverage}>
+		<OptionCard
+			checked={Boolean(option.selected !== undefined
+				? option.selected
+				: (option.value ?? option.defaultValue))
+			}
+			option={option.name}
+			onChange={onChangeOption}
+			hideFullSupport
+			support={support?.[option.name]?.coverage}
+		>
 			{#if option.inputType === 'select'}
 				<Select
 					onChange={onChangeOption}

@@ -7,10 +7,13 @@
   export let option: string;
   export let support: BrowserCoverage | undefined = undefined;
   export let hideFullSupport: boolean | undefined = false;
+  export let checked: boolean | undefined = true;
+	export let onChange: ((event: Event) => void) | undefined = undefined;
 </script>
 <Card>
   <div class="heading">
     <div>
+      <input type="checkbox" name={option} {checked} on:change={onChange} aria-label="{option} active" />
       <label for={option}>{option}</label>
     </div>
     <SupportLabel {hideFullSupport} {support} />

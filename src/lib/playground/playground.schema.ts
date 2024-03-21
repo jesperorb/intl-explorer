@@ -20,6 +20,7 @@ export type PlaygroundOption<
 	pattern?: string;
 	max?: number;
 	min?: number;
+	selected?: boolean;
 };
 
 export type PlaygroundSchema<
