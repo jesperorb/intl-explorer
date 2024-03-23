@@ -62,6 +62,7 @@
 		--red: hsl(350, 100%, 67%);
 		--darkred: hsl(350, 100%, 46%);
 		--orange: hsl(14, 90%, 70%);
+		--lightyellow: hsl(40, 94%, 50%);
 		--yellow: hsl(40, 94%, 32%);
 		--light-purple: hsl(276, 100%, 98%);
 		--highlight: #0066ff;
@@ -74,7 +75,6 @@
 		--divider-color: var(--lightergray);
 		--card-color: var(--background-color);
 
-		
 		--code-comment-color: var(--gray);
 		--code-text-color: var(--white);
 
@@ -105,9 +105,20 @@
 			--border-color: var(--darkgray);
 			--divider-color: var(--darkgray);
 			--card-color: var(--darkergray);
-			--yellow: hsl(40, 94%, 50%);
-			--darkgreen: hsl(114, 31%, 50%);
+			--yellow: var(--lightyellow);
+			--darkgreen: var(--green);
 		}
+	}
+	[data-dark-mode] {
+		--text-color: var(--white);
+		--accent-background-color: var(--darkergray);
+		--background-color: var(--dark-black);
+		--link-underline-color: var(--white);
+		--border-color: var(--darkgray);
+		--divider-color: var(--darkgray);
+		--card-color: var(--darkergray);
+		--yellow: var(--lightyellow);
+		--darkgreen: var(--green);
 	}
 	*,
 	*::after,
