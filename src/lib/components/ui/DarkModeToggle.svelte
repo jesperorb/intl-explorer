@@ -12,12 +12,12 @@
 
 	const change = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		const body = browser ? document.querySelector('body') : null;
-		if (body) {
+		const element = browser ? document.querySelector('html') : null;
+		if (element) {
 			if (target.checked) {
-				body.setAttribute('data-dark-mode', 'true');
+				element.setAttribute('data-dark-mode', 'true');
 			} else {
-				body.removeAttribute('data-dark-mode');
+				element.removeAttribute('data-dark-mode');
 			}
 		}
 	};
