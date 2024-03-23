@@ -34,11 +34,11 @@
 	header {
 		display: flex;
 		align-items: center;
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
+		gap: var(--spacing-2);
 	}
 
 	.wrapper {
 		display: inline-flex;
-		margin-right: var(--spacing-2);
 	}
 </style>

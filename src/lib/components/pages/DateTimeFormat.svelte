@@ -50,7 +50,7 @@
 </script>
 
 <PageLayout>
-	<DateTime slot="input" defaultValue={dateTimeString} {onChange} />
+	<DateTime fullWidth slot="input" defaultValue={dateTimeString} {onChange} />
 	<div slot="alternativeUse">
 		<code>Intl.DateTimeFormat</code>
 		can also be used from

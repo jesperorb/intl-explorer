@@ -31,7 +31,6 @@
 			fullWidth
 			removeEmpty
 		/>
-		<Spacing size={2} />
 		{#if schema.inputValueType === 'number' || schema.inputValueType === 'array' || schema.inputValueType === 'string'}
 			<Input
 				id="inputValue"
@@ -45,7 +44,6 @@
 		{#if schema.inputValueType === 'date'}
 			<DateTime defaultValue={schema.inputValues[0]} onChange={onChangeDate} />
 		{/if}
-		<Spacing size={2} />
 		<ComboBoxContext>
 			<ComboBox
 				label="Locale"

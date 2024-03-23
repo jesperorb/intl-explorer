@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import ComboBox from "$lib/components/ui/ComboBox/ComboBox.svelte";
-	import ComboBoxContext from "$lib/components/ui/ComboBox/ComboBoxContext.svelte";
-	import Card from "$lib/components/ui/Card.svelte"
-	import { languageByLocaleAsComboBoxOptions } from "$lib/locale-data/locales";
-  import { selectedLocale } from '$lib/store/selected-locale';
-	import Grid from "$lib/components/ui/Grid.svelte";
+	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
+	import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
+	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
+	import { selectedLocale } from '$lib/store/selected-locale';
+	import Grid from '$lib/components/ui/Grid.svelte';
 </script>
 
 <Card>
@@ -23,12 +23,8 @@
 			/>
 		</ComboBoxContext>
 		{#if $$slots.input}
-			<Spacing />
 			<slot name="input" />
-			<Spacing />
-		{:else}
-			<Spacing />
-		{/if} 
+		{/if}
 	</Grid>
 </Card>
 <Spacing />

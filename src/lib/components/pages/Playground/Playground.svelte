@@ -67,9 +67,7 @@
 					}
 				: {
 						...option,
-						selected: option.name === optionName
-							? target.checked
-							: option.selected
+						selected: option.name === optionName ? target.checked : option.selected
 					}
 		);
 		const newSchema: PlaygroundSchema<'NumberFormat'> = {
@@ -196,9 +194,14 @@
 	}
 	.columns {
 		display: grid;
-		position: relative;
-		grid-template-columns: 2fr 1fr;
+		grid-template-columns: 1fr 1fr;
 		gap: var(--spacing-4);
+		position: relative;
+	}
+	@media screen and (min-width: 900px) {
+		.columns {
+			grid-template-columns: 2fr 1fr;
+		}
 	}
 	h2 {
 		font-size: 1.25rem;

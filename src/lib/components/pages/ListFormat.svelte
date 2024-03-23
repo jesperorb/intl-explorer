@@ -7,12 +7,13 @@
 	import { listFormatOptions } from '$lib/format-options/list-format.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-  import Token from '$lib/components/ui/Highlight/Token.svelte';
-  import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
+	import Token from '$lib/components/ui/Highlight/Token.svelte';
+	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import { trackEvent } from '$lib/utils/analytics';
 	import PageLayout from './PageLayout.svelte';
+	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -23,18 +24,21 @@
 	let list = 'Miso,Sesam,Mami';
 
 	let onClick = async (options: OptionValues) => {
-		const code = 	`new Intl.ListFormat("${locale}", ${JSON.stringify(options)}).format([])`;
+		const code = `new Intl.ListFormat("${locale}", ${JSON.stringify(options)}).format([])`;
 		await copyToClipboard(code);
-		trackEvent("Copy Code", {
+		trackEvent('Copy Code', {
 			code
-		})
+		});
 	};
 
 	const style = listFormatOptions.style ?? [];
+
+	const format = (options: Intl.ListFormatOptions, list: string) =>
+		tryFormat(() => new Intl.ListFormat(locale, options).format(toArray(list)));
 </script>
 
 <PageLayout>
-	<Input slot="input" id="list" label="List" bind:value={list} />
+	<Input slot="input" id="list" fullWidth label="List" bind:value={list} />
 	<div slot="alternativeUse">
 		<code>Intl.ListFormat</code>
 		can also be used from
@@ -46,7 +50,23 @@
 			></strong
 		>
 	</div>
-	<CodeBlock slot="alternativeCode"><Token v="["/>{#each  list.split(",") as item, i }<Token v={item} t="string" />{#if Object.keys( list.split(",")).length > 1 && i < Object.keys(list.split(",")).length - 1}<Token noTrim v=", "/>{/if}{/each}<Token v="]" /><br/>{"\t"}<Token v="." /><Token v="toLocaleString" t="function"/><Token v="(" /><Token t="string" v={`"${locale}"`} /><Token v=")" /> <br /><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.ListFormat(locale).format(list.split(","))} t="comment" /></CodeBlock>
+	<CodeBlock slot="alternativeCode"
+		><Token v="[" />{#each list.split(',') as item, i}<Token
+				v={item}
+				t="string"
+			/>{#if Object.keys(list.split(',')).length > 1 && i < Object.keys(list.split(',')).length - 1}<Token
+					noTrim
+					v=", "
+				/>{/if}{/each}<Token v="]" /><br />{'\t'}<Token v="." /><Token
+			v="toLocaleString"
+			t="function"
+		/><Token v="(" /><Token t="string" v={`"${locale}"`} /><Token v=")" /> <br /><Token
+			v="// "
+			ariaHidden
+			noTrim
+			t="comment"
+		/><Token v={new Intl.ListFormat(locale).format(list.split(','))} t="comment" /></CodeBlock
+	>
 	<Grid slot="output">
 		{#each Object.entries(listFormatOptions) as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -56,9 +76,12 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={new Intl.ListFormat(locale, {
-								[option]: value
-							}).format(toArray(list))}
+							output={format(
+								{
+									[option]: value
+								},
+								list
+							)}
 						/>
 					{/if}
 				{/each}
@@ -73,10 +96,13 @@
 							type: 'conjunction',
 							style: value
 						}}
-						output={new Intl.ListFormat(locale, {
-							type: 'conjunction',
-							style: toStyle(value)
-						}).format(toArray(list))}
+						output={format(
+							{
+								type: 'conjunction',
+								style: toStyle(value)
+							},
+							list
+						)}
 					/>
 				{/if}
 			{/each}
@@ -90,10 +116,13 @@
 							type: 'disjunction',
 							style: value
 						}}
-						output={new Intl.ListFormat(locale, {
-							type: 'disjunction',
-							style: toStyle(value)
-						}).format(toArray(list))}
+						output={format(
+							{
+								type: 'disjunction',
+								style: toStyle(value)
+							},
+							list
+						)}
 					/>
 				{/if}
 			{/each}
@@ -107,13 +136,16 @@
 							type: 'unit',
 							style: value
 						}}
-						output={new Intl.ListFormat(locale, {
-							type: 'unit',
-							style: toStyle(value)
-						}).format(toArray(list))}
+						output={format(
+							{
+								type: 'unit',
+								style: toStyle(value)
+							},
+							list
+						)}
 					/>
 				{/if}
 			{/each}
 		</OptionSection>
-	</Grid>	
+	</Grid>
 </PageLayout>

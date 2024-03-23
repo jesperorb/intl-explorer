@@ -1,1 +1,145 @@
-{"mdnUrl":"https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/DurationFormat","specUrl":"https://tc39.es/proposal-intl-duration-format/#durationformat-objects","support":{"chrome":{"browserName":"Chrome","versionAdded":false,"browserType":"desktop"},"edge":{"browserName":"Edge","versionAdded":false,"browserType":"desktop"},"firefox":{"browserName":"Firefox","versionAdded":false,"browserType":"desktop"},"opera":{"browserName":"Opera","versionAdded":false,"browserType":"desktop"},"safari":{"browserName":"Safari","versionAdded":"16.4","browserType":"desktop"},"chrome_android":{"browserName":"Chrome Android","versionAdded":false,"browserType":"mobile"},"firefox_android":{"browserName":"Firefox for Android","versionAdded":false,"browserType":"mobile"},"opera_android":{"browserName":"Opera Android","versionAdded":false,"browserType":"mobile"},"safari_ios":{"browserName":"Safari on iOS","versionAdded":"16.4","browserType":"mobile"},"samsunginternet_android":{"browserName":"Samsung Internet","versionAdded":false,"browserType":"mobile"},"webview_android":{"browserName":"WebView Android","versionAdded":false,"browserType":"mobile"},"deno":{"browserName":"Deno","versionAdded":false,"browserType":"server"},"nodejs":{"browserName":"Node.js","versionAdded":false,"browserType":"server"}},"coverage":"partial","optionsSupport":{},"formattersSupport":{"formatToParts":{"coverage":"partial","support":{"chrome":{"browserName":"Chrome","versionAdded":false,"browserType":"desktop"},"edge":{"browserName":"Edge","versionAdded":false,"browserType":"desktop"},"firefox":{"browserName":"Firefox","versionAdded":false,"browserType":"desktop"},"opera":{"browserName":"Opera","versionAdded":false,"browserType":"desktop"},"safari":{"browserName":"Safari","versionAdded":"16.4","browserType":"desktop"},"chrome_android":{"browserName":"Chrome Android","versionAdded":false,"browserType":"mobile"},"firefox_android":{"browserName":"Firefox for Android","versionAdded":false,"browserType":"mobile"},"opera_android":{"browserName":"Opera Android","versionAdded":false,"browserType":"mobile"},"safari_ios":{"browserName":"Safari on iOS","versionAdded":"16.4","browserType":"mobile"},"samsunginternet_android":{"browserName":"Samsung Internet","versionAdded":false,"browserType":"mobile"},"webview_android":{"browserName":"WebView Android","versionAdded":false,"browserType":"mobile"},"deno":{"browserName":"Deno","versionAdded":false,"browserType":"server"},"nodejs":{"browserName":"Node.js","versionAdded":false,"browserType":"server"}}}}}
+{
+  "mdnUrl": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/DurationFormat",
+  "specUrl": "https://tc39.es/proposal-intl-duration-format/#durationformat-objects",
+  "support": {
+    "chrome": {
+      "browserName": "Chrome",
+      "versionAdded": false,
+      "browserType": "desktop"
+    },
+    "edge": {
+      "browserName": "Edge",
+      "versionAdded": false,
+      "browserType": "desktop"
+    },
+    "firefox": {
+      "browserName": "Firefox",
+      "versionAdded": false,
+      "browserType": "desktop"
+    },
+    "opera": {
+      "browserName": "Opera",
+      "versionAdded": false,
+      "browserType": "desktop"
+    },
+    "safari": {
+      "browserName": "Safari",
+      "versionAdded": "16.4",
+      "browserType": "desktop"
+    },
+    "chrome_android": {
+      "browserName": "Chrome Android",
+      "versionAdded": false,
+      "browserType": "mobile"
+    },
+    "firefox_android": {
+      "browserName": "Firefox for Android",
+      "versionAdded": false,
+      "browserType": "mobile"
+    },
+    "opera_android": {
+      "browserName": "Opera Android",
+      "versionAdded": false,
+      "browserType": "mobile"
+    },
+    "safari_ios": {
+      "browserName": "Safari on iOS",
+      "versionAdded": "16.4",
+      "browserType": "mobile"
+    },
+    "samsunginternet_android": {
+      "browserName": "Samsung Internet",
+      "versionAdded": false,
+      "browserType": "mobile"
+    },
+    "webview_android": {
+      "browserName": "WebView Android",
+      "versionAdded": false,
+      "browserType": "mobile"
+    },
+    "deno": {
+      "browserName": "Deno",
+      "versionAdded": false,
+      "browserType": "server"
+    },
+    "nodejs": {
+      "browserName": "Node.js",
+      "versionAdded": false,
+      "browserType": "server"
+    }
+  },
+  "coverage": "partial",
+  "optionsSupport": {},
+  "formattersSupport": {
+    "formatToParts": {
+      "coverage": "partial",
+      "support": {
+        "chrome": {
+          "browserName": "Chrome",
+          "versionAdded": false,
+          "browserType": "desktop"
+        },
+        "edge": {
+          "browserName": "Edge",
+          "versionAdded": false,
+          "browserType": "desktop"
+        },
+        "firefox": {
+          "browserName": "Firefox",
+          "versionAdded": false,
+          "browserType": "desktop"
+        },
+        "opera": {
+          "browserName": "Opera",
+          "versionAdded": false,
+          "browserType": "desktop"
+        },
+        "safari": {
+          "browserName": "Safari",
+          "versionAdded": "16.4",
+          "browserType": "desktop"
+        },
+        "chrome_android": {
+          "browserName": "Chrome Android",
+          "versionAdded": false,
+          "browserType": "mobile"
+        },
+        "firefox_android": {
+          "browserName": "Firefox for Android",
+          "versionAdded": false,
+          "browserType": "mobile"
+        },
+        "opera_android": {
+          "browserName": "Opera Android",
+          "versionAdded": false,
+          "browserType": "mobile"
+        },
+        "safari_ios": {
+          "browserName": "Safari on iOS",
+          "versionAdded": "16.4",
+          "browserType": "mobile"
+        },
+        "samsunginternet_android": {
+          "browserName": "Samsung Internet",
+          "versionAdded": false,
+          "browserType": "mobile"
+        },
+        "webview_android": {
+          "browserName": "WebView Android",
+          "versionAdded": false,
+          "browserType": "mobile"
+        },
+        "deno": {
+          "browserName": "Deno",
+          "versionAdded": false,
+          "browserType": "server"
+        },
+        "nodejs": {
+          "browserName": "Node.js",
+          "versionAdded": false,
+          "browserType": "server"
+        }
+      }
+    }
+  }
+}
