@@ -8,6 +8,8 @@
 		height: 22px;
 		transform: translateY(-24px);
 		transition: transform 0.3s;
+		color: var(--text-color);
+		background-color: var(--background-color);
 	}
 	.skip-link:focus {
 		transform: translateY(0);

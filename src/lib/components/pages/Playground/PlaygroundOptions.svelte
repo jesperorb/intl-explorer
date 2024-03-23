@@ -53,7 +53,7 @@
 				/>
 			{/if}
 			{#if option.inputType === 'radio'}
-				<fieldset>
+				<fieldset role="radiogroup" name={option.name}>
 					{#each getItemsFromOption(schema.method, option) as [value]}
 						<div class="radio">
 							<input

@@ -266,8 +266,7 @@
 <style>
 	.combobox {
 		--accent-color: #06113c;
-		--background-color: white;
-		--border-radius: 1em;
+		--border-radius: 4px;
 		--option-padding: var(--spacing-2);
 
 		display: flex;
@@ -280,13 +279,13 @@
 
 	.combobox__input {
 		width: 100%;
-		border: 1px solid var(--lightgray);
+		border: 1px solid var(--border-color);
 		border-radius: 4px;
 		padding: var(--spacing-2);
 		appearance: none;
 		--webkit-appearance: none;
-		background: white;
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+		background-color: inherit;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 		background-repeat: no-repeat;
 		background-position: right 0.5rem center;
 	}
@@ -300,8 +299,8 @@
 	}
 
 	.combobox:focus-within .combobox__input {
-		box-shadow: 0px 0px 2px #0066ff;
-		border: 1px solid #0066ff;
+		box-shadow: 0px 0px 2px var(--highlight);
+		border: 1px solid var(--highlight);
 	}
 
 	.combobox__list {
@@ -317,10 +316,9 @@
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
 		z-index: 100;
-
 		background-color: var(--background-color);
 		border-radius: 0.3em;
-		border: 1px solid var(--lightgray);
+		border: 1px solid var(--border-color);
 		box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
 	}
 
@@ -352,19 +350,19 @@
 		outline: none;
 		cursor: pointer;
 		outline: none;
-		box-shadow: 0px 0px 2px #0066ff;
-		border: 1px solid #0066ff;
+		box-shadow: 0px 0px 2px var(--highlight);
+		border: 1px solid var(--highlight);
 	}
 
 	.list__option:active {
 		cursor: pointer;
 		outline: none;
-		color: white;
+		color: var(--background-color);
 		background-color: var(--accent-color) !important;
 	}
 
 	.list__option:focus :global(svg),
 	.list__option:hover :global(svg) {
-		--icon-color: white !important;
+		--icon-color: var(--background-color) !important;
 	}
 </style>

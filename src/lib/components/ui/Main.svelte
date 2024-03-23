@@ -19,8 +19,8 @@
 		}
 	}
 	.wrapper {
-		background-color: var(--white);
-		border: 1px solid var(--lightergray);
+		background-color: var(--background-color);
+		border: 1px solid var(--border-color);
 		border-right: 0;
 		padding: var(--spacing-4);
 	}
