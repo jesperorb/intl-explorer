@@ -29,6 +29,13 @@
 	.header {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		flex-direction: column;
+		gap: var(--spacing-2);
 	}
+	@media screen and (min-width: 500px) {
+    .header {
+			flex-direction: row;
+			align-items: center;
+    }
+  }
 </style>

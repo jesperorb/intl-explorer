@@ -3,6 +3,7 @@
 
 	export let defaultValue: string;
 	export let onChange: (datetime: string) => void;
+	export let fullWidth: boolean | undefined = undefined;
 
 	const [date, time] = defaultValue.split('T');
 
@@ -19,13 +20,13 @@
 	};
 </script>
 
-<div class="datetime">
-	<div>
+<div class="datetime" class:fullWidth={fullWidth}>
+	<div class="date">
 		<label for="date">Date</label>
 		<Spacing size={1} /> 
 		<input type="date" id="date" on:input={onChangeDate} value={dateString} />
 	</div>
-	<div>
+	<div class="time">
 		<label for="time">Time</label>
 		<Spacing size={1} /> 
 		<input type="time" id="time" on:input={onChangeTime} value={timeString} />
@@ -36,5 +37,8 @@
 	.datetime {
 		display: flex;
 		gap: 1rem;
+	}
+	.fullWidth, .date, .time, #date, #time {
+		width: 100%;
 	}
 </style>

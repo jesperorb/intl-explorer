@@ -4,14 +4,15 @@
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import Input from '$lib/components/ui/Input.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
-  import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
 	import { trackEvent } from '$lib/utils/analytics';
+	import { tryFormat } from '$lib/utils/format-utils';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
@@ -19,27 +20,22 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `Array.from(new Intl.Segmenter("${locale}", ${JSON.stringify(
-				options
-			)}).segment("${sentence}"))`;
+			options
+		)}).segment("${sentence}"))`;
 		await copyToClipboard(code);
-		trackEvent("Copy Code", {
-			code,
-		})
+		trackEvent('Copy Code', {
+			code
+		});
 	};
 
-	const getOutput = (options: OptionValues) => {
-		try {
-			return JSON.stringify(
-				Array.from(new Intl.Segmenter(locale, options).segment(sentence))
-			);
-		} catch (e: unknown) {
-			return 'Failed to use `Intl.Segmenter`. You are probably using an unsupported browser';
-		}
-	};
+	const format = (options: OptionValues, input: string) =>
+		tryFormat(() =>
+			JSON.stringify(Array.from(new Intl.Segmenter(locale, options).segment(input)))
+		);
 </script>
 
 <PageLayout>
-	<Input slot="input" id="list" label="List" bind:value={sentence} />
+	<Input slot="input" fullWidth id="list" label="List" bind:value={sentence} />
 	<Grid slot="output">
 		{#each Object.entries(segmenterOptions) as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -49,7 +45,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={getOutput({ [option]: value })}
+							output={format({ [option]: value }, sentence)}
 						/>
 					{/if}
 				{/each}
@@ -57,4 +53,3 @@
 		{/each}
 	</Grid>
 </PageLayout>
-

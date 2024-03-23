@@ -35,3 +35,11 @@ export const tryDisplayNames = (
 		return fallbackDisplayNames[options.type];
 	}
 };
+
+export const tryFormat = (format: () => string): string => {
+	try {
+		return format();
+	} catch (error) {
+		return `${(error as { message: string }).message}`;
+	}
+};

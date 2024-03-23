@@ -11,7 +11,7 @@
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { trackEvent } from '$lib/utils/analytics';
 	import { durationFormatOptions } from '$lib/format-options/duration-format.options';
-	import { clampValue } from '$lib/utils/format-utils';
+	import { clampValue, tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -37,16 +37,10 @@
 		});
 	};
 
-	const tryFormat = (
+	const format = (
 		options: Intl.DurationFormatOptions | undefined = undefined,
 		dur: Record<string, number | string>
-	) => {
-		try {
-			return new Intl.DurationFormat(locale, options).format(dur);
-		} catch (e) {
-			return 'Failed to use `Intl.DurationFormat`. You are probably using an unsupported browser';
-		}
-	};
+	) => tryFormat(() => new Intl.DurationFormat(locale, options).format(dur))
 
 	const onInput = (event: Event) => {
 		const target = event.target as HTMLInputElement;
@@ -62,11 +56,12 @@
 </script>
 
 <PageLayout>
-	<Grid slot="input">
+	<svelte:fragment slot="input">
+		<Spacing />
 		{#each Object.keys(duration) as key}
 			<Input id={key} name={key} label={key} {onInput} value={String(duration[key])} fullWidth />
 		{/each}
-	</Grid>
+	</svelte:fragment>
 	<Grid slot="output">
 		{#each Object.entries(durationFormatOptions) as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -76,7 +71,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={tryFormat({ [option]: value }, duration)}
+							output={format({ [option]: value }, duration)}
 						/>
 					{/if}
 				{/each}

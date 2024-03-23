@@ -31,11 +31,8 @@
 </script>
 
 <PageLayout>
-	<div slot="input">
-		<div>
-			<Input id="value" label="Value" bind:value={dayValue} />
-		</div>
-		<Spacing />
+	<svelte:fragment slot="input">
+		<Input id="value" fullWidth label="Value" bind:value={dayValue} />
 		<fieldset class="style-radio-buttons">
 			<legend>Style</legend>
 			<div class="radio">
@@ -51,7 +48,6 @@
 				<label for="styleNarrow">narrow </label>
 			</div>
 		</fieldset>
-		<Spacing />
 		<div>
 			<fieldset class="numeric-radio-buttons">
 				<legend>Numeric</legend>
@@ -69,7 +65,7 @@
 				</div>
 			</fieldset>
 		</div>
-	</div>
+	</svelte:fragment>
 	<Grid slot="output">
 		<OptionSection header={'unit'} support={browserCompatData?.optionsSupport?.unit}>
 			{#each relativeTimeFormatUnits as value}

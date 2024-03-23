@@ -195,7 +195,7 @@
 			</span>
 		{/if}
 	</label>
-	<Spacing size={2} />
+	<Spacing size={1} />
 	<div class="input-container" use:onClickOutside={hideList}>
 		<slot name="icon-start" />
 		<input
@@ -280,7 +280,6 @@
 
 	.combobox__input {
 		width: 100%;
-		max-width: 30rem;
 		border: 1px solid var(--lightgray);
 		border-radius: 4px;
 		padding: var(--spacing-2);

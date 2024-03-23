@@ -6,11 +6,12 @@
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 
-  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-  import { trackEvent } from '$lib/utils/analytics';
+	import { trackEvent } from '$lib/utils/analytics';
+	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -18,16 +19,18 @@
 	let list = 'Z,a,z,ä,1,=,à';
 
 	let onClick = async (options: OptionValues) => {
-		const code = `[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`
+		const code = `[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`;
 		await copyToClipboard(code);
-		trackEvent("Copy Code", {
-			code,
-		})
+		trackEvent('Copy Code', {
+			code
+		});
 	};
+	const format = (options: Intl.CollatorOptions, list: string) =>
+		tryFormat(() => list.split(',').sort(new Intl.Collator(locale, options).compare).join(','));
 </script>
 
 <PageLayout>
-	<Input slot="input" id="list" label="List" bind:value={list} />
+	<Input slot="input" id="list" fullWidth label="List" bind:value={list} />
 	<Grid slot="output">
 		{#each Object.entries(collatorFormatOptions) as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -37,14 +40,12 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={list
-								.split(',')
-								.sort(
-									new Intl.Collator(locale, {
-										[option]: value
-									}).compare
-								)
-								.join(',')}
+							output={format(
+								{
+									[option]: value
+								},
+								list
+							)}
 						/>
 					{/if}
 				{/each}
@@ -52,5 +53,3 @@
 		{/each}
 	</Grid>
 </PageLayout>
-
-

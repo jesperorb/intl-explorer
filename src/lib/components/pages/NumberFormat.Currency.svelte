@@ -18,7 +18,7 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { trackEvent } from '$lib/utils/analytics';
-
+	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -33,37 +33,28 @@
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`;
 		await copyToClipboard(code);
-		trackEvent("Copy Code", {
-			code,
-		})
+		trackEvent('Copy Code', {
+			code
+		});
 	};
 
-	const tryFormat = (
-		options: Intl.NumberFormatOptions | undefined = undefined,
-		number: number
-	) => {
-		try {
-			return new Intl.NumberFormat(locale, options)
-				.format(number)
-		} catch (e) {
-			return 'Failed to use `Intl.NumberFormat`. You are probably using an unsupported browser';
-		}
-	};
+	const format = (options: Intl.NumberFormatOptions | undefined = undefined, number: number) =>
+		tryFormat(() => new Intl.NumberFormat(locale, options).format(number));
 </script>
 
 <PageLayout>
-	<div slot="input">
+	<svelte:fragment slot="input">
 		<Select
 			name="currencies"
 			placeholder="Select a currency"
 			label="Currency"
 			removeEmpty
+			fullWidth
 			bind:value={selectedCurrency}
 			items={Object.entries(currencies)}
 		/>
-		<Spacing />
-		<Input id="amount" label="Amount" bind:value={number} />
-	</div>
+		<Input id="amount" fullWidth label="Amount" bind:value={number} />
+	</svelte:fragment>
 	<div slot="alternativeUse">
 		<code>Intl.NumberFormat</code>
 		can also be used from
@@ -75,7 +66,18 @@
 			></strong
 		>
 	</div>
-	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.NumberFormat(locale, { style: 'currency', currency: selectedCurrency }).format(number)} t="comment"/></CodeBlock>
+	<CodeBlock slot="alternativeCode"
+		><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token
+			t="number"
+			v={`${number}`}
+		/><br /><Token v="number" /><Token v=".toLocaleString" t="function" /><Token v="(" /><Token
+			v={`"${locale}"`}
+			t="string"
+		/><Token v=")" /><br /><Token v="// " ariaHidden noTrim t="comment" /><Token
+			v={format({ style: 'currency', currency: selectedCurrency }, number)}
+			t="comment"
+		/></CodeBlock
+	>
 	<Grid slot="output">
 		{#each options as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -89,11 +91,14 @@
 								style: 'currency',
 								currency: selectedCurrency
 							}}
-							output={tryFormat({
-								style: 'currency',
-								currency: selectedCurrency,
-								[option]: value
-							}, number)}
+							output={format(
+								{
+									style: 'currency',
+									currency: selectedCurrency,
+									[option]: value
+								},
+								number
+							)}
 						/>
 					{/if}
 				{/each}
@@ -101,4 +106,3 @@
 		{/each}
 	</Grid>
 </PageLayout>
-

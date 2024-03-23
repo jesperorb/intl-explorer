@@ -16,6 +16,7 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { trackEvent } from '$lib/utils/analytics';
+	import { tryFormat } from '$lib/utils/format-utils';
 
 
 	export let locale: string;
@@ -34,21 +35,14 @@
 			code,
 		})
 	};
-	const tryFormat = (
+	const format = (
 		options: Intl.NumberFormatOptions | undefined = undefined,
 		number: number
-	) => {
-		try {
-			return new Intl.NumberFormat(locale, options)
-				.format(number)
-		} catch (e) {
-			return 'Failed to use `Intl.NumberFormat`. You are probably using an unsupported browser';
-		}
-	};
+	) => tryFormat(() => new Intl.NumberFormat(locale, options).format(number))
 </script>
 
 <PageLayout>
-	<Input slot="input" id="amount" label="Amount" bind:value={number} />
+	<Input slot="input" fullWidth id="amount" label="Amount" bind:value={number} />
 	<div slot="alternativeUse">
 		<code>Intl.NumberFormat</code>
 		can also be used from
@@ -72,7 +66,7 @@
 							values={{
 								[option]: value
 							}}
-							output={tryFormat({
+							output={format({
 								[option]: value
 							}, number)}
 						/>
