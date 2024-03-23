@@ -52,7 +52,7 @@
 		if (!schema) return;
 		const isRadioEvent = target.type === 'radio';
 		const isCheckBox = target.type === 'checkbox';
-		const optionName = target.name;
+		const optionName = target.name.replace("_active", "");
 		const optionValue = isRadioEvent
 			? target.attributes.getNamedItem('group')?.nodeValue
 			: target.value;
