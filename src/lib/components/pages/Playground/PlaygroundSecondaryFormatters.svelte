@@ -12,15 +12,12 @@
 
 {#if secondaryFormatters.length}
 	<h2>Secondary Formatters</h2>
-	<Spacing size={2} />
-	<hr />
 	<Spacing />
 	{#each secondaryFormatters as formatter}
 	<Card>
 		<OptionSection header={formatter.name} support={support?.[formatter.name]} hideFullSupport={false}>
 			<Spacing />
 			<Highlight language={typescript} code={formatter.output} />
-			<Spacing />
 		</OptionSection>
 	</Card>
 	<Spacing />

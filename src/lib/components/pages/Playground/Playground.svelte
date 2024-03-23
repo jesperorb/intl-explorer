@@ -7,7 +7,6 @@
 	import typescript from 'svelte-highlight/languages/typescript';
 
 	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import CopyButton from '$lib/components/ui/CopyButton.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
 	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -166,9 +165,12 @@
 				<Spacing size={2} />
 				<div class="highlight">
 					<Highlight language={typescript} code={schemaToCode(schema, locale)} />
-					<CopyButton onClick={copy} label="Copy code" />
 				</div>
-				<Spacing />
+				<Spacing size={2} />
+				<div class="copy-code">
+					<Button onClick={copy}>Copy Code <CopyToClipboard /></Button>
+				</div>
+				<Spacing size={2} />
 				<h2>Resolved Options</h2>
 				<Spacing size={2} />
 				<div>
@@ -210,5 +212,9 @@
 	.highlight {
 		position: relative;
 		min-height: 4rem;
+	}
+	.copy-code {
+		display: flex;
+		justify-content: end;
 	}
 </style>

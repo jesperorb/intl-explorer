@@ -10,12 +10,13 @@
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { testIds } from '$lib/utils/dom-utils';
 	import OpenInNewTab from '$lib/components/ui/icons/OpenInNewTab.svelte';
+	import DarkModeToggle from './ui/DarkModeToggle.svelte';
 
 	const matchMedia = browser ? window.matchMedia('(min-width: 900px)') : null;
 	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
 
-	let isDesktop = Boolean(matchMedia?.matches);
-	let open = isDesktop;
+	$: isDesktop = Boolean(matchMedia?.matches);
+	$: open = isDesktop;
 
 	let path: string;
 
@@ -63,12 +64,19 @@
 <details class="sidebar" id="sidebar" bind:open>
 	<summary>
 		<p class="menu-button">Menu</p>
+		{#if !isDesktop}
+			<div class="dark-mode-toggle">
+				<DarkModeToggle />
+			</div>
+		{/if}
 	</summary>
 	<nav aria-label="Main Menu" data-testid={testIds.navigation}>
 		<ul>
-			<li class="last-item" class:active={path === "/"}><a href="/?locale={locale}">About</a></li>
+			<li class="last-item" class:active={path === '/'}><a href="/?locale={locale}">About</a></li>
 			<li class="last-item">
-				<a href="/Playground?locale={locale}" class:active={path.includes("Playground")}>Playground</a>
+				<a href="/Playground?locale={locale}" class:active={path.includes('Playground')}
+					>Playground</a
+				>
 			</li>
 			<li class="menu-heading">Intl.</li>
 			{#each routes as route, i}
@@ -97,12 +105,29 @@
 			</li>
 		</ul>
 	</nav>
+	{#if isDesktop}
+		<div class="dark-mode-toggle-desktop">
+			<DarkModeToggle />
+		</div>
+	{/if}
 </details>
 
 <style>
-	.menu-heading, .route {
+	.menu-heading,
+	.route {
 		margin-bottom: var(--spacing-1);
 	}
+	.dark-mode-toggle {
+		position: fixed;
+		top: var(--spacing-2);
+		right: var(--spacing-4);
+	}
+	.dark-mode-toggle-desktop {
+		position: fixed;
+		bottom: var(--spacing-4);
+		left: var(--spacing-4);
+	}
+
 	.menu-heading {
 		font-size: 1.25rem;
 	}
