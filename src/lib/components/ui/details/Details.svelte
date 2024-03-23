@@ -11,7 +11,7 @@
     <span class="summary-title">
       <slot name="summary"></slot>
     </span>
-    <div class="summary-icon" aria-hidden><ChevronUp/></div>
+    <div class="summary-icon" aria-hidden="true"><ChevronUp/></div>
   </summary>
   <div>
     <slot></slot>
@@ -21,10 +21,11 @@
 <style>
   details {
     position: relative;
-    border: 1px solid var(--lightergray);
+    border: 1px solid var(--border-color);
     padding: var(--spacing-2);
     border-radius: 4px;
     display: inline-block;
+    background-color: var(--card-color);
   }
 
   .fullWidth {
@@ -34,7 +35,7 @@
   details[open] > summary {
     padding-bottom: var(--spacing-4);
     margin-bottom: var(--spacing-4);
-    border-bottom: 1px solid var(--lightergray);
+    border-bottom: 1px solid var(--border-color);
   }
 
   details[open] .summary-icon {

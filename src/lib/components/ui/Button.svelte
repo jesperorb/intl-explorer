@@ -6,19 +6,19 @@
 
 <style>
 	button {
-		background-color: var(--white);
-		border: 1px solid var(--lightergray);
+    background-color: var(--card-color);
+		border: 1px solid var(--border-color);
     border-radius: 4px;
 		padding: var(--spacing-2) var(--spacing-3);
 		cursor: pointer;
-		color: var(--black);
+		color: var(--text-color);
     text-align: center;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 	}
   button:hover {
-    background-color: var(--lightergray);
-    border: 1px solid var(--black);
+    background-color: var(--accent-background-color);
+    border: 1px solid var(--text-color);
   }
 </style>

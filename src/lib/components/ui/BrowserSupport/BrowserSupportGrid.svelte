@@ -40,8 +40,8 @@
 		align-items: center;
 		gap: 1rem;
 		text-align: center;
-		color: hsl(0, 0%, 40%);
-		border-bottom: 1px solid var(--lightgray);
+		color: var(--text-color);
+		border-bottom: 1px solid var(--border-color);
 	}
 	.browser:last-of-type {
 		border-bottom: 0px;

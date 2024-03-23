@@ -113,7 +113,7 @@
 		padding: var(--spacing-2) var(--spacing-4);
 		display: flex;
 		flex-direction: column;
-		background-color: var(--light-purple);
+		background-color: var(--accent-background-color);
 	}
 	nav {
 		padding-top: var(--spacing-4);

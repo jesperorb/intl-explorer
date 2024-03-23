@@ -14,7 +14,7 @@
 		font-size: 0.85rem;
 		border-radius: 0.5rem;
 		overflow-x: auto;
-		color: var(--white);
+		color: var(--code-text-color);
 		font-family: var(--font-family);
 	}
 </style>

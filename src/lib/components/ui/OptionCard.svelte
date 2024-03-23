@@ -13,7 +13,8 @@
 <Card>
   <div class="heading">
     <div>
-      <input type="checkbox" name={option} {checked} on:change={onChange} aria-label="{option} active" />
+      <label for="{option}_active" class="sr-only">{option} active</label>
+      <input type="checkbox" name="{option}_active" id="{option}_active" {checked} on:change={onChange} />
       <label for={option}>{option}</label>
     </div>
     <SupportLabel {hideFullSupport} {support} />
