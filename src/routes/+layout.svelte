@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Page } from '@sveltejs/kit';
-	import { dev } from '$app/environment';
+	import { dev, browser } from '$app/environment';
 	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
 
@@ -9,12 +9,18 @@
 	import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
+	import { onMount } from 'svelte';
 
 	let routeId: FormatMethodsKeys | 'Playground';
 	const getRouteId = (page: Page<Record<string, string>>): void => {
 		routeId = page.route.id?.replace('/', '') as FormatMethodsKeys;
 	};
 	$: getRouteId($page);
+	onMount(() => {
+		if(browser && localStorage.getItem("dark-mode")) {
+			document.querySelector("html")?.setAttribute("data-dark-mode", "true");
+		}
+	})
 </script>
 
 <svelte:head>
