@@ -13,10 +13,12 @@
 	const change = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		const element = browser ? document.querySelector('html') : null;
-		if (element) {
+		if (element && browser) {
 			if (target.checked) {
+				localStorage.setItem("dark-mode", "1");
 				element.setAttribute('data-dark-mode', 'true');
 			} else {
+				localStorage.removeItem("dark-mode");
 				element.removeAttribute('data-dark-mode');
 			}
 		}
