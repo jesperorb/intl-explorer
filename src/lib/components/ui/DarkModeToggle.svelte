@@ -1,13 +1,18 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import SrOnly from './SrOnly.svelte';
   import Moon from './icons/Moon.svelte';
 	import Sun from './icons/Sun.svelte';
 
-  let checked = Boolean(document.querySelector('body')?.getAttribute('data-dark-mode') === 'true');
+  let checked = Boolean(
+		browser
+			? document?.querySelector('body')?.getAttribute('data-dark-mode') === 'true'
+			: false
+	);
 
 	const change = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		const body = document.querySelector('body');
+		const body = browser ? document.querySelector('body') : null;
 		if (body) {
 			if (target.checked) {
 				body.setAttribute('data-dark-mode', 'true');
