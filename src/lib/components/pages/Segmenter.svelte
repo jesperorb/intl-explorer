@@ -9,9 +9,8 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
-	import { trackEvent } from '$lib/utils/analytics';
 	import { tryFormat } from '$lib/utils/format-utils';
 
 	let sentence = 'This is a sentence.';
@@ -22,10 +21,7 @@
 		const code = `Array.from(new Intl.Segmenter("${locale}", ${JSON.stringify(
 			options
 		)}).segment("${sentence}"))`;
-		await copyToClipboard(code);
-		trackEvent('Copy Code', {
-			code
-		});
+		await copyCode(code);
 	};
 
 	const format = (options: OptionValues, input: string) =>

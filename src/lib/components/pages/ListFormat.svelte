@@ -5,13 +5,12 @@
 	import Input from '$lib/components/ui/Input.svelte';
 
 	import { listFormatOptions } from '$lib/format-options/list-format.options';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import Token from '$lib/components/ui/Highlight/Token.svelte';
 	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import { trackEvent } from '$lib/utils/analytics';
 	import PageLayout from './PageLayout.svelte';
 	import { tryFormat } from '$lib/utils/format-utils';
 
@@ -25,10 +24,7 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.ListFormat("${locale}", ${JSON.stringify(options)}).format([])`;
-		await copyToClipboard(code);
-		trackEvent('Copy Code', {
-			code
-		});
+		await copyCode(code);
 	};
 
 	const style = listFormatOptions.style ?? [];
@@ -65,7 +61,7 @@
 			ariaHidden
 			noTrim
 			t="comment"
-		/><Token v={new Intl.ListFormat(locale).format(list.split(','))} t="comment" /></CodeBlock
+		/><Token v={tryFormat(() => new Intl.ListFormat(locale).format(list.split(',')))} t="comment" /></CodeBlock
 	>
 	<Grid slot="output">
 		{#each Object.entries(listFormatOptions) as [option, values]}

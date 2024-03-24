@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FormatMethodsKeys } from '$lib/format-methods';
 import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.schema';
-import { schemas } from '.';
+import { schemas } from './schemas';
 
 export const optionIsActive = <Method extends FormatMethodsKeys>(
 	option: PlaygroundOption<Method>

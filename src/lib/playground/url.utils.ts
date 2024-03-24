@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import type { FormatMethodsKeys } from '$lib/format-methods';
 import type { PlaygroundSchema } from './playground.schema';
-import { validateAndUpdateSchema } from './schemas/validate';
+import { validateAndUpdateSchema } from './validate';
 
 export const getSchemaParam = () => browser ? new URLSearchParams(window.location.search).get('schema') : undefined;
 

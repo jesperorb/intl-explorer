@@ -80,7 +80,7 @@
 			</li>
 			<li class="menu-heading">Intl.</li>
 			{#each routes as route, i}
-				<li aria-hidden={route.ariaHidden} class="route" class:last-item={i === routes.length - 1}>
+				<li class="route" class:last-item={i === routes.length - 1}>
 					<a
 						aria-label={route.ariaLabel}
 						class:sublink={route.sublink}

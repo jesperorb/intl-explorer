@@ -24,9 +24,3 @@
 	{/each}
 {/if}
 
-<style>
-	h2 {
-		font-size: 1.25rem;
-		display: inline-block;
-	}
-</style>

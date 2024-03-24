@@ -3,7 +3,6 @@ export type Route = {
 	name: string;
 	sublink?: boolean;
 	ariaLabel?: string;
-	ariaHidden?: boolean;
 	experimental?: boolean;
 };
 

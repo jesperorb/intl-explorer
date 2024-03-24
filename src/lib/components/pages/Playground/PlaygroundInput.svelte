@@ -10,7 +10,6 @@
 
 	import { formatMethods } from '$lib/format-methods';
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;

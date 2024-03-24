@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.schema';
-	import type { FormatMethodsKeys } from '$lib/format-methods';
+	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 
 	import Highlight from 'svelte-highlight';
@@ -19,12 +18,12 @@
 		schemaToCode,
 		schemaToPrimaryFormatterOutput,
 		schemaToResolvedOptions,
-		schemaToSecondaryFormattersOutput
+		schemaToSecondaryFormattersOutput,
+		updateOptionOnSchema
 	} from '$lib/playground/format.utils';
 	import { createSchemaUrl, getSchemaParam, parseSchemaFromURL } from '$lib/playground/url.utils';
-	import { validateAndUpdateSchema } from '$lib/playground/schemas/validate';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { clampValue, fallbackDisplayNames } from '$lib/utils/format-utils';
+	import { validateAndUpdateSchema } from '$lib/playground/validate';
+	import { copyCode, copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { schemas, type SchemaKeys } from '$lib/playground/schemas';
 	import { onMount } from 'svelte';
 	import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
@@ -48,42 +47,8 @@
 	});
 
 	const onChangeOption = (event: Event) => {
-		const target = event.target as HTMLInputElement;
 		if (!schema) return;
-		const isRadioEvent = target.type === 'radio';
-		const isCheckBox = target.type === 'checkbox';
-		const optionName = target.name.replace("_active", "");
-		const optionValue = isRadioEvent
-			? target.attributes.getNamedItem('group')?.nodeValue
-			: target.value;
-		const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
-		const value = isRadioEvent ? radioValue : optionValue;
-		const schemaOptions = schema.options.map((option) =>
-			option.name === optionName && !isCheckBox
-				? {
-						...option,
-						value: clampValue(option, value)
-					}
-				: {
-						...option,
-						selected: option.name === optionName ? target.checked : option.selected
-					}
-		);
-		const newSchema: PlaygroundSchema<'NumberFormat'> = {
-			...schema,
-			options: schemaOptions as unknown as PlaygroundOption<'NumberFormat'>[]
-		};
-		const isRelativeTimeUnit =
-			(schema.method as FormatMethodsKeys) === 'RelativeTimeFormat' && optionName === 'unit';
-		const isDisplayNamesType =
-			(schema.method as FormatMethodsKeys) === 'DisplayNames' && optionName === 'type';
-		if (isRelativeTimeUnit) {
-			newSchema.inputValues[1] = optionValue;
-		}
-		if (isDisplayNamesType) {
-			newSchema.inputValues[0] = fallbackDisplayNames[value as unknown as Intl.DisplayNamesType];
-		}
-		schema = validateAndUpdateSchema(newSchema);
+		schema = validateAndUpdateSchema(updateOptionOnSchema(schema, event));
 	};
 
 	const onInput = (event: Event) => {
@@ -118,9 +83,14 @@
 	const copy = async () => {
 		if (!schema) return;
 		const code = schemaToCode(schema, locale);
-		await copyToClipboard(code);
-		trackEvent('Copy Code', {
-			code
+		await copyCode(code);
+	};
+
+	const copySchema = async () => {
+		if (!schema) return;
+		await copyToClipboard(createSchemaUrl(schema));
+		trackEvent('Copy Schema', {
+			method: schema.method
 		});
 	};
 </script>
@@ -131,15 +101,7 @@
 			<Header header="Playground" link={schema.method} />
 			<Grid>
 				<BrowserSupport bind:data={browserSupportData} />
-				<Button
-					onClick={() => {
-						if (!schema) return;
-						copyToClipboard(createSchemaUrl(schema));
-						trackEvent('Copy Schema', {
-							method: schema.method
-						});
-					}}>Copy Schema URL <CopyToClipboard /></Button
-				>
+				<Button onClick={copySchema}>Copy Schema URL <CopyToClipboard /></Button>
 			</Grid>
 			<Spacing />
 			<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />

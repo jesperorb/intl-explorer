@@ -6,10 +6,9 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { trackEvent } from '$lib/utils/analytics';
 	import { durationFormatOptions } from '$lib/format-options/duration-format.options';
 	import { clampValue, tryFormat } from '$lib/utils/format-utils';
 
@@ -31,10 +30,7 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.DurationFormat("${locale}", ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`;
-		await copyToClipboard(code);
-		trackEvent('Copy Code', {
-			code,
-		});
+		await copyCode(code);
 	};
 
 	const format = (

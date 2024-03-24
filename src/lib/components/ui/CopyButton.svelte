@@ -14,7 +14,7 @@
 		border-bottom-left-radius: 0.5rem;
 		padding: var(--spacing-4);
 		cursor: pointer;
-		color: var(--backround-color);
+		color: var(--white);
 		position: absolute;
 		z-index: 1;
 		top: 0;

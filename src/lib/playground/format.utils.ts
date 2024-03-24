@@ -5,10 +5,48 @@ import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
 
 import { formatOptions } from "$lib/format-options";
 import { durationValues } from "$lib/format-options/duration-format.options";
-import { optionIsActive } from "./schemas/validate";
+import { optionIsActive } from "./validate";
+import { clampValue, fallbackDisplayNames, tryFormat, print } from "$lib/utils/format-utils";
 
-export const print = (values: unknown) => {
-	return JSON.stringify(values, null, 2);
+export const updateOptionOnSchema = <Method extends FormatMethodsKeys>(
+	schema: PlaygroundSchema<Method>,
+	event: Event
+) => {
+	const target = event.target as HTMLInputElement;
+	const isRadioEvent = target.type === 'radio';
+	const isCheckBox = target.type === 'checkbox';
+	const optionName = target.name.replace("_active", "");
+	const optionValue = isRadioEvent
+		? target.attributes.getNamedItem('group')?.nodeValue
+		: target.value;
+	const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
+	const value = isRadioEvent ? radioValue : optionValue;
+	const schemaOptions = schema.options.map((option) =>
+		option.name === optionName && !isCheckBox
+			? {
+				...option,
+				value: clampValue(option, value)
+			}
+			: {
+				...option,
+				selected: option.name === optionName ? target.checked : option.selected
+			}
+	);
+	const newSchema: PlaygroundSchema<Method> = {
+		...schema,
+		options: schemaOptions as unknown as PlaygroundOption<Method>[]
+	};
+	const isRelativeTimeUnit =
+		(schema.method as FormatMethodsKeys) === 'RelativeTimeFormat' && optionName === 'unit';
+	const isDisplayNamesType =
+		(schema.method as FormatMethodsKeys) === 'DisplayNames' && optionName === 'type';
+	if (isRelativeTimeUnit) {
+		newSchema.inputValues[1] = optionValue;
+	}
+	if (isDisplayNamesType) {
+		newSchema.inputValues[0] = fallbackDisplayNames[value as unknown as Intl.DisplayNamesType];
+	}
+	return newSchema;
 }
 
 export const schemaToFormatOptions = <Method extends FormatMethodsKeys>(
@@ -17,7 +55,7 @@ export const schemaToFormatOptions = <Method extends FormatMethodsKeys>(
 	const formatOptions: Partial<AllFormatOptions[Method]> = {};
 	for (const option of schema.options) {
 		const value = option.value ?? option.defaultValue;
-		if(optionIsActive(option)) {
+		if (optionIsActive(option)) {
 			formatOptions[option.name] = value === "" ? undefined : value;
 		}
 	}
@@ -40,7 +78,6 @@ const prepareSchemaForOutput = <Method extends FormatMethodsKeys>(
 	const options = schemaToFormatOptions(schema);
 	const hasOptions = Object.values(options).filter(v => v !== undefined).length > 0;
 	return {
-		// Casting to something generic so every formatter can accept options
 		options: options as Record<string, string>,
 		hasOptions,
 	}
@@ -48,7 +85,7 @@ const prepareSchemaForOutput = <Method extends FormatMethodsKeys>(
 
 export const formatDurationFormatValues = (
 	inputValues: any[]
-) => 
+) =>
 	Object.fromEntries(
 		durationValues.map((duration, i) => [duration, Number(inputValues[0][i] ?? 0)])
 	)
@@ -70,7 +107,7 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 	locale: string,
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
-	try {
+	return tryFormat(() => {
 		if (schema.method === "Collator") {
 			const formattedString = (schema.inputValues[0]).sort(new Intl.Collator(
 				locale,
@@ -78,20 +115,16 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 			).compare)
 			return `${formattedString}`
 		}
-		// Casting to specific formatter to circumvent type errors, the types are too dynamic
-		const primaryFormatter = schema.primaryFormatter as "formatToParts";
-		//@ts-expect-error too complex type
+		//@ts-expect-error too complex type to handle correctly
 		const formatted = (new Intl[schema.method](
 			locale,
 			options
-		) as Intl.DateTimeFormat)[primaryFormatter](...prepareInputValues(schema))
-		if(schema.method === "Segmenter") {
+		))[schema.primaryFormatter](...prepareInputValues(schema))
+		if (schema.method === "Segmenter") {
 			return `${print(Array.from(formatted))}`
 		}
 		return `${formatted}`
-	} catch (error) {
-		return `${(error as { message: string }).message}`;
-	}
+	})
 }
 
 export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKeys>(
@@ -100,21 +133,13 @@ export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKe
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
 	return schema.secondaryFormatters?.map(formatter => {
-		try {
-			//@ts-expect-error too complex type
-			const output = (new Intl[schema.method](
+		return {
+			name: formatter,
+			//@ts-expect-error too complex type to handle correcty
+			output: tryFormat(() => print((new Intl[schema.method](
 				locale,
 				options
-			) as Intl.DateTimeFormat)[(formatter as "formatToParts")](...prepareInputValues(schema))
-			return {
-				name: formatter,
-				output: print(output)
-			}
-		} catch (error) {
-			return {
-				name: formatter,
-				output: `${(error as { message: string }).message}`
-			}
+			))[formatter](...prepareInputValues(schema))))
 		}
 	}) ?? [];
 }
@@ -124,16 +149,14 @@ export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
 	locale: string,
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
-	try {
+	return tryFormat(() => {
 		//@ts-expect-error too complex type
 		const intlObject = (new Intl[schema.method](
 			locale,
 			options
 		) as Intl.PluralRules);
 		return `${print(intlObject.resolvedOptions())}`
-	} catch (error) {
-		return `${(error as { message: string }).message}`
-	}
+	})
 }
 
 export const schemaToCode = <Method extends FormatMethodsKeys>(
