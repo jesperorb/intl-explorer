@@ -9,8 +9,7 @@
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { trackEvent } from '$lib/utils/analytics';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
@@ -20,10 +19,7 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`;
-		await copyToClipboard(code);
-		trackEvent('Copy Code', {
-			code
-		});
+		await copyCode(code);
 	};
 	const format = (options: Intl.CollatorOptions, list: string) =>
 		tryFormat(() => list.split(',').sort(new Intl.Collator(locale, options).compare).join(','));

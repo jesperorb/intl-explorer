@@ -13,11 +13,10 @@
 		numberFormatOptionsCommon,
 		numberFormatOptionsUnit
 	} from '$lib/format-options/number-format.options';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { unitsAsEntries } from '$lib/locale-data/units';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { trackEvent } from '$lib/utils/analytics';
 	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
@@ -32,10 +31,7 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`;
-		await copyToClipboard(code);
-		trackEvent("Copy Code", {
-			code,
-		})
+		await copyCode(code);
 	};
 
 	const format = (
@@ -68,7 +64,7 @@
 			></strong
 		>
 	</div>
-	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(number)} t="comment"/></CodeBlock>
+	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={tryFormat(() => new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(number))} t="comment"/></CodeBlock>
 	<Grid slot="output">
 		{#each options as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>

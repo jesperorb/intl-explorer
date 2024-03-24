@@ -7,8 +7,8 @@
 
 	import type { OptionValues } from '$lib/types/OptionValues.types';
   import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { trackEvent } from '$lib/utils/analytics';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
+	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -19,21 +19,12 @@
 		const code = `new Intl.PluralRules("${locale}", ${JSON.stringify(
 				Object.assign({}, options, { value: undefined })
 			)}).select(${options.value})`;
-		await copyToClipboard(code);
-		trackEvent("Copy Code", {
-			code,
-		})
+		await copyCode(code);
 	};
-	const tryFormat = (
+	const format = (
 		options: Intl.PluralRulesOptions | undefined = undefined,
 		number: number
-	) => {
-		try {
-			return new Intl.PluralRules(locale, options).select(number)
-		} catch (e) {
-			return 'Failed to use `Intl.PluralRules`. You are probably using an unsupported browser';
-		}
-	};
+	) => tryFormat(() => new Intl.PluralRules(locale, options).select(number))
 	
 </script>
 
@@ -58,7 +49,7 @@
 					value: 1,
 					type
 				}}
-				output={tryFormat({
+				output={format({
 					type
 				}, 1)}
 			/>
@@ -68,7 +59,7 @@
 					value: 2,
 					type
 				}}
-				output={tryFormat({
+				output={format({
 					type
 				}, 2)}
 			/>
@@ -78,7 +69,7 @@
 					value: 20,
 					type
 				}}
-				output={tryFormat({
+				output={format({
 					type
 				}, 20)}
 			/>
@@ -92,7 +83,7 @@
 					type,
 					localeMatcher: 'best fit'
 				}}
-				output={tryFormat({
+				output={format({
 					type,
 					localeMatcher: 'best fit'
 				}, 1)}
@@ -104,7 +95,7 @@
 					type,
 					localeMatcher: 'lookup'
 				}}
-				output={tryFormat({
+				output={format({
 					type,
 					localeMatcher: 'lookup'
 				}, 2)}

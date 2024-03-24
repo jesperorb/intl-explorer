@@ -7,23 +7,26 @@
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import { relativeTimeFormatUnits } from '$lib/format-options/relative-time-format.options';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { trackEvent } from '$lib/utils/analytics';
+	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.RelativeTimeFormat("${locale}", ${JSON.stringify(
-				Object.assign({}, options, { value: undefined })
-			)}).format(${dayValue}, "${options.value}")`
-		await copyToClipboard(code);
-		trackEvent('Copy Code', {
-			code,
-		});
+			Object.assign({}, options, { value: undefined })
+		)}).format(${dayValue}, "${options.value}")`;
+		await copyCode(code);
 	};
+
+	const format = (
+		options: Intl.RelativeTimeFormatOptions,
+		day: number,
+		value: Intl.RelativeTimeFormatUnit
+	) => tryFormat(() => new Intl.RelativeTimeFormat(locale, options).format(day, value));
 
 	let dayValue = 2;
 	let style: Intl.RelativeTimeFormatStyle = 'long';
@@ -74,10 +77,14 @@
 					<Highlight
 						{onClick}
 						values={{ value: value, style, numeric }}
-						output={new Intl.RelativeTimeFormat(locale, {
-							style,
-							numeric
-						}).format(dayValue, value)}
+						output={format(
+							{
+								style,
+								numeric
+							},
+							dayValue,
+							value
+						)}
 					/>
 				{/if}
 			{/each}

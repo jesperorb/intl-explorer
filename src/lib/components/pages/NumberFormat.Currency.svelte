@@ -14,10 +14,9 @@
 		numberFormatOptionsCommon,
 		numberFormatOptionsCurrency
 	} from '$lib/format-options/number-format.options';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { trackEvent } from '$lib/utils/analytics';
 	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
@@ -32,10 +31,7 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`;
-		await copyToClipboard(code);
-		trackEvent('Copy Code', {
-			code
-		});
+		await copyCode(code);
 	};
 
 	const format = (options: Intl.NumberFormatOptions | undefined = undefined, number: number) =>

@@ -12,10 +12,10 @@
 		datetimeFormatOptions,
 		getDateTimeFormatOptions
 	} from '$lib/format-options/datetime-format.options';
-	import { copyToClipboard } from '$lib/utils/copy-to-clipboard';
+	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { trackEvent } from '$lib/utils/analytics';
+	import { tryFormat } from '$lib/utils/format-utils';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -28,25 +28,13 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.DateTimeFormat("${locale}", ${JSON.stringify(
-				options
-			)}).format(new Date("${dateTimeString}"))`;
-		await copyToClipboard(code);
-		trackEvent("Copy Code", {
-			code
-		})
+			options
+		)}).format(new Date("${dateTimeString}"))`;
+		await copyCode(code);
 	};
 
-	const tryFormat = (
-		options: Intl.DateTimeFormatOptions | undefined = undefined,
-		dateTime: string
-	) => {
-		try {
-			return new Intl.DateTimeFormat(locale, options)
-				.format(new Date(`${dateTime}`))
-		} catch (e) {
-			return 'Failed to use `Intl.DateTimeFormat`. You are probably using an unsupported browser';
-		}
-	};
+	const format = (options: Intl.DateTimeFormatOptions | undefined = undefined, dateTime: string) =>
+		tryFormat(() => new Intl.DateTimeFormat(locale, options).format(new Date(`${dateTime}`)));
 </script>
 
 <PageLayout>
@@ -63,8 +51,15 @@
 		>
 	</div>
 	<CodeBlock slot="alternativeCode">
-		<Token v="new" t="punctuation" /> <Token v="Date" t="class" />{"("}<Token v="{`"${dateTimeString}"`}" t="string" />{")"}
-		 .<Token v="toLocaleString" t="function" />{"("}<Token v="{`"${locale}"`}" t="string" />{")"}{"\n"}<Token v="// " ariaHidden noTrim t="comment"/><Token v={`${new Date(dateTimeString).toLocaleString(locale)}`} t="comment" />
+		<Token v="new" t="punctuation" />
+		<Token v="Date" t="class" />{'('}<Token v={`"${dateTimeString}"`} t="string" />{')'}
+		.<Token v="toLocaleString" t="function" />{'('}<Token
+			v={`"${locale}"`}
+			t="string"
+		/>{')'}{'\n'}<Token v="// " ariaHidden noTrim t="comment" /><Token
+			v={`${tryFormat(() => new Date(dateTimeString).toLocaleString(locale))}`}
+			t="comment"
+		/>
 	</CodeBlock>
 	<Grid slot="output">
 		{#each Object.entries(datetimeFormatOptions) as [option, values]}
@@ -75,7 +70,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={tryFormat(getDateTimeFormatOptions(option, value), dateTimeString)}
+							output={format(getDateTimeFormatOptions(option, value), dateTimeString)}
 						/>
 					{/if}
 				{/each}
@@ -83,4 +78,3 @@
 		{/each}
 	</Grid>
 </PageLayout>
-

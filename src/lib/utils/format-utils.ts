@@ -1,9 +1,10 @@
+import type { FormatMethodsKeys } from '$lib/format-methods';
 import type { PlaygroundOption } from '$lib/playground/playground.schema';
 
 export const defaultNumberRange = [1, 2, 3, 4, 5];
 
-export const clampValue = (
-	option: PlaygroundOption<'NumberFormat'>,
+export const clampValue = <Method extends FormatMethodsKeys>(
+	option: PlaygroundOption<Method>,
 	value: string | boolean | null | undefined
 ) => {
 	if (option.valueType !== 'number') return value;
@@ -14,6 +15,10 @@ export const clampValue = (
 	const clampedMax = option.max && parsed > option.max ? option.max : parsed;
 	return option.min && parsed < option.min ? Math.max(option.min, clampedMax) : clampedMax;
 };
+
+export const print = (values: unknown) => {
+	return JSON.stringify(values, null, 2);
+}
 
 export const fallbackDisplayNames: Record<Intl.DisplayNamesOptions['type'], string> = {
 	language: 'en-US',
