@@ -5,12 +5,14 @@
 	import Input from '$lib/components/ui/Input.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Radio from '$lib/components/ui/Radio.svelte';
 
 	import { relativeTimeFormatUnits } from '$lib/format-options/relative-time-format.options';
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { tryFormat } from '$lib/utils/format-utils';
+	import Fieldset from '../ui/Fieldset.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -37,38 +39,45 @@
 <PageLayout>
 	<svelte:fragment slot="input">
 		<Input id="value" fullWidth label="Value" bind:value={dayValue} />
-		<fieldset class="style-radio-buttons">
-			<legend>Style</legend>
-			<div class="radio">
-				<input type="radio" id="styleLong" name="style" bind:group={style} value="long" />
-				<label for="styleLong">long</label>
-			</div>
-			<div class="radio">
-				<input type="radio" id="styleShort" name="style" bind:group={style} value="short" />
-				<label for="styleShort">short </label>
-			</div>
-			<div class="radio">
-				<input type="radio" id="styleNarrow" name="style" bind:group={style} value="narrow" />
-				<label for="styleNarrow">narrow </label>
-			</div>
-		</fieldset>
-		<div>
-			<fieldset class="numeric-radio-buttons">
-				<legend>Numeric</legend>
-				<div class="radio">
-					<input
-						type="radio"
-						id="numericAlways"
-						name="numeric"
-						bind:group={numeric}
-						value="always"
-					/>
-					<label for="numericAlways">always</label>
-					<input type="radio" id="numericAuto" name="numeric" bind:group={numeric} value="auto" />
-					<label for="numericAuto">auto</label>
-				</div>
-			</fieldset>
-		</div>
+		<Fieldset legend="Style">
+			<Radio
+				value="long"
+				label="long"
+				id="styleLong"
+				name="style"
+				bind:group={style}
+			/>
+			<Radio
+				value="short"
+				label="short"
+				id="styleShort"
+				name="style"
+				bind:group={style}
+			/>
+			<Radio
+				value="narrow"
+				label="narrow"
+				id="styleNarrow"
+				name="style"
+				bind:group={style}
+			/>
+		</Fieldset>
+		<Fieldset legend="Numeric">
+			<Radio 
+				label="always"
+				id="numericalways"
+				name="numeric"
+				bind:group={numeric}
+				value="always"
+			/>
+			<Radio 
+				label="auto"
+				id="numericauto"
+				name="numeric"
+				bind:group={numeric}
+				value="auto"
+			/>
+		</Fieldset>
 	</svelte:fragment>
 	<Grid slot="output">
 		<OptionSection header={'unit'} support={browserCompatData?.optionsSupport?.unit}>
@@ -93,18 +102,3 @@
 		</OptionSection>
 	</Grid>
 </PageLayout>
-
-<style>
-	.style-radio-buttons {
-		display: inline-grid;
-		grid-template-columns: 1fr 1fr 1fr;
-	}
-	.numeric-radio-buttons {
-		display: inline-grid;
-		grid-template-columns: 1fr 1fr;
-	}
-	.radio {
-		display: flex;
-		gap: 0.5rem;
-	}
-</style>

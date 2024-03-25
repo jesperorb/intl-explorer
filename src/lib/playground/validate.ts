@@ -6,9 +6,13 @@ import { schemas } from './schemas';
 export const optionIsActive = <Method extends FormatMethodsKeys>(
 	option: PlaygroundOption<Method>
 ) => {
-	return option.selected !== undefined
-		? option.selected
-		: Boolean(option.value ?? option.defaultValue);
+	if(option.selected !== undefined) {
+		return option.selected;
+	}
+	if(option.value !== undefined) {
+		return true;
+	}
+	return option.defaultValue !== undefined;
 }
 
 export const validateAndUpdateSchema = <Method extends FormatMethodsKeys>(

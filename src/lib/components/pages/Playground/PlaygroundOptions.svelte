@@ -10,6 +10,9 @@
 	import OptionCard from '$lib/components/ui/OptionCard.svelte';
 	import Details from '$lib/components/ui/details/Details.svelte';
 	import BrowserSupportGrid from '$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte';
+	import Fieldset from '$lib/components/ui/Fieldset.svelte';
+	import Radio from '$lib/components/ui/Radio.svelte';
+	import { optionIsActive } from '$lib/playground/validate';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let support: BrowserSupportDataForOptions | undefined;
@@ -21,10 +24,7 @@
 <div class="grid">
 	{#each schema.options as option}
 		<OptionCard
-			checked={Boolean(option.selected !== undefined
-				? option.selected
-				: (option.value ?? option.defaultValue))
-			}
+			checked={optionIsActive(option)}
 			option={option.name}
 			onChange={onChangeOption}
 			hideFullSupport
@@ -53,20 +53,18 @@
 				/>
 			{/if}
 			{#if option.inputType === 'radio'}
-				<fieldset role="radiogroup" name={option.name}>
+				<div class="radios" role="radiogroup">
 					{#each getItemsFromOption(schema.method, option) as [value]}
-						<div class="radio">
-							<input
-								type="radio"
-								on:input={onChangeOption}
-								id={option.name + value}
-								name={option.name}
-								group={value}
-							/>
-							<label for={option.name + value}>{value}</label>
-						</div>
+						<Radio
+							value={value?.toString() ?? "undefined"}
+							name={option.name}
+							id={option.name + value?.toString()}
+							onChange={onChangeOption}	
+							label={value?.toString() ?? "undefined"}
+							checked={value === option.value}
+						/>
 					{/each}
-				</fieldset>
+				</div>
 			{/if}
 			{#if support?.[option.name]?.support}
 				<Spacing />
@@ -94,17 +92,10 @@
 		font-size: 1.25rem;
 		display: inline-block;
 	}
-	fieldset {
+
+	.radios {
 		display: flex;
-		gap: 0.5rem;
-		border: none;
-	}
-	fieldset label {
-		font-weight: normal;
-	}
-	.radio {
-		display: flex;
-		justify-content: center;
 		align-items: center;
+		gap: var(--spacing-4);
 	}
 </style>
