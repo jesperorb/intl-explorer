@@ -1,62 +1,57 @@
 <script lang="ts">
-	export let showModal = false;
+	export let show = false;
+	export let showCloseButton: boolean = true;
 
 	let dialog: HTMLDialogElement;
 
-	$: if (dialog && showModal) dialog.showModal();
+	$: if (dialog && show) dialog.show();
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<dialog
-	bind:this={dialog}
-	on:close={() => (showModal = false)}
-	on:click|self={() => dialog.close()}
->
+<dialog bind:this={dialog} on:close={() => (show = false)} on:click|self={() => dialog.close()}>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click|stopPropagation>
+		{#if showCloseButton}
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<!-- svelte-ignore a11y-autofocus -->
+			<button aria-label="Close dialog" autofocus on:click={() => dialog.close()}>X</button>
+		{/if}
 		<slot name="header" />
 		<slot />
-		<!-- svelte-ignore a11y-autofocus -->
-		<button autofocus on:click={() => dialog.close()}>Close</button>
 	</div>
 </dialog>
 
 <style>
 	dialog {
-		margin: auto;
-		max-width: 32em;
-		border-radius: 0.2em;
-		border: none;
+		margin: var(--spacing-10) auto 0 auto;
+		border-radius: 4px;
+		border: 1px solid var(--border-color);
+		background-color: var(--card-color);
+		color: var(--text-color);
 		padding: 0;
+		z-index: 999999;
 	}
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);
 	}
 	dialog > div {
-		padding: 1em;
+		padding: var(--spacing-2);
 	}
 	dialog[open] {
 		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
 	button {
-		margin-left: auto;
-		margin-top: 0.5rem;
-    border: none;
-    padding: .5rem 1rem;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: rgb(0, 171, 59);
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-  button:hover {
-    background-color: rgb(0, 157, 54);
-  }
+		background: none;
+		background-color: var(--background-color);
+		border: 1px solid var(--border-color);
+		padding: 0.5rem 1rem;
+		color: var(--text-color);
+		font-weight: 700;
+		border-radius: 4px;
+		cursor: pointer;
+	}
 	@keyframes zoom {
 		from {
 			transform: scale(0.95);

@@ -17,7 +17,7 @@
 			<h3>{header}</h3>
 		{/if}
 		{#if support?.support}
-			<BrowserSupport data={support} {hideFullSupport} />
+			<BrowserSupport bind:data={support} {hideFullSupport} />
 		{/if}
 	</div>
 	<Spacing size={2} />

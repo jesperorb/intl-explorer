@@ -36,8 +36,9 @@
 
 	const format = (
 		options: Intl.NumberFormatOptions | undefined = undefined,
-		number: number
-	) => tryFormat(() => new Intl.NumberFormat(locale, options).format(number))
+		number: number,
+		language: string,
+	) => tryFormat(() => new Intl.NumberFormat(language, options).format(number))
 </script>
 
 <PageLayout>
@@ -82,7 +83,7 @@
 								style: 'unit',
 								unit: selectedUnit,
 								[option]: value
-							}, number)}
+							}, number, locale)}
 						/>
 					{/if}
 				{/each}

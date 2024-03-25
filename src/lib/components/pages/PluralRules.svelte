@@ -3,10 +3,10 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
-  import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Spacing from '$lib/components/ui/Spacing.svelte';
 
 	import type { OptionValues } from '$lib/types/OptionValues.types';
-  import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
+	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { tryFormat } from '$lib/utils/format-utils';
 
@@ -17,15 +17,15 @@
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.PluralRules("${locale}", ${JSON.stringify(
-				Object.assign({}, options, { value: undefined })
-			)}).select(${options.value})`;
+			Object.assign({}, options, { value: undefined })
+		)}).select(${options.value})`;
 		await copyCode(code);
 	};
 	const format = (
-		options: Intl.PluralRulesOptions | undefined = undefined,
-		number: number
-	) => tryFormat(() => new Intl.PluralRules(locale, options).select(number))
-	
+		options: Intl.PluralRulesOptions,
+		number: number,
+		language: string
+	) => tryFormat(() => new Intl.PluralRules(language, options).select(number));
 </script>
 
 <PageLayout>
@@ -49,9 +49,13 @@
 					value: 1,
 					type
 				}}
-				output={format({
-					type
-				}, 1)}
+				output={format(
+					{
+						type
+					},
+					1,
+					locale
+				)}
 			/>
 			<Highlight
 				{onClick}
@@ -59,9 +63,13 @@
 					value: 2,
 					type
 				}}
-				output={format({
-					type
-				}, 2)}
+				output={format(
+					{
+						type
+					},
+					2,
+					locale
+				)}
 			/>
 			<Highlight
 				{onClick}
@@ -69,9 +77,13 @@
 					value: 20,
 					type
 				}}
-				output={format({
-					type
-				}, 20)}
+				output={format(
+					{
+						type
+					},
+					20,
+					locale
+				)}
 			/>
 		</OptionSection>
 		<OptionSection header={'localeMatcher'}>
@@ -83,10 +95,14 @@
 					type,
 					localeMatcher: 'best fit'
 				}}
-				output={format({
-					type,
-					localeMatcher: 'best fit'
-				}, 1)}
+				output={format(
+					{
+						type,
+						localeMatcher: 'best fit'
+					},
+					1,
+					locale
+				)}
 			/>
 			<Highlight
 				{onClick}
@@ -95,10 +111,14 @@
 					type,
 					localeMatcher: 'lookup'
 				}}
-				output={format({
-					type,
-					localeMatcher: 'lookup'
-				}, 2)}
+				output={format(
+					{
+						type,
+						localeMatcher: 'lookup'
+					},
+					2,
+					locale
+				)}
 			/>
 		</OptionSection>
 	</Grid>
@@ -108,7 +128,7 @@
 	fieldset {
 		display: inline-grid;
 		grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+		gap: 0.5rem;
 	}
 	.radio {
 		display: flex;

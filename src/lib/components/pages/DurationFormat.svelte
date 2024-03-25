@@ -34,9 +34,10 @@
 	};
 
 	const format = (
-		options: Intl.DurationFormatOptions | undefined = undefined,
-		dur: Record<string, number | string>
-	) => tryFormat(() => new Intl.DurationFormat(locale, options).format(dur))
+		options: Intl.DurationFormatOptions,
+		dur: Record<string, number | string>,
+		language: string,
+	) => tryFormat(() => new Intl.DurationFormat(language, options).format(dur))
 
 	const onInput = (event: Event) => {
 		const target = event.target as HTMLInputElement;
@@ -67,7 +68,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={format({ [option]: value }, duration)}
+							output={format({ [option]: value }, duration, locale)}
 						/>
 					{/if}
 				{/each}
