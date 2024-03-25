@@ -17,7 +17,6 @@
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { tryFormat } from '$lib/utils/format-utils';
 
-
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
@@ -33,8 +32,9 @@
 	};
 	const format = (
 		options: Intl.NumberFormatOptions | undefined = undefined,
-		number: number
-	) => tryFormat(() => new Intl.NumberFormat(locale, options).format(number))
+		number: number,
+		language: string
+	) => tryFormat(() => new Intl.NumberFormat(language, options).format(number));
 </script>
 
 <PageLayout>
@@ -50,7 +50,18 @@
 			></strong
 		>
 	</div>
-	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={tryFormat(() => new Intl.NumberFormat(locale).format(number))} t="comment"/></CodeBlock>
+	<CodeBlock slot="alternativeCode"
+		><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token
+			t="number"
+			v={`${number}`}
+		/><br /><Token v="number" /><Token v=".toLocaleString" t="function" /><Token v="(" /><Token
+			v={`"${locale}"`}
+			t="string"
+		/><Token v=")" /><br /><Token v="// " ariaHidden noTrim t="comment" /><Token
+			v={tryFormat(() => new Intl.NumberFormat(locale).format(number))}
+			t="comment"
+		/></CodeBlock
+	>
 	<Grid slot="output">
 		{#each options as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -62,9 +73,13 @@
 							values={{
 								[option]: value
 							}}
-							output={format({
-								[option]: value
-							}, number)}
+							output={format(
+								{
+									[option]: value
+								},
+								number,
+								locale
+							)}
 						/>
 					{/if}
 				{/each}
@@ -72,5 +87,3 @@
 		{/each}
 	</Grid>
 </PageLayout>
-
-

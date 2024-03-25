@@ -21,8 +21,8 @@
 		const code = `[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`;
 		await copyCode(code);
 	};
-	const format = (options: Intl.CollatorOptions, list: string) =>
-		tryFormat(() => list.split(',').sort(new Intl.Collator(locale, options).compare).join(','));
+	const format = (options: Intl.CollatorOptions, list: string, language: string) =>
+		tryFormat(() => list.split(',').sort(new Intl.Collator(language, options).compare).join(','));
 </script>
 
 <PageLayout>
@@ -40,7 +40,8 @@
 								{
 									[option]: value
 								},
-								list
+								list,
+								locale,
 							)}
 						/>
 					{/if}

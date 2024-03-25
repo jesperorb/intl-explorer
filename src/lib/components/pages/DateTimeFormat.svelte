@@ -33,8 +33,8 @@
 		await copyCode(code);
 	};
 
-	const format = (options: Intl.DateTimeFormatOptions | undefined = undefined, dateTime: string) =>
-		tryFormat(() => new Intl.DateTimeFormat(locale, options).format(new Date(`${dateTime}`)));
+	const format = (options: Intl.DateTimeFormatOptions, dateTime: string, language: string) =>
+		tryFormat(() => new Intl.DateTimeFormat(language, options).format(new Date(`${dateTime}`)));
 </script>
 
 <PageLayout>
@@ -70,7 +70,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={format(getDateTimeFormatOptions(option, value), dateTimeString)}
+							output={format(getDateTimeFormatOptions(option, value), dateTimeString, locale)}
 						/>
 					{/if}
 				{/each}

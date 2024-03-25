@@ -34,8 +34,8 @@
 		await copyCode(code);
 	};
 
-	const format = (options: Intl.NumberFormatOptions | undefined = undefined, number: number) =>
-		tryFormat(() => new Intl.NumberFormat(locale, options).format(number));
+	const format = (options: Intl.NumberFormatOptions, number: number, language: string) =>
+		tryFormat(() => new Intl.NumberFormat(language, options).format(number));
 </script>
 
 <PageLayout>
@@ -70,7 +70,7 @@
 			v={`"${locale}"`}
 			t="string"
 		/><Token v=")" /><br /><Token v="// " ariaHidden noTrim t="comment" /><Token
-			v={format({ style: 'currency', currency: selectedCurrency }, number)}
+			v={format({ style: 'currency', currency: selectedCurrency }, number, locale)}
 			t="comment"
 		/></CodeBlock
 	>
@@ -93,7 +93,8 @@
 									currency: selectedCurrency,
 									[option]: value
 								},
-								number
+								number,
+								locale
 							)}
 						/>
 					{/if}

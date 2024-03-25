@@ -114,7 +114,7 @@
 			<Spacing />
 			<PlaygroundSecondaryFormatters
 				bind:support={browserSupportData.formattersSupport}
-				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale) ?? []}
+				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale)}
 			/>
 		</div>
 		<div class="output">
@@ -166,14 +166,6 @@
 		.columns {
 			grid-template-columns: 2fr 1fr;
 		}
-	}
-	h2 {
-		font-size: 1.25rem;
-		display: inline-block;
-	}
-	.highlight {
-		position: relative;
-		min-height: 4rem;
 	}
 	.copy-code {
 		display: flex;

@@ -25,8 +25,9 @@
 	const format = (
 		options: Intl.RelativeTimeFormatOptions,
 		day: number,
-		value: Intl.RelativeTimeFormatUnit
-	) => tryFormat(() => new Intl.RelativeTimeFormat(locale, options).format(day, value));
+		value: Intl.RelativeTimeFormatUnit,
+		language: string
+	) => tryFormat(() => new Intl.RelativeTimeFormat(language, options).format(day, value));
 
 	let dayValue = 2;
 	let style: Intl.RelativeTimeFormatStyle = 'long';
@@ -83,7 +84,8 @@
 								numeric
 							},
 							dayValue,
-							value
+							value,
+							locale
 						)}
 					/>
 				{/if}

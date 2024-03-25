@@ -11,7 +11,7 @@
 
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
-	import { tryFormat } from '$lib/utils/format-utils';
+	import { tryFormat, print } from '$lib/utils/format-utils';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
@@ -24,9 +24,9 @@
 		await copyCode(code);
 	};
 
-	const format = (options: OptionValues, input: string) =>
+	const format = (options: OptionValues, input: string, language: string) =>
 		tryFormat(() =>
-			JSON.stringify(Array.from(new Intl.Segmenter(locale, options).segment(input)))
+			print(Array.from(new Intl.Segmenter(language, options).segment(input)))
 		);
 </script>
 
@@ -41,7 +41,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={format({ [option]: value }, sentence)}
+							output={format({ [option]: value }, sentence, locale)}
 						/>
 					{/if}
 				{/each}

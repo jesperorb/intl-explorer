@@ -29,8 +29,8 @@
 
 	const style = listFormatOptions.style ?? [];
 
-	const format = (options: Intl.ListFormatOptions, list: string) =>
-		tryFormat(() => new Intl.ListFormat(locale, options).format(toArray(list)));
+	const format = (options: Intl.ListFormatOptions, list: string, language: string) =>
+		tryFormat(() => new Intl.ListFormat(language, options).format(toArray(list)));
 </script>
 
 <PageLayout>
@@ -76,7 +76,8 @@
 								{
 									[option]: value
 								},
-								list
+								list,
+								locale
 							)}
 						/>
 					{/if}
@@ -97,7 +98,8 @@
 								type: 'conjunction',
 								style: toStyle(value)
 							},
-							list
+							list,
+							locale
 						)}
 					/>
 				{/if}
@@ -117,7 +119,8 @@
 								type: 'disjunction',
 								style: toStyle(value)
 							},
-							list
+							list,
+							locale
 						)}
 					/>
 				{/if}
@@ -137,7 +140,8 @@
 								type: 'unit',
 								style: toStyle(value)
 							},
-							list
+							list,
+							locale
 						)}
 					/>
 				{/if}
