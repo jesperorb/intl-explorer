@@ -9,6 +9,8 @@
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { tryFormat } from '$lib/utils/format-utils';
+	import Fieldset from '../ui/Fieldset.svelte';
+	import Radio from '../ui/Radio.svelte';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -29,17 +31,12 @@
 </script>
 
 <PageLayout>
-	<fieldset slot="input">
-		<legend>type</legend>
-		<div class="radio">
-			<input type="radio" id="typeCardinal" name="type" bind:group={type} value="cardinal" />
-			<label for="typeCardinal">cardinal</label>
-		</div>
-		<div class="radio">
-			<input type="radio" id="typeOrdinal" name="type" bind:group={type} value="ordinal" />
-			<label for="typeOrdinal">ordinal </label>
-		</div>
-	</fieldset>
+	<svelte:fragment slot="input">
+		<Fieldset legend="type">
+			<Radio label="cardinal" id="typeCardinal" name="type" bind:group={type} value="cardinal" />
+			<Radio label="ordinal" id="typeOrdinal" name="type" bind:group={type} value="ordinal" />
+		</Fieldset>
+	</svelte:fragment>
 	<Grid slot="output">
 		<OptionSection header={type} support={browserCompatData?.optionsSupport?.[type]}>
 			<Spacing size={1} />
@@ -123,15 +120,3 @@
 		</OptionSection>
 	</Grid>
 </PageLayout>
-
-<style>
-	fieldset {
-		display: inline-grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 0.5rem;
-	}
-	.radio {
-		display: flex;
-		gap: 0.5rem;
-	}
-</style>

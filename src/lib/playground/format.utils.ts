@@ -16,9 +16,7 @@ export const updateOptionOnSchema = <Method extends FormatMethodsKeys>(
 	const isRadioEvent = target.type === 'radio';
 	const isCheckBox = target.type === 'checkbox';
 	const optionName = target.name.replace("_active", "");
-	const optionValue = isRadioEvent
-		? target.attributes.getNamedItem('group')?.nodeValue
-		: target.value;
+	const optionValue =  target.value;
 	const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
 	const value = isRadioEvent ? radioValue : optionValue;
 	const schemaOptions = schema.options.map((option) =>
@@ -68,8 +66,8 @@ export const getItemsFromOption = <Method extends FormatMethodsKeys>(
 ) => {
 	const optionsForMethod = formatOptions[method];
 	const name = option.name as keyof typeof optionsForMethod;
-	const options = optionsForMethod[name] as Array<PlaygroundOption<Method>>;
-	return options?.map((option: PlaygroundOption<Method>) => [option, option]) ?? [];
+	const options = optionsForMethod[name] as (string|boolean|number|undefined)[];
+	return options?.map((option) => [option, option]) ?? [];
 };
 
 const prepareSchemaForOutput = <Method extends FormatMethodsKeys>(
