@@ -70,4 +70,9 @@
 	.checkbox:checked + .checkbox-label .ball {
 		transform: translateX(24px);
 	}
+
+	.checkbox:focus + .checkbox-label {
+		box-shadow: 0px 0px 2px var(--highlight);
+		outline: 1px solid var(--highlight);
+	}
 </style>
