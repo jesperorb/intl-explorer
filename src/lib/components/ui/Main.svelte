@@ -12,7 +12,6 @@
 		main {
 			z-index: 2;
 			max-width: 100%;
-			margin-top: var(--spacing-2);
 		}
 		.wrapper {
 			border-radius: 6px 0 0 6px;

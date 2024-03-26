@@ -4,7 +4,7 @@
 	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
 
-	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Navigation from '$lib/components/ui/Navigation.svelte';
 	import Main from '$lib/components/ui/Main.svelte';
 	import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
@@ -14,6 +14,10 @@
 	let routeId: FormatMethodsKeys | 'Playground';
 	const getRouteId = (page: Page<Record<string, string>>): void => {
 		routeId = page.route.id?.replace('/', '') as FormatMethodsKeys;
+		if(browser) {
+			document.querySelector("h1")?.setAttribute("tabIndex", "-1");
+			document.querySelector("h1")?.focus();
+		}
 	};
 	$: getRouteId($page);
 	onMount(() => {
@@ -36,7 +40,7 @@
 
 <SkipLink />
 
-<Sidebar />
+<Navigation />
 
 <Main>
 	{#if $navigating}
@@ -140,12 +144,6 @@
 		font-family: var(--font-family);
 		line-height: 1.5;
 		width: 100%;
-	}
-	@media (min-width: 900px) {
-		body {
-			display: grid;
-			grid-template-columns: 12rem 1fr;
-		}
 	}
 	pre,
 	ul,
