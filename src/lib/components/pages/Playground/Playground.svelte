@@ -149,7 +149,7 @@
 	}
 	.output {
 		padding: var(--spacing-4);
-		padding-top: var(--spacing-6);
+		padding-top: var(--spacing-5);
 		border-top-left-radius: 4px;
 	}
 	.output-inner {

@@ -19,37 +19,37 @@
 		white-space: nowrap;
 	}
 	.token.comment {
-		color: var(--gray);
+		color: var(--comment);
 	}
 
 	.token.punctuation {
-		color: var(--purple);
+		color: var(--punctuation);
 	}
 
 	.token.operator {
-		color: var(--teal);
+		color: var(--operator);
 	}
 
 	.token.key {
-		color: var(--white);
+		color: var(--key);
 	}
 
 	.token.function {
-		color: var(--light-blue);
+		color: var(--function);
 	}
 
 	.token.boolean {
-		color: var(--red);
+		color: var(--boolean);
 	}
 
 	.token.number {
-		color: var(--orange);
+		color: var(--number);
 	}
 
 	.token.string {
-		color: var(--green);
+		color: var(--string);
 	}
 	.token.class {
-		color: #fac863;
+		color: var(--class);
 	}
 </style>

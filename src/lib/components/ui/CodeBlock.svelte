@@ -10,11 +10,12 @@
 		tab-size: 2;
 		display: block;
 		padding: var(--spacing-4);
-		background-color: #1b2b34;
+		background-color: var(--code-block-background);
 		font-size: 0.85rem;
-		border-radius: 0.5rem;
+		border-radius: 4px;
 		overflow-x: auto;
 		color: var(--code-text-color);
 		font-family: var(--font-family);
+		border: 1px solid var(--border-color);
 	}
 </style>

@@ -12,7 +12,7 @@
 	<h2>Input</h2>
 	<Spacing size={2} />
 	<hr />
-	<Spacing size={2} />
+	<Spacing />
 	<Grid>
 		<ComboBoxContext>
 			<ComboBox
@@ -31,10 +31,10 @@
 {#if $$slots.alternativeUse}
 	<Card>
 		<h2>Alternative use</h2>
+		<Spacing />
 		<slot name="alternativeUse" />
-		<Spacing size={2} />
+		<Spacing />
 		<slot name="alternativeCode" />
-		<Spacing size={2} />
 	</Card>
 	<Spacing />
 {/if}

@@ -1,13 +1,12 @@
 <script lang="ts">
-	import Spacing from "./Spacing.svelte";
-
   export let legend: string;
   export let role: string | undefined = undefined;
   export let name: string | undefined = undefined;
+  export let capitalize: boolean = false;
 </script>
 
 <fieldset {role} {name}>
-  <legend>{legend}</legend>
+  <legend class:capitalize={capitalize}>{legend}</legend>
   <slot />
 </fieldset>
 
@@ -22,5 +21,8 @@
   }
   legend {
     margin-bottom: var(--spacing-2);
+  }
+  .capitalize {
+    text-transform: capitalize;
   }
 </style>

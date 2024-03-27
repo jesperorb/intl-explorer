@@ -10,7 +10,6 @@
 	import OptionCard from '$lib/components/ui/OptionCard.svelte';
 	import Details from '$lib/components/ui/details/Details.svelte';
 	import BrowserSupportGrid from '$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte';
-	import Fieldset from '$lib/components/ui/Fieldset.svelte';
 	import Radio from '$lib/components/ui/Radio.svelte';
 	import { optionIsActive } from '$lib/playground/validate';
 

@@ -9,7 +9,6 @@
 	import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
-	import { onMount } from 'svelte';
 
 	let routeId: FormatMethodsKeys | 'Playground';
 	const getRouteId = (page: Page<Record<string, string>>): void => {
@@ -20,11 +19,6 @@
 		}
 	};
 	$: getRouteId($page);
-	onMount(() => {
-		if(browser && localStorage.getItem("dark-mode")) {
-			document.querySelector("html")?.setAttribute("data-dark-mode", "true");
-		}
-	})
 </script>
 
 <svelte:head>
@@ -55,7 +49,7 @@
 <!-- Ignore -->
 <style global>
 	:root {
-		--dark-black: hsl(0, 100%, 5%);
+		--dark-black: hsl(0, 100%, 2%);
 		--black: hsl(276, 100%, 12%);
 		--white: hsl(0, 100%, 100%);
 		--dark-blue: hsl(207, 95%, 8%);
@@ -72,6 +66,7 @@
 		--red: hsl(350, 100%, 67%);
 		--darkred: hsl(350, 100%, 46%);
 		--orange: hsl(14, 90%, 70%);
+		--lighteryellow: #fac863;
 		--lightyellow: hsl(40, 94%, 50%);
 		--yellow: hsl(40, 94%, 32%);
 		--light-purple: hsl(276, 100%, 98%);
@@ -87,6 +82,17 @@
 
 		--code-comment-color: var(--gray);
 		--code-text-color: var(--white);
+		--code-block-background: #1b2b34;
+
+		--comment: var(--gray);
+		--punctuation: var(--purple);
+		--operator: var(--teal);
+		--key: var(--white);
+		--function: var(--light-blue);
+		--boolean: var(--red);
+		--number: var(--orange);
+		--string: var(--green);
+		--class: var(--lightyellow);
 
 		--font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
 			'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -121,14 +127,27 @@
 	}
 	[data-dark-mode] {
 		--text-color: var(--white);
-		--accent-background-color: var(--darkergray);
-		--background-color: var(--dark-black);
+		--accent-background-color: var(--dark-black);
+		--background-color: hsl(0, 0%, 6%);
 		--link-underline-color: var(--white);
-		--border-color: var(--darkgray);
+		--border-color: hsl(0, 0%, 17%);
 		--divider-color: var(--darkgray);
-		--card-color: var(--darkergray);
+		--card-color: var(--dark-black);
 		--yellow: var(--lightyellow);
 		--darkgreen: var(--green);
+	}
+	[data-code-light-mode] {
+		--code-text-color: var(--black);
+		--code-block-background: var(--white);
+		--comment: var(--darkgray);
+		--punctuation: var(--black);
+		--operator: var(--black);
+		--key: #d73a49;
+		--function: #6f42c1;
+		--boolean: #005cc5;
+		--number: #032f62;
+		--string: #032f62;
+		--class: #6f42c1;
 	}
 	*,
 	*::after,
@@ -185,8 +204,8 @@
 		color: var(--code-comment-color);
 	}
 	code.hljs {
-		color: var(--code-text-color);
-		border-radius: 8px;
+		border-radius: 4px;
+		border: 1px solid var(--border-color);
 		font-size: 0.85rem;
 	}
 	a {
