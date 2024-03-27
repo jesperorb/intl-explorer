@@ -9,13 +9,15 @@
 	import { selectedLocale } from '$lib/store/selected-locale';
 	import { testIds } from '$lib/utils/dom-utils';
 	import OpenInNewTab from '$lib/components/ui/icons/OpenInNewTab.svelte';
-	import DarkModeToggle from './DarkModeToggle.svelte';
 	import Spacing from './Spacing.svelte';
+	import Settings from './icons/Settings.svelte';
+	import SettingsDialog from './SettingsDialog.svelte';
 
 	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
 
 	let path: string;
 	let open = false;
+	let showSettings = false;
 	let closeButton: HTMLButtonElement;
 	let openButton: HTMLButtonElement;
 	let lastItem: HTMLAnchorElement;
@@ -71,6 +73,8 @@
 	}
 </script>
 
+<SettingsDialog bind:show={showSettings} />
+
 <nav aria-label="Main Menu" data-testid={testIds.navigation}>
 	<div class="actions">
 		<button
@@ -86,7 +90,9 @@
 			Menu
 		</button>
 		<div class="settings">
-			<DarkModeToggle />
+			<button on:click={() => (showSettings = true)} aria-label="Settings" class="settings-button">
+				<span>Settings</span> <Settings />
+			</button>
 		</div>
 	</div>
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -96,12 +102,11 @@
 				type="button"
 				id="closeMenuButton"
 				class="close-button"
-				aria-label="Close navigation"
 				on:click={closeDrawer}
 				bind:this={closeButton}
 				on:keydown={onCloseButtonShiftTab}
 			>
-				&times;
+				Close
 			</button>
 		</div>
 		<Spacing />
@@ -150,7 +155,7 @@
 		top: 0;
 		left: -250px;
 		width: 250px;
-		background-color: var(--card-color);
+		background-color: var(--background-color);
 		height: 100%;
 		padding: var(--spacing-4);
 		z-index: 1;
@@ -189,7 +194,7 @@
 		font-size: 1.25rem;
 		color: var(--text-color);
 	}
-	.nav-button:hover, .close-button:hover {
+	.nav-button:hover, .close-button:hover, .settings-button:hover {
 		border-radius: 4px;
     outline: 1px solid var(--text-color);
 	}
@@ -203,6 +208,22 @@
 		padding: var(--spacing-2) var(--spacing-3);
 		border-radius: 4px;
 		color: var(--text-color);
+	}
+	.settings-button {
+		border: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: none;
+		text-transform: uppercase;
+		font-weight: bold;
+		cursor: pointer;
+		font-size: 1.25rem;
+		color: var(--text-color);
+		padding: var(--spacing-2) var(--spacing-3);
+	}
+	.settings-button span {
+		margin-right: var(--spacing-2);
 	}
 	.menu-heading, .route {
 		margin-bottom: var(--spacing-1);

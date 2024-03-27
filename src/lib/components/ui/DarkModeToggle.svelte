@@ -1,27 +1,22 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { settings } from '$lib/store/settings';
 	import SrOnly from './SrOnly.svelte';
   import Moon from './icons/Moon.svelte';
 	import Sun from './icons/Sun.svelte';
 
   let checked = Boolean(
 		browser
-			? document?.querySelector('body')?.getAttribute('data-dark-mode') === 'true'
+			? $settings.theme === "dark"
 			: false
 	);
 
 	const change = (event: Event) => {
 		const target = event.target as HTMLInputElement;
-		const element = browser ? document.querySelector('html') : null;
-		if (element && browser) {
-			if (target.checked) {
-				localStorage.setItem("dark-mode", "1");
-				element.setAttribute('data-dark-mode', 'true');
-			} else {
-				localStorage.removeItem("dark-mode");
-				element.removeAttribute('data-dark-mode');
-			}
-		}
+		settings.update((s) => ({
+			...s,
+			theme: target.checked ? "dark" : "light",
+		}))
 	};
 </script>
 

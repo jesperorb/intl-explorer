@@ -35,7 +35,6 @@
 	@media screen and (min-width: 500px) {
     .header {
 			flex-direction: row;
-			align-items: center;
     }
   }
 </style>

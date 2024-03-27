@@ -71,13 +71,13 @@
   @media (hover: hover) {
     input[type="radio"]:not(:disabled):hover {
       background-color: var(--radio-hover-color);
-      outline: 6px solid var(--radio-hover-color);
+      outline: 2px solid var(--highlight);
     }
   }
 
   input[type="radio"]:focus-visible {
     background-color: var(--radio-hover-color);
-    outline: 6px solid var(--radio-hover-color);
+    outline: 2px solid var(--highlight);
   }
   @media (prefers-reduced-motion: reduce) {
     input[type="radio"] {
