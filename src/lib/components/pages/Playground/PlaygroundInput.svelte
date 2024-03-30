@@ -11,19 +11,21 @@
 	import { formatMethods } from '$lib/format-methods';
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
 	import Card from '$lib/components/ui/Card.svelte';
+	import { getMessages } from '$lib/i18n/util';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let locale: string;
 	export let onChangeSchema: (event: Event) => void;
 	export let onInput: (event: Event) => void;
 	export let onChangeDate: (datetime: string) => void;
+	const m = getMessages();
 </script>
 
 <Card>
 	<Grid>
 		<Select
 			name="method"
-			label="Method"
+			label={m.method()}
 			onChange={onChangeSchema}
 			value={schema.method}
 			items={formatMethods.map((method) => [method, method])}
@@ -33,7 +35,7 @@
 		{#if schema.inputValueType === 'number' || schema.inputValueType === 'array' || schema.inputValueType === 'string'}
 			<Input
 				id="inputValue"
-				label="Input value"
+				label={m.value()}
 				name="inputValue"
 				value={schema.inputValues[0].toString()}
 				{onInput}
@@ -45,7 +47,7 @@
 		{/if}
 		<ComboBoxContext>
 			<ComboBox
-				label="Locale"
+				label={m.locale()}
 				name="locale"
 				bind:value={locale}
 				options={languageByLocaleAsComboBoxOptions}

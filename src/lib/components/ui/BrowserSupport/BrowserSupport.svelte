@@ -3,15 +3,17 @@
 	import type { BrowserSupportForOption } from '$lib/types/BrowserSupport.types';
 	import Details from '../details/Details.svelte';
 	import SupportLabel from './SupportLabel.svelte';
+	import { getMessages } from '$lib/i18n/util';
 
 	export let data: BrowserSupportForOption | null;
 	export let hideFullSupport: boolean | undefined = undefined;
+	const m = getMessages();
 </script>
 
 {#if data}
 	<Details fullWidth={false}>
 		<div slot="summary" class="summary">
-			<p>Browser Support</p>
+			<p>{m.browserSupport()}</p>
 			<SupportLabel bind:support={data.coverage} {hideFullSupport} />
 		</div>
 		<BrowserSupportGrid bind:data={data.support} />

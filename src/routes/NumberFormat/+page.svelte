@@ -6,6 +6,8 @@
 	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 
+	import * as m from "$paraglide/messages"
+
   import { selectedLocale } from '$lib/store/selected-locale';
   import { getLocaleForSSR } from '$lib/utils/get-locale';
 
@@ -18,7 +20,7 @@
 <BrowserSupport {data} />
 <Spacing />
 <p>
-	See also <a href="NumberFormat/Currency">Currency</a> and <a href="/NumberFormat/Unit">Unit</a>.
+	{m.seeAlso()} <a href="NumberFormat/Currency">Currency</a> {m.and()} <a href="/NumberFormat/Unit">Unit</a>.
 </p>
 <Spacing />
 {#if browser}

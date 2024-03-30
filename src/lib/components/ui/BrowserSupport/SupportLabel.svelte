@@ -1,17 +1,19 @@
 <script lang="ts">
+	import { getMessages } from "$lib/i18n/util";
 	import type { BrowserCoverage } from "$lib/types/BrowserSupport.types";
 
   export let support: BrowserCoverage | undefined = undefined;
   export let hideFullSupport: boolean | undefined = false;
+  const m = getMessages();
 </script>
 
 <p class="{support === "full" && hideFullSupport ? "" : support}">
   {#if support === "full" && !hideFullSupport}
-    Full support
+    {m.fullSupport()}
   {:else if support === "none"}
-    No support
+    {m.noSupport()}
   {:else if support === "partial" }
-    Partial support
+    {m.partialSupport()}
   {/if}
 </p>
 

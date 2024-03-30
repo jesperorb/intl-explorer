@@ -30,6 +30,9 @@
 	import { trackEvent } from '$lib/utils/analytics';
 	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
+	import { getMessages } from '$lib/i18n/util';
+
+  const m = getMessages();
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 	export let locale: string;
@@ -101,7 +104,7 @@
 			<Header header="Playground" link={schema.method} />
 			<Grid>
 				<BrowserSupport bind:data={browserSupportData} />
-				<Button onClick={copySchema}>Copy Schema URL <CopyToClipboard /></Button>
+				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
 			<Spacing />
 			<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />
@@ -119,21 +122,21 @@
 		</div>
 		<div class="output">
 			<div class="output-inner">
-				<h2>Output</h2>
+				<h2>{m.output()}</h2>
 				<Spacing size={2} />
 				<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
 				<Spacing />
-				<h2>Code</h2>
+				<h2>{m.code()}</h2>
 				<Spacing size={2} />
 				<div class="highlight">
 					<Highlight language={typescript} code={schemaToCode(schema, locale)} />
 				</div>
 				<Spacing size={2} />
 				<div class="copy-code">
-					<Button onClick={copy}>Copy Code <CopyToClipboard /></Button>
+					<Button onClick={copy}>{m.copyCode()} <CopyToClipboard /></Button>
 				</div>
 				<Spacing size={2} />
-				<h2>Resolved Options</h2>
+				<h2>{m.resolvedOptions()}</h2>
 				<Spacing size={2} />
 				<div>
 					<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />

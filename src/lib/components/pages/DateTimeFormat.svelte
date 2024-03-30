@@ -16,9 +16,12 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { tryFormat } from '$lib/utils/format-utils';
+	import { getMessages } from '$lib/i18n/util';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
+
+	const m = getMessages();
 
 	let dateTimeString = '2022-04-24T19:00';
 
@@ -40,8 +43,7 @@
 <PageLayout>
 	<DateTime fullWidth slot="input" defaultValue={dateTimeString} {onChange} />
 	<div slot="alternativeUse">
-		<code>Intl.DateTimeFormat</code>
-		can also be used from
+		{m.alternativeUseIngress({ method: "Intl.DateTimeFormat" })}
 		<strong
 			><a
 				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString"

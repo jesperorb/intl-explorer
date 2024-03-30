@@ -39,7 +39,7 @@
 		border-radius: 8px;
 		display: flex;
 		flex-direction: column;
-		padding: var(--spacing-6);
+		padding: var(--spacing-4);
 		background: var(--background-color);
 		color: var(--text-color);
 	}

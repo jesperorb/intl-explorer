@@ -3,10 +3,12 @@ import { writable } from 'svelte/store';
 
 type DarkMode = "dark" | "light";
 
+type HintKeys = "codeThemeHint" | "themeHint";
+
 type Setting<Value> = {
   type: "radio",
   values: Value[],
-  hint?: string;
+  hint?: HintKeys;
 }
 
 type SettingsConfiguration = {
@@ -18,16 +20,16 @@ export const settingsConfiguration: SettingsConfiguration = {
   codeTheme: {
     type: 'radio',
     values: ["dark", "light"],
-    hint: "Theme for Code Block: Oceanic Next/GitHub"
+    hint: "codeThemeHint"
   },
   theme: {
     type: 'radio',
     values: ["dark", "light"],
-    hint: "Page theme",
+    hint: "themeHint",
   }
 }
 
-type Settings = {
+export type Settings = {
   codeTheme: DarkMode;
   theme: DarkMode;
 }

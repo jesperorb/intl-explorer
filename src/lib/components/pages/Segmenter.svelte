@@ -12,6 +12,7 @@
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
 	import { tryFormat, print } from '$lib/utils/format-utils';
+	import { getMessages } from '$lib/i18n/util';
 
 	let sentence = 'This is a sentence.';
 	export let locale: string;
@@ -28,10 +29,12 @@
 		tryFormat(() =>
 			print(Array.from(new Intl.Segmenter(language, options).segment(input)))
 		);
+
+	const m = getMessages();
 </script>
 
 <PageLayout>
-	<Input slot="input" fullWidth id="list" label="List" bind:value={sentence} />
+	<Input slot="input" fullWidth id="list" label={m.list()} bind:value={sentence} />
 	<Grid slot="output">
 		{#each Object.entries(segmenterOptions) as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>

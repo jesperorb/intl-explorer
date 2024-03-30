@@ -13,6 +13,7 @@
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { tryFormat } from '$lib/utils/format-utils';
 	import Fieldset from '../ui/Fieldset.svelte';
+	import { getMessages } from '$lib/i18n/util';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -34,11 +35,13 @@
 	let dayValue = 2;
 	let style: Intl.RelativeTimeFormatStyle = 'long';
 	let numeric: 'always' | 'auto' = 'auto';
+
+	const m = getMessages();
 </script>
 
 <PageLayout>
 	<svelte:fragment slot="input">
-		<Input id="value" fullWidth label="Value" bind:value={dayValue} />
+		<Input id="value" fullWidth label={m.value()} bind:value={dayValue} />
 		<Fieldset legend="Style">
 			<Radio
 				value="long"

@@ -18,6 +18,7 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { tryFormat } from '$lib/utils/format-utils';
+	import { getMessages } from '$lib/i18n/util';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -39,24 +40,25 @@
 		number: number,
 		language: string,
 	) => tryFormat(() => new Intl.NumberFormat(language, options).format(number))
+
+	const m = getMessages();
 </script>
 
 <PageLayout>
 	<svelte:fragment slot="input">
 		<Select
 			name="unit"
-			placeholder="Select a unit"
-			label="Unit"
+			placeholder={m.selectUnit()}
+			label={m.unit()}
 			removeEmpty
 			fullWidth
 			bind:value={selectedUnit}
 			items={unitsAsEntries}
 		/>
-		<Input id="amount" fullWidth label="Amount" bind:value={number} />
+		<Input id="amount" fullWidth label={m.amount()} bind:value={number} />
 	</svelte:fragment>
 	<div slot="alternativeUse">
-		<code>Intl.NumberFormat</code>
-		can also be used from
+		{m.alternativeUseIngress({ method: "Intl.NumberFormat" })}
 		<strong
 			><a
 				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Page } from '@sveltejs/kit';
+	import * as m from "$paraglide/messages"
 
 	import { page } from '$app/stores';
 
@@ -87,11 +88,11 @@
 			on:click={openDrawer}
 			bind:this={openButton}
 		>
-			Menu
+			{m.menu()}
 		</button>
 		<div class="settings">
 			<button on:click={() => (showSettings = true)} aria-label="Settings" class="settings-button">
-				<span>Settings</span> <Settings />
+				<span>{m.settingsButton()}</span> <Settings />
 			</button>
 		</div>
 	</div>
@@ -106,12 +107,17 @@
 				bind:this={closeButton}
 				on:keydown={onCloseButtonShiftTab}
 			>
-				Close
+				{m.close()}
 			</button>
 		</div>
 		<Spacing />
 		<ul id="links">
-			<li class="last-item" class:active={path === '/'}><a href="/?locale={locale}">About</a></li>
+			<li
+				class="last-item"
+				class:active={path === '/'}
+			>
+				<a href="/?locale={locale}">{ m.about()}</a>
+			</li>
 			<li class="last-item">
 				<a href="/Playground?locale={locale}" class:active={path.includes('Playground')}
 				>Playground</a
@@ -133,7 +139,7 @@
 				</a>
 			</li>
 		{/each}
-			<li class="menu-heading">Meta</li>
+			<li class="menu-heading">{m.meta()}</li>
 			<li>
 				<a
 					class="github"

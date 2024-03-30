@@ -12,13 +12,15 @@
 	import BrowserSupportGrid from '$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte';
 	import Radio from '$lib/components/ui/Radio.svelte';
 	import { optionIsActive } from '$lib/playground/validate';
+	import { getMessages } from '$lib/i18n/util';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let support: BrowserSupportDataForOptions | undefined;
 	export let onChangeOption: (event: Event) => void;
+	const m = getMessages();
 </script>
 
-<h2>Options</h2>
+<h2>{m.options()}</h2>
 <Spacing size={2} />
 <div class="grid">
 	{#each schema.options as option}
@@ -68,7 +70,7 @@
 			{#if support?.[option.name]?.support}
 				<Spacing />
 				<Details>
-					<p slot="summary">Browser details</p>
+					<p slot="summary">{m.browserDetails()}</p>
 					<BrowserSupportGrid data={support[option.name]?.support} />
 				</Details>
 			{/if}
