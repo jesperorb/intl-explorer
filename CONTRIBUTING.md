@@ -9,6 +9,7 @@ Reading and following these guidelines will help us make the contribution proces
 - [Getting Started](#getting-started)
   - [Issues](#issues)
   - [Pull Requests](#pull-requests)
+  - [Adding Translations](#adding-translations)
 - [License](#license)
 
 ## Getting Started
@@ -38,6 +39,17 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 6. Push changes to your fork
 7. Open a PR in our repository and follow the PR template so that we can efficiently review the changes.
 
-### License
+## Adding Translations
+
+1. Fork and clone the repository to your local machine
+2. Create a new branch for your translation with the name `feat/translations/<language-code>` (e.g. `feat/translations/es`)
+3. Add your language code to the property `languageTags` to the file [./project.inlang/settings.json](./project.inlang/settings.json)
+4. Add a file with the name of your language code in the folder [./messages](./messages) (e.g. `es.json`)
+5. Copy contents of the file [./messages/en.json](./messages/en.json) to your new file and start translating the strings.
+6. Run project locally and check if your translations are working as expected.
+  - You can change language under "Settings" in the top right corner of the page.
+7. Commit your changes and push to your fork and open a PR to this repository.
+
+## License
 
 By contributing, you agree that your contributions will be licensed under its MIT License.

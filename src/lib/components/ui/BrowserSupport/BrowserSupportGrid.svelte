@@ -1,9 +1,15 @@
 <script lang="ts">
 	import type { BrowserReleaseData } from '$lib/types/BrowserSupport.types';
-	import { getAriaLabel } from './browser-support.util';
-	import SrOnly from '../SrOnly.svelte';
+	import SrOnly from '$lib/components/ui/SrOnly.svelte';
+	import { getMessages } from '$lib/i18n/util';
+	import type { VersionValue } from '@mdn/browser-compat-data';
 
 	export let data: Record<string, BrowserReleaseData> | null;
+	const m = getMessages();
+	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
+  	if (!versionAdded) return m.notAvailableInBrowser({ browserName })
+  	return m.availableInBrowser({ browserName, versionAdded });
+	};
 </script>
 
 {#if data}
@@ -25,7 +31,7 @@
 					<span>{browserData.browserName}</span>
 				</div>
 				<span class="browser-version" aria-hidden="true">
-					{!browserData.versionAdded ? 'No' : browserData.versionAdded}
+					{!browserData.versionAdded ? m.no() : browserData.versionAdded}
 				</span>
 			</div>
 		{/each}

@@ -3,20 +3,22 @@
 	import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
 	import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
+	import Grid from '$lib/components/ui/Grid.svelte';
 	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
 	import { selectedLocale } from '$lib/store/selected-locale';
-	import Grid from '$lib/components/ui/Grid.svelte';
+	import { getMessages } from '$lib/i18n/util';
+  const m = getMessages();
 </script>
 
 <Card>
-	<h2>Input</h2>
+	<h2>{m.input()}</h2>
 	<Spacing size={2} />
 	<hr />
 	<Spacing />
 	<Grid>
 		<ComboBoxContext>
 			<ComboBox
-				label="Locale"
+				label={m.locale()}
 				name="locale"
 				bind:value={$selectedLocale}
 				options={languageByLocaleAsComboBoxOptions}
@@ -30,7 +32,7 @@
 <Spacing />
 {#if $$slots.alternativeUse}
 	<Card>
-		<h2>Alternative use</h2>
+		<h2>{m.alternativeUseHeading()}</h2>
 		<Spacing />
 		<slot name="alternativeUse" />
 		<Spacing />
@@ -38,7 +40,7 @@
 	</Card>
 	<Spacing />
 {/if}
-<h2>Output</h2>
+<h2>{m.output()}</h2>
 <Spacing size={2} />
 <hr />
 <Spacing />

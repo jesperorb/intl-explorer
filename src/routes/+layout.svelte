@@ -3,6 +3,7 @@
 	import { dev, browser } from '$app/environment';
 	import type { FormatMethodsKeys } from '$lib/format-methods';
 	import { page, navigating } from '$app/stores';
+	import Provider from '$lib/i18n/Provider.svelte'
 
 	import Navigation from '$lib/components/ui/Navigation.svelte';
 	import Main from '$lib/components/ui/Main.svelte';
@@ -32,19 +33,21 @@
 	{/if}
 </svelte:head>
 
-<SkipLink />
+<Provider>
+	<SkipLink />
 
-<Navigation />
+	<Navigation />
 
-<Main>
-	{#if $navigating}
-		<ProgressBar />
-	{/if}
-	{#if routeId && routeId !== 'Playground'}
-		<Header header={routeId} />
-	{/if}
-	<slot />
-</Main>
+	<Main>
+		{#if $navigating}
+			<ProgressBar />
+		{/if}
+		{#if routeId && routeId !== 'Playground'}
+			<Header header={routeId} />
+		{/if}
+		<slot />
+	</Main>
+</Provider>
 
 <!-- Ignore -->
 <style global>

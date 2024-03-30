@@ -5,13 +5,15 @@
 	import OptionSection from '$lib/components/ui/OptionSection.svelte';
 	import type { BrowserSupportDataForOptions } from '$lib/types/BrowserSupport.types';
 	import Card from '$lib/components/ui/Card.svelte';
-
+	import { getMessages } from '$lib/i18n/util';
+	
 	export let secondaryFormatters: { name: string; output: string }[];
 	export let support: BrowserSupportDataForOptions | undefined = undefined;
+	const m = getMessages();
 </script>
 
 {#if secondaryFormatters.length}
-	<h2>Secondary Formatters</h2>
+	<h2>{m.secondaryFormatters()}</h2>
 	<Spacing />
 	{#each secondaryFormatters as formatter}
 	<Card>

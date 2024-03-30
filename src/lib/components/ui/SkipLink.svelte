@@ -1,4 +1,10 @@
-<a class="skip-link" href="#main">Skip to content</a>
+<script lang="ts">
+	import { getMessages } from "$lib/i18n/util";
+
+	const m = getMessages();
+</script>
+
+<a class="skip-link" href="#main">{m.skipLink()}</a>
 
 <style>
 	.skip-link {

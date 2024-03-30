@@ -1,9 +1,12 @@
 <script lang="ts">
 	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import { getMessages } from "$lib/i18n/util";
 
 	export let defaultValue: string;
 	export let onChange: (datetime: string) => void;
 	export let fullWidth: boolean | undefined = undefined;
+
+	const m = getMessages();
 
 	const [date, time] = defaultValue.split('T');
 
@@ -22,12 +25,12 @@
 
 <div class="datetime" class:fullWidth={fullWidth}>
 	<div class="date">
-		<label for="date">Date</label>
+		<label for="date">{m.date()}</label>
 		<Spacing size={1} /> 
 		<input type="date" id="date" on:input={onChangeDate} value={dateString} />
 	</div>
 	<div class="time">
-		<label for="time">Time</label>
+		<label for="time">{m.time()}</label>
 		<Spacing size={1} /> 
 		<input type="time" id="time" on:input={onChangeTime} value={timeString} />
 	</div>

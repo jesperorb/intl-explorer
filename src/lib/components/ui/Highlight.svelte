@@ -3,7 +3,10 @@
   import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
   import CopyButton from '$lib/components/ui/CopyButton.svelte';
 	import Token from '$lib/components/ui/Highlight/Token.svelte';
+	import { getMessages } from '$lib/i18n/util';
 	type OptionValues = { [key: string]: number | boolean | string };
+
+	const m = getMessages();
 
 	export let values: OptionValues;
 	export let output: string;
@@ -12,9 +15,9 @@
 		onClick(values);
 	};
 	const formatAriaLabelForCopyButton = (values: OptionValues) => {
-		const valuesAsReadbleString = Object.entries(values)
-			.map(([key, value]) => `${key} equals ${value}`)
-		return `Copy code for options: ${new Intl.ListFormat().format(valuesAsReadbleString)}`;
+		const code = Object.entries(values)
+			.map(([key, value]) => `${key} ${m.equals()} ${value}`)
+		return m.copyCodeAriaLabel({ code });
 	};
 </script>
 

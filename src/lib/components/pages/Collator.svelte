@@ -11,9 +11,12 @@
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { tryFormat } from '$lib/utils/format-utils';
+	import { getMessages } from '$lib/i18n/util';
 
 	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
+
+	const m = getMessages();
 
 	let list = 'Z,a,z,ä,1,=,à';
 
@@ -26,7 +29,7 @@
 </script>
 
 <PageLayout>
-	<Input slot="input" id="list" fullWidth label="List" bind:value={list} />
+	<Input slot="input" id="list" fullWidth label={m.list()} bind:value={list} />
 	<Grid slot="output">
 		{#each Object.entries(collatorFormatOptions) as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
