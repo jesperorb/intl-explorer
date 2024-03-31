@@ -32,7 +32,7 @@
 		flex-direction: column;
 		gap: var(--spacing-2);
 	}
-	@media screen and (min-width: 500px) {
+	@media screen and (min-width: 900px) {
     .header {
 			flex-direction: row;
     }

@@ -12,18 +12,28 @@
 
 {#if data}
 	<Details fullWidth={false}>
-		<div slot="summary" class="summary">
-			<p>{m.browserSupport()}</p>
-			<SupportLabel bind:support={data.coverage} {hideFullSupport} />
-		</div>
+		<svelte:fragment slot="summary">
+			<div class="header">
+				<p>{m.browserSupport()}</p>
+				<SupportLabel bind:support={data.coverage} {hideFullSupport} />
+			</div>
+		</svelte:fragment>
 		<BrowserSupportGrid bind:data={data.support} />
 	</Details>
 {/if}
 
 <style>
-	.summary {
+	.header {
+		width: 100%;
 		display: flex;
-		gap: var(--spacing-4);
-		margin-right: var(--spacing-4);
+		flex-direction: column;
+		justify-content: space-between;
 	}
+	@media screen and (min-width: 500px) {
+    .header {
+			flex-direction: row;
+			align-items: center;
+			gap: var(--spacing-2);
+    }
+  }
 </style>
