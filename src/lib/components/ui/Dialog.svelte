@@ -1,10 +1,14 @@
 <script lang="ts">
 	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Button from "$lib/components/ui/Button.svelte";
+	import { getMessages } from "$lib/i18n/util";
 
 	export let show: boolean;
 	export let header: string;
 
 	let dialog: HTMLDialogElement;
+
+	const m = getMessages();
 
 	$: if (dialog && show) dialog.showModal();
 </script>
@@ -21,7 +25,7 @@
 		<h2 tabindex="-1" autofocus>{header}</h2>
 		<Spacing />
 		<slot />
-		<button on:click={() => dialog.close()}>Close</button>
+		<Button onClick={() => dialog.close()}>{m.close()}</Button>
 	</div>
 </dialog>
 
@@ -65,20 +69,5 @@
 
 	dialog[open] {
 		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-	}
-	button {
-		border: none;
-		background: none;
-		text-transform: uppercase;
-		font-weight: bold;
-		cursor: pointer;
-		margin-left: auto;
-		padding: var(--spacing-2) var(--spacing-3);
-		border-radius: 4px;
-		color: var(--text-color);
-	}
-
-	button:hover {
-    outline: 1px solid var(--text-color);
 	}
 </style>

@@ -13,6 +13,7 @@
 	import Spacing from './Spacing.svelte';
 	import Settings from './icons/Settings.svelte';
 	import SettingsDialog from './SettingsDialog.svelte';
+	import Button from './Button.svelte';
 
 	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
 
@@ -78,37 +79,37 @@
 
 <nav aria-label="Main Menu" data-testid={testIds.navigation}>
 	<div class="actions">
-		<button
+		<Button
 			type="button"
 			id="openMenuButton"
-			class="nav-button"
-			aria-label="Open navigation"
-			aria-controls="links"
-			aria-expanded="false"
-			on:click={openDrawer}
-			bind:this={openButton}
+			ariaLabel="Open navigation"
+			ariaControls="links"
+			ariaExpanded="false"
+			onClick={openDrawer}
+			bind:ref={openButton}
+			textTransform="uppercase"
 		>
 			{m.menu()}
-		</button>
+		</Button>
 		<div class="settings">
-			<button on:click={() => (showSettings = true)} aria-label="Settings" class="settings-button">
-				<span>{m.settingsButton()}</span> <Settings />
-			</button>
+			<Button onClick={() => (showSettings = true)} ariaLabel="Settings" textTransform="uppercase">
+				<span class="mr-2">{m.settingsButton()}</span> <Settings />
+			</Button>
 		</div>
 	</div>
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="drawer" class:drawer--open={open} on:keydown={onKeyDown} on:click={onClick}>
 		<div class="drawer__top">
-			<button
+			<Button
 				type="button"
 				id="closeMenuButton"
-				class="close-button"
-				on:click={closeDrawer}
-				bind:this={closeButton}
-				on:keydown={onCloseButtonShiftTab}
+				onClick={closeDrawer}
+				bind:ref={closeButton}
+				onKeyDown={onCloseButtonShiftTab}
+				textTransform="uppercase"
 			>
 				{m.close()}
-			</button>
+			</Button>
 		</div>
 		<Spacing />
 		<ul id="links">
@@ -190,47 +191,6 @@
 		align-items: center;
 		gap: var(--spacing-2);
 	}
-	.nav-button {
-		border: none;
-		padding: var(--spacing-2) var(--spacing-3);
-		background: none;
-		text-transform: uppercase;
-		font-weight: bold;
-		cursor: pointer;
-		font-size: 1.25rem;
-		color: var(--text-color);
-	}
-	.nav-button:hover, .close-button:hover, .settings-button:hover {
-		border-radius: 4px;
-    outline: 1px solid var(--text-color);
-	}
-	.close-button {
-		border: none;
-		background: none;
-		text-transform: uppercase;
-		font-weight: bold;
-		cursor: pointer;
-		margin-left: auto;
-		padding: var(--spacing-2) var(--spacing-3);
-		border-radius: 4px;
-		color: var(--text-color);
-	}
-	.settings-button {
-		border: none;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background: none;
-		text-transform: uppercase;
-		font-weight: bold;
-		cursor: pointer;
-		font-size: 1.25rem;
-		color: var(--text-color);
-		padding: var(--spacing-2) var(--spacing-3);
-	}
-	.settings-button span {
-		margin-right: var(--spacing-2);
-	}
 	.menu-heading, .route {
 		margin-bottom: var(--spacing-1);
 	}
@@ -242,5 +202,8 @@
 	}
 	.active {
 		font-weight: bold;
+	}
+	.mr-2 {
+		margin-right: var(--spacing-2);
 	}
 </style>
