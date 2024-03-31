@@ -11,8 +11,10 @@
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
 
-	let routeId: FormatMethodsKeys | 'Playground';
+	let routeId: FormatMethodsKeys | 'Playground' | "/";
+	$: isHomePage = false;
 	const getRouteId = (page: Page<Record<string, string>>): void => {
+		isHomePage = page.route.id === "/";
 		routeId = page.route.id?.replace('/', '') as FormatMethodsKeys;
 		if(browser) {
 			document.querySelector("h1")?.setAttribute("tabIndex", "-1");
@@ -38,7 +40,7 @@
 
 	<Navigation />
 
-	<Main>
+	<Main bind:center={isHomePage}>
 		{#if $navigating}
 			<ProgressBar />
 		{/if}
