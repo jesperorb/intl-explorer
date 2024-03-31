@@ -10,14 +10,17 @@
 
 	import type { PageData } from './$types';
   import DisplayNames from '$lib/components/pages/DisplayNames.svelte';
+	import { settings } from '$lib/store/settings';
 	export let data: PageData;
 
 	const locale = getLocaleForSSR($page);
 
 </script>
 
-<BrowserSupport {data} />
-<Spacing />
+{#if $settings.showBrowserSupport}
+	<BrowserSupport {data} />
+	<Spacing />
+{/if}
 
 {#if browser}
 	<DisplayNames bind:locale={$selectedLocale} />

@@ -51,6 +51,8 @@
   "selectUnit": "Select a unit",
   "settingsButton": "Settings",
   "settingsHeading": "Settings",
+  "showBrowserSupport": "Show Browser Support",
+  "showBrowserSupportHint": "Toggle to hide or show Browser Details/Support",
   "skipLink": "Skip to content",
   "specification": "Specification",
   "theme": "Theme",

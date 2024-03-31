@@ -10,18 +10,22 @@
   import { selectedLocale } from '$lib/store/selected-locale';
 
 	import type { PageData } from './$types';
+	import { settings } from '$lib/store/settings';
 	export let data: PageData;
 
 	const locale = getLocaleForSSR($page);
 
+	let browserCompatData = $settings.showBrowserSupport ? data : null;
 </script>
 
-<BrowserSupport {data} />
-<Spacing />
+{#if $settings.showBrowserSupport}
+	<BrowserSupport {data} />
+	<Spacing />
+{/if}
 
 {#if browser}
-	<PluralRules browserCompatData={data}  bind:locale={$selectedLocale} />
+	<PluralRules {browserCompatData}  bind:locale={$selectedLocale} />
 {:else}
-	<PluralRules browserCompatData={data} {locale} />
+	<PluralRules {browserCompatData} {locale} />
 {/if}
 

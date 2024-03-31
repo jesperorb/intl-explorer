@@ -6,6 +6,7 @@
 	import type { BrowserSupportDataForOptions } from '$lib/types/BrowserSupport.types';
 	import Card from '$lib/components/ui/Card.svelte';
 	import { getMessages } from '$lib/i18n/util';
+	import { settings } from '$lib/store/settings';
 	
 	export let secondaryFormatters: { name: string; output: string }[];
 	export let support: BrowserSupportDataForOptions | undefined = undefined;
@@ -17,7 +18,11 @@
 	<Spacing />
 	{#each secondaryFormatters as formatter}
 	<Card>
-		<OptionSection header={formatter.name} support={support?.[formatter.name]} hideFullSupport={false}>
+		<OptionSection
+			header={formatter.name}
+			support={$settings.showBrowserSupport ?  support?.[formatter.name] : undefined}
+			hideFullSupport={false}
+		>
 			<Spacing />
 			<Highlight language={typescript} code={formatter.output} />
 		</OptionSection>

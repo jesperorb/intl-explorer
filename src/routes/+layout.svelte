@@ -54,6 +54,7 @@
 <!-- Ignore -->
 <style global>
 	:root {
+		--blue-black: hsl(202, 32%, 15%);
 		--dark-black: hsl(0, 100%, 2%);
 		--black: hsl(276, 100%, 12%);
 		--white: hsl(0, 100%, 100%);
@@ -64,7 +65,6 @@
 		--gray: hsl(0, 0%, 60%);
 		--lightgray: hsl(0, 0%, 80%);
 		--lightergray: hsl(0, 0%, 90%);
-		--purple: hsl(276, 67%, 74%);
 		--teal: hsl(169, 56%, 68%);
 		--green: hsl(114, 31%, 68%);
 		--darkgreen: hsl(114, 31%, 39%);
@@ -74,23 +74,37 @@
 		--lighteryellow: #fac863;
 		--lightyellow: hsl(40, 94%, 50%);
 		--yellow: hsl(40, 94%, 32%);
-		--light-purple: hsl(276, 100%, 98%);
-		--highlight: #0066ff;
+		--highlight: hsl(216, 100%, 50%);
+		--purple1: hsl(276, 100%, 98%);
+		--purple2: hsl(276, 50%, 92%);
+		--purple3: hsl(276, 50%, 89%);
+		--purple4: hsl(276, 50%, 80%);
+		--purple5: hsl(276, 67%, 74%);
 
 		--text-color: var(--black);
-		--accent-background-color: var(--light-purple);
+		--accent-background-color: var(--purple1);
+		--link-underline-color: var(--purple5);
 		--background-color: var(--white);
-		--link-underline-color: var(--purple);
 		--border-color: var(--lightgray);
 		--divider-color: var(--lightergray);
 		--card-color: var(--background-color);
 
+		--button-background-color: var(--purple2);
+		--button-border-color: var(--purple3);
+		--button-background-hover-color: var(--purple3);
+		--button-text-color: var(--black);
+		--button-no-background-text-color: var(--black);
+
+		--radio-checked-color: var(--purple4);
+
+		--progress-bar-color: var(--purple4);
+
 		--code-comment-color: var(--gray);
 		--code-text-color: var(--white);
-		--code-block-background: #1b2b34;
+		--code-block-background: var(--blue-black);
 
 		--comment: var(--gray);
-		--punctuation: var(--purple);
+		--punctuation: var(--purple5);
 		--operator: var(--teal);
 		--key: var(--white);
 		--function: var(--light-blue);
@@ -128,6 +142,12 @@
 			--card-color: var(--darkergray);
 			--yellow: var(--lightyellow);
 			--darkgreen: var(--green);
+
+			--button-no-background-text-color: var(--white);
+			--button-background-color: var(--purple2);
+			--button-border-color: var(--purple3);
+			--button-background-hover-color: var(--purple3);
+			--button-text-color: var(--black);
 		}
 	}
 	[data-dark-mode] {
@@ -140,6 +160,12 @@
 		--card-color: var(--dark-black);
 		--yellow: var(--lightyellow);
 		--darkgreen: var(--green);
+
+		--button-no-background-text-color: var(--white);
+		--button-background-color: var(--blue-black);
+		--button-border-color: var(--darkgray);
+		--button-background-hover-color: var(--blue-black);
+		--button-text-color: var(--white);
 	}
 	[data-code-light-mode] {
 		--code-text-color: var(--black);

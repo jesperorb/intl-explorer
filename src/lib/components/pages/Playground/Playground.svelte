@@ -33,6 +33,7 @@
 	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import { getMessages } from '$lib/i18n/util';
+	import { settings } from '$lib/store/settings';
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 	export let locale: string;
@@ -43,7 +44,9 @@
 	$: isDesktop = Boolean(matchMedia?.matches);
 
 	$: schema = validateAndUpdateSchema(numberFormatSchema);
-	$: browserSupportData = schema ? { ...data[schema.method] } : { ...data.NumberFormat };
+	$: browserSupportData = schema
+		? { ...data[schema.method] }
+		: { optionsSupport: undefined, formattersSupport: undefined };
 
 	onMount(() => {
 		if (getSchemaParam()) {
@@ -123,7 +126,9 @@
 		<div class="main">
 			<Header header="Playground" link={schema.method} />
 			<Grid>
-				<BrowserSupport bind:data={browserSupportData} />
+				{#if $settings.showBrowserSupport}
+					<BrowserSupport bind:data={browserSupportData} />	
+				{/if}
 				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
 			<Spacing />

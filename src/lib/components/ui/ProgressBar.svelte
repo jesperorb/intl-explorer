@@ -8,7 +8,7 @@
   height: 4px;
 	width: 100%;
 	display: block;
-  background-color: var(--purple);
+  background-color: var(--progress-bar-color);
   background-image: linear-gradient(
     -45deg,
     rgba(255, 255, 255, 0.2) 25%,

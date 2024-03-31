@@ -10,18 +10,23 @@
 
 	import type { PageData } from './$types';
 	import DurationFormat from '$lib/components/pages/DurationFormat.svelte';
+	import { settings } from '$lib/store/settings';
 	export let data: PageData;
 
 	const locale = getLocaleForSSR($page);
 
+	let browserCompatData = $settings.showBrowserSupport ? data : null;
+
 </script>
 
-<BrowserSupport {data} />
-<Spacing />
+{#if $settings.showBrowserSupport}
+	<BrowserSupport {data} />
+	<Spacing />
+{/if}
 
 {#if browser}
-	<DurationFormat browserCompatData={data} bind:locale={$selectedLocale} />
+	<DurationFormat {browserCompatData} bind:locale={$selectedLocale} />
 {:else}
-	<DurationFormat browserCompatData={data} {locale} />
+	<DurationFormat {browserCompatData} {locale} />
 {/if}
 

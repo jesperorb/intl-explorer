@@ -6,7 +6,10 @@
     settings,
     settingsConfiguration,
     settingsKeys,
-    type Settings
+    type Settings,
+
+		type DarkMode
+
   } from '$lib/store/settings';
 	
   import { availableLanguageTags, languageTag } from "$paraglide/runtime";
@@ -22,6 +25,7 @@
 	import { selectedLocale } from "$lib/store/selected-locale";
 	import { getLocaleForSSR } from "$lib/utils/get-locale";
 	import Button from "./Button.svelte";
+	import Checkbox from "./Checkbox.svelte";
 
   export let show: boolean;
 
@@ -32,9 +36,11 @@
 
   const onChange = (event: Event) => {
     const target = event.target as HTMLInputElement
+    const isCheckBox = target.type === 'checkbox';
+    const value = isCheckBox ? target.checked : target.value;
     settings.update((s) => ({
       ...s,
-      [target.name]: target.value,
+      [target.name]: value,
     }))
   }
 
@@ -42,6 +48,20 @@
     const hintKey = settingsConfiguration[key].hint;
     if(!hintKey) return "";
     return m[hintKey]()
+  }
+
+  const getLabel = (value: boolean | DarkMode) => {
+    if(typeof value === "boolean") {
+      return "";
+    }
+    return m[value]()
+  }
+
+  export const getValue = (value: boolean | DarkMode) => {
+    if(typeof value === "boolean") {
+      return ""
+    }
+    return value;
   }
 
   const formatTag = (tag: string) => {
@@ -70,14 +90,23 @@
             {#each settingsConfiguration[key].values as option}
               <Radio
                 onChange={onChange}
-                label={m[option]()}
+                label={getLabel(option)}
                 id={key + option}
                 name={key}
-                value={option}
+                value={getValue(option)}
                 bind:group={$settings[key]}
               />
             {/each}
           </Fieldset>
+        {/if}
+        {#if settingsConfiguration[key].type === "checkbox"}
+          <Checkbox
+            id={key}
+            onChange={onChange}
+            checked={Boolean($settings[key])}
+            label={m[key]()}
+            name={key}
+          />
         {/if}
         {#if settingsConfiguration[key].hint}
           <Spacing size={2} />

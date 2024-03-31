@@ -10,6 +10,7 @@
 	import { settings } from '$lib/store/settings';
 
 	export let data: Record<string, BrowserSupportDataForMethod>;
+	
 </script>
 
 <svelte:head>

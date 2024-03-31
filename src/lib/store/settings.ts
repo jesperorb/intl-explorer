@@ -1,12 +1,12 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
-type DarkMode = "dark" | "light";
+export type DarkMode = "dark" | "light";
 
-type HintKeys = "codeThemeHint" | "themeHint";
+type HintKeys = "codeThemeHint" | "themeHint" | "showBrowserSupportHint";
 
 type Setting<Value> = {
-  type: "radio",
+  type: "radio" | "checkbox",
   values: Value[],
   hint?: HintKeys;
 }
@@ -14,6 +14,7 @@ type Setting<Value> = {
 type SettingsConfiguration = {
   codeTheme: Setting<DarkMode>
   theme: Setting<DarkMode>
+  showBrowserSupport: Setting<boolean>;
 }
 
 export const settingsConfiguration: SettingsConfiguration = {
@@ -26,17 +27,24 @@ export const settingsConfiguration: SettingsConfiguration = {
     type: 'radio',
     values: ["dark", "light"],
     hint: "themeHint",
+  },
+  showBrowserSupport: {
+    type: 'checkbox',
+    values: [true],
+    hint: "showBrowserSupportHint",
   }
 }
 
 export type Settings = {
   codeTheme: DarkMode;
   theme: DarkMode;
+  showBrowserSupport: boolean;
 }
 
 const defaultSettings: Settings  = {
   codeTheme: "dark",
-  theme: 'light'
+  theme: 'light',
+  showBrowserSupport: true
 }
 
 export const settingsKeys = Object.keys(defaultSettings) as (keyof Settings)[]
