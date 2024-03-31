@@ -88,11 +88,17 @@
 			onClick={openDrawer}
 			bind:ref={openButton}
 			textTransform="uppercase"
+			noBackground
 		>
 			{m.menu()}
 		</Button>
 		<div class="settings">
-			<Button onClick={() => (showSettings = true)} ariaLabel="Settings" textTransform="uppercase">
+			<Button
+				onClick={() => (showSettings = true)}
+				ariaLabel="Settings"
+				textTransform="uppercase"
+				noBackground
+			>
 				<span class="mr-2">{m.settingsButton()}</span> <Settings />
 			</Button>
 		</div>
@@ -107,6 +113,7 @@
 				bind:ref={closeButton}
 				onKeyDown={onCloseButtonShiftTab}
 				textTransform="uppercase"
+				noBackground
 			>
 				{m.close()}
 			</Button>

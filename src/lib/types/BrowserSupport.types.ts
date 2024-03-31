@@ -9,8 +9,8 @@ export type BrowserReleaseData = {
 };
 
 export type BrowserSupportForOption = {
-	coverage: BrowserCoverage;
-	support: Record<string, BrowserReleaseData>
+	coverage?: BrowserCoverage;
+	support?: Record<string, BrowserReleaseData>
 }
 
 export type BrowserSupportDataForOptions = Record<string, BrowserSupportForOption>;
@@ -18,8 +18,8 @@ export type BrowserSupportDataForOptions = Record<string, BrowserSupportForOptio
 export type BrowserSupportDataForMethod = {
 	specUrl?: string | string[];
 	mdnUrl?: string;
-	support: Record<string, BrowserReleaseData>;
-	coverage: BrowserCoverage;
+	support?: Record<string, BrowserReleaseData>;
+	coverage?: BrowserCoverage;
 	optionsSupport?: BrowserSupportDataForOptions;
 	formattersSupport?: BrowserSupportDataForOptions;
 };

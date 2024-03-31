@@ -4,7 +4,7 @@
 	import { getMessages } from '$lib/i18n/util';
 	import type { VersionValue } from '@mdn/browser-compat-data';
 
-	export let data: Record<string, BrowserReleaseData> | null;
+	export let data: Record<string, BrowserReleaseData> | undefined;
 	const m = getMessages();
 	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
   	if (!versionAdded) return m.notAvailableInBrowser({ browserName })

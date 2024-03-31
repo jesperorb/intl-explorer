@@ -7,6 +7,7 @@
   import Spacing from '$lib/components/ui/Spacing.svelte';
 
   import { selectedLocale } from '$lib/store/selected-locale';
+	import { settings } from '$lib/store/settings';
   import { getLocaleForSSR } from '$lib/utils/get-locale';
 
 	import type { PageData } from './$types';
@@ -14,14 +15,18 @@
 
 	const locale = getLocaleForSSR($page);
 
+	let browserCompatData = $settings.showBrowserSupport ? data : null;
+
 </script>
 
-<BrowserSupport {data} />
-<Spacing />
+{#if $settings.showBrowserSupport}
+	<BrowserSupport {data} />
+	<Spacing />
+{/if}
 
 {#if browser}
-	<DateTimeFormat browserCompatData={data}  bind:locale={$selectedLocale} />
+	<DateTimeFormat {browserCompatData}  bind:locale={$selectedLocale} />
 {:else}
-	<DateTimeFormat browserCompatData={data} {locale} />
+	<DateTimeFormat {browserCompatData} {locale} />
 {/if}
 

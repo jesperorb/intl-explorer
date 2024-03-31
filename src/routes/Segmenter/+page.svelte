@@ -9,17 +9,20 @@
   import { getLocaleForSSR } from '$lib/utils/get-locale';
 
 	import type { PageData } from './$types';
+	import { settings } from '$lib/store/settings';
 	export let data: PageData;
 
 	const locale = getLocaleForSSR($page);
+	let browserCompatData = $settings.showBrowserSupport ? data : null;
 
 </script>
-
-<BrowserSupport {data} />
-<Spacing />
+{#if $settings.showBrowserSupport}
+	<BrowserSupport {data} />
+	<Spacing />
+{/if}
 
 {#if browser}
-	<Segmenter browserCompatData={data} bind:locale={$selectedLocale} />
+	<Segmenter {browserCompatData} bind:locale={$selectedLocale} />
 {:else}
-	<Segmenter browserCompatData={data} {locale} />
+	<Segmenter {browserCompatData} {locale} />
 {/if}

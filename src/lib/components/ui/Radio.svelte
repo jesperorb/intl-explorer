@@ -16,7 +16,7 @@
 <style>
   :root {
   --radio-border-color: var(--border-color);
-  --radio-checked-color: var(--purple);
+  --radio-checked-color: var(--radio-checked-color);
   --radio-hover-color: var(--lightergray);
   --radio-disabled-bg-color: var(--lightergray);
   }

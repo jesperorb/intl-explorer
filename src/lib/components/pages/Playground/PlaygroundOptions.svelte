@@ -13,6 +13,7 @@
 	import Radio from '$lib/components/ui/Radio.svelte';
 	import { optionIsActive } from '$lib/playground/validate';
 	import { getMessages } from '$lib/i18n/util';
+	import { settings } from '$lib/store/settings';
 
 	export let schema: PlaygroundSchema<'NumberFormat'>;
 	export let support: BrowserSupportDataForOptions | undefined;
@@ -29,7 +30,7 @@
 			option={option.name}
 			onChange={onChangeOption}
 			hideFullSupport
-			support={support?.[option.name]?.coverage}
+			support={$settings.showBrowserSupport ? support?.[option.name]?.coverage : undefined}
 		>
 			{#if option.inputType === 'select'}
 				<Select
@@ -67,7 +68,7 @@
 					{/each}
 				</div>
 			{/if}
-			{#if support?.[option.name]?.support}
+			{#if support?.[option.name]?.support && $settings.showBrowserSupport}
 				<Spacing />
 				<Details>
 					<p slot="summary">{m.browserDetails()}</p>

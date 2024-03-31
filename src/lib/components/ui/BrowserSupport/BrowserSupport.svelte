@@ -5,7 +5,7 @@
 	import SupportLabel from './SupportLabel.svelte';
 	import { getMessages } from '$lib/i18n/util';
 
-	export let data: BrowserSupportForOption | null;
+	export let data: BrowserSupportForOption | undefined;
 	export let hideFullSupport: boolean | undefined = undefined;
 	const m = getMessages();
 </script>

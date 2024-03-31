@@ -19,6 +19,7 @@
 				label="{option} active"
 				name="{option}_active"
 				id="{option}_active"
+				srOnlyLabel
 				{checked}
 				{onChange}
 			/>
