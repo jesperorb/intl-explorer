@@ -89,11 +89,6 @@
 			grid-template-columns: 1fr 1fr;
 		}
 	}
-	h2 {
-		font-size: 1.25rem;
-		display: inline-block;
-	}
-
 	.radios {
 		display: flex;
 		align-items: center;

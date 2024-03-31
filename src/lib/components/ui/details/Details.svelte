@@ -44,6 +44,8 @@
 
 	.summary-title {
 		user-select: none;
+    width: 100%;
+    margin-right: var(--spacing-2);
 	}
   .summary-icon {
     pointer-events: none;

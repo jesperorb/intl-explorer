@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+
 	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-
+	
 	import Highlight from 'svelte-highlight';
 	import typescript from 'svelte-highlight/languages/typescript';
 
@@ -25,17 +27,20 @@
 	import { validateAndUpdateSchema } from '$lib/playground/validate';
 	import { copyCode, copyToClipboard } from '$lib/utils/copy-to-clipboard';
 	import { schemas, type SchemaKeys } from '$lib/playground/schemas';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
 	import { trackEvent } from '$lib/utils/analytics';
 	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import { getMessages } from '$lib/i18n/util';
 
-  const m = getMessages();
-
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 	export let locale: string;
+
+	const m = getMessages();
+
+	const matchMedia = browser ? window.matchMedia('(min-width: 630px)') : null;
+	$: isDesktop = Boolean(matchMedia?.matches);
 
 	$: schema = validateAndUpdateSchema(numberFormatSchema);
 	$: browserSupportData = schema ? { ...data[schema.method] } : { ...data.NumberFormat };
@@ -96,6 +101,21 @@
 			method: schema.method
 		});
 	};
+
+	const onMatchMediaChange = (event: MediaQueryListEventMap['change']) => {
+		isDesktop = event.matches;
+	};
+
+	onMount(() => {
+		if (browser && matchMedia) {
+			matchMedia.addEventListener('change', onMatchMediaChange);
+		}
+	});
+	onDestroy(() => {
+		if (browser && matchMedia) {
+			matchMedia.removeEventListener('change', onMatchMediaChange);
+		}
+	});
 </script>
 
 {#if schema}
@@ -109,19 +129,7 @@
 			<Spacing />
 			<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />
 			<Spacing />
-			<PlaygroundOptions
-				bind:support={browserSupportData.optionsSupport}
-				{schema}
-				{onChangeOption}
-			/>
-			<Spacing />
-			<PlaygroundSecondaryFormatters
-				bind:support={browserSupportData.formattersSupport}
-				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale)}
-			/>
-		</div>
-		<div class="output">
-			<div class="output-inner">
+			{#if !isDesktop}
 				<h2>{m.output()}</h2>
 				<Spacing size={2} />
 				<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
@@ -135,14 +143,51 @@
 				<div class="copy-code">
 					<Button onClick={copy}>{m.copyCode()} <CopyToClipboard /></Button>
 				</div>
-				<Spacing size={2} />
+			{/if}
+			<PlaygroundOptions
+				bind:support={browserSupportData.optionsSupport}
+				{schema}
+				{onChangeOption}
+			/>
+			<Spacing />
+			{#if !isDesktop}
 				<h2>{m.resolvedOptions()}</h2>
 				<Spacing size={2} />
 				<div>
 					<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
 				</div>
-			</div>
+			{/if}
+			<Spacing />
+			<PlaygroundSecondaryFormatters
+				bind:support={browserSupportData.formattersSupport}
+				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale)}
+			/>
 		</div>
+		{#if isDesktop}
+			<div class="output">
+				<div class="output-inner">
+					<h2>{m.output()}</h2>
+					<Spacing size={2} />
+					<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
+					<Spacing />
+					<h2>{m.code()}</h2>
+					<Spacing size={2} />
+					<div class="highlight">
+						<Highlight language={typescript} code={schemaToCode(schema, locale)} />
+					</div>
+					<Spacing size={2} />
+					<div class="copy-code">
+						<Button onClick={copy}>{m.copyCode()} <CopyToClipboard /></Button>
+					</div>
+					<Spacing size={2} />
+					<h2>{m.resolvedOptions()}</h2>
+					<Spacing size={2} />
+					<div>
+						<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
+					</div>
+				</div>
+			</div>	
+		{/if}
 	</div>
 {/if}
 
@@ -151,7 +196,6 @@
 		padding-right: 0;
 	}
 	.output {
-		padding: var(--spacing-4);
 		padding-top: var(--spacing-5);
 		border-top-left-radius: 4px;
 	}
@@ -161,9 +205,14 @@
 	}
 	.columns {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr;
 		gap: var(--spacing-4);
 		position: relative;
+	}
+	@media screen and (min-width: 630px) {
+		.columns {
+			grid-template-columns: 1fr 1fr;
+		}
 	}
 	@media screen and (min-width: 900px) {
 		.columns {
