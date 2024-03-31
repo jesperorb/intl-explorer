@@ -21,6 +21,7 @@
 	import Select from "./Select.svelte";
 	import { selectedLocale } from "$lib/store/selected-locale";
 	import { getLocaleForSSR } from "$lib/utils/get-locale";
+	import Button from "./Button.svelte";
 
   export let show: boolean;
 
@@ -41,6 +42,21 @@
     const hintKey = settingsConfiguration[key].hint;
     if(!hintKey) return "";
     return m[hintKey]()
+  }
+
+  const formatTag = (tag: string) => {
+    try {
+      return  new Intl.DisplayNames(tag, { type: "language" }).of(tag)
+    } catch(_e: unknown) {
+      return tag;
+    }
+  }
+
+  const formatLanguages = () => {
+    return availableLanguageTags.map(tag => [
+      tag,
+      formatTag(tag)
+    ])
   }
 
 </script>
@@ -65,7 +81,7 @@
         {/if}
         {#if settingsConfiguration[key].hint}
           <Spacing size={2} />
-          <p class="hint">{getHint(key)}</p>
+          <p>{getHint(key)}</p>
         {/if}
       </Card>
     {/each}
@@ -78,14 +94,14 @@
       removeEmpty
       fullWidth
       bind:value={language}
-      items={availableLanguageTags.map(tag => [tag, tag])}
+      items={formatLanguages()}
     />
     <Spacing size={2} />
     <p>{m.languageHint()}</p>
     <Spacing />
-    <a href={`${i18n.route($page.url.pathname)}?locale=${locale}`} hreflang={language}>
+    <Button href={`${i18n.route($page.url.pathname)}?locale=${locale}`} hrefLang={language}>
       {m.confirmLanguage()}
-    </a>
+    </Button>
   </Card>
   <Spacing />
 </Dialog>
@@ -97,20 +113,4 @@
 		gap: var(--spacing-2);
     min-width: 20rem;
 	}
-
-  .hint {
-    font-style: italic;
-  }
-  a {
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-		padding: var(--spacing-2) var(--spacing-3);
-		background: none;
-		cursor: pointer;
-		color: var(--text-color);
-  }
-  a:hover {
-    background-color: var(--accent-background-color);
-    border: 1px solid var(--text-color);
-  }
 </style>
