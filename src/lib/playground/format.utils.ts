@@ -6,7 +6,7 @@ import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
 import { formatOptions } from "$lib/format-options";
 import { durationValues } from "$lib/format-options/duration-format.options";
 import { optionIsActive } from "./validate";
-import { clampValue, fallbackDisplayNames, tryFormat, print } from "$lib/utils/format-utils";
+import { clampValue, fallbackDisplayNames, tryFormat, print, formatLocalesForPrint } from "$lib/utils/format-utils";
 
 export const updateOptionOnSchema = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
@@ -102,7 +102,7 @@ export const prepareInputValues = <Method extends FormatMethodsKeys>(
 
 export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
-	locale: string,
+	locale: string[],
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
 	return tryFormat(() => {
@@ -127,7 +127,7 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 
 export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
-	locale: string,
+	locale: string[],
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
 	return schema.secondaryFormatters?.map(formatter => {
@@ -144,7 +144,7 @@ export const schemaToSecondaryFormattersOutput = <Method extends FormatMethodsKe
 
 export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
-	locale: string,
+	locale: string[],
 ) => {
 	const { options } = prepareSchemaForOutput(schema);
 	return tryFormat(() => {
@@ -159,7 +159,7 @@ export const schemaToResolvedOptions = <Method extends FormatMethodsKeys>(
 
 export const schemaToCode = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
-	locale: string
+	locale: string[]
 ) => {
 	const { options, hasOptions } = prepareSchemaForOutput(schema);
 	const stringInput = JSON.stringify(schema.inputValues[0]);
@@ -168,7 +168,7 @@ export const schemaToCode = <Method extends FormatMethodsKeys>(
 		? `,\n${print(options)}`
 		: "";
 	if (schema.method === "Collator") {
-		return `const compareFunction = new Intl.${schema.method}("${locale}"${formattedOptions}).${formatter}
+		return `const compareFunction = new Intl.${schema.method}(${formatLocalesForPrint(locale)}${formattedOptions}).${formatter}
 
 ${stringInput}.sort(compareFunction)
 `;
@@ -176,6 +176,6 @@ ${stringInput}.sort(compareFunction)
 	const formattedInput = schema.method === "DurationFormat"
 		? print(formatDurationFormatValues(schema.inputValues))
 		: stringInput;
-	return `new Intl.${schema.method}("${locale}"${formattedOptions})${hasOptions ? "\n" : ""}.${formatter}(${formattedInput})
+	return `new Intl.${schema.method}(${formatLocalesForPrint(locale)}${formattedOptions})${hasOptions ? "\n" : ""}.${formatter}(${formattedInput})
 `;
 }

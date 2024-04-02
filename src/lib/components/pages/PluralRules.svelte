@@ -4,21 +4,21 @@
 	import Highlight from '$lib/components/ui/Highlight.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Fieldset from '$lib/components/ui/Fieldset.svelte';
+	import Radio from '$lib/components/ui/Radio.svelte';
 
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
-	import { tryFormat } from '$lib/utils/format-utils';
-	import Fieldset from '../ui/Fieldset.svelte';
-	import Radio from '../ui/Radio.svelte';
+	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
+	import { locales } from '$lib/store/locales';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let type: Intl.PluralRuleType = 'cardinal';
 
 	let onClick = async (options: OptionValues) => {
-		const code = `new Intl.PluralRules("${locale}", ${JSON.stringify(
+		const code = `new Intl.PluralRules(${formatLocalesForPrint($locales)}, ${JSON.stringify(
 			Object.assign({}, options, { value: undefined })
 		)}).select(${options.value})`;
 		await copyCode(code);
@@ -26,7 +26,7 @@
 	const format = (
 		options: Intl.PluralRulesOptions,
 		number: number,
-		language: string
+		language: string[]
 	) => tryFormat(() => new Intl.PluralRules(language, options).select(number));
 </script>
 
@@ -51,7 +51,7 @@
 						type
 					},
 					1,
-					locale
+					$locales
 				)}
 			/>
 			<Highlight
@@ -65,7 +65,7 @@
 						type
 					},
 					2,
-					locale
+					$locales
 				)}
 			/>
 			<Highlight
@@ -79,7 +79,7 @@
 						type
 					},
 					20,
-					locale
+					$locales
 				)}
 			/>
 		</OptionSection>
@@ -98,7 +98,7 @@
 						localeMatcher: 'best fit'
 					},
 					1,
-					locale
+					$locales
 				)}
 			/>
 			<Highlight
@@ -114,7 +114,7 @@
 						localeMatcher: 'lookup'
 					},
 					2,
-					locale
+					$locales
 				)}
 			/>
 		</OptionSection>

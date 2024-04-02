@@ -10,9 +10,9 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
 	import { durationFormatOptions } from '$lib/format-options/duration-format.options';
-	import { clampValue, tryFormat } from '$lib/utils/format-utils';
+	import { clampValue, formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
+	import { locales } from '$lib/store/locales';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let duration: Record<string, string | number> = {
@@ -29,14 +29,14 @@
 	};
 
 	let onClick = async (options: OptionValues) => {
-		const code = `new Intl.DurationFormat("${locale}", ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`;
+		const code = `new Intl.DurationFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`;
 		await copyCode(code);
 	};
 
 	const format = (
 		options: Intl.DurationFormatOptions,
 		dur: Record<string, number | string>,
-		language: string,
+		language: string[],
 	) => tryFormat(() => new Intl.DurationFormat(language, options).format(dur))
 
 	const onInput = (event: Event) => {
@@ -68,7 +68,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={format({ [option]: value }, duration, locale)}
+							output={format({ [option]: value }, duration, $locales)}
 						/>
 					{/if}
 				{/each}

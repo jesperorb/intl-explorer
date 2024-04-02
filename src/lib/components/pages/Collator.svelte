@@ -10,10 +10,10 @@
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import { collatorFormatOptions } from '$lib/format-options/collator.options';
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
-	import { tryFormat } from '$lib/utils/format-utils';
+	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
 	import { getMessages } from '$lib/i18n/util';
+	import { locales } from '$lib/store/locales';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
@@ -21,10 +21,10 @@
 	let list = 'Z,a,z,ä,1,=,à';
 
 	let onClick = async (options: OptionValues) => {
-		const code = `[].sort(new Intl.Collator("${locale}", ${JSON.stringify(options)}).compare)`;
+		const code = `[].sort(new Intl.Collator(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).compare)`;
 		await copyCode(code);
 	};
-	const format = (options: Intl.CollatorOptions, list: string, language: string) =>
+	const format = (options: Intl.CollatorOptions, list: string, language: string[]) =>
 		tryFormat(() => list.split(',').sort(new Intl.Collator(language, options).compare).join(','));
 </script>
 
@@ -44,7 +44,7 @@
 									[option]: value
 								},
 								list,
-								locale,
+								$locales,
 							)}
 						/>
 					{/if}

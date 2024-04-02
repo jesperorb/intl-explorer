@@ -11,26 +11,28 @@
 
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import { segmenterOptions } from '$lib/format-options/segmenter.options';
-	import { tryFormat, print } from '$lib/utils/format-utils';
+	import { tryFormat, print, formatLocalesForPrint } from '$lib/utils/format-utils';
 	import { getMessages } from '$lib/i18n/util';
+	import { locales } from '$lib/store/locales';
+
+	export let browserCompatData: BrowserSupportDataForMethod | null;
+	
+	const m = getMessages();
 
 	let sentence = 'This is a sentence.';
-	export let locale: string;
-	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let onClick = async (options: OptionValues) => {
-		const code = `Array.from(new Intl.Segmenter("${locale}", ${JSON.stringify(
+		const code = `Array.from(new Intl.Segmenter(${formatLocalesForPrint($locales)}, ${JSON.stringify(
 			options
 		)}).segment("${sentence}"))`;
 		await copyCode(code);
 	};
 
-	const format = (options: OptionValues, input: string, language: string) =>
+	const format = (options: OptionValues, input: string, language: string[]) =>
 		tryFormat(() =>
 			print(Array.from(new Intl.Segmenter(language, options).segment(input)))
 		);
 
-	const m = getMessages();
 </script>
 
 <PageLayout>
@@ -44,7 +46,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={format({ [option]: value }, sentence, locale)}
+							output={format({ [option]: value }, sentence, $locales)}
 						/>
 					{/if}
 				{/each}

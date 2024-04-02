@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type {
     AriaAttributes,
+    Booleanish,
     HTMLButtonAttributes,
     KeyboardEventHandler,
     MouseEventHandler,
@@ -19,6 +20,8 @@
   export let hrefLang: string | undefined = undefined;
   export let noBackground: boolean | undefined = undefined;
   export let bold: boolean | undefined = undefined;
+  export let title: string | undefined = undefined;
+  export let disabled: boolean | null | undefined = undefined;
 </script>
 
 {#if href}
@@ -29,6 +32,7 @@
     class:no-background={noBackground}
     class:uppercase={textTransform === "uppercase"}
     class:bold={bold}
+    {title}
     hreflang={hrefLang}>
       <slot/>
   </a>
@@ -37,6 +41,8 @@
     on:click={onClick}
     {id}
     {type}
+    {title}
+    {disabled}
     class="button"
     aria-label={ariaLabel}
     aria-controls={ariaControls}
@@ -76,11 +82,15 @@
     border-color: transparent;
     color: var(--button-no-background-text-color);
   }
-  .button.no-background:hover {
+  .button:disabled {
+    color: rgb(118, 118, 118);
+    cursor: not-allowed;
+  }
+  .button.no-background:not(:disabled):hover {
     background-color: transparent;
     border-color: var(--button-background-hover-color);
   }
-  .button:hover {
+  .button:not(:disabled):hover {
     background-color: var(--button-background-hover-color);
   }
 </style>

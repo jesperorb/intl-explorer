@@ -15,11 +15,14 @@
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { tryFormat } from '$lib/utils/format-utils';
+	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
 	import { getMessages } from '$lib/i18n/util';
+	import { locales } from '$lib/store/locales';
+	import HighlightLocale from '../ui/Highlight/HighlightLocale.svelte';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
+	
+	const m = getMessages();
 
 	let number = 123456.789;
 
@@ -28,16 +31,15 @@
 		.filter(([o]) => o !== 'style');
 
 	let onClick = async (options: OptionValues) => {
-		const code = `new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`;
+		const code = `new Intl.NumberFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${number})`;
 		await copyCode(code);
 	};
 	const format = (
 		options: Intl.NumberFormatOptions | undefined = undefined,
 		number: number,
-		language: string
+		language: string[]
 	) => tryFormat(() => new Intl.NumberFormat(language, options).format(number));
 
-	const m = getMessages();
 </script>
 
 <PageLayout>
@@ -56,11 +58,8 @@
 		><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token
 			t="number"
 			v={`${number}`}
-		/><br /><Token v="number" /><Token v=".toLocaleString" t="function" /><Token v="(" /><Token
-			v={`"${locale}"`}
-			t="string"
-		/><Token v=")" /><br /><Token v="// " ariaHidden noTrim t="comment" /><Token
-			v={tryFormat(() => new Intl.NumberFormat(locale).format(number))}
+		/><br /><Token v="number" /><Token v=".toLocaleString" t="function" /><Token v="(" /><HighlightLocale locales={$locales} /><Token v=")" /><br /><Token v="// " ariaHidden noTrim t="comment" /><Token
+			v={tryFormat(() => new Intl.NumberFormat($locales).format(number))}
 			t="comment"
 		/></CodeBlock
 	>
@@ -80,7 +79,7 @@
 									[option]: value
 								},
 								number,
-								locale
+								$locales
 							)}
 						/>
 					{/if}

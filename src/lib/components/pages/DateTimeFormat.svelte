@@ -7,6 +7,7 @@
 	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
+	import HighlightLocale from '$lib/components/ui/Highlight/HighlightLocale.svelte';
 
 	import {
 		datetimeFormatOptions,
@@ -15,10 +16,10 @@
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { tryFormat } from '$lib/utils/format-utils';
+	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
 	import { getMessages } from '$lib/i18n/util';
+	import { locales } from '$lib/store/locales';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
@@ -30,13 +31,13 @@
 	};
 
 	let onClick = async (options: OptionValues) => {
-		const code = `new Intl.DateTimeFormat("${locale}", ${JSON.stringify(
+		const code = `new Intl.DateTimeFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(
 			options
 		)}).format(new Date("${dateTimeString}"))`;
 		await copyCode(code);
 	};
 
-	const format = (options: Intl.DateTimeFormatOptions, dateTime: string, language: string) =>
+	const format = (options: Intl.DateTimeFormatOptions, dateTime: string, language: string[]) =>
 		tryFormat(() => new Intl.DateTimeFormat(language, options).format(new Date(`${dateTime}`)));
 </script>
 
@@ -55,11 +56,8 @@
 	<CodeBlock slot="alternativeCode">
 		<Token v="new" t="punctuation" />
 		<Token v="Date" t="class" />{'('}<Token v={`"${dateTimeString}"`} t="string" />{')'}
-		.<Token v="toLocaleString" t="function" />{'('}<Token
-			v={`"${locale}"`}
-			t="string"
-		/>{')'}{'\n'}<Token v="// " ariaHidden noTrim t="comment" /><Token
-			v={`${tryFormat(() => new Date(dateTimeString).toLocaleString(locale))}`}
+		.<Token v="toLocaleString" t="function" />{'('}<HighlightLocale locales={$locales} />{')'}{'\n'}<Token v="// " ariaHidden noTrim t="comment" /><Token
+			v={`${tryFormat(() => new Date(dateTimeString).toLocaleString($locales))}`}
 			t="comment"
 		/>
 	</CodeBlock>
@@ -72,7 +70,7 @@
 						<Highlight
 							{onClick}
 							values={{ [option]: value }}
-							output={format(getDateTimeFormatOptions(option, value), dateTimeString, locale)}
+							output={format(getDateTimeFormatOptions(option, value), dateTimeString, $locales)}
 						/>
 					{/if}
 				{/each}

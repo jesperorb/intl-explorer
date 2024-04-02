@@ -1,19 +1,15 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
-  import { page } from '$app/stores';
-
+  
 	import NumberFormat from '$lib/components/pages/NumberFormat.Unit.svelte';
   import Spacing from '$lib/components/ui/Spacing.svelte';
 	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
 
-  import { selectedLocale } from '$lib/store/selected-locale';
-  import { getLocaleForSSR } from '$lib/utils/get-locale';
+	import { settings } from '$lib/store/settings';
 
 	import type { PageData } from './$types';
-	import { settings } from '$lib/store/settings';
+
 	export let data: PageData;
 
-	const locale = getLocaleForSSR($page);
 	let browserCompatData = $settings.showBrowserSupport ? data : null;
 
 </script>
@@ -24,9 +20,6 @@
 	<Spacing />
 {/if}
 
-{#if browser}
-	<NumberFormat {browserCompatData} bind:locale={$selectedLocale} />
-{:else}
-	<NumberFormat {browserCompatData} {locale} />
-{/if}
+<NumberFormat {browserCompatData} />
+
 

@@ -6,8 +6,6 @@
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 
-	export let locale: string;
-
 	let code = 'US';
 	let language = 'en-US';
 	let script = 'Latn';
@@ -23,7 +21,6 @@
 			<Input id="region" label="region" bind:value={code} />
 			<Spacing size={2} />
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={code}
 				options={{
 					style: 'long',
@@ -31,7 +28,6 @@
 				}}
 			/>
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={code}
 				options={{
 					style: 'short',
@@ -39,7 +35,6 @@
 				}}
 			/>
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={code}
 				options={{
 					style: 'narrow',
@@ -52,7 +47,6 @@
 			<Input id="language" label="language" bind:value={language} />
 			<Spacing size={2} />
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={language}
 				options={{
 					languageDisplay: 'dialect',
@@ -60,7 +54,6 @@
 				}}
 			/>
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={language}
 				options={{
 					languageDisplay: 'standard',
@@ -73,7 +66,6 @@
 			<Input id="currency" label="currency" bind:value={currency} />
 			<Spacing size={2} />
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={currency}
 				options={{
 					type: 'currency'
@@ -85,7 +77,6 @@
 			<Input id="script" label="script" bind:value={script} />
 			<Spacing size={2} />
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={script}
 				options={{
 					type: 'script'
@@ -97,7 +88,6 @@
 			<Input id="calendar" label="calendar" bind:value={calendar} />
 			<Spacing size={2} />
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={calendar}
 				options={{
 					type: 'calendar'
@@ -109,7 +99,6 @@
 			<Input id="dateTimeField" label="dateTimeField" bind:value={dateTimeField} />
 			<Spacing size={2} />
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={dateTimeField}
 				options={{
 					style: 'short',
@@ -117,7 +106,6 @@
 				}}
 			/>
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={dateTimeField}
 				options={{
 					style: 'long',
@@ -125,7 +113,6 @@
 				}}
 			/>
 			<DisplayNamesHighlight
-				bind:locale
 				bind:value={dateTimeField}
 				options={{
 					style: 'narrow',

@@ -12,10 +12,11 @@
 	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import PageLayout from './PageLayout.svelte';
-	import { tryFormat } from '$lib/utils/format-utils';
+	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
 	import { getMessages } from '$lib/i18n/util';
+	import { locales } from '$lib/store/locales';
+	import HighlightLocale from '../ui/Highlight/HighlightLocale.svelte';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
@@ -26,13 +27,13 @@
 	let list = 'Miso,Sesam,Mami';
 
 	let onClick = async (options: OptionValues) => {
-		const code = `new Intl.ListFormat("${locale}", ${JSON.stringify(options)}).format([])`;
+		const code = `new Intl.ListFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format([])`;
 		await copyCode(code);
 	};
 
 	const style = listFormatOptions.style ?? [];
 
-	const format = (options: Intl.ListFormatOptions, list: string, language: string) =>
+	const format = (options: Intl.ListFormatOptions, list: string, language: string[]) =>
 		tryFormat(() => new Intl.ListFormat(language, options).format(toArray(list)));
 </script>
 
@@ -58,12 +59,12 @@
 				/>{/if}{/each}<Token v="]" /><br />{'\t'}<Token v="." /><Token
 			v="toLocaleString"
 			t="function"
-		/><Token v="(" /><Token t="string" v={`"${locale}"`} /><Token v=")" /> <br /><Token
+		/><Token v="(" /><HighlightLocale locales={$locales} /><Token v=")" /> <br /><Token
 			v="// "
 			ariaHidden
 			noTrim
 			t="comment"
-		/><Token v={tryFormat(() => new Intl.ListFormat(locale).format(list.split(',')))} t="comment" /></CodeBlock
+		/><Token v={tryFormat(() => new Intl.ListFormat($locales).format(list.split(',')))} t="comment" /></CodeBlock
 	>
 	<Grid slot="output">
 		{#each Object.entries(listFormatOptions) as [option, values]}
@@ -79,7 +80,7 @@
 									[option]: value
 								},
 								list,
-								locale
+								$locales
 							)}
 						/>
 					{/if}
@@ -101,7 +102,7 @@
 								style: toStyle(value)
 							},
 							list,
-							locale
+							$locales
 						)}
 					/>
 				{/if}
@@ -122,7 +123,7 @@
 								style: toStyle(value)
 							},
 							list,
-							locale
+							$locales
 						)}
 					/>
 				{/if}
@@ -143,7 +144,7 @@
 								style: toStyle(value)
 							},
 							list,
-							locale
+							$locales
 						)}
 					/>
 				{/if}

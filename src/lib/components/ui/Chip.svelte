@@ -1,0 +1,46 @@
+<script lang="ts">
+	import { getMessages } from '$lib/i18n/util';
+	import Times from './icons/Times.svelte';
+	const m = getMessages();
+
+	export let label: string;
+	export let onDelete: (() => void) | undefined = undefined;
+</script>
+
+<div class="chip">
+	<p>{label}</p>
+	{#if onDelete}
+		<button
+			type="button"
+			class="delete"
+			on:click={onDelete}
+			aria-label={m.remove({ value: label })}
+		>
+			<Times />
+		</button>
+	{/if}
+</div>
+
+<style>
+	.chip {
+		border-radius: 20px;
+		padding: var(--spacing-1) var(--spacing-2);
+		display: inline-flex;
+		align-items: center;
+		gap: var(--spacing-1);
+		background-color: var(--button-background-color);
+	}
+	.delete {
+		border: none;
+		background: none;
+		padding: 0;
+		margin: 0;
+		height: 24px;
+		width: 24px;
+		cursor: pointer;
+		border-radius: 50%;
+	}
+	.delete:hover {
+		background-color: var(--button-background-hover-color);
+	}
+</style>

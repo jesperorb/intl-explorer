@@ -22,12 +22,13 @@
 	export let readonly: boolean | undefined = undefined;
 	export let required: boolean | undefined = undefined;
 	export let value: string;
+	export let onSelect: ((option: Option) => void) | undefined = undefined;
 
 	export let filter = (text: string) => {
 		const sanitized = text.trim().toLowerCase();
 		return options.reduce((a, o) => {
 			let match;
-			if (o.label.toLowerCase().includes(sanitized)) {
+			if (o.label.toLowerCase().includes(sanitized) || o.value.toLowerCase().includes(sanitized)) {
 				match = o;
 			}
 			match && a.push(match);
@@ -183,6 +184,9 @@
 			label: optionElement?.dataset.label ?? '',
 			value: optionElement?.dataset.value ?? ''
 		};
+		if(onSelect) {
+			onSelect(selectedOption);
+		}
 	}
 </script>
 
@@ -211,7 +215,7 @@
 			{name}
 			type="text"
 			{disabled}
-			value={selectedOption?.label}
+			value={selectedOption?.label ?? ""}
 			autocapitalize="none"
 			autocomplete="off"
 			{readonly}
@@ -244,7 +248,7 @@
 					aria-disabled={option.disabled}
 				>
 					<slot name="option" {option}>
-						{option.label}
+						{option.label} {option.value ? `(${option.value})` : ""}
 					</slot>
 					{#if option.value === value}
 						<svg viewBox="0 0 24 24" class="icon" aria-hidden="true">
