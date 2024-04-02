@@ -31,7 +31,7 @@ export const fallbackDisplayNames: Record<Intl.DisplayNamesOptions['type'], stri
 
 export const tryDisplayNames = (
 	code: string,
-	language: string,
+	language: string[],
 	options: Intl.DisplayNamesOptions
 ): string => {
 	try {
@@ -53,4 +53,21 @@ export const tryFormat = (format: () => string): string => {
 export const camelCaseToWords = (s: string) =>  {
   const result = s.replace(/([A-Z])/g, ' $1');
   return result.charAt(0).toUpperCase() + result.slice(1);
+}
+
+export const formatLocalesForPrint = (locales: string[]) => {
+	if(!locales.length) {
+		return `undefined`;
+	}
+	if(locales.length === 1) {
+		return `"${locales[0]}"`;
+	}
+	return `[${locales.map(l => `"${l}"`).join(",")}]`
+}
+
+export const formatLocaleForUrl = (locales: string[]) => {
+	if(locales.length) {
+		return `?locale=${locales.join(",")}`
+	}
+	return "";
 }

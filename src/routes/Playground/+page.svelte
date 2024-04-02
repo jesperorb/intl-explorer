@@ -6,7 +6,6 @@
 
 	import Playground from '$lib/components/pages/Playground/Playground.svelte';
 
-	import { selectedLocale } from '$lib/store/selected-locale';
 	import { settings } from '$lib/store/settings';
 
 	export let data: Record<string, BrowserSupportDataForMethod>;
@@ -21,4 +20,4 @@
 	{/if}
 </svelte:head>
 
-<Playground {data} bind:locale={$selectedLocale} />
+<Playground {data} />

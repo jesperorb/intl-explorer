@@ -6,20 +6,26 @@
 	import PageLayout from '$lib/components/pages/PageLayout.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
 	import Radio from '$lib/components/ui/Radio.svelte';
+	import Fieldset from '$lib/components/ui/Fieldset.svelte';
 
 	import { relativeTimeFormatUnits } from '$lib/format-options/relative-time-format.options';
 	import { copyCode } from '$lib/utils/copy-to-clipboard';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { tryFormat } from '$lib/utils/format-utils';
-	import Fieldset from '../ui/Fieldset.svelte';
+	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
 	import { getMessages } from '$lib/i18n/util';
+	import { locales } from '$lib/store/locales';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
+	let dayValue = 2;
+	let style: Intl.RelativeTimeFormatStyle = 'long';
+	let numeric: 'always' | 'auto' = 'auto';
+
+	const m = getMessages();
+
 	let onClick = async (options: OptionValues) => {
-		const code = `new Intl.RelativeTimeFormat("${locale}", ${JSON.stringify(
+		const code = `new Intl.RelativeTimeFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(
 			Object.assign({}, options, { value: undefined })
 		)}).format(${dayValue}, "${options.value}")`;
 		await copyCode(code);
@@ -29,14 +35,9 @@
 		options: Intl.RelativeTimeFormatOptions,
 		day: number,
 		value: Intl.RelativeTimeFormatUnit,
-		language: string
+		language: string[]
 	) => tryFormat(() => new Intl.RelativeTimeFormat(language, options).format(day, value));
 
-	let dayValue = 2;
-	let style: Intl.RelativeTimeFormatStyle = 'long';
-	let numeric: 'always' | 'auto' = 'auto';
-
-	const m = getMessages();
 </script>
 
 <PageLayout>
@@ -97,7 +98,7 @@
 							},
 							dayValue,
 							value,
-							locale
+							$locales
 						)}
 					/>
 				{/if}

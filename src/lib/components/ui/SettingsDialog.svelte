@@ -22,15 +22,14 @@
 	import Card from "./Card.svelte";
 	import { getMessages } from "$lib/i18n/util";
 	import Select from "./Select.svelte";
-	import { selectedLocale } from "$lib/store/selected-locale";
-	import { getLocaleForSSR } from "$lib/utils/get-locale";
 	import Button from "./Button.svelte";
 	import Checkbox from "./Checkbox.svelte";
+	import { locales } from "$lib/store/locales";
+	import { formatLocaleForUrl } from "$lib/utils/format-utils";
 
   export let show: boolean;
 
   const m = getMessages();
-  const locale = browser ? $selectedLocale : getLocaleForSSR($page);
 
   export let language = languageTag();
 
@@ -128,7 +127,7 @@
     <Spacing size={2} />
     <p>{m.languageHint()}</p>
     <Spacing />
-    <Button href={`${i18n.route($page.url.pathname)}?locale=${locale}`} hrefLang={language}>
+    <Button href={`${i18n.route($page.url.pathname)}${formatLocaleForUrl($locales)}`} hrefLang={language}>
       {m.confirmLanguage()}
     </Button>
   </Card>

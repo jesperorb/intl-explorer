@@ -17,31 +17,33 @@
 	import { unitsAsEntries } from '$lib/locale-data/units';
 	import type { OptionValues } from '$lib/types/OptionValues.types';
 	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { tryFormat } from '$lib/utils/format-utils';
+	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
 	import { getMessages } from '$lib/i18n/util';
+	import { locales } from '$lib/store/locales';
+	import HighlightLocale from '../ui/Highlight/HighlightLocale.svelte';
 
-	export let locale: string;
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let selectedUnit = 'degree';
 	let number = 123456.789;
+	
+	const m = getMessages();
 
 	const options = Object.entries({ ...numberFormatOptionsUnit, ...numberFormatOptionsCommon })
 		.filter(([o]) => o !== 'unit')
 		.filter(([o]) => o !== 'style');
 
 	let onClick = async (options: OptionValues) => {
-		const code = `new Intl.NumberFormat("${locale}", ${JSON.stringify(options)}).format(${number})`;
+		const code = `new Intl.NumberFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${number})`;
 		await copyCode(code);
 	};
 
 	const format = (
 		options: Intl.NumberFormatOptions | undefined = undefined,
 		number: number,
-		language: string,
+		language: string[],
 	) => tryFormat(() => new Intl.NumberFormat(language, options).format(number))
 
-	const m = getMessages();
 </script>
 
 <PageLayout>
@@ -67,7 +69,7 @@
 			></strong
 		>
 	</div>
-	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><Token v="{`"${locale}"`}"  t="string" /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={tryFormat(() => new Intl.NumberFormat(locale, { style: 'unit', unit: selectedUnit }).format(number))} t="comment"/></CodeBlock>
+	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><HighlightLocale locales={$locales} /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={tryFormat(() => new Intl.NumberFormat($locales, { style: 'unit', unit: selectedUnit }).format(number))} t="comment"/></CodeBlock>
 	<Grid slot="output">
 		{#each options as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -85,7 +87,7 @@
 								style: 'unit',
 								unit: selectedUnit,
 								[option]: value
-							}, number, locale)}
+							}, number, $locales)}
 						/>
 					{/if}
 				{/each}

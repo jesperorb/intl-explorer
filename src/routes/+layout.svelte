@@ -10,6 +10,8 @@
 	import SkipLink from '$lib/components/ui/SkipLink.svelte';
 	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
 	import Header from '$lib/components/ui/Header.svelte';
+	import { getLocaleFromParams } from '$lib/utils/get-locale';
+	import { locales } from '$lib/store/locales';
 
 	let routeId: FormatMethodsKeys | 'Playground' | "/";
 	$: isHomePage = false;
@@ -21,7 +23,11 @@
 			document.querySelector("h1")?.focus();
 		}
 	};
+	const getLocale = (page: Page<Record<string, string>>) => {
+		locales.set(getLocaleFromParams(page));
+	}
 	$: getRouteId($page);
+	$: getLocale($page);
 </script>
 
 <svelte:head>

@@ -5,17 +5,14 @@
 	import { page } from '$app/stores';
 
 	import { routes } from '$lib/routes';
-	import { browser } from '$app/environment';
-	import { getLocaleForSSR } from '$lib/utils/get-locale';
-	import { selectedLocale } from '$lib/store/selected-locale';
 	import { testIds } from '$lib/utils/dom-utils';
 	import OpenInNewTab from '$lib/components/ui/icons/OpenInNewTab.svelte';
 	import Spacing from './Spacing.svelte';
 	import Settings from './icons/Settings.svelte';
 	import SettingsDialog from './SettingsDialog.svelte';
 	import Button from './Button.svelte';
-
-	const locale = browser ? $selectedLocale : getLocaleForSSR($page);
+	import { locales } from '$lib/store/locales';
+	import { formatLocaleForUrl } from '$lib/utils/format-utils';
 
 	let path: string;
 	let open = false;
@@ -124,10 +121,10 @@
 				class="last-item"
 				class:active={path === '/'}
 			>
-				<a href="/?locale={locale}">{ m.about()}</a>
+				<a href="/{formatLocaleForUrl($locales)}">{ m.about()}</a>
 			</li>
 			<li class="last-item">
-				<a href="/Playground?locale={locale}" class:active={path.includes('Playground')}
+				<a href="/Playground{formatLocaleForUrl($locales)}" class:active={path.includes('Playground')}
 				>Playground</a
 				>
 			</li>
@@ -138,7 +135,7 @@
 					aria-label={route.ariaLabel}
 					class:sublink={route.sublink}
 					class:active={path.includes(route.path)}
-					href={`/${route.path}?locale=${locale}`}
+					href={`/${route.path}${formatLocaleForUrl($locales)}`}
 					>
 					{route.name}
 					{#if route.experimental}

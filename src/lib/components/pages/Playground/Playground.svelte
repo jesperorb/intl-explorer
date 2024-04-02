@@ -34,9 +34,9 @@
 	import Grid from '$lib/components/ui/Grid.svelte';
 	import { getMessages } from '$lib/i18n/util';
 	import { settings } from '$lib/store/settings';
+	import { locales } from '$lib/store/locales';
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
-	export let locale: string;
 
 	const m = getMessages();
 
@@ -93,7 +93,7 @@
 
 	const copy = async () => {
 		if (!schema) return;
-		const code = schemaToCode(schema, locale);
+		const code = schemaToCode(schema, $locales);
 		await copyCode(code);
 	};
 
@@ -132,17 +132,17 @@
 				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
 			<Spacing />
-			<PlaygroundInput bind:locale {schema} {onChangeSchema} {onChangeDate} {onInput} />
+			<PlaygroundInput {schema} {onChangeSchema} {onChangeDate} {onInput} />
 			<Spacing />
 			{#if !isDesktop}
 				<h2>{m.output()}</h2>
 				<Spacing size={2} />
-				<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
+				<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, $locales)} />
 				<Spacing />
 				<h2>{m.code()}</h2>
 				<Spacing size={2} />
 				<div class="highlight">
-					<Highlight language={typescript} code={schemaToCode(schema, locale)} />
+					<Highlight language={typescript} code={schemaToCode(schema, $locales)} />
 				</div>
 				<Spacing size={2} />
 				<div class="copy-code">
@@ -159,13 +159,13 @@
 				<h2>{m.resolvedOptions()}</h2>
 				<Spacing size={2} />
 				<div>
-					<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
+					<Highlight language={typescript} code={schemaToResolvedOptions(schema, $locales)} />
 				</div>
 			{/if}
 			<Spacing />
 			<PlaygroundSecondaryFormatters
 				bind:support={browserSupportData.formattersSupport}
-				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, locale)}
+				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, $locales)}
 			/>
 		</div>
 		{#if isDesktop}
@@ -173,12 +173,12 @@
 				<div class="output-inner">
 					<h2>{m.output()}</h2>
 					<Spacing size={2} />
-					<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, locale)} />
+					<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, $locales)} />
 					<Spacing />
 					<h2>{m.code()}</h2>
 					<Spacing size={2} />
 					<div class="highlight">
-						<Highlight language={typescript} code={schemaToCode(schema, locale)} />
+						<Highlight language={typescript} code={schemaToCode(schema, $locales)} />
 					</div>
 					<Spacing size={2} />
 					<div class="copy-code">
@@ -188,7 +188,7 @@
 					<h2>{m.resolvedOptions()}</h2>
 					<Spacing size={2} />
 					<div>
-						<Highlight language={typescript} code={schemaToResolvedOptions(schema, locale)} />
+						<Highlight language={typescript} code={schemaToResolvedOptions(schema, $locales)} />
 					</div>
 				</div>
 			</div>	
