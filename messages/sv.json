@@ -46,6 +46,7 @@
   "no": "Nej",
   "noSupport": "Inget stöd",
   "notAvailableInBrowser": "Inte tillgänglig i {browserName}",
+  "noValue": "Inget värde",
   "options": "Alternativ",
   "output": "Utdata",
   "partialSupport": "Delvist stöd",
