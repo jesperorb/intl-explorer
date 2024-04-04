@@ -1,4 +1,4 @@
-import type { BrowserType, VersionValue } from '@mdn/browser-compat-data';
+import type { BrowserType, VersionValue } from "@mdn/browser-compat-data";
 
 export type BrowserCoverage = "full" | "partial" | "none";
 
@@ -10,8 +10,8 @@ export type BrowserReleaseData = {
 
 export type BrowserSupportForOption = {
 	coverage?: BrowserCoverage;
-	support?: Record<string, BrowserReleaseData>
-}
+	support?: Record<string, BrowserReleaseData>;
+};
 
 export type BrowserSupportDataForOptions = Record<string, BrowserSupportForOption>;
 

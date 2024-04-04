@@ -11,14 +11,14 @@ export type AllFormatOptions = {
 };
 
 export type AllFormatOptionsKeys = {
-	DateTimeFormat: keyof AllFormatOptions['DateTimeFormat'];
-	NumberFormat: keyof AllFormatOptions['NumberFormat'];
-	ListFormat: keyof AllFormatOptions['ListFormat'];
-	RelativeTimeFormat: keyof AllFormatOptions['RelativeTimeFormat'];
-	PluralRules: keyof AllFormatOptions['PluralRules'];
-	Collator: keyof AllFormatOptions['Collator'];
-	Segmenter: keyof AllFormatOptions['Segmenter'];
-	DisplayNames: keyof AllFormatOptions['DisplayNames'];
+	DateTimeFormat: keyof AllFormatOptions["DateTimeFormat"];
+	NumberFormat: keyof AllFormatOptions["NumberFormat"];
+	ListFormat: keyof AllFormatOptions["ListFormat"];
+	RelativeTimeFormat: keyof AllFormatOptions["RelativeTimeFormat"];
+	PluralRules: keyof AllFormatOptions["PluralRules"];
+	Collator: keyof AllFormatOptions["Collator"];
+	Segmenter: keyof AllFormatOptions["Segmenter"];
+	DisplayNames: keyof AllFormatOptions["DisplayNames"];
 	DurationFormat: keyof AllFormatOptions["DurationFormat"];
 };
 

@@ -1,10 +1,10 @@
-import { localeMatcher } from "./common.options";
+import { localeMatcher } from "$lib/format-options/common.options";
 
 export const collatorFormatOptions = {
-	usage: ['sort', 'search', undefined],
+	usage: ["sort", "search", undefined],
 	numeric: [true, false, undefined],
-	caseFirst: ['upper', 'lower', 'false', undefined],
-	sensitivity: ['base', 'accent', 'case', 'variant', undefined],
+	caseFirst: ["upper", "lower", "false", undefined],
+	sensitivity: ["base", "accent", "case", "variant", undefined],
 	ignorePunctuation: [true, false, undefined],
 	localeMatcher
 } as const;

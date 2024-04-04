@@ -1,38 +1,38 @@
 <script context="module" lang="ts">
-  let id = 1;
+	let id = 1;
 
-  export function uid() {
-    return `ui:${id++}`;
-  }
+	export function uid() {
+		return `ui:${id++}`;
+	}
 
-  export function clone(json: string) {
-    return JSON.parse(JSON.stringify(json));
-  }
+	export function clone(json: string) {
+		return JSON.parse(JSON.stringify(json));
+	}
 
-  export function onClickOutside(element: HTMLElement, callback: () => void) {
-    const onClick = (event: MouseEvent) => {
-      const target = event.target as Node | null;
-      if(!element.contains(target)) {
-        callback();
-      }
-    }
+	export function onClickOutside(element: HTMLElement, callback: () => void) {
+		const onClick = (event: MouseEvent) => {
+			const target = event.target as Node | null;
+			if (!element.contains(target)) {
+				callback();
+			}
+		};
 
-    document.body.addEventListener("mousedown", onClick);
+		document.body.addEventListener("mousedown", onClick);
 
-    return {
-      update(newCallback: () => void) {
-        callback = newCallback;
-      },
+		return {
+			update(newCallback: () => void) {
+				callback = newCallback;
+			},
 
-      destroy() {
-        document.body.removeEventListener("mousedown", onClick);
-      }
-    };
-  }
+			destroy() {
+				document.body.removeEventListener("mousedown", onClick);
+			}
+		};
+	}
 </script>
 
 <div class="ui">
-  <slot />
+	<slot />
 </div>
 
 <style>
@@ -42,23 +42,23 @@
 	}
 
 	/* Utility classes */
-  .ui :global(.visually-hidden) {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
-	
-  .ui :global(.icon) {
-    width: 24px;
-    height: 24px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+	.ui :global(.visually-hidden) {
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	.ui :global(.icon) {
+		width: 24px;
+		height: 24px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
 </style>

@@ -1,37 +1,37 @@
 <script lang="ts">
-	import Select from '$lib/components/ui/Select.svelte';
-	import Grid from '$lib/components/ui/Grid.svelte';
-	import OptionSection from '$lib/components/ui/OptionSection.svelte';
-	import Highlight from '$lib/components/ui/Highlight.svelte';
-	import Input from '$lib/components/ui/Input.svelte';
-	import Token from '$lib/components/ui/Highlight/Token.svelte';
-	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import PageLayout from '$lib/components/pages/PageLayout.svelte';
+	import Select from "$lib/components/ui/Select.svelte";
+	import Grid from "$lib/components/ui/Grid.svelte";
+	import OptionSection from "$lib/components/ui/OptionSection.svelte";
+	import Highlight from "$lib/components/ui/Highlight.svelte";
+	import Input from "$lib/components/ui/Input.svelte";
+	import Token from "$lib/components/ui/Highlight/Token.svelte";
+	import CodeBlock from "$lib/components/ui/CodeBlock.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import HighlightLocale from "$lib/components/ui/Highlight/HighlightLocale.svelte";
+	import PageLayout from "$lib/components/pages/PageLayout.svelte";
 
 	import {
 		numberFormatOptionsCommon,
 		numberFormatOptionsUnit
-	} from '$lib/format-options/number-format.options';
-	import { copyCode } from '$lib/utils/copy-to-clipboard';
-	import { unitsAsEntries } from '$lib/locale-data/units';
-	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
-	import { getMessages } from '$lib/i18n/util';
-	import { locales } from '$lib/store/locales';
-	import HighlightLocale from '../ui/Highlight/HighlightLocale.svelte';
+	} from "$lib/format-options/number-format.options";
+	import { copyCode } from "$lib/utils/copy-to-clipboard";
+	import { unitsAsEntries } from "$lib/locale-data/units";
+	import type { OptionValues } from "$lib/types/OptionValues.types";
+	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
+	import { formatLocalesForPrint, tryFormat } from "$lib/utils/format-utils";
+	import { getMessages } from "$lib/i18n/util";
+	import { locales } from "$lib/store/locales";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
-	let selectedUnit = 'degree';
+	let selectedUnit = "degree";
 	let number = 123456.789;
-	
+
 	const m = getMessages();
 
 	const options = Object.entries({ ...numberFormatOptionsUnit, ...numberFormatOptionsCommon })
-		.filter(([o]) => o !== 'unit')
-		.filter(([o]) => o !== 'style');
+		.filter(([o]) => o !== "unit")
+		.filter(([o]) => o !== "style");
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.NumberFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${number})`;
@@ -41,9 +41,8 @@
 	const format = (
 		options: Intl.NumberFormatOptions | undefined = undefined,
 		number: number,
-		language: string[],
-	) => tryFormat(() => new Intl.NumberFormat(language, options).format(number))
-
+		language: string[]
+	) => tryFormat(() => new Intl.NumberFormat(language, options).format(number));
 </script>
 
 <PageLayout>
@@ -69,7 +68,24 @@
 			></strong
 		>
 	</div>
-	<CodeBlock slot="alternativeCode"><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token t="number" v="{`${number}`}" /><br /><Token v="number" /><Token v=".toLocaleString" t="function"/><Token v="(" /><HighlightLocale locales={$locales} /><Token v=")" /><br/><Token v="// " ariaHidden noTrim t="comment"/><Token v={tryFormat(() => new Intl.NumberFormat($locales, { style: 'unit', unit: selectedUnit }).format(number))} t="comment"/></CodeBlock>
+	<CodeBlock slot="alternativeCode"
+		><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token
+			t="number"
+			v={`${number}`}
+		/><br /><Token v="number" /><Token v=".toLocaleString" t="function" /><Token
+			v="("
+		/><HighlightLocale locales={$locales} /><Token v=")" /><br /><Token
+			v="// "
+			ariaHidden
+			noTrim
+			t="comment"
+		/><Token
+			v={tryFormat(() =>
+				new Intl.NumberFormat($locales, { style: "unit", unit: selectedUnit }).format(number)
+			)}
+			t="comment"
+		/></CodeBlock
+	>
 	<Grid slot="output">
 		{#each options as [option, values]}
 			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
@@ -79,15 +95,19 @@
 						<Highlight
 							{onClick}
 							values={{
-								style: 'unit',
+								style: "unit",
 								unit: selectedUnit,
 								[option]: value
 							}}
-							output={format({
-								style: 'unit',
-								unit: selectedUnit,
-								[option]: value
-							}, number, $locales)}
+							output={format(
+								{
+									style: "unit",
+									unit: selectedUnit,
+									[option]: value
+								},
+								number,
+								$locales
+							)}
 						/>
 					{/if}
 				{/each}
@@ -95,5 +115,3 @@
 		{/each}
 	</Grid>
 </PageLayout>
-
-

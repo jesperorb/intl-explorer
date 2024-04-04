@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import { browser } from "$app/environment";
 
-	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
-	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	
-	import Highlight from 'svelte-highlight';
-	import typescript from 'svelte-highlight/languages/typescript';
+	import type { PlaygroundSchema } from "$lib/playground/playground.schema";
+	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
 
-	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import Header from '$lib/components/ui/Header.svelte';
-	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
+	import Highlight from "svelte-highlight";
+	import typescript from "svelte-highlight/languages/typescript";
 
-	import PlaygroundOptions from './PlaygroundOptions.svelte';
-	import PlaygroundInput from './PlaygroundInput.svelte';
-	import PlaygroundSecondaryFormatters from './PlaygroundSecondaryFormatters.svelte';
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Header from "$lib/components/ui/Header.svelte";
+	import CopyToClipboard from "$lib/components/ui/icons/CopyToClipboard.svelte";
+	import Button from "$lib/components/ui/Button.svelte";
+
+	import PlaygroundOptions from "$lib/components/pages/Playground/PlaygroundOptions.svelte";
+	import PlaygroundInput from "$lib/components/pages/Playground/PlaygroundInput.svelte";
+	import PlaygroundSecondaryFormatters from "$lib/components/pages/Playground/PlaygroundSecondaryFormatters.svelte";
 
 	import {
 		schemaToCode,
@@ -22,25 +22,25 @@
 		schemaToResolvedOptions,
 		schemaToSecondaryFormattersOutput,
 		updateOptionOnSchema
-	} from '$lib/playground/format.utils';
-	import { createSchemaUrl, getSchemaParam, parseSchemaFromURL } from '$lib/playground/url.utils';
-	import { validateAndUpdateSchema } from '$lib/playground/validate';
-	import { copyCode, copyToClipboard } from '$lib/utils/copy-to-clipboard';
-	import { schemas, type SchemaKeys } from '$lib/playground/schemas';
-	import { onDestroy, onMount } from 'svelte';
-	import { numberFormatSchema } from '$lib/playground/schemas/numberFormat.schema';
-	import { trackEvent } from '$lib/utils/analytics';
-	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
-	import Grid from '$lib/components/ui/Grid.svelte';
-	import { getMessages } from '$lib/i18n/util';
-	import { settings } from '$lib/store/settings';
-	import { locales } from '$lib/store/locales';
+	} from "$lib/playground/format.utils";
+	import { createSchemaUrl, getSchemaParam, parseSchemaFromURL } from "$lib/playground/url.utils";
+	import { validateAndUpdateSchema } from "$lib/playground/validate";
+	import { copyCode, copyToClipboard } from "$lib/utils/copy-to-clipboard";
+	import { schemas, type SchemaKeys } from "$lib/playground/schemas";
+	import { onDestroy, onMount } from "svelte";
+	import { numberFormatSchema } from "$lib/playground/schemas/numberFormat.schema";
+	import { trackEvent } from "$lib/utils/analytics";
+	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
+	import Grid from "$lib/components/ui/Grid.svelte";
+	import { getMessages } from "$lib/i18n/util";
+	import { settings } from "$lib/store/settings";
+	import { locales } from "$lib/store/locales";
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 
 	const m = getMessages();
 
-	const matchMedia = browser ? window.matchMedia('(min-width: 630px)') : null;
+	const matchMedia = browser ? window.matchMedia("(min-width: 630px)") : null;
 	$: isDesktop = Boolean(matchMedia?.matches);
 
 	$: schema = validateAndUpdateSchema(numberFormatSchema);
@@ -50,7 +50,7 @@
 
 	onMount(() => {
 		if (getSchemaParam()) {
-			const parsedSchema = parseSchemaFromURL<'NumberFormat'>();
+			const parsedSchema = parseSchemaFromURL<"NumberFormat">();
 			if (parsedSchema) {
 				schema = validateAndUpdateSchema(parsedSchema);
 			}
@@ -64,21 +64,21 @@
 
 	const onInput = (event: Event) => {
 		const value = (event.target as HTMLInputElement).value;
-		if (schema?.inputValueType === 'array') {
-			const parsedValue = value.split(',');
+		if (schema?.inputValueType === "array") {
+			const parsedValue = value.split(",");
 			schema.inputValues[0] = parsedValue;
 		}
-		if (schema?.inputValueType === 'number') {
+		if (schema?.inputValueType === "number") {
 			const parsed = parseFloat(value);
 			schema.inputValues[0] = isNaN(parsed) ? 0 : parsed;
 		}
-		if (schema?.inputValueType === 'string') {
+		if (schema?.inputValueType === "string") {
 			schema.inputValues[0] = value;
 		}
 	};
 
 	const onChangeDate = (datetime: string) => {
-		if (schema?.inputValueType === 'date') {
+		if (schema?.inputValueType === "date") {
 			schema.inputValues[0] = datetime;
 		}
 	};
@@ -86,7 +86,7 @@
 	const onChangeSchema = (event: Event) => {
 		const value = (event.target as HTMLInputElement).value;
 		const newSchema = validateAndUpdateSchema(
-			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<'NumberFormat'>
+			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<"NumberFormat">
 		);
 		schema = newSchema;
 	};
@@ -100,23 +100,23 @@
 	const copySchema = async () => {
 		if (!schema) return;
 		await copyToClipboard(createSchemaUrl(schema));
-		trackEvent('Copy Schema', {
+		trackEvent("Copy Schema", {
 			method: schema.method
 		});
 	};
 
-	const onMatchMediaChange = (event: MediaQueryListEventMap['change']) => {
+	const onMatchMediaChange = (event: MediaQueryListEventMap["change"]) => {
 		isDesktop = event.matches;
 	};
 
 	onMount(() => {
 		if (browser && matchMedia) {
-			matchMedia.addEventListener('change', onMatchMediaChange);
+			matchMedia.addEventListener("change", onMatchMediaChange);
 		}
 	});
 	onDestroy(() => {
 		if (browser && matchMedia) {
-			matchMedia.removeEventListener('change', onMatchMediaChange);
+			matchMedia.removeEventListener("change", onMatchMediaChange);
 		}
 	});
 </script>
@@ -127,7 +127,7 @@
 			<Header header="Playground" link={schema.method} />
 			<Grid>
 				{#if $settings.showBrowserSupport}
-					<BrowserSupport bind:data={browserSupportData} />	
+					<BrowserSupport bind:data={browserSupportData} />
 				{/if}
 				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
@@ -173,7 +173,10 @@
 				<div class="output-inner">
 					<h2>{m.output()}</h2>
 					<Spacing size={2} />
-					<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, $locales)} />
+					<Highlight
+						language={typescript}
+						code={schemaToPrimaryFormatterOutput(schema, $locales)}
+					/>
 					<Spacing />
 					<h2>{m.code()}</h2>
 					<Spacing size={2} />
@@ -191,7 +194,7 @@
 						<Highlight language={typescript} code={schemaToResolvedOptions(schema, $locales)} />
 					</div>
 				</div>
-			</div>	
+			</div>
 		{/if}
 	</div>
 {/if}

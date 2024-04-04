@@ -1,52 +1,52 @@
-import type { PlaygroundSchema } from '$lib/playground/playground.schema';
+import type { PlaygroundSchema } from "$lib/playground/playground.schema";
 
-export const collatorSchema: PlaygroundSchema<'Collator'> = {
-	method: 'Collator',
-	primaryFormatter: 'compare',
-	inputValues: [['Z', 'a', 'z', 'ä', '1', '=', 'à']],
-	inputValueType: 'array',
+export const collatorSchema: PlaygroundSchema<"Collator"> = {
+	method: "Collator",
+	primaryFormatter: "compare",
+	inputValues: [["Z", "a", "z", "ä", "1", "=", "à"]],
+	inputValueType: "array",
 	options: [
 		{
-			name: 'usage',
-			valueType: 'string',
+			name: "usage",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'caseFirst',
-			valueType: 'string',
+			name: "caseFirst",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'sensitivity',
-			valueType: 'string',
+			name: "sensitivity",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'caseFirst',
-			valueType: 'string',
+			name: "caseFirst",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'numeric',
-			valueType: 'boolean',
+			name: "numeric",
+			valueType: "boolean",
 			defaultValue: undefined,
-			inputType: 'radio'
+			inputType: "radio"
 		},
 		{
-			name: 'ignorePunctuation',
-			valueType: 'boolean',
+			name: "ignorePunctuation",
+			valueType: "boolean",
 			defaultValue: undefined,
-			inputType: 'radio'
+			inputType: "radio"
 		},
 		{
-			name: 'localeMatcher',
-			valueType: 'string',
+			name: "localeMatcher",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		}
 	]
 };

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FormatMethodsKeys } from "$lib/format-methods";
 import type { AllFormatOptions } from "$lib/format-options/types";
-import type { PlaygroundOption, PlaygroundSchema } from "./playground.schema";
+import type { PlaygroundOption, PlaygroundSchema } from "$lib/playground/playground.schema";
 
 import { formatOptions } from "$lib/format-options";
 import { durationValues } from "$lib/format-options/duration-format.options";
-import { optionIsActive } from "./validate";
+import { optionIsActive } from "$lib/playground/validate";
 import { clampValue, fallbackDisplayNames, tryFormat, print, formatLocalesForPrint } from "$lib/utils/format-utils";
 
 export const updateOptionOnSchema = <Method extends FormatMethodsKeys>(

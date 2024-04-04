@@ -1,31 +1,31 @@
 <script lang="ts">
-  import { locales } from '$lib/store/locales';
-	import { getMessages } from '$lib/i18n/util';
-	import { languageByLocaleAsComboBoxOptions } from '$lib/locale-data/locales';
+	import { locales } from "$lib/store/locales";
+	import { getMessages } from "$lib/i18n/util";
+	import { languageByLocaleAsComboBoxOptions } from "$lib/locale-data/locales";
 
-	import ComboBoxContext from '$lib/components/ui/ComboBox/ComboBoxContext.svelte';
-	import ComboBox from '$lib/components/ui/ComboBox/ComboBox.svelte';
-	import Chip from '$lib/components/ui/Chip.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import Input from '$lib/components/ui/Input.svelte';
+	import ComboBoxContext from "$lib/components/ui/ComboBox/ComboBoxContext.svelte";
+	import ComboBox from "$lib/components/ui/ComboBox/ComboBox.svelte";
+	import Chip from "$lib/components/ui/Chip.svelte";
+	import Button from "$lib/components/ui/Button.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Input from "$lib/components/ui/Input.svelte";
 
 	const m = getMessages();
 
-	let locale: string = '';
+	let locale: string = "";
 	let edit = false;
 
 	const onDelete = (locale: string) => {
-    const index = $locales.lastIndexOf(locale);
-    if(index !== -1) {
-      const arr = [...$locales];
-      arr.splice(index, 1);
-      locales.set(arr);
-    }
+		const index = $locales.lastIndexOf(locale);
+		if (index !== -1) {
+			const arr = [...$locales];
+			arr.splice(index, 1);
+			locales.set(arr);
+		}
 	};
 
 	const onAdd = () => {
-		if(locale) {
+		if (locale) {
 			locales.set([...$locales, locale]);
 		}
 	};
@@ -59,7 +59,13 @@
 					{m.editLocaleButton()}
 				{/if}
 			</Button>
-			<Button disabled={!locale} onClick={onAdd} ariaLabel={m.addLocale()} title={m.addLocale()} noBackground>
+			<Button
+				disabled={!locale}
+				onClick={onAdd}
+				ariaLabel={m.addLocale()}
+				title={m.addLocale()}
+				noBackground
+			>
 				{m.addLocaleButton()}
 			</Button>
 		</div>
@@ -67,10 +73,7 @@
 	<Spacing size={2} />
 	<div class="chips">
 		{#each $locales as locale}
-			<Chip
-				label={locale}
-				onDelete={() => onDelete(locale)}
-			/>
+			<Chip label={locale} onDelete={() => onDelete(locale)} />
 		{/each}
 	</div>
 	{#if !$locales.length}

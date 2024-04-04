@@ -14,6 +14,7 @@ yarn.lock
 format.utils.ts
 static/*.json
 /.vercel
+/.github
 
 CodeBlock.svelte
 HighlightValue.svelte

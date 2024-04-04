@@ -1,18 +1,19 @@
 <script lang="ts">
-	import type { Page } from '@sveltejs/kit';
-	import * as m from "$paraglide/messages"
+	import type { Page } from "@sveltejs/kit";
 
-	import { page } from '$app/stores';
+	import OpenInNewTab from "$lib/components/ui/icons/OpenInNewTab.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Settings from "$lib/components/ui/icons/Settings.svelte";
+	import SettingsDialog from "$lib/components/ui/SettingsDialog.svelte";
+	import Button from "$lib/components/ui/Button.svelte";
 
-	import { routes } from '$lib/routes';
-	import { testIds } from '$lib/utils/dom-utils';
-	import OpenInNewTab from '$lib/components/ui/icons/OpenInNewTab.svelte';
-	import Spacing from './Spacing.svelte';
-	import Settings from './icons/Settings.svelte';
-	import SettingsDialog from './SettingsDialog.svelte';
-	import Button from './Button.svelte';
-	import { locales } from '$lib/store/locales';
-	import { formatLocaleForUrl } from '$lib/utils/format-utils';
+	import { page } from "$app/stores";
+
+	import { routes } from "$lib/routes";
+	import { testIds } from "$lib/utils/dom-utils";
+	import { locales } from "$lib/store/locales";
+	import { formatLocaleForUrl } from "$lib/utils/format-utils";
+	import { getMessages } from "$lib/i18n/util";
 
 	let path: string;
 	let open = false;
@@ -21,6 +22,8 @@
 	let openButton: HTMLButtonElement;
 	let lastItem: HTMLAnchorElement;
 
+	const m = getMessages();
+
 	const getPath = (page: Page<Record<string, string>>): void => {
 		path = page.url.pathname;
 	};
@@ -28,48 +31,48 @@
 	$: getPath($page);
 
 	const onCloseButtonShiftTab = (event: KeyboardEvent) => {
-		if(event.key === "Tab" && event.shiftKey) {
+		if (event.key === "Tab" && event.shiftKey) {
 			event.preventDefault();
 			lastItem.focus();
 		}
-	}
+	};
 
 	const onLastItemKeyPress = (event: KeyboardEvent) => {
-		if(event.key === "Tab") {
+		if (event.key === "Tab") {
 			event.preventDefault();
 			closeButton.focus();
 		}
-	}
+	};
 
 	const onKeyDown = (event: KeyboardEvent) => {
-		if(event.key === "Escape") {
+		if (event.key === "Escape") {
 			event.preventDefault();
 			closeDrawer();
 		}
-		if(event.key === "Enter" && (event.target as HTMLElement).nodeName === "A") {
+		if (event.key === "Enter" && (event.target as HTMLElement).nodeName === "A") {
 			closeDrawer();
 		}
-	}
+	};
 
 	const onClick = (event: MouseEvent) => {
-		if((event.target as HTMLElement).nodeName === "A") {
+		if ((event.target as HTMLElement).nodeName === "A") {
 			closeDrawer();
 		}
-	}
+	};
 
 	const openDrawer = () => {
 		open = true;
 		setTimeout(() => {
 			closeButton.focus();
 		}, 0);
-	}
+	};
 
 	const closeDrawer = () => {
 		open = false;
 		setTimeout(() => {
 			openButton.focus();
 		}, 0);
-	}
+	};
 </script>
 
 <SettingsDialog bind:show={showSettings} />
@@ -96,7 +99,8 @@
 				textTransform="uppercase"
 				noBackground
 			>
-				<span class="mr-2">{m.settingsButton()}</span> <Settings />
+				<span class="mr-2">{m.settingsButton()}</span>
+				<Settings />
 			</Button>
 		</div>
 	</div>
@@ -117,33 +121,31 @@
 		</div>
 		<Spacing />
 		<ul id="links">
-			<li
-				class="last-item"
-				class:active={path === '/'}
-			>
-				<a href="/{formatLocaleForUrl($locales)}">{ m.about()}</a>
+			<li class="last-item" class:active={path === "/"}>
+				<a href="/{formatLocaleForUrl($locales)}">{m.about()}</a>
 			</li>
 			<li class="last-item">
-				<a href="/Playground{formatLocaleForUrl($locales)}" class:active={path.includes('Playground')}
-				>Playground</a
+				<a
+					href="/Playground{formatLocaleForUrl($locales)}"
+					class:active={path.includes("Playground")}>Playground</a
 				>
 			</li>
 			<li class="menu-heading">Intl.</li>
 			{#each routes as route, i}
 				<li class="route" class:last-item={i === routes.length - 1}>
 					<a
-					aria-label={route.ariaLabel}
-					class:sublink={route.sublink}
-					class:active={path.includes(route.path)}
-					href={`/${route.path}${formatLocaleForUrl($locales)}`}
+						aria-label={route.ariaLabel}
+						class:sublink={route.sublink}
+						class:active={path.includes(route.path)}
+						href={`/${route.path}${formatLocaleForUrl($locales)}`}
 					>
-					{route.name}
-					{#if route.experimental}
-					<img height="16" width="16" src="/icons/experimental.svg" alt="Experimental" />
-					{/if}
-				</a>
-			</li>
-		{/each}
+						{route.name}
+						{#if route.experimental}
+							<img height="16" width="16" src="/icons/experimental.svg" alt="Experimental" />
+						{/if}
+					</a>
+				</li>
+			{/each}
 			<li class="menu-heading">{m.meta()}</li>
 			<li>
 				<a
@@ -152,8 +154,8 @@
 					target="_blank"
 					rel="noopener noreferrer"
 					on:keydown={onLastItemKeyPress}
-					bind:this={lastItem}
-				>GitHub <OpenInNewTab /></a>
+					bind:this={lastItem}>GitHub <OpenInNewTab /></a
+				>
 			</li>
 		</ul>
 	</div>
@@ -195,7 +197,8 @@
 		align-items: center;
 		gap: var(--spacing-2);
 	}
-	.menu-heading, .route {
+	.menu-heading,
+	.route {
 		margin-bottom: var(--spacing-1);
 	}
 	.menu-heading {

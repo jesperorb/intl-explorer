@@ -1,41 +1,41 @@
-import type { PlaygroundSchema } from '$lib/playground/playground.schema';
+import type { PlaygroundSchema } from "$lib/playground/playground.schema";
 
-export const displayNamesSchema: PlaygroundSchema<'DisplayNames'> = {
-	method: 'DisplayNames',
-	primaryFormatter: 'of',
-	inputValues: ['US'],
-	inputValueType: 'string',
+export const displayNamesSchema: PlaygroundSchema<"DisplayNames"> = {
+	method: "DisplayNames",
+	primaryFormatter: "of",
+	inputValues: ["US"],
+	inputValueType: "string",
 	options: [
 		{
-			name: 'type',
+			name: "type",
 			removeUndefined: true,
-			valueType: 'string',
-			defaultValue: 'region',
-			inputType: 'select'
+			valueType: "string",
+			defaultValue: "region",
+			inputType: "select"
 		},
 		{
-			name: 'style',
-			valueType: 'string',
+			name: "style",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'languageDisplay',
-			valueType: 'string',
+			name: "languageDisplay",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'fallback',
-			valueType: 'string',
+			name: "fallback",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'localeMatcher',
-			valueType: 'string',
+			name: "localeMatcher",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		}
 	]
 };

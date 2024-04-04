@@ -8,7 +8,7 @@
 
 	const m = getMessages();
 
-	const [date, time] = defaultValue.split('T');
+	const [date, time] = defaultValue.split("T");
 
 	let dateString = date;
 	let timeString = time;
@@ -23,15 +23,15 @@
 	};
 </script>
 
-<div class="datetime" class:fullWidth={fullWidth}>
+<div class="datetime" class:fullWidth>
 	<div class="date">
 		<label for="date">{m.date()}</label>
-		<Spacing size={1} /> 
+		<Spacing size={1} />
 		<input type="date" id="date" on:input={onChangeDate} value={dateString} />
 	</div>
 	<div class="time">
 		<label for="time">{m.time()}</label>
-		<Spacing size={1} /> 
+		<Spacing size={1} />
 		<input type="time" id="time" on:input={onChangeTime} value={timeString} />
 	</div>
 </div>
@@ -41,7 +41,11 @@
 		display: flex;
 		gap: 1rem;
 	}
-	.fullWidth, .date, .time, #date, #time {
+	.fullWidth,
+	.date,
+	.time,
+	#date,
+	#time {
 		width: 100%;
 	}
 </style>

@@ -1,21 +1,21 @@
 <script lang="ts">
-	import Grid from '$lib/components/ui/Grid.svelte';
-	import OptionSection from '$lib/components/ui/OptionSection.svelte';
-	import Highlight from '$lib/components/ui/Highlight.svelte';
-	import PageLayout from '$lib/components/pages/PageLayout.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import Fieldset from '$lib/components/ui/Fieldset.svelte';
-	import Radio from '$lib/components/ui/Radio.svelte';
+	import Grid from "$lib/components/ui/Grid.svelte";
+	import OptionSection from "$lib/components/ui/OptionSection.svelte";
+	import Highlight from "$lib/components/ui/Highlight.svelte";
+	import PageLayout from "$lib/components/pages/PageLayout.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Fieldset from "$lib/components/ui/Fieldset.svelte";
+	import Radio from "$lib/components/ui/Radio.svelte";
 
-	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
-	import { copyCode } from '$lib/utils/copy-to-clipboard';
-	import { formatLocalesForPrint, tryFormat } from '$lib/utils/format-utils';
-	import { locales } from '$lib/store/locales';
+	import type { OptionValues } from "$lib/types/OptionValues.types";
+	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
+	import { copyCode } from "$lib/utils/copy-to-clipboard";
+	import { formatLocalesForPrint, tryFormat } from "$lib/utils/format-utils";
+	import { locales } from "$lib/store/locales";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
-	let type: Intl.PluralRuleType = 'cardinal';
+	let type: Intl.PluralRuleType = "cardinal";
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.PluralRules(${formatLocalesForPrint($locales)}, ${JSON.stringify(
@@ -23,11 +23,8 @@
 		)}).select(${options.value})`;
 		await copyCode(code);
 	};
-	const format = (
-		options: Intl.PluralRulesOptions,
-		number: number,
-		language: string[]
-	) => tryFormat(() => new Intl.PluralRules(language, options).select(number));
+	const format = (options: Intl.PluralRulesOptions, number: number, language: string[]) =>
+		tryFormat(() => new Intl.PluralRules(language, options).select(number));
 </script>
 
 <PageLayout>
@@ -83,19 +80,19 @@
 				)}
 			/>
 		</OptionSection>
-		<OptionSection header={'localeMatcher'}>
+		<OptionSection header={"localeMatcher"}>
 			<Spacing size={1} />
 			<Highlight
 				{onClick}
 				values={{
 					value: 1,
 					type,
-					localeMatcher: 'best fit'
+					localeMatcher: "best fit"
 				}}
 				output={format(
 					{
 						type,
-						localeMatcher: 'best fit'
+						localeMatcher: "best fit"
 					},
 					1,
 					$locales
@@ -106,12 +103,12 @@
 				values={{
 					value: 2,
 					type,
-					localeMatcher: 'lookup'
+					localeMatcher: "lookup"
 				}}
 				output={format(
 					{
 						type,
-						localeMatcher: 'lookup'
+						localeMatcher: "lookup"
 					},
 					2,
 					$locales

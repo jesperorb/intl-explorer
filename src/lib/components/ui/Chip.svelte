@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { getMessages } from '$lib/i18n/util';
-	import Times from './icons/Times.svelte';
+	import Times from "$lib/components/ui/icons/Times.svelte";
+
+	import { getMessages } from "$lib/i18n/util";
+
 	const m = getMessages();
 
 	export let label: string;

@@ -4,9 +4,11 @@
 	import Token from '$lib/components/ui/Highlight/Token.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
+
+	import type { OptionValues } from '$lib/types/OptionValues.types';
+
 	import { getMessages } from '$lib/i18n/util';
-	import CopyToClipboard from './icons/CopyToClipboard.svelte';
-	type OptionValues = { [key: string]: number | boolean | string };
 
 	const m = getMessages();
 

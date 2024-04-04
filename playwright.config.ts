@@ -1,15 +1,15 @@
-import { devices } from '@playwright/test';
+import { devices } from "@playwright/test";
 
 const config = {
-	testDir: 'tests',
+	testDir: "tests",
 	forbidOnly: !!process.env.CI,
 	projects: [
 		{
-			name: 'chromium',
+			name: "chromium",
 			use: {
-				...devices['Desktop Chrome']
+				...devices["Desktop Chrome"]
 			}
-		},
+		}
 	]
 };
 

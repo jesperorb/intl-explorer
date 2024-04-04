@@ -1,11 +1,9 @@
-import type { Page } from '@sveltejs/kit';
-import { browser } from '$app/environment';
+import type { Page } from "@sveltejs/kit";
+import { browser } from "$app/environment";
 
-export const localeKey = 'locale';
+export const localeKey = "locale";
 
-export const localeFallback = browser
-	? window.navigator.language
-	: 'en-US';
+export const localeFallback = browser ? window.navigator.language : "en-US";
 
 export const getLocaleForSSR = (page?: Page<Record<string, string>>): string[] => {
 	return page?.url.searchParams.get(localeKey)?.split(",") ?? [];

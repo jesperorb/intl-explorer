@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { FormatMethodsKeys } from '$lib/format-methods';
-	import MdnLink from '$lib/components/ui/MDNLink.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import type { FormatMethodsKeys } from "$lib/format-methods";
+	import MdnLink from "$lib/components/ui/MDNLink.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 	export let header: string;
 	export let link: FormatMethodsKeys | undefined = undefined;
 	const formatHeader = (header: string) => {
-		if (header.includes('Playground')) return header;
-		return `Intl.${header.includes('NumberFormat') ? header.split('/').join(' ') : header}`;
+		if (header.includes("Playground")) return header;
+		return `Intl.${header.includes("NumberFormat") ? header.split("/").join(" ") : header}`;
 	};
 	const formatLink = (header: string) => {
-		if (header.includes('NumberFormat')) return 'NumberFormat';
+		if (header.includes("NumberFormat")) return "NumberFormat";
 		return header;
 	};
 </script>
@@ -23,7 +23,7 @@
 	</h1>
 	<div class="metadata">
 		<div class="wrapper">
-			<slot></slot>
+			<slot />
 		</div>
 		<MdnLink header={link ?? formatLink(header)} />
 	</div>
