@@ -1,37 +1,37 @@
 <script lang="ts">
-	import type { Page } from '@sveltejs/kit';
-	import { dev, browser } from '$app/environment';
-	import type { FormatMethodsKeys } from '$lib/format-methods';
-	import { page, navigating } from '$app/stores';
-	import Provider from '$lib/i18n/Provider.svelte'
+	import type { Page } from "@sveltejs/kit";
+	import { dev, browser } from "$app/environment";
+	import type { FormatMethodsKeys } from "$lib/format-methods";
+	import { page, navigating } from "$app/stores";
+	import Provider from "$lib/i18n/Provider.svelte";
 
-	import Navigation from '$lib/components/ui/Navigation.svelte';
-	import Main from '$lib/components/ui/Main.svelte';
-	import SkipLink from '$lib/components/ui/SkipLink.svelte';
-	import ProgressBar from '$lib/components/ui/ProgressBar.svelte';
-	import Header from '$lib/components/ui/Header.svelte';
-	import { getLocaleFromParams } from '$lib/utils/get-locale';
-	import { locales } from '$lib/store/locales';
+	import Navigation from "$lib/components/ui/Navigation.svelte";
+	import Main from "$lib/components/ui/Main.svelte";
+	import SkipLink from "$lib/components/ui/SkipLink.svelte";
+	import ProgressBar from "$lib/components/ui/ProgressBar.svelte";
+	import Header from "$lib/components/ui/Header.svelte";
+	import { getLocaleFromParams } from "$lib/utils/get-locale";
+	import { locales } from "$lib/store/locales";
 
-	let routeId: FormatMethodsKeys | 'Playground' | "/";
+	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;
 	const getRouteId = (page: Page<Record<string, string>>): void => {
 		isHomePage = page.route.id === "/";
-		routeId = page.route.id?.replace('/', '') as FormatMethodsKeys;
-		if(browser) {
+		routeId = page.route.id?.replace("/", "") as FormatMethodsKeys;
+		if (browser) {
 			document.querySelector("h1")?.setAttribute("tabIndex", "-1");
 			document.querySelector("h1")?.focus();
 		}
 	};
 	const getLocale = (page: Page<Record<string, string>>) => {
 		locales.set(getLocaleFromParams(page));
-	}
+	};
 	$: getRouteId($page);
 	$: getLocale($page);
 </script>
 
 <svelte:head>
-	<title>{routeId ?? 'Intl Explorer'}</title>
+	<title>{routeId ?? "Intl Explorer"}</title>
 	{#if !dev}
 		<script
 			defer
@@ -50,7 +50,7 @@
 		{#if $navigating}
 			<ProgressBar />
 		{/if}
-		{#if routeId && routeId !== 'Playground'}
+		{#if routeId && routeId !== "Playground"}
 			<Header header={routeId} />
 		{/if}
 		<slot />
@@ -119,9 +119,9 @@
 		--string: var(--green);
 		--class: var(--lightyellow);
 
-		--font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-			'Segoe UI Emoji', 'Segoe UI Symbol';
-		--code-font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+		--font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+			"Segoe UI Emoji", "Segoe UI Symbol";
+		--code-font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 
 		--spacing-1: 0.25rem;
 		--spacing-2: 0.5rem;

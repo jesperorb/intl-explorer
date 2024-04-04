@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { BrowserReleaseData } from '$lib/types/BrowserSupport.types';
-	import SrOnly from '$lib/components/ui/SrOnly.svelte';
-	import { getMessages } from '$lib/i18n/util';
-	import type { VersionValue } from '@mdn/browser-compat-data';
+	import type { BrowserReleaseData } from "$lib/types/BrowserSupport.types";
+	import SrOnly from "$lib/components/ui/SrOnly.svelte";
+	import { getMessages } from "$lib/i18n/util";
+	import type { VersionValue } from "@mdn/browser-compat-data";
 
 	export let data: Record<string, BrowserReleaseData> | undefined;
 	const m = getMessages();
 	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
-  	if (!versionAdded) return m.notAvailableInBrowser({ browserName })
-  	return m.availableInBrowser({ browserName, versionAdded });
+		if (!versionAdded) return m.notAvailableInBrowser({ browserName });
+		return m.availableInBrowser({ browserName, versionAdded });
 	};
 </script>
 

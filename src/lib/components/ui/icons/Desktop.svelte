@@ -1,9 +1,9 @@
 <script lang="ts">
-	const id = "id" + Math.random().toString(16).slice(2)
+	const id = "id" + Math.random().toString(16).slice(2);
 </script>
 
 <svg viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-	<mask id={id} fill="white">
+	<mask {id} fill="white">
 		<rect x="0.38501" width="16" height="13" rx="1" />
 	</mask>
 	<rect

@@ -2,7 +2,7 @@
 	export let center: boolean | undefined = undefined;
 </script>
 
-<main id="main" class:center={center} tabindex="-1">
+<main id="main" class:center tabindex="-1">
 	<div class="wrapper">
 		<slot />
 	</div>

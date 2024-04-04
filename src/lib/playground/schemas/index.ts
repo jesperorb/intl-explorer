@@ -1,12 +1,12 @@
-import { collatorSchema } from './collator.schema';
-import { dateTimeFormatSchema } from './dateTimeFormat.schema';
-import { displayNamesSchema } from './displayNames.schema';
-import { durationFormatSchema } from './durationFormat.schema';
-import { listFormatSchema } from './listFormat.schema';
-import { numberFormatSchema } from './numberFormat.schema';
-import { pluralRulesSchema } from './pluralRules.schema';
-import { relativeTimeFormatSchema } from './relativeTimeFormat.schema';
-import { segmenterSchema } from './segmenter.schema';
+import { collatorSchema } from "$lib/playground/schemas/collator.schema";
+import { dateTimeFormatSchema } from "$lib/playground/schemas/dateTimeFormat.schema";
+import { displayNamesSchema } from "$lib/playground/schemas/displayNames.schema";
+import { durationFormatSchema } from "$lib/playground/schemas/durationFormat.schema";
+import { listFormatSchema } from "$lib/playground/schemas/listFormat.schema";
+import { numberFormatSchema } from "$lib/playground/schemas/numberFormat.schema";
+import { pluralRulesSchema } from "$lib/playground/schemas/pluralRules.schema";
+import { relativeTimeFormatSchema } from "$lib/playground/schemas/relativeTimeFormat.schema";
+import { segmenterSchema } from "$lib/playground/schemas/segmenter.schema";
 
 export const schemas = {
 	NumberFormat: numberFormatSchema,
@@ -17,7 +17,7 @@ export const schemas = {
 	Collator: collatorSchema,
 	Segmenter: segmenterSchema,
 	DisplayNames: displayNamesSchema,
-	DurationFormat: durationFormatSchema,
+	DurationFormat: durationFormatSchema
 };
 
 export type SchemaKeys = keyof typeof schemas;

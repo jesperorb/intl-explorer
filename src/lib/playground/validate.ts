@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { FormatMethodsKeys } from '$lib/format-methods';
-import type { PlaygroundOption, PlaygroundSchema } from '$lib/playground/playground.schema';
-import { schemas } from './schemas';
+import type { FormatMethodsKeys } from "$lib/format-methods";
+import type { PlaygroundOption, PlaygroundSchema } from "$lib/playground/playground.schema";
+import { schemas } from "$lib/playground/schemas";
 
 export const optionIsActive = <Method extends FormatMethodsKeys>(
 	option: PlaygroundOption<Method>
 ) => {
-	if(option.selected !== undefined) {
+	if (option.selected !== undefined) {
 		return option.selected;
 	}
-	if(option.value !== undefined) {
+	if (option.value !== undefined) {
 		return true;
 	}
 	return option.defaultValue !== undefined;
-}
+};
 
 export const validateAndUpdateSchema = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>
@@ -42,13 +42,14 @@ export const validateAndUpdateSchema = <Method extends FormatMethodsKeys>(
 		? options.filter((option) => invalidOptions && !invalidOptions.includes(option.name as string))
 		: options;
 	// Special case for numberformat as the style property requires the unit property to be set
-	const style = schema.method === "NumberFormat"
-		? optionsWithoutInvalidOptions.find((option) => option.name === 'style')
-		: undefined;
-	if(style && style.value === 'unit') {
-		const unit = optionsWithoutInvalidOptions.findIndex((option) => option.name === 'unit');
-		if(unit && !optionsWithoutInvalidOptions[unit].value) {
-			optionsWithoutInvalidOptions[unit].value = 'degree' as any;
+	const style =
+		schema.method === "NumberFormat"
+			? optionsWithoutInvalidOptions.find((option) => option.name === "style")
+			: undefined;
+	if (style && style.value === "unit") {
+		const unit = optionsWithoutInvalidOptions.findIndex((option) => option.name === "unit");
+		if (unit && !optionsWithoutInvalidOptions[unit].value) {
+			optionsWithoutInvalidOptions[unit].value = "degree" as any;
 		}
 	}
 	return {

@@ -1,14 +1,13 @@
 <script lang="ts">
-  import DisplayNames from '$lib/components/pages/DisplayNames.svelte';
-	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
-  import Spacing from '$lib/components/ui/Spacing.svelte';
-	
-	import { settings } from '$lib/store/settings';
+	import DisplayNames from "$lib/components/pages/DisplayNames.svelte";
+	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 
-	import type { PageData } from './$types';
+	import { settings } from "$lib/store/settings";
+
+	import type { PageData } from "./$types";
 
 	export let data: PageData;
-
 </script>
 
 {#if $settings.showBrowserSupport}
@@ -17,5 +16,3 @@
 {/if}
 
 <DisplayNames />
-
-

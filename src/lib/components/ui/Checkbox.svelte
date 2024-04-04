@@ -10,14 +10,7 @@
 </script>
 
 <div class="wrapper">
-	<input
-		class="checkbox"
-		type="checkbox"
-		{name}
-		{id}
-		{checked}
-		on:change={onChange}
-	/>
+	<input class="checkbox" type="checkbox" {name} {id} {checked} on:change={onChange} />
 	<label for={id} class:sr-only={srOnlyLabel}>{label}</label>
 </div>
 
@@ -25,10 +18,10 @@
 	.wrapper {
 		display: inline;
 	}
-	input[type='checkbox'] {
+	input[type="checkbox"] {
 		width: var(--spacing-4);
 		height: var(--spacing-4);
-    color: var(--text-color);
+		color: var(--text-color);
 		accent-color: var(--purple4);
 	}
 </style>

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { BrowserCoverage } from '$lib/types/BrowserSupport.types';
-	import SupportLabel from './BrowserSupport/SupportLabel.svelte';
-	import Card from './Card.svelte';
-	import Checkbox from './Checkbox.svelte';
-	import Spacing from './Spacing.svelte';
+	import type { BrowserCoverage } from "$lib/types/BrowserSupport.types";
+	import SupportLabel from "$lib/components/ui/BrowserSupport/SupportLabel.svelte";
+	import Card from "$lib/components/ui/Card.svelte";
+	import Checkbox from "$lib/components/ui/Checkbox.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 
 	export let option: string;
 	export let support: BrowserCoverage | undefined = undefined;

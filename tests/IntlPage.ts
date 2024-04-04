@@ -1,7 +1,7 @@
-import { expect, type Page } from '@playwright/test';
-import { defaultPageUnderTest, localBaseURL, mdnUrl } from './contstants';
-import { checkA11y } from 'axe-playwright';
-import { testIds } from '../src/lib/utils/dom-utils';
+import { expect, type Page } from "@playwright/test";
+import { defaultPageUnderTest, localBaseURL, mdnUrl } from "./contstants";
+import { checkA11y } from "axe-playwright";
+import { testIds } from "../src/lib/utils/dom-utils";
 
 export type IntlPageConfig = {
 	page: Page;
@@ -16,7 +16,7 @@ export class IntlPage {
 	private pageUnderTest: string;
 	public page: Page;
 
-	constructor({ page, tabKey = 'Tab', baseURL }: IntlPageConfig) {
+	constructor({ page, tabKey = "Tab", baseURL }: IntlPageConfig) {
 		this.page = page;
 		this.tabKey = tabKey;
 		this.baseURL = baseURL ?? localBaseURL;
@@ -36,10 +36,10 @@ export class IntlPage {
 	}
 
 	private getUrl(method: string, locale?: string): string {
-		return `${this.baseURL}/${method}?locale=${locale ?? 'en-US'}`;
+		return `${this.baseURL}/${method}?locale=${locale ?? "en-US"}`;
 	}
 
-	public async goToHome(){
+	public async goToHome() {
 		await this.page.goto(this.baseURL);
 	}
 
@@ -55,11 +55,11 @@ export class IntlPage {
 	}
 
 	public async assertTitle(prefix = true) {
-		expect(await this.page.textContent('h1')).toBe(`${prefix ? "Intl." : ""}${this.pageUnderTest}`);
+		expect(await this.page.textContent("h1")).toBe(`${prefix ? "Intl." : ""}${this.pageUnderTest}`);
 	}
 
 	public async assertMDNLink() {
-		expect(await this.page.textContent('h1')).toBe(`Intl.${this.pageUnderTest}`);
+		expect(await this.page.textContent("h1")).toBe(`Intl.${this.pageUnderTest}`);
 		expect(await this.page.textContent(this.getMDNLinkLocator(this.pageUnderTest))).toBe(
 			this.getMDNLinkText(this.pageUnderTest)
 		);

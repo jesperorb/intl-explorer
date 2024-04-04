@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 
 	// eslint-disable-next-line no-undef
 	type Type = $$Generic;
@@ -24,10 +24,10 @@
 	{#if label}
 		<label for={name}>{label}</label>
 	{/if}
-	<Spacing size={1} /> 
+	<Spacing size={1} />
 	<select {name} bind:value id={name} on:change={onChange} class:fullWidth>
 		{#if !removeEmpty}
-			<option value="">{placeholder ?? 'undefined'}</option>
+			<option value="">{placeholder ?? "undefined"}</option>
 		{/if}
 		{#each items as [key, value]}
 			{#if value !== undefined}

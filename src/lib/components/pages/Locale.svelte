@@ -1,16 +1,16 @@
 <script lang="ts">
-	import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
-	import Grid from '$lib/components/ui/Grid.svelte';
-	import Input from '$lib/components/ui/Input.svelte';
-	import HighlightValue from '$lib/components/ui/HighlightValue.svelte';
-	import OptionSection from '$lib/components/ui/OptionSection.svelte';
-	import PageLayout from '$lib/components/pages/PageLayout.svelte';
-	import { getMessages } from '$lib/i18n/util';
-	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
+	import CodeBlock from "$lib/components/ui/CodeBlock.svelte";
+	import Grid from "$lib/components/ui/Grid.svelte";
+	import Input from "$lib/components/ui/Input.svelte";
+	import HighlightValue from "$lib/components/ui/HighlightValue.svelte";
+	import OptionSection from "$lib/components/ui/OptionSection.svelte";
+	import PageLayout from "$lib/components/pages/PageLayout.svelte";
+	import { getMessages } from "$lib/i18n/util";
+	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
-	const fallback = 'ja-Jpan-JP-u-ca-japanese-hc-h12-kf-upper';
+	const fallback = "ja-Jpan-JP-u-ca-japanese-hc-h12-kf-upper";
 
 	let locale = fallback;
 
@@ -27,16 +27,16 @@
 	const m = getMessages();
 
 	const properties: (keyof Intl.LocaleOptions)[] = [
-		'baseName',
-		'calendar',
-		'region',
-		'script',
-		'caseFirst',
-		'collation',
-		'hourCycle',
-		'language',
-		'numberingSystem',
-		'numeric'
+		"baseName",
+		"calendar",
+		"region",
+		"script",
+		"caseFirst",
+		"collation",
+		"hourCycle",
+		"language",
+		"numberingSystem",
+		"numeric"
 	];
 </script>
 

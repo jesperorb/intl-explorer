@@ -47,7 +47,9 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 4. Add a file with the name of your language code in the folder [./messages](./messages) (e.g. `es.json`)
 5. Copy contents of the file [./messages/en.json](./messages/en.json) to your new file and start translating the strings.
 6. Run project locally and check if your translations are working as expected.
-  - You can change language under "Settings" in the top right corner of the page.
+
+- You can change language under "Settings" in the top right corner of the page.
+
 7. Commit your changes and push to your fork and open a PR to this repository.
 
 ## License

@@ -8,11 +8,11 @@ declare namespace App {
 }
 
 type Analytics = {
-	track: (name: string, data?: Record<string, unknown>) => void
-}
+	track: (name: string, data?: Record<string, unknown>) => void;
+};
 
 declare interface Window {
-	umami?: Analytics
+	umami?: Analytics;
 }
 
 declare namespace Intl {
@@ -57,7 +57,7 @@ declare namespace Intl {
 	}
 	const DurationFormat: {
 		prototype: DurationFormat;
-		new(locales?: LocalesArgument, options?: DurationFormatOptions): DurationFormat;
+		new (locales?: LocalesArgument, options?: DurationFormatOptions): DurationFormat;
 	};
 
 	// Borrowing from: https://github.com/microsoft/TypeScript/blob/e66049084b40ce85e28278c29cdd9784c7a9033a/src/lib/es2023.intl.d.ts
@@ -73,15 +73,65 @@ declare namespace Intl {
 
 	interface NumberFormatOptions {
 		roundingPriority?: "auto" | "morePrecision" | "lessPrecision" | undefined;
-		roundingIncrement?: 1 | 2 | 5 | 10 | 20 | 25 | 50 | 100 | 200 | 250 | 500 | 1000 | 2000 | 2500 | 5000 | undefined;
-		roundingMode?: "ceil" | "floor" | "expand" | "trunc" | "halfCeil" | "halfFloor" | "halfExpand" | "halfTrunc" | "halfEven" | undefined;
+		roundingIncrement?:
+			| 1
+			| 2
+			| 5
+			| 10
+			| 20
+			| 25
+			| 50
+			| 100
+			| 200
+			| 250
+			| 500
+			| 1000
+			| 2000
+			| 2500
+			| 5000
+			| undefined;
+		roundingMode?:
+			| "ceil"
+			| "floor"
+			| "expand"
+			| "trunc"
+			| "halfCeil"
+			| "halfFloor"
+			| "halfExpand"
+			| "halfTrunc"
+			| "halfEven"
+			| undefined;
 		trailingZeroDisplay?: "auto" | "stripIfInteger" | undefined;
 	}
 
 	interface ResolvedNumberFormatOptions {
 		roundingPriority: "auto" | "morePrecision" | "lessPrecision";
-		roundingMode: "ceil" | "floor" | "expand" | "trunc" | "halfCeil" | "halfFloor" | "halfExpand" | "halfTrunc" | "halfEven";
-		roundingIncrement: 1 | 2 | 5 | 10 | 20 | 25 | 50 | 100 | 200 | 250 | 500 | 1000 | 2000 | 2500 | 5000;
+		roundingMode:
+			| "ceil"
+			| "floor"
+			| "expand"
+			| "trunc"
+			| "halfCeil"
+			| "halfFloor"
+			| "halfExpand"
+			| "halfTrunc"
+			| "halfEven";
+		roundingIncrement:
+			| 1
+			| 2
+			| 5
+			| 10
+			| 20
+			| 25
+			| 50
+			| 100
+			| 200
+			| 250
+			| 500
+			| 1000
+			| 2000
+			| 2500
+			| 5000;
 		trailingZeroDisplay: "auto" | "stripIfInteger";
 	}
 
@@ -96,15 +146,65 @@ declare namespace Intl {
 
 	interface PluralRulesOptions {
 		roundingPriority?: "auto" | "morePrecision" | "lessPrecision" | undefined;
-		roundingIncrement?: 1 | 2 | 5 | 10 | 20 | 25 | 50 | 100 | 200 | 250 | 500 | 1000 | 2000 | 2500 | 5000 | undefined;
-		roundingMode?: "ceil" | "floor" | "expand" | "trunc" | "halfCeil" | "halfFloor" | "halfExpand" | "halfTrunc" | "halfEven" | undefined;
+		roundingIncrement?:
+			| 1
+			| 2
+			| 5
+			| 10
+			| 20
+			| 25
+			| 50
+			| 100
+			| 200
+			| 250
+			| 500
+			| 1000
+			| 2000
+			| 2500
+			| 5000
+			| undefined;
+		roundingMode?:
+			| "ceil"
+			| "floor"
+			| "expand"
+			| "trunc"
+			| "halfCeil"
+			| "halfFloor"
+			| "halfExpand"
+			| "halfTrunc"
+			| "halfEven"
+			| undefined;
 		trailingZeroDisplay?: "auto" | "stripIfInteger" | undefined;
 	}
 
 	interface ResolvedPluralRulesOptions {
 		roundingPriority: "auto" | "morePrecision" | "lessPrecision";
-		roundingMode: "ceil" | "floor" | "expand" | "trunc" | "halfCeil" | "halfFloor" | "halfExpand" | "halfTrunc" | "halfEven";
-		roundingIncrement: 1 | 2 | 5 | 10 | 20 | 25 | 50 | 100 | 200 | 250 | 500 | 1000 | 2000 | 2500 | 5000;
+		roundingMode:
+			| "ceil"
+			| "floor"
+			| "expand"
+			| "trunc"
+			| "halfCeil"
+			| "halfFloor"
+			| "halfExpand"
+			| "halfTrunc"
+			| "halfEven";
+		roundingIncrement:
+			| 1
+			| 2
+			| 5
+			| 10
+			| 20
+			| 25
+			| 50
+			| 100
+			| 200
+			| 250
+			| 500
+			| 1000
+			| 2000
+			| 2500
+			| 5000;
 		trailingZeroDisplay: "auto" | "stripIfInteger";
 	}
 }

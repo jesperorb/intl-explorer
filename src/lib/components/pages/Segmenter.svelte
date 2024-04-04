@@ -1,25 +1,25 @@
 <script lang="ts">
-	import Highlight from '$lib/components/ui/Highlight.svelte';
-	import OptionSection from '$lib/components/ui/OptionSection.svelte';
-	import Grid from '$lib/components/ui/Grid.svelte';
-	import Input from '$lib/components/ui/Input.svelte';
-	import PageLayout from '$lib/components/pages/PageLayout.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Highlight from "$lib/components/ui/Highlight.svelte";
+	import OptionSection from "$lib/components/ui/OptionSection.svelte";
+	import Grid from "$lib/components/ui/Grid.svelte";
+	import Input from "$lib/components/ui/Input.svelte";
+	import PageLayout from "$lib/components/pages/PageLayout.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 
-	import type { OptionValues } from '$lib/types/OptionValues.types';
-	import type { BrowserSupportDataForMethod } from '$lib/types/BrowserSupport.types';
+	import type { OptionValues } from "$lib/types/OptionValues.types";
+	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
 
-	import { copyCode } from '$lib/utils/copy-to-clipboard';
-	import { segmenterOptions } from '$lib/format-options/segmenter.options';
-	import { tryFormat, print, formatLocalesForPrint } from '$lib/utils/format-utils';
-	import { getMessages } from '$lib/i18n/util';
-	import { locales } from '$lib/store/locales';
+	import { copyCode } from "$lib/utils/copy-to-clipboard";
+	import { segmenterOptions } from "$lib/format-options/segmenter.options";
+	import { tryFormat, print, formatLocalesForPrint } from "$lib/utils/format-utils";
+	import { getMessages } from "$lib/i18n/util";
+	import { locales } from "$lib/store/locales";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
-	
+
 	const m = getMessages();
 
-	let sentence = 'This is a sentence.';
+	let sentence = "This is a sentence.";
 
 	let onClick = async (options: OptionValues) => {
 		const code = `Array.from(new Intl.Segmenter(${formatLocalesForPrint($locales)}, ${JSON.stringify(
@@ -29,10 +29,7 @@
 	};
 
 	const format = (options: OptionValues, input: string, language: string[]) =>
-		tryFormat(() =>
-			print(Array.from(new Intl.Segmenter(language, options).segment(input)))
-		);
-
+		tryFormat(() => print(Array.from(new Intl.Segmenter(language, options).segment(input))));
 </script>
 
 <PageLayout>

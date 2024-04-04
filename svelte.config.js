@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-vercel';
-import preprocess from 'svelte-preprocess';
+import adapter from "@sveltejs/adapter-vercel";
+import preprocess from "svelte-preprocess";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,7 +11,13 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$paraglide: "./src/paraglide",
-		},
+			$ui: "./src/lib/components/ui",
+			$pages: "./src/lib/components/pages",
+			$utils: "./src/lib/utils",
+			$i18n: "./src/lib/i18n",
+			$store: "./src/lib/store",
+			$types: "./src/lib/types",
+		}
 	}
 };
 

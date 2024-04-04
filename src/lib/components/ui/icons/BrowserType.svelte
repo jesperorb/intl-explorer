@@ -1,17 +1,17 @@
 <script lang="ts">
-	import type { BrowserType } from '@mdn/browser-compat-data';
-	import Desktop from './Desktop.svelte';
-	import Mobile from './Mobile.svelte';
-	import Server from './Server.svelte';
+	import type { BrowserType } from "@mdn/browser-compat-data";
+	import Desktop from "$lib/components/ui/icons/Desktop.svelte";
+	import Mobile from "$lib/components/ui/icons/Mobile.svelte";
+	import Server from "$lib/components/ui/icons/Server.svelte";
 	export let browserType: BrowserType;
 </script>
 
-{#if browserType === 'desktop'}
+{#if browserType === "desktop"}
 	<Desktop />
 {/if}
-{#if browserType === 'mobile'}
+{#if browserType === "mobile"}
 	<Mobile />
 {/if}
-{#if browserType === 'server'}
+{#if browserType === "server"}
 	<Server />
 {/if}

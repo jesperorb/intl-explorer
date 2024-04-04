@@ -5,7 +5,7 @@
 	viewBox="0 0 24 24"
 	fill="none"
 	stroke="currentColor"
-  aria-hidden="true"
+	aria-hidden="true"
 	stroke-width="2"
 	stroke-linecap="round"
 	stroke-linejoin="round"

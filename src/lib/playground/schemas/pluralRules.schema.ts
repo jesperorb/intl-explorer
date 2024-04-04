@@ -1,81 +1,82 @@
-import type { PlaygroundSchema } from '../playground.schema';
+import type { PlaygroundSchema } from "$lib/playground/playground.schema";
 
-export const pluralRulesSchema: PlaygroundSchema<'PluralRules'> = {
-	method: 'PluralRules',
-	primaryFormatter: 'select',
+export const pluralRulesSchema: PlaygroundSchema<"PluralRules"> = {
+	method: "PluralRules",
+	primaryFormatter: "select",
 	inputValues: [2, 10],
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	secondaryFormatters: ['selectRange' as any],
-	inputValueType: 'number',
+	secondaryFormatters: ["selectRange" as any],
+	inputValueType: "number",
 	options: [
 		{
-			name: 'type',
-			valueType: 'string',
+			name: "type",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'minimumIntegerDigits',
-			valueType: 'number',
+			name: "minimumIntegerDigits",
+			valueType: "number",
 			defaultValue: undefined,
-			inputType: 'text',
+			inputType: "text",
 			max: 21,
 			min: 1
 		},
 		{
-			name: 'minimumFractionDigits',
-			valueType: 'number',
+			name: "minimumFractionDigits",
+			valueType: "number",
 			defaultValue: undefined,
-			inputType: 'text',
+			inputType: "text",
 			max: 20,
 			min: 1
 		},
 		{
-			name: 'maximumFractionDigits',
-			valueType: 'number',
+			name: "maximumFractionDigits",
+			valueType: "number",
 			defaultValue: undefined,
-			inputType: 'text',
+			inputType: "text",
 			max: 20,
 			min: 1
 		},
 		{
-			name: 'minimumSignificantDigits',
-			valueType: 'number',
+			name: "minimumSignificantDigits",
+			valueType: "number",
 			defaultValue: undefined,
-			inputType: 'text',
+			inputType: "text",
 			max: 21,
 			min: 1
 		},
 		{
-			name: 'maximumSignificantDigits',
-			valueType: 'number',
+			name: "maximumSignificantDigits",
+			valueType: "number",
 			defaultValue: undefined,
-			inputType: 'text',
+			inputType: "text",
 			max: 21,
 			min: 1
-		}, {
-			name: 'roundingIncrement',
-			valueType: 'string',
-			defaultValue: undefined,
-			inputType: 'select'
 		},
 		{
-			name: 'roundingMode',
-			valueType: 'string',
+			name: "roundingIncrement",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'roundingPriority',
-			valueType: 'string',
+			name: "roundingMode",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
 		{
-			name: 'trailingZeroDisplay',
-			valueType: 'string',
+			name: "roundingPriority",
+			valueType: "string",
 			defaultValue: undefined,
-			inputType: 'select'
+			inputType: "select"
 		},
+		{
+			name: "trailingZeroDisplay",
+			valueType: "string",
+			defaultValue: undefined,
+			inputType: "select"
+		}
 	]
 };

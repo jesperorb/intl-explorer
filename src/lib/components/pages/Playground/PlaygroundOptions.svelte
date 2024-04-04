@@ -1,21 +1,21 @@
 <script lang="ts">
-	import type { PlaygroundSchema } from '$lib/playground/playground.schema';
-	import type { BrowserSupportDataForOptions } from '$lib/types/BrowserSupport.types';
+	import type { PlaygroundSchema } from "$lib/playground/playground.schema";
+	import type { BrowserSupportDataForOptions } from "$lib/types/BrowserSupport.types";
 
-	import Select from '$lib/components/ui/Select.svelte';
-	import Input from '$lib/components/ui/Input.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import Select from "$lib/components/ui/Select.svelte";
+	import Input from "$lib/components/ui/Input.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 
-	import { getItemsFromOption } from '$lib/playground/format.utils';
-	import OptionCard from '$lib/components/ui/OptionCard.svelte';
-	import Details from '$lib/components/ui/details/Details.svelte';
-	import BrowserSupportGrid from '$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte';
-	import Radio from '$lib/components/ui/Radio.svelte';
-	import { optionIsActive } from '$lib/playground/validate';
-	import { getMessages } from '$lib/i18n/util';
-	import { settings } from '$lib/store/settings';
+	import { getItemsFromOption } from "$lib/playground/format.utils";
+	import OptionCard from "$lib/components/ui/OptionCard.svelte";
+	import Details from "$lib/components/ui/details/Details.svelte";
+	import BrowserSupportGrid from "$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte";
+	import Radio from "$lib/components/ui/Radio.svelte";
+	import { optionIsActive } from "$lib/playground/validate";
+	import { getMessages } from "$lib/i18n/util";
+	import { settings } from "$lib/store/settings";
 
-	export let schema: PlaygroundSchema<'NumberFormat'>;
+	export let schema: PlaygroundSchema<"NumberFormat">;
 	export let support: BrowserSupportDataForOptions | undefined;
 	export let onChangeOption: (event: Event) => void;
 	const m = getMessages();
@@ -32,36 +32,36 @@
 			hideFullSupport
 			support={$settings.showBrowserSupport ? support?.[option.name]?.coverage : undefined}
 		>
-			{#if option.inputType === 'select'}
+			{#if option.inputType === "select"}
 				<Select
 					onChange={onChangeOption}
 					name={option.name}
-					value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
+					value={option.value?.toString() ?? option.defaultValue?.toString() ?? ""}
 					items={getItemsFromOption(schema.method, option)}
 					fullWidth
 					removeEmpty={option.removeUndefined}
 				/>
 			{/if}
-			{#if option.inputType === 'text'}
+			{#if option.inputType === "text"}
 				<Input
 					id={option.name}
 					onInput={onChangeOption}
 					name={option.name}
-					value={option.value?.toString() ?? option.defaultValue?.toString() ?? ''}
+					value={option.value?.toString() ?? option.defaultValue?.toString() ?? ""}
 					fullWidth
 					pattern={option.pattern}
 					max={option.max}
 					min={option.min}
 				/>
 			{/if}
-			{#if option.inputType === 'radio'}
+			{#if option.inputType === "radio"}
 				<div class="radios" role="radiogroup">
 					{#each getItemsFromOption(schema.method, option) as [value]}
 						<Radio
 							value={value?.toString() ?? "undefined"}
 							name={option.name}
 							id={option.name + value?.toString()}
-							onChange={onChangeOption}	
+							onChange={onChangeOption}
 							label={value?.toString() ?? "undefined"}
 							checked={value === option.value}
 						/>

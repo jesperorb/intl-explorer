@@ -16,7 +16,7 @@
 		"test:gen": "npx playwright codegen http://localhost:5173/",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check . && eslint .",
+		"lint": "eslint .",
 		"format": "prettier --write .",
 		"prepare": "husky install",
 		"postinstall": "paraglide-js compile --project ./project.inlang"

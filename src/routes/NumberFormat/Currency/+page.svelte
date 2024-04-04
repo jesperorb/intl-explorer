@@ -1,17 +1,15 @@
 <script lang="ts">
-	
-	import NumberFormat from '$lib/components/pages/NumberFormat.Currency.svelte';
-	import BrowserSupport from '$lib/components/ui/BrowserSupport/BrowserSupport.svelte';
-  import Spacing from '$lib/components/ui/Spacing.svelte';
+	import NumberFormat from "$lib/components/pages/NumberFormat.Currency.svelte";
+	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 
-	import { settings } from '$lib/store/settings';
-	
-	import type { PageData } from './$types';
-	
+	import { settings } from "$lib/store/settings";
+
+	import type { PageData } from "./$types";
+
 	export let data: PageData;
 
 	let browserCompatData = $settings.showBrowserSupport ? data : null;
-
 </script>
 
 {#if $settings.showBrowserSupport}

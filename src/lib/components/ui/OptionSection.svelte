@@ -1,7 +1,8 @@
 <script lang="ts">
-	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import type { BrowserSupportForOption } from '$lib/types/BrowserSupport.types';
-	import BrowserSupport from './BrowserSupport/BrowserSupport.svelte';
+	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
+
+	import type { BrowserSupportForOption } from "$lib/types/BrowserSupport.types";
 
 	export let header: string;
 	export let labelId: string | undefined = undefined;
@@ -33,8 +34,8 @@
 		gap: var(--spacing-2);
 	}
 	@media screen and (min-width: 900px) {
-    .header {
+		.header {
 			flex-direction: row;
-    }
-  }
+		}
+	}
 </style>

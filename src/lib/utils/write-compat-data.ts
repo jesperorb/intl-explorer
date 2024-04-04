@@ -1,6 +1,6 @@
-import { formatMethods, type FormatMethodsKeys } from '$lib/format-methods';
-import { writeFile } from 'node:fs';
-import { resolve } from 'node:path';
+import { formatMethods, type FormatMethodsKeys } from "$lib/format-methods";
+import { writeFile } from "node:fs";
+import { resolve } from "node:path";
 import bcd, {
 	type BrowserName,
 	type Browsers,
@@ -10,12 +10,12 @@ import bcd, {
 	type Identifier,
 	type SimpleSupportStatement,
 	type SupportStatement
-} from '@mdn/browser-compat-data';
+} from "@mdn/browser-compat-data";
 import type {
 	BrowserSupportDataForMethod,
 	BrowserCoverage,
-	BrowserReleaseData,
-} from '$lib/types/BrowserSupport.types';
+	BrowserReleaseData
+} from "$lib/types/BrowserSupport.types";
 
 const browserTypePosition: Record<BrowserType, number> = {
 	desktop: 0,
@@ -24,12 +24,12 @@ const browserTypePosition: Record<BrowserType, number> = {
 	xr: 4
 };
 
-const excludedBrowserNames: BrowserName[] = ['ie', 'oculus'];
+const excludedBrowserNames: BrowserName[] = ["ie", "oculus"];
 const secondaryFormatterNames = [
-	'formatRange',
-	'formatToParts',
-	'formatRangeToParts',
-	'selectRange'
+	"formatRange",
+	"formatToParts",
+	"formatRangeToParts",
+	"selectRange"
 ];
 
 const compatKey = "__compat";
@@ -58,16 +58,17 @@ const getSupportDataForProperty = (value: Identifier) => {
 
 const getPropertiesForMethod = (compatData: CompatData, property: MethodsToWriteFor) => {
 	const allPropertiesOnMethod = compatData.javascript.builtins.Intl[property];
-	return Object.entries(allPropertiesOnMethod)
-		.filter(([key]) => key !== property && !excludedPropertiesOnMethod.includes(key))
-}
+	return Object.entries(allPropertiesOnMethod).filter(
+		([key]) => key !== property && !excludedPropertiesOnMethod.includes(key)
+	);
+};
 
 const getOptionsForProperty = (compatData: CompatData, property: MethodsToWriteFor) => {
 	const allPropertiesOnMethod = compatData.javascript.builtins.Intl[property][property];
-	const options = Object.entries(allPropertiesOnMethod).filter(([key]) => key.includes('options'));
-	const hasNestedObjectProperty = options && options[0] && options[0][0] === 'options_parameter';
+	const options = Object.entries(allPropertiesOnMethod).filter(([key]) => key.includes("options"));
+	const hasNestedObjectProperty = options && options[0] && options[0][0] === "options_parameter";
 	if (hasNestedObjectProperty) {
-		return Object.entries(options[0][1]).filter(([key]) => key.includes('options'));
+		return Object.entries(options[0][1]).filter(([key]) => key.includes("options"));
 	}
 	return options;
 };
@@ -81,18 +82,16 @@ const getFormattersForProperty = (compatData: CompatData, property: MethodsToWri
 
 const browserToSupportData =
 	(browsers: Browsers) =>
-		(
-			[browserName, data]: [BrowserName, SupportStatement],
-		): [BrowserName, BrowserReleaseData] => {
-			const versionAdded = getPropertyFromSupportStatement(data, 'version_added');
-			const browser = browsers[browserName];
-			const supportData: BrowserReleaseData = {
-				browserName: browser.name,
-				versionAdded,
-				browserType: browser.type,
-			};
-			return [browserName, supportData];
+	([browserName, data]: [BrowserName, SupportStatement]): [BrowserName, BrowserReleaseData] => {
+		const versionAdded = getPropertyFromSupportStatement(data, "version_added");
+		const browser = browsers[browserName];
+		const supportData: BrowserReleaseData = {
+			browserName: browser.name,
+			versionAdded,
+			browserType: browser.type
 		};
+		return [browserName, supportData];
+	};
 
 const sortCompatData = (
 	[, aData]: [BrowserName, BrowserReleaseData],
@@ -105,39 +104,37 @@ const filterExludedBrowsers = ([browserName]: [BrowserName, SupportStatement]) =
 	!excludedBrowserNames.includes(browserName);
 
 export const getCoverage = (data: [BrowserName, BrowserReleaseData][]): BrowserCoverage => {
-	const withVersion = data
-		.filter(([, browserSupport]) => Boolean(browserSupport.versionAdded))
+	const withVersion = data.filter(([, browserSupport]) => Boolean(browserSupport.versionAdded));
 	if (withVersion.length === 0) {
 		return "none";
 	}
 	if (withVersion.length === data.length) {
 		return "full";
 	}
-	return "partial"
-}
+	return "partial";
+};
 
 const optionKeyFormatter = (key: string) => {
 	const [, option] = key.split("_");
 	return option;
-}
+};
 
-const formatSupportData = (
-	browsers: Browsers,
-	keyFormatter?: (key: string) => string
-) => ([key, value]: [string, Identifier | CompatStatement]) => {
-	const supportDataForOption = getSupportDataForProperty(value as unknown as Identifier);
-	const formattedOptions = supportDataForOption
-		.filter(filterExludedBrowsers)
-		.map(browserToSupportData(browsers))
-		.sort(sortCompatData);
-	return [
-		keyFormatter ? keyFormatter(key) : key,
-		{
-			coverage: getCoverage(formattedOptions),
-			support: Object.fromEntries(formattedOptions)
-		}
-	];
-}
+const formatSupportData =
+	(browsers: Browsers, keyFormatter?: (key: string) => string) =>
+	([key, value]: [string, Identifier | CompatStatement]) => {
+		const supportDataForOption = getSupportDataForProperty(value as unknown as Identifier);
+		const formattedOptions = supportDataForOption
+			.filter(filterExludedBrowsers)
+			.map(browserToSupportData(browsers))
+			.sort(sortCompatData);
+		return [
+			keyFormatter ? keyFormatter(key) : key,
+			{
+				coverage: getCoverage(formattedOptions),
+				support: Object.fromEntries(formattedOptions)
+			}
+		];
+	};
 
 const getCompatDataWithBrowserData = (
 	compatData: CompatData,
@@ -152,10 +149,10 @@ const getCompatDataWithBrowserData = (
 	const options = getOptionsForProperty(compatData, property).map(
 		formatSupportData(browsers, optionKeyFormatter)
 	);
-	const formatters = getFormattersForProperty(compatData, property)
-		.map(formatSupportData(browsers));
-	const properties = getPropertiesForMethod(compatData, property)
-		.map(formatSupportData(browsers));
+	const formatters = getFormattersForProperty(compatData, property).map(
+		formatSupportData(browsers)
+	);
+	const properties = getPropertiesForMethod(compatData, property).map(formatSupportData(browsers));
 	return {
 		mdnUrl: propertyData?.__compat?.mdn_url,
 		specUrl: propertyData?.__compat?.spec_url,
@@ -165,7 +162,7 @@ const getCompatDataWithBrowserData = (
 		formattersSupport: Object.fromEntries(formatters),
 		propertiesSupport: shouldAddPropertiesSupport(property)
 			? Object.fromEntries(properties)
-			: undefined,
+			: undefined
 	};
 };
 
@@ -175,7 +172,7 @@ export const writeCompatData = () => {
 		getCompatDataWithBrowserData(bcd, method)
 	]);
 	writeFile(
-		resolve(process.cwd(), 'static', `Playground-compat-data.json`),
+		resolve(process.cwd(), "static", `Playground-compat-data.json`),
 		JSON.stringify(Object.fromEntries(writeData.filter(([key]) => key !== "Locale"))),
 		(error) => {
 			if (error) {
@@ -184,9 +181,9 @@ export const writeCompatData = () => {
 		}
 	);
 	writeData.forEach(([method, data]) => {
-		if(method === "NumberFormat") {
+		if (method === "NumberFormat") {
 			writeFile(
-				resolve(process.cwd(), 'static', 'NumberFormat', 'NumberFormat-compat-data.json'),
+				resolve(process.cwd(), "static", "NumberFormat", "NumberFormat-compat-data.json"),
 				JSON.stringify(data),
 				(error) => {
 					if (error) {
@@ -196,7 +193,7 @@ export const writeCompatData = () => {
 			);
 		}
 		writeFile(
-			resolve(process.cwd(), 'static', `${method}-compat-data.json`),
+			resolve(process.cwd(), "static", `${method}-compat-data.json`),
 			JSON.stringify(data),
 			(error) => {
 				if (error) {

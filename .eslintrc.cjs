@@ -2,18 +2,18 @@
 module.exports = {
 	root: true,
 	extends: [
-		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:svelte/recommended',
-		'plugin:svelte/prettier',
-		'prettier'
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:svelte/recommended",
+		"plugin:svelte/prettier",
+		"prettier"
 	],
-	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
+	parser: "@typescript-eslint/parser",
+	plugins: ["@typescript-eslint"],
 	parserOptions: {
-		sourceType: 'module',
+		sourceType: "module",
 		ecmaVersion: 2020,
-		extraFileExtensions: ['.svelte']
+		extraFileExtensions: [".svelte"]
 	},
 	env: {
 		browser: true,
@@ -21,14 +21,14 @@ module.exports = {
 		node: true
 	},
 	rules: {
-		'@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: 'Slots' }]
+		"@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "Slots" }]
 	},
 	overrides: [
 		{
-			files: ['*.svelte'],
-			parser: 'svelte-eslint-parser',
+			files: ["*.svelte"],
+			parser: "svelte-eslint-parser",
 			parserOptions: {
-				parser: '@typescript-eslint/parser'
+				parser: "@typescript-eslint/parser"
 			}
 		}
 	]

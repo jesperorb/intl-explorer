@@ -16,9 +16,19 @@
 	{#if label}
 		<label for={id}>{label}</label>
 	{/if}
-	<Spacing size={1} /> 
+	<Spacing size={1} />
 	{#if onInput}
-		<input {name} {max} {min} type="text" on:input={onInput} {value} {id} class:fullWidth {pattern} />
+		<input
+			{name}
+			{max}
+			{min}
+			type="text"
+			on:input={onInput}
+			{value}
+			{id}
+			class:fullWidth
+			{pattern}
+		/>
 	{:else}
 		<input {name} {max} {min} type="text" bind:value {id} class:fullWidth {pattern} />
 	{/if}

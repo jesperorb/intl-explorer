@@ -7,15 +7,15 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 
-	import { uid, onClickOutside } from './ComboBoxContext.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
+	import { uid, onClickOutside } from "$lib/components/ui/ComboBox/ComboBoxContext.svelte";
+	import Spacing from "$lib/components/ui/Spacing.svelte";
 
 	export let disabled: boolean | undefined = undefined;
 	export let error: string | undefined = undefined;
 	export let id = uid();
-	export let label: string | undefined = '';
+	export let label: string | undefined = "";
 	export let name: string;
 	export let options: Option[] = [];
 	export let placeholder: string | undefined = undefined;
@@ -49,15 +49,15 @@
 	async function onInputKeyup(event: KeyboardEvent) {
 		const target = event.target as HTMLInputElement | null;
 		switch (event.key) {
-			case 'Escape':
-			case 'ArrowUp':
-			case 'ArrowLeft':
-			case 'ArrowRight':
-			case 'Enter':
-			case 'Tab':
-			case 'Shift':
+			case "Escape":
+			case "ArrowUp":
+			case "ArrowLeft":
+			case "ArrowRight":
+			case "Enter":
+			case "Tab":
+			case "Shift":
 				break;
-			case 'ArrowDown':
+			case "ArrowDown":
 				await showList(target?.value);
 				(
 					listElement.querySelector(
@@ -77,12 +77,12 @@
 		let flag = false;
 
 		switch (event.key) {
-			case 'Escape':
+			case "Escape":
 				hideList();
 				flag = true;
 				break;
 
-			case 'Tab':
+			case "Tab":
 				hideList();
 				break;
 		}
@@ -116,7 +116,7 @@
 		let prevOptionElement = target?.previousElementSibling as HTMLElement | null;
 		let nextOptionElement = target?.nextElementSibling as HTMLElement | null;
 		switch (event.key) {
-			case 'ArrowUp':
+			case "ArrowUp":
 				while (prevOptionElement) {
 					if (prevOptionElement.matches(`[role="option"]:not([aria-disabled="true"])`)) break;
 					prevOptionElement = prevOptionElement.previousElementSibling as HTMLElement | null;
@@ -125,7 +125,7 @@
 				flag = true;
 				break;
 
-			case 'ArrowDown':
+			case "ArrowDown":
 				while (nextOptionElement) {
 					if (nextOptionElement.matches(`[role="option"]:not([aria-disabled="true"])`)) break;
 					nextOptionElement = nextOptionElement.nextElementSibling as HTMLElement | null;
@@ -134,18 +134,18 @@
 				flag = true;
 				break;
 
-			case 'Enter':
+			case "Enter":
 				selectOption(target);
 				hideList();
 				flag = true;
 				break;
 
-			case 'Escape':
+			case "Escape":
 				hideList();
 				flag = true;
 				break;
 
-			case 'Tab':
+			case "Tab":
 				hideList();
 				break;
 
@@ -162,7 +162,7 @@
 	async function showList(inputValue: string | undefined) {
 		const isExactMatch = options.some((o) => o.label === inputValue);
 
-		list = inputValue === '' || isExactMatch ? options : filter(inputValue ?? '');
+		list = inputValue === "" || isExactMatch ? options : filter(inputValue ?? "");
 		isListOpen = true;
 	}
 
@@ -178,13 +178,13 @@
 	}
 
 	function selectOption(optionElement: HTMLElement | null) {
-		value = optionElement?.dataset.value ?? '';
+		value = optionElement?.dataset.value ?? "";
 
 		selectedOption = {
-			label: optionElement?.dataset.label ?? '',
-			value: optionElement?.dataset.value ?? ''
+			label: optionElement?.dataset.label ?? "",
+			value: optionElement?.dataset.value ?? ""
 		};
-		if(onSelect) {
+		if (onSelect) {
 			onSelect(selectedOption);
 		}
 	}
@@ -225,7 +225,7 @@
 			aria-autocomplete="list"
 			aria-expanded={isListOpen}
 			aria-controls=""
-			aria-required={required ? 'true' : undefined}
+			aria-required={required ? "true" : undefined}
 		/>
 		<ul
 			class="combobox__list"
@@ -248,7 +248,8 @@
 					aria-disabled={option.disabled}
 				>
 					<slot name="option" {option}>
-						{option.label} {option.value ? `(${option.value})` : ""}
+						{option.label}
+						{option.value ? `(${option.value})` : ""}
 					</slot>
 					{#if option.value === value}
 						<svg viewBox="0 0 24 24" class="icon" aria-hidden="true">
@@ -277,7 +278,7 @@
 		flex-direction: column;
 	}
 
-	.input-container{
+	.input-container {
 		position: relative;
 	}
 
@@ -350,7 +351,7 @@
 	}
 
 	.list__option:focus,
-	.list__option:not([aria-disabled='true']):hover {
+	.list__option:not([aria-disabled="true"]):hover {
 		outline: none;
 		cursor: pointer;
 		outline: none;

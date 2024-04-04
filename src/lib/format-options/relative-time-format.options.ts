@@ -1,26 +1,26 @@
-import { localeMatcher, style } from './common.options';
+import { localeMatcher, style } from "$lib/format-options/common.options";
 
 export const relativeTimeFormatUnits: Intl.RelativeTimeFormatUnit[] = [
-	'year',
-	'years',
-	'quarter',
-	'quarters',
-	'month',
-	'months',
-	'week',
-	'weeks',
-	'day',
-	'days',
-	'hour',
-	'hours',
-	'minute',
-	'minutes',
-	'second',
-	'seconds'
+	"year",
+	"years",
+	"quarter",
+	"quarters",
+	"month",
+	"months",
+	"week",
+	"weeks",
+	"day",
+	"days",
+	"hour",
+	"hours",
+	"minute",
+	"minutes",
+	"second",
+	"seconds"
 ];
 
 export const relativeTimeFormatOptions = {
-	numeric: ['always', 'auto', undefined],
+	numeric: ["always", "auto", undefined],
 	style,
 	unit: relativeTimeFormatUnits,
 	localeMatcher
