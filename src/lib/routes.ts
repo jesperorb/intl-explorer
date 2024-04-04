@@ -55,5 +55,9 @@ export const routes: Route[] = [
 		path: 'DurationFormat',
 		name: 'DurationFormat',
 		experimental: true,
+	},
+	{
+		path: 'Locale',
+		name: 'Locale',
 	}
 ];

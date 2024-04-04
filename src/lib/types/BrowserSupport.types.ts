@@ -22,4 +22,5 @@ export type BrowserSupportDataForMethod = {
 	coverage?: BrowserCoverage;
 	optionsSupport?: BrowserSupportDataForOptions;
 	formattersSupport?: BrowserSupportDataForOptions;
+	propertiesSupport?: BrowserSupportDataForOptions;
 };

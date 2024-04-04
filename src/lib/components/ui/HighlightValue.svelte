@@ -1,8 +1,8 @@
 <script lang="ts">
   import Token from "$lib/components/ui/Highlight/Token.svelte";
 
-  type Value = number | boolean | string;
-  export let value: number | boolean | string;
+  type Value = number | boolean | string | undefined;
+  export let value: number | boolean | string | undefined;
   export let noWrap: boolean = false;
 	const valueType = typeof value as "string";
   const formattedValue = (value: Value) =>

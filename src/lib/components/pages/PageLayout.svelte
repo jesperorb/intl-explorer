@@ -5,7 +5,8 @@
 	import LocalePicker from '$lib/components/ui/LocalePicker.svelte';
 
 	import { getMessages } from '$lib/i18n/util';
-  const m = getMessages();
+	export let showLocalePicker: boolean = true;
+	const m = getMessages();
 </script>
 
 <Card>
@@ -14,7 +15,9 @@
 	<hr />
 	<Spacing />
 	<Grid>
-		<LocalePicker />
+		{#if showLocalePicker}
+			<LocalePicker />
+		{/if}
 		{#if $$slots.input}
 			<slot name="input" />
 		{/if}

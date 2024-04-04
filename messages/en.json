@@ -46,6 +46,7 @@
   "no": "No",
   "noSupport": "No support",
   "notAvailableInBrowser": "Not available in {browserName}",
+  "noValue": "No value",
   "options": "Options",
   "output": "Output",
   "partialSupport": "Partial support",
