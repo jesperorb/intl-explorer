@@ -1,10 +1,10 @@
 <script lang="ts">
-	import BrowserSupportGrid from "$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte";
-	import SupportLabel from "$lib/components/ui/BrowserSupport/SupportLabel.svelte";
-	import Details from "$lib/components/ui/details/Details.svelte";
+	import BrowserSupportGrid from "$ui/BrowserSupport/BrowserSupportGrid.svelte";
+	import SupportLabel from "$ui/BrowserSupport/SupportLabel.svelte";
+	import Details from "$ui/details/Details.svelte";
 
-	import type { BrowserSupportForOption } from "$lib/types/BrowserSupport.types";
-	import { getMessages } from "$lib/i18n/util";
+	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
+	import { getMessages } from "$i18n/util";
 
 	export let data: BrowserSupportForOption | undefined;
 	export let hideFullSupport: boolean | undefined = undefined;

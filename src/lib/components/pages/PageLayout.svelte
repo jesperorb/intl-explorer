@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import Card from "$lib/components/ui/Card.svelte";
-	import Grid from "$lib/components/ui/Grid.svelte";
-	import LocalePicker from "$lib/components/ui/LocalePicker.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import Card from "$ui/Card.svelte";
+	import Grid from "$ui/Grid.svelte";
+	import LocalePicker from "$ui/LocalePicker.svelte";
 
-	import { getMessages } from "$lib/i18n/util";
+	import { getMessages } from "$i18n/util";
 	export let showLocalePicker: boolean = true;
 	const m = getMessages();
 </script>

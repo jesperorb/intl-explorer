@@ -1,15 +1,15 @@
 <script lang="ts">
 	import type { PlaygroundSchema } from "$lib/playground/playground.schema";
 
-	import Select from "$lib/components/ui/Select.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
-	import DateTime from "$lib/components/ui/DateTime.svelte";
-	import Grid from "$lib/components/ui/Grid.svelte";
+	import Select from "$ui/Select.svelte";
+	import Input from "$ui/Input.svelte";
+	import DateTime from "$ui/DateTime.svelte";
+	import Grid from "$ui/Grid.svelte";
 
 	import { formatMethods } from "$lib/format-methods";
-	import Card from "$lib/components/ui/Card.svelte";
-	import { getMessages } from "$lib/i18n/util";
-	import LocalePicker from "$lib/components/ui/LocalePicker.svelte";
+	import Card from "$ui/Card.svelte";
+	import { getMessages } from "$i18n/util";
+	import LocalePicker from "$ui/LocalePicker.svelte";
 
 	export let schema: PlaygroundSchema<"NumberFormat">;
 	export let onChangeSchema: (event: Event) => void;

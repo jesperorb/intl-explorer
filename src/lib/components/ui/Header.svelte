@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FormatMethodsKeys } from "$lib/format-methods";
-	import MdnLink from "$lib/components/ui/MDNLink.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import MdnLink from "$ui/MDNLink.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 	export let header: string;
 	export let link: FormatMethodsKeys | undefined = undefined;
 	const formatHeader = (header: string) => {

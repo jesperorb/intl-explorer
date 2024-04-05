@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
 
-	import type { BrowserSupportForOption } from "$lib/types/BrowserSupport.types";
+	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
 
 	export let header: string;
 	export let labelId: string | undefined = undefined;

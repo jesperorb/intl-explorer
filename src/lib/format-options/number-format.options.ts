@@ -1,6 +1,6 @@
 import { currencies } from "$lib/locale-data/currencies";
 import { units } from "$lib/locale-data/units";
-import { defaultNumberRange } from "$lib/utils/format-utils";
+import { defaultNumberRange } from "$utils/format-utils";
 import {
 	localeMatcher,
 	roundingIncrement,

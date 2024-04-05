@@ -2,19 +2,19 @@
 	import { browser } from "$app/environment";
 
 	import type { PlaygroundSchema } from "$lib/playground/playground.schema";
-	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
+	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
 	import Highlight from "svelte-highlight";
 	import typescript from "svelte-highlight/languages/typescript";
 
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import Header from "$lib/components/ui/Header.svelte";
-	import CopyToClipboard from "$lib/components/ui/icons/CopyToClipboard.svelte";
-	import Button from "$lib/components/ui/Button.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import Header from "$ui/Header.svelte";
+	import CopyToClipboard from "$ui/icons/CopyToClipboard.svelte";
+	import Button from "$ui/Button.svelte";
 
-	import PlaygroundOptions from "$lib/components/pages/Playground/PlaygroundOptions.svelte";
-	import PlaygroundInput from "$lib/components/pages/Playground/PlaygroundInput.svelte";
-	import PlaygroundSecondaryFormatters from "$lib/components/pages/Playground/PlaygroundSecondaryFormatters.svelte";
+	import PlaygroundOptions from "$pages/Playground/PlaygroundOptions.svelte";
+	import PlaygroundInput from "$pages/Playground/PlaygroundInput.svelte";
+	import PlaygroundSecondaryFormatters from "$pages/Playground/PlaygroundSecondaryFormatters.svelte";
 
 	import {
 		schemaToCode,
@@ -25,16 +25,16 @@
 	} from "$lib/playground/format.utils";
 	import { createSchemaUrl, getSchemaParam, parseSchemaFromURL } from "$lib/playground/url.utils";
 	import { validateAndUpdateSchema } from "$lib/playground/validate";
-	import { copyCode, copyToClipboard } from "$lib/utils/copy-to-clipboard";
+	import { copyCode, copyToClipboard } from "$utils/copy-to-clipboard";
 	import { schemas, type SchemaKeys } from "$lib/playground/schemas";
 	import { onDestroy, onMount } from "svelte";
 	import { numberFormatSchema } from "$lib/playground/schemas/numberFormat.schema";
-	import { trackEvent } from "$lib/utils/analytics";
-	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
-	import Grid from "$lib/components/ui/Grid.svelte";
-	import { getMessages } from "$lib/i18n/util";
-	import { settings } from "$lib/store/settings";
-	import { locales } from "$lib/store/locales";
+	import { trackEvent } from "$utils/analytics";
+	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
+	import Grid from "$ui/Grid.svelte";
+	import { getMessages } from "$i18n/util";
+	import { settings } from "$store/settings";
+	import { locales } from "$store/locales";
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 

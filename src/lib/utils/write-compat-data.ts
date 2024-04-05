@@ -15,7 +15,7 @@ import type {
 	BrowserSupportDataForMethod,
 	BrowserCoverage,
 	BrowserReleaseData
-} from "$lib/types/BrowserSupport.types";
+} from "$types/BrowserSupport.types";
 
 const browserTypePosition: Record<BrowserType, number> = {
 	desktop: 0,

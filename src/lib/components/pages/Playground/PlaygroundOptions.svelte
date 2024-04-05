@@ -1,19 +1,19 @@
 <script lang="ts">
 	import type { PlaygroundSchema } from "$lib/playground/playground.schema";
-	import type { BrowserSupportDataForOptions } from "$lib/types/BrowserSupport.types";
+	import type { BrowserSupportDataForOptions } from "$types/BrowserSupport.types";
 
-	import Select from "$lib/components/ui/Select.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Select from "$ui/Select.svelte";
+	import Input from "$ui/Input.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 
 	import { getItemsFromOption } from "$lib/playground/format.utils";
-	import OptionCard from "$lib/components/ui/OptionCard.svelte";
-	import Details from "$lib/components/ui/details/Details.svelte";
-	import BrowserSupportGrid from "$lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte";
-	import Radio from "$lib/components/ui/Radio.svelte";
+	import OptionCard from "$ui/OptionCard.svelte";
+	import Details from "$ui/details/Details.svelte";
+	import BrowserSupportGrid from "$ui/BrowserSupport/BrowserSupportGrid.svelte";
+	import Radio from "$ui/Radio.svelte";
 	import { optionIsActive } from "$lib/playground/validate";
-	import { getMessages } from "$lib/i18n/util";
-	import { settings } from "$lib/store/settings";
+	import { getMessages } from "$i18n/util";
+	import { settings } from "$store/settings";
 
 	export let schema: PlaygroundSchema<"NumberFormat">;
 	export let support: BrowserSupportDataForOptions | undefined;

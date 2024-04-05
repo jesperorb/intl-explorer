@@ -1,4 +1,4 @@
-import { writeCompatData } from "$lib/utils/write-compat-data";
+import { writeCompatData } from "$utils/write-compat-data";
 import type { RequestEvent } from "@sveltejs/kit";
 
 export function POST(event: RequestEvent) {

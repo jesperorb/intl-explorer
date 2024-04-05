@@ -3,15 +3,15 @@
 	import { dev, browser } from "$app/environment";
 	import type { FormatMethodsKeys } from "$lib/format-methods";
 	import { page, navigating } from "$app/stores";
-	import Provider from "$lib/i18n/Provider.svelte";
+	import Provider from "$i18n/Provider.svelte";
 
-	import Navigation from "$lib/components/ui/Navigation.svelte";
-	import Main from "$lib/components/ui/Main.svelte";
-	import SkipLink from "$lib/components/ui/SkipLink.svelte";
-	import ProgressBar from "$lib/components/ui/ProgressBar.svelte";
-	import Header from "$lib/components/ui/Header.svelte";
-	import { getLocaleFromParams } from "$lib/utils/get-locale";
-	import { locales } from "$lib/store/locales";
+	import Navigation from "$ui/Navigation.svelte";
+	import Main from "$ui/Main.svelte";
+	import SkipLink from "$ui/SkipLink.svelte";
+	import ProgressBar from "$ui/ProgressBar.svelte";
+	import Header from "$ui/Header.svelte";
+	import { getLocaleFromParams } from "$utils/get-locale";
+	import { locales } from "$store/locales";
 
 	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;

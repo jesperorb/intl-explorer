@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { BrowserType } from "@mdn/browser-compat-data";
-	import Desktop from "$lib/components/ui/icons/Desktop.svelte";
-	import Mobile from "$lib/components/ui/icons/Mobile.svelte";
-	import Server from "$lib/components/ui/icons/Server.svelte";
+	import Desktop from "$ui/icons/Desktop.svelte";
+	import Mobile from "$ui/icons/Mobile.svelte";
+	import Server from "$ui/icons/Server.svelte";
 	export let browserType: BrowserType;
 </script>
 

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import HighlightValue from '$lib/components/ui/HighlightValue.svelte';
-  import CodeBlock from '$lib/components/ui/CodeBlock.svelte';
-	import Token from '$lib/components/ui/Highlight/Token.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Spacing from '$lib/components/ui/Spacing.svelte';
-	import CopyToClipboard from '$lib/components/ui/icons/CopyToClipboard.svelte';
+	import HighlightValue from '$ui/HighlightValue.svelte';
+  import CodeBlock from '$ui/CodeBlock.svelte';
+	import Token from '$ui/Highlight/Token.svelte';
+	import Button from '$ui/Button.svelte';
+	import Spacing from '$ui/Spacing.svelte';
+	import CopyToClipboard from '$ui/icons/CopyToClipboard.svelte';
 
-	import type { OptionValues } from '$lib/types/OptionValues.types';
+	import type { OptionValues } from '$types/OptionValues.types';
 
-	import { getMessages } from '$lib/i18n/util';
+	import { getMessages } from '$i18n/util';
 
 	const m = getMessages();
 

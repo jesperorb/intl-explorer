@@ -1,19 +1,19 @@
 <script lang="ts">
 	import type { Page } from "@sveltejs/kit";
 
-	import OpenInNewTab from "$lib/components/ui/icons/OpenInNewTab.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import Settings from "$lib/components/ui/icons/Settings.svelte";
-	import SettingsDialog from "$lib/components/ui/SettingsDialog.svelte";
-	import Button from "$lib/components/ui/Button.svelte";
+	import OpenInNewTab from "$ui/icons/OpenInNewTab.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import Settings from "$ui/icons/Settings.svelte";
+	import SettingsDialog from "$ui/SettingsDialog.svelte";
+	import Button from "$ui/Button.svelte";
 
 	import { page } from "$app/stores";
 
 	import { routes } from "$lib/routes";
-	import { testIds } from "$lib/utils/dom-utils";
-	import { locales } from "$lib/store/locales";
-	import { formatLocaleForUrl } from "$lib/utils/format-utils";
-	import { getMessages } from "$lib/i18n/util";
+	import { testIds } from "$utils/dom-utils";
+	import { locales } from "$store/locales";
+	import { formatLocaleForUrl } from "$utils/format-utils";
+	import { getMessages } from "$i18n/util";
 
 	let path: string;
 	let open = false;

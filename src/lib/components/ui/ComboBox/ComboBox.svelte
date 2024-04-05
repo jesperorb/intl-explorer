@@ -9,8 +9,8 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 
-	import { uid, onClickOutside } from "$lib/components/ui/ComboBox/ComboBoxContext.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import { uid, onClickOutside } from "$ui/ComboBox/ComboBoxContext.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 
 	export let disabled: boolean | undefined = undefined;
 	export let error: string | undefined = undefined;

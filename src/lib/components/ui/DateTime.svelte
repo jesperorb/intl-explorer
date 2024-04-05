@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import { getMessages } from "$lib/i18n/util";
+	import Spacing from "$ui/Spacing.svelte";
+	import { getMessages } from "$i18n/util";
 
 	export let defaultValue: string;
 	export let onChange: (datetime: string) => void;

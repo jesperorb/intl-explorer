@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { OptionValues } from "$lib/types/OptionValues.types";
-	import { copyToClipboard } from "$lib/utils/copy-to-clipboard";
-	import { formatLocalesForPrint, tryDisplayNames, print } from "$lib/utils/format-utils";
-	import Highlight from "$lib/components/ui/Highlight.svelte";
-	import { locales } from "$lib/store/locales";
+	import type { OptionValues } from "$types/OptionValues.types";
+	import { copyToClipboard } from "$utils/copy-to-clipboard";
+	import { formatLocalesForPrint, tryDisplayNames, print } from "$utils/format-utils";
+	import Highlight from "$ui/Highlight.svelte";
+	import { locales } from "$store/locales";
 
 	export let value: string;
 	export let options: OptionValues;

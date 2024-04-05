@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 
 	export let label: string | undefined = undefined;
 	export let value: string | number;

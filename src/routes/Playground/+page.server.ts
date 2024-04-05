@@ -1,6 +1,6 @@
-import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
+import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 import type { ServerLoadEvent } from "@sveltejs/kit";
-import { loadJson } from "$lib/utils/load-json";
+import { loadJson } from "$utils/load-json";
 
 export const prerender = false;
 export const ssr = false;

@@ -1,18 +1,18 @@
 <script lang="ts">
-	import Grid from "$lib/components/ui/Grid.svelte";
-	import OptionSection from "$lib/components/ui/OptionSection.svelte";
-	import Highlight from "$lib/components/ui/Highlight.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import PageLayout from "$lib/components/pages/PageLayout.svelte";
+	import Grid from "$ui/Grid.svelte";
+	import OptionSection from "$ui/OptionSection.svelte";
+	import Highlight from "$ui/Highlight.svelte";
+	import Input from "$ui/Input.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import PageLayout from "$pages/PageLayout.svelte";
 
-	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
-	import type { OptionValues } from "$lib/types/OptionValues.types";
+	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
+	import type { OptionValues } from "$types/OptionValues.types";
 	import { collatorFormatOptions } from "$lib/format-options/collator.options";
-	import { copyCode } from "$lib/utils/copy-to-clipboard";
-	import { formatLocalesForPrint, tryFormat } from "$lib/utils/format-utils";
-	import { getMessages } from "$lib/i18n/util";
-	import { locales } from "$lib/store/locales";
+	import { copyCode } from "$utils/copy-to-clipboard";
+	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
+	import { getMessages } from "$i18n/util";
+	import { locales } from "$store/locales";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 

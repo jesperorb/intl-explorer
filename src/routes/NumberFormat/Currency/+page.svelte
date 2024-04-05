@@ -1,9 +1,9 @@
 <script lang="ts">
-	import NumberFormat from "$lib/components/pages/NumberFormat.Currency.svelte";
-	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import NumberFormat from "$pages/NumberFormat.Currency.svelte";
+	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 
-	import { settings } from "$lib/store/settings";
+	import { settings } from "$store/settings";
 
 	import type { PageData } from "./$types";
 

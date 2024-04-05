@@ -1,17 +1,17 @@
 <script lang="ts">
-	import Highlight from "$lib/components/ui/Highlight.svelte";
-	import OptionSection from "$lib/components/ui/OptionSection.svelte";
-	import Grid from "$lib/components/ui/Grid.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
-	import PageLayout from "$lib/components/pages/PageLayout.svelte";
+	import Highlight from "$ui/Highlight.svelte";
+	import OptionSection from "$ui/OptionSection.svelte";
+	import Grid from "$ui/Grid.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import Input from "$ui/Input.svelte";
+	import PageLayout from "$pages/PageLayout.svelte";
 
-	import { copyCode } from "$lib/utils/copy-to-clipboard";
-	import type { OptionValues } from "$lib/types/OptionValues.types";
-	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
+	import { copyCode } from "$utils/copy-to-clipboard";
+	import type { OptionValues } from "$types/OptionValues.types";
+	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { durationFormatOptions } from "$lib/format-options/duration-format.options";
-	import { clampValue, formatLocalesForPrint, tryFormat } from "$lib/utils/format-utils";
-	import { locales } from "$lib/store/locales";
+	import { clampValue, formatLocalesForPrint, tryFormat } from "$utils/format-utils";
+	import { locales } from "$store/locales";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 

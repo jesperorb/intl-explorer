@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Locale from "$lib/components/pages/Locale.svelte";
-	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import { settings } from "$lib/store/settings";
+	import Locale from "$pages/Locale.svelte";
+	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import { settings } from "$store/settings";
 
 	import type { PageData } from "./$types";
 

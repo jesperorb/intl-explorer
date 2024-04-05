@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { getMessages } from "$lib/i18n/util";
-	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
-	import { getSpecUrls } from "$lib/utils/browser-support";
+	import { getMessages } from "$i18n/util";
+	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
+	import { getSpecUrls } from "$utils/browser-support";
 	export let data: BrowserSupportDataForMethod | null;
 	const m = getMessages();
 </script>

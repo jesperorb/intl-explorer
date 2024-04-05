@@ -1,4 +1,4 @@
-import { trackEvent } from "$lib/utils/analytics";
+import { trackEvent } from "$utils/analytics";
 
 export function copyToClipboard(textToCopy: string): Promise<void> {
 	if (navigator.clipboard && window.isSecureContext) {
