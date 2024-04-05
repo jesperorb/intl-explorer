@@ -1,13 +1,13 @@
 <script lang="ts">
-	import AndroidWebView from "$lib/components/ui/icons/AndroidWebView.svelte";
-	import Chrome from "$lib/components/ui/icons/chrome.svelte";
-	import Deno from "$lib/components/ui/icons/Deno.svelte";
-	import Edge from "$lib/components/ui/icons/Edge.svelte";
-	import Firefox from "$lib/components/ui/icons/Firefox.svelte";
-	import Node from "$lib/components/ui/icons/Node.svelte";
-	import Opera from "$lib/components/ui/icons/Opera.svelte";
-	import Safari from "$lib/components/ui/icons/Safari.svelte";
-	import Samsung from "$lib/components/ui/icons/Samsung.svelte";
+	import AndroidWebView from "$ui/icons/AndroidWebView.svelte";
+	import Chrome from "$ui/icons/chrome.svelte";
+	import Deno from "$ui/icons/Deno.svelte";
+	import Edge from "$ui/icons/Edge.svelte";
+	import Firefox from "$ui/icons/Firefox.svelte";
+	import Node from "$ui/icons/Node.svelte";
+	import Opera from "$ui/icons/Opera.svelte";
+	import Safari from "$ui/icons/Safari.svelte";
+	import Samsung from "$ui/icons/Samsung.svelte";
 	export let browserName: string;
 </script>
 

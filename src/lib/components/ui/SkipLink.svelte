@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getMessages } from "$lib/i18n/util";
+	import { getMessages } from "$i18n/util";
 
 	const m = getMessages();
 </script>

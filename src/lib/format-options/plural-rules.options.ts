@@ -1,4 +1,4 @@
-import { defaultNumberRange } from "$lib/utils/format-utils";
+import { defaultNumberRange } from "$utils/format-utils";
 import {
 	localeMatcher,
 	roundingIncrement,

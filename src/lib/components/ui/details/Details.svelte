@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChevronUp from "$lib/components/ui/icons/ChevronUp.svelte";
+	import ChevronUp from "$ui/icons/ChevronUp.svelte";
 
 	export let open: boolean | undefined = undefined;
 	export let id: string | undefined = undefined;

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import DurationFormat from "$lib/components/pages/DurationFormat.svelte";
-	import BrowserSupport from "$lib/components/ui/BrowserSupport/BrowserSupport.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import DurationFormat from "$pages/DurationFormat.svelte";
+	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 
-	import { settings } from "$lib/store/settings";
+	import { settings } from "$store/settings";
 
 	import type { PageData } from "./$types";
 

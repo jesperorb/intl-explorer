@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { getLocaleFromParams, localeKey } from "$lib/utils/get-locale";
+import { getLocaleFromParams, localeKey } from "$utils/get-locale";
 import { writable } from "svelte/store";
 
 export const locales = writable(getLocaleFromParams());

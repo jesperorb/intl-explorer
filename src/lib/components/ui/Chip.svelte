@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Times from "$lib/components/ui/icons/Times.svelte";
+	import Times from "$ui/icons/Times.svelte";
 
-	import { getMessages } from "$lib/i18n/util";
+	import { getMessages } from "$i18n/util";
 
 	const m = getMessages();
 

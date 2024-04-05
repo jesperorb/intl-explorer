@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	
-	import Dialog from "$lib/components/ui/Dialog.svelte";
-	import Radio from "$lib/components/ui/Radio.svelte";
-	import Fieldset from "$lib/components/ui/Fieldset.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import Card from "$lib/components/ui/Card.svelte";
-	import Select from "$lib/components/ui/Select.svelte";
-	import Button from "$lib/components/ui/Button.svelte";
-	import Checkbox from "$lib/components/ui/Checkbox.svelte";
+
+	import Dialog from "$ui/Dialog.svelte";
+	import Radio from "$ui/Radio.svelte";
+	import Fieldset from "$ui/Fieldset.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import Card from "$ui/Card.svelte";
+	import Select from "$ui/Select.svelte";
+	import Button from "$ui/Button.svelte";
+	import Checkbox from "$ui/Checkbox.svelte";
 
 	import {
 		settings,
@@ -16,13 +16,13 @@
 		settingsKeys,
 		type Settings,
 		type DarkMode
-	} from "$lib/store/settings";
+	} from "$store/settings";
 
 	import { availableLanguageTags, languageTag } from "$paraglide/runtime";
-	import { i18n } from "$lib/i18n/i18n";
-	import { locales } from "$lib/store/locales";
-	import { formatLocaleForUrl } from "$lib/utils/format-utils";
-	import { getMessages } from "$lib/i18n/util";
+	import { i18n } from "$i18n/i18n";
+	import { locales } from "$store/locales";
+	import { formatLocaleForUrl } from "$utils/format-utils";
+	import { getMessages } from "$i18n/util";
 
 	export let show: boolean;
 

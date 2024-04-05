@@ -1,10 +1,10 @@
 <script lang="ts">
-	import OptionSection from "$lib/components/ui/OptionSection.svelte";
-	import Grid from "$lib/components/ui/Grid.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
-	import DisplayNamesHighlight from "$lib/components/ui/DisplayNamesHighlight.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import PageLayout from "$lib/components/pages/PageLayout.svelte";
+	import OptionSection from "$ui/OptionSection.svelte";
+	import Grid from "$ui/Grid.svelte";
+	import Input from "$ui/Input.svelte";
+	import DisplayNamesHighlight from "$ui/DisplayNamesHighlight.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import PageLayout from "$pages/PageLayout.svelte";
 
 	let code = "US";
 	let language = "en-US";

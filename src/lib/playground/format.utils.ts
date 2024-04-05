@@ -6,7 +6,7 @@ import type { PlaygroundOption, PlaygroundSchema } from "$lib/playground/playgro
 import { formatOptions } from "$lib/format-options";
 import { durationValues } from "$lib/format-options/duration-format.options";
 import { optionIsActive } from "$lib/playground/validate";
-import { clampValue, fallbackDisplayNames, tryFormat, print, formatLocalesForPrint } from "$lib/utils/format-utils";
+import { clampValue, fallbackDisplayNames, tryFormat, print, formatLocalesForPrint } from "$utils/format-utils";
 
 export const updateOptionOnSchema = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,

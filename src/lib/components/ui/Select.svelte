@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 
 	// eslint-disable-next-line no-undef
 	type Type = $$Generic;

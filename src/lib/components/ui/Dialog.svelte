@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import Button from "$lib/components/ui/Button.svelte";
-	import { getMessages } from "$lib/i18n/util";
+	import Spacing from "$ui/Spacing.svelte";
+	import Button from "$ui/Button.svelte";
+	import { getMessages } from "$i18n/util";
 
 	export let show: boolean;
 	export let header: string;

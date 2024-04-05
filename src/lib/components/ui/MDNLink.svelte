@@ -1,5 +1,5 @@
 <script lang="ts">
-	import OpenInNewTab from "$lib/components/ui/icons/OpenInNewTab.svelte";
+	import OpenInNewTab from "$ui/icons/OpenInNewTab.svelte";
 
 	export let header: string;
 </script>

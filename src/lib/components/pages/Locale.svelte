@@ -1,12 +1,12 @@
 <script lang="ts">
-	import CodeBlock from "$lib/components/ui/CodeBlock.svelte";
-	import Grid from "$lib/components/ui/Grid.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
-	import HighlightValue from "$lib/components/ui/HighlightValue.svelte";
-	import OptionSection from "$lib/components/ui/OptionSection.svelte";
-	import PageLayout from "$lib/components/pages/PageLayout.svelte";
-	import { getMessages } from "$lib/i18n/util";
-	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
+	import CodeBlock from "$ui/CodeBlock.svelte";
+	import Grid from "$ui/Grid.svelte";
+	import Input from "$ui/Input.svelte";
+	import HighlightValue from "$ui/HighlightValue.svelte";
+	import OptionSection from "$ui/OptionSection.svelte";
+	import PageLayout from "$pages/PageLayout.svelte";
+	import { getMessages } from "$i18n/util";
+	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 

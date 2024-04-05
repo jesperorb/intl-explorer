@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ProgressBar from "$lib/components/ui/ProgressBar.svelte";
+	import ProgressBar from "$ui/ProgressBar.svelte";
 	import { navigating } from "$app/stores";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import { getMessages } from "$lib/i18n/util";
+	import Spacing from "$ui/Spacing.svelte";
+	import { getMessages } from "$i18n/util";
 	const m = getMessages();
 </script>
 

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { locales } from "$lib/store/locales";
-	import { getMessages } from "$lib/i18n/util";
+	import { locales } from "$store/locales";
+	import { getMessages } from "$i18n/util";
 	import { languageByLocaleAsComboBoxOptions } from "$lib/locale-data/locales";
 
-	import ComboBoxContext from "$lib/components/ui/ComboBox/ComboBoxContext.svelte";
-	import ComboBox from "$lib/components/ui/ComboBox/ComboBox.svelte";
-	import Chip from "$lib/components/ui/Chip.svelte";
-	import Button from "$lib/components/ui/Button.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
+	import ComboBoxContext from "$ui/ComboBox/ComboBoxContext.svelte";
+	import ComboBox from "$ui/ComboBox/ComboBox.svelte";
+	import Chip from "$ui/Chip.svelte";
+	import Button from "$ui/Button.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import Input from "$ui/Input.svelte";
 
 	const m = getMessages();
 

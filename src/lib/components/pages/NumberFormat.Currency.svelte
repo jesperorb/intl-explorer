@@ -1,27 +1,27 @@
 <script lang="ts">
-	import Select from "$lib/components/ui/Select.svelte";
-	import Grid from "$lib/components/ui/Grid.svelte";
-	import OptionSection from "$lib/components/ui/OptionSection.svelte";
-	import Highlight from "$lib/components/ui/Highlight.svelte";
-	import Input from "$lib/components/ui/Input.svelte";
-	import Token from "$lib/components/ui/Highlight/Token.svelte";
-	import CodeBlock from "$lib/components/ui/CodeBlock.svelte";
-	import Spacing from "$lib/components/ui/Spacing.svelte";
-	import PageLayout from "$lib/components/pages/PageLayout.svelte";
-	import HighlightLocale from "$lib/components/ui/Highlight/HighlightLocale.svelte";
+	import Select from "$ui/Select.svelte";
+	import Grid from "$ui/Grid.svelte";
+	import OptionSection from "$ui/OptionSection.svelte";
+	import Highlight from "$ui/Highlight.svelte";
+	import Input from "$ui/Input.svelte";
+	import Token from "$ui/Highlight/Token.svelte";
+	import CodeBlock from "$ui/CodeBlock.svelte";
+	import Spacing from "$ui/Spacing.svelte";
+	import PageLayout from "$pages/PageLayout.svelte";
+	import HighlightLocale from "$ui/Highlight/HighlightLocale.svelte";
 
-	import type { OptionValues } from "$lib/types/OptionValues.types";
-	import type { BrowserSupportDataForMethod } from "$lib/types/BrowserSupport.types";
+	import type { OptionValues } from "$types/OptionValues.types";
+	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
 	import { currencies } from "$lib/locale-data/currencies";
 	import {
 		numberFormatOptionsCommon,
 		numberFormatOptionsCurrency
 	} from "$lib/format-options/number-format.options";
-	import { copyCode } from "$lib/utils/copy-to-clipboard";
-	import { formatLocalesForPrint, tryFormat } from "$lib/utils/format-utils";
-	import { getMessages } from "$lib/i18n/util";
-	import { locales } from "$lib/store/locales";
+	import { copyCode } from "$utils/copy-to-clipboard";
+	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
+	import { getMessages } from "$i18n/util";
+	import { locales } from "$store/locales";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 

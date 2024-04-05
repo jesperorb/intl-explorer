@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Token from "$lib/components/ui/Highlight/Token.svelte";
+  import Token from "$ui/Highlight/Token.svelte";
 
   type Value = number | boolean | string | undefined;
   export let value: number | boolean | string | undefined;

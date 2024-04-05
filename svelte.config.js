@@ -16,7 +16,7 @@ const config = {
 			$utils: "./src/lib/utils",
 			$i18n: "./src/lib/i18n",
 			$store: "./src/lib/store",
-			$types: "./src/lib/types",
+			$types: "./src/lib/types"
 		}
 	}
 };

@@ -1,5 +1,5 @@
 <script>
-	import Spacing from "$lib/components/ui/Spacing.svelte";
+	import Spacing from "$ui/Spacing.svelte";
 
 </script>
 <code><pre><slot /></pre></code>
