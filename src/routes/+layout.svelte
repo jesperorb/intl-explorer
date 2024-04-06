@@ -12,6 +12,7 @@
 	import Header from "$ui/Header.svelte";
 	import { getLocaleFromParams } from "$utils/get-locale";
 	import { locales } from "$store/locales";
+	import { description, tags, title } from "$lib/constants";
 
 	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;
@@ -31,7 +32,27 @@
 </script>
 
 <svelte:head>
-	<title>{routeId ?? "Intl Explorer"}</title>
+	<title>{routeId ?? title}</title>
+	<meta name="robots" content="index, follow" />
+	<meta name="author" content="Jesper Orb" />
+	<meta name="keywords" content="{tags.join(", ")}" />
+	<meta
+		name="description"
+		content="{description}"
+	/>
+	<meta
+		property="og:description"
+		content="{description}"
+	/>
+	<meta property="og:site_name" content="{title}">
+	<meta property="og:url" content="{$page.url.host}">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="{title}" />
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="{$page.url.host}">
+	<meta property="twitter:url" content="{$page.url.host}">
+	<meta name="twitter:title" content="{title}">
+	<meta name="twitter:description" content="{description}">
 	{#if !dev}
 		<script
 			defer
@@ -222,15 +243,6 @@
 	ul {
 		list-style: none;
 	}
-	select {
-		max-width: 100%;
-		color: var(--text-color);
-	}
-	fieldset {
-		border-radius: 4px;
-		color: var(--text-color);
-		border-color: var(--border-color);
-	}
 	pre,
 	code,
 	pre *,
@@ -254,7 +266,7 @@
 		border: 1px solid var(--border-color);
 		color: var(--text-color);
 		border-radius: 4px;
-		padding: var(--spacing-2);
+		padding: var(--spacing-3);
 		appearance: none;
 		--webkit-appearance: none;
 		background-color: inherit;
@@ -268,7 +280,7 @@
 		color: var(--text-color);
 		border-radius: 4px;
 		background-color: inherit;
-		padding: var(--spacing-2);
+		padding: var(--spacing-3);
 		font-family: var(--font-family);
 	}
 

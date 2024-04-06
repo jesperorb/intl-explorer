@@ -3,17 +3,9 @@
 	import { getMessages } from "$i18n/util";
 	import { languageByLocaleAsComboBoxOptions } from "$lib/locale-data/locales";
 
-	import ComboBoxContext from "$ui/ComboBox/ComboBoxContext.svelte";
-	import ComboBox from "$ui/ComboBox/ComboBox.svelte";
-	import Chip from "$ui/Chip.svelte";
-	import Button from "$ui/Button.svelte";
-	import Spacing from "$ui/Spacing.svelte";
-	import Input from "$ui/Input.svelte";
+	import ComboBox, { type Option } from "$ui/ComboBox.svelte";
 
 	const m = getMessages();
-
-	let locale: string = "";
-	let edit = false;
 
 	const onDelete = (locale: string) => {
 		const index = $locales.lastIndexOf(locale);
@@ -24,77 +16,16 @@
 		}
 	};
 
-	const onAdd = () => {
-		if (locale) {
-			locales.set([...$locales, locale]);
-		}
+	const onSelect = (options?: Option[]) => {
+		if (!options) return;
+		locales.set(options.map((v) => v.value));
 	};
-
-	const onSelect = (option: { value: string }) => {
-		locale = option.value;
-	};
-
-	const onEdit = () => (edit = !edit);
 </script>
 
-<ComboBoxContext>
-	<div class="input">
-		{#if edit}
-			<Input id="editableLocale" bind:value={locale} label={m.locale()} fullWidth />
-		{:else}
-			<ComboBox
-				label={m.locale()}
-				name="locale"
-				bind:value={locale}
-				placeholder="undefined"
-				{onSelect}
-				options={[...languageByLocaleAsComboBoxOptions, { label: "", value: "" }]}
-			/>
-		{/if}
-		<div class="buttons">
-			<Button ariaLabel={m.editLocale()} title={m.editLocale()} onClick={onEdit} noBackground>
-				{#if edit}
-					{m.selectLocaleButton()}
-				{:else}
-					{m.editLocaleButton()}
-				{/if}
-			</Button>
-			<Button
-				disabled={!locale}
-				onClick={onAdd}
-				ariaLabel={m.addLocale()}
-				title={m.addLocale()}
-				noBackground
-			>
-				{m.addLocaleButton()}
-			</Button>
-		</div>
-	</div>
-	<Spacing size={2} />
-	<div class="chips">
-		{#each $locales as locale}
-			<Chip label={locale} onDelete={() => onDelete(locale)} />
-		{/each}
-	</div>
-	{#if !$locales.length}
-		<Spacing size={2} />
-		<p>{m.localeHint()}</p>
-	{/if}
-</ComboBoxContext>
-
-<style>
-	.input {
-		display: grid;
-		gap: var(--spacing-2);
-		grid-template-columns: 3fr 1fr;
-		align-items: end;
-	}
-	.buttons {
-		display: flex;
-		align-items: center;
-	}
-	.chips {
-		display: flex;
-		gap: var(--spacing-2);
-	}
-</style>
+<ComboBox
+	labelText={m.locale()}
+	placeholder={m.localePlaceHolder()}
+	{onSelect}
+	{onDelete}
+	options={languageByLocaleAsComboBoxOptions}
+/>
