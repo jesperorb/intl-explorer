@@ -41,6 +41,7 @@
 		width: 24px;
 		cursor: pointer;
 		border-radius: 50%;
+		color: var(--text-color);
 	}
 	.delete:hover {
 		background-color: var(--button-background-hover-color);
