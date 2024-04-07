@@ -16,7 +16,7 @@
 	{#if label}
 		<label for={id}>{label}</label>
 	{/if}
-	<Spacing size={1} />
+	<Spacing size={2} />
 	{#if onInput}
 		<input
 			{name}
