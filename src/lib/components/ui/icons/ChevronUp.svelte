@@ -5,7 +5,7 @@
 	aria-hidden="true"
 	viewBox="0 0 24 24"
 	fill="none"
-	stroke="currentColor"
+	stroke="gray"
 	stroke-width="2"
 	stroke-linecap="round"
 	stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg

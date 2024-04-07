@@ -14,12 +14,6 @@
 </label>
 
 <style>
-	:root {
-		--radio-border-color: var(--border-color);
-		--radio-checked-color: var(--radio-checked-color);
-		--radio-hover-color: var(--lightergray);
-		--radio-disabled-bg-color: var(--lightergray);
-	}
 
 	label {
 		cursor: pointer;
@@ -33,7 +27,7 @@
 		height: 20px;
 		margin: 6px;
 		padding: 0;
-		border: 2px solid var(--radio-border-color);
+		border: 2px solid var(--border-color);
 		border-radius: 50%;
 		appearance: none;
 		background-color: transparent;
@@ -41,28 +35,28 @@
 		transition: outline 0.1s;
 	}
 	input[type="radio"]:not(:disabled):checked {
-		border-color: var(--radio-checked-color);
-		background-color: var(--radio-checked-color);
+		border-color: var(--accent-3);
+		background-color: var(--accent-2);
 		background-clip: content-box;
 		padding: 2px;
 		background-image: radial-gradient(
 			circle,
-			var(--radio-checked-color) 0%,
-			var(--radio-checked-color) 50%,
+			var(--accent-2) 0%,
+			var(--accent-2) 50%,
 			transparent 60%,
 			transparent 100%
 		);
 	}
 
 	input[type="radio"]:disabled {
-		background-color: var(--radio-disabled-bg-color);
+		background-color: var(--disabled-color);
 	}
 
 	input[type="radio"]:disabled:checked {
 		background-image: radial-gradient(
 			circle,
-			var(--radio-border-color) 0%,
-			var(--radio-border-color) 50%,
+			var(--border-color) 0%,
+			var(--border-color) 50%,
 			transparent 50%,
 			transparent 100%
 		);
@@ -70,14 +64,14 @@
 
 	@media (hover: hover) {
 		input[type="radio"]:not(:disabled):hover {
-			background-color: var(--radio-hover-color);
-			outline: 2px solid var(--highlight);
+			background-color: var(--accent-2);
+			outline: 2px solid var(--focus-color);
 		}
 	}
 
 	input[type="radio"]:focus-visible {
-		background-color: var(--radio-hover-color);
-		outline: 2px solid var(--highlight);
+		background-color: var(--accent-2);
+		outline: 2px solid  var(--focus-color);
 	}
 	@media (prefers-reduced-motion: reduce) {
 		input[type="radio"] {

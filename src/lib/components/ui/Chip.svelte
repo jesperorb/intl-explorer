@@ -30,7 +30,8 @@
 		display: inline-flex;
 		align-items: center;
 		gap: var(--spacing-1);
-		background-color: var(--button-background-color);
+		background-color: var(--background-color);
+		border: 1px solid var(--border-color);
 	}
 	.delete {
 		border: none;
@@ -44,6 +45,6 @@
 		color: var(--text-color);
 	}
 	.delete:hover {
-		background-color: var(--button-background-hover-color);
+		filter: brightness(80%);
 	}
 </style>

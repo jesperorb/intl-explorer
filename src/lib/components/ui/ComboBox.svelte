@@ -22,6 +22,7 @@
 	export let options: Option[];
 	export let labelText: string;
 	export let placeholder: string;
+	export let defaultValue: Option[] | undefined = undefined;
 	export let onSelect: (values?: Option[]) => void;
 	export let onDelete: (value: string) => void;
 
@@ -33,6 +34,7 @@
 		forceVisible: true,
 		multiple: true,
 		closeOnEscape: true,
+		defaultSelected: defaultValue?.map(v => ({ value: v })),
 		closeOnOutsideClick: true,
 		onSelectedChange: (args) => {
 			onSelect(args.next?.map((v) => v.value) as Option[] | undefined);
@@ -167,7 +169,7 @@
 	}
 
 	[data-highlighted] {
-		background-color: var(--button-background-color);
+		background-color: var(--accent-2);
 		border-radius: 2px;
 	}
 

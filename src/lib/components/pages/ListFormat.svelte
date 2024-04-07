@@ -51,7 +51,7 @@
 	</div>
 	<CodeBlock slot="alternativeCode"
 		><Token v="[" />{#each list.split(",") as item, i}<Token
-				v={item}
+				v={`"${item}"`}
 				t="string"
 			/>{#if Object.keys(list.split(",")).length > 1 && i < Object.keys(list.split(",")).length - 1}<Token
 					noTrim

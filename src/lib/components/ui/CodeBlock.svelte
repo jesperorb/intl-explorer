@@ -10,7 +10,7 @@
 		tab-size: 2;
 		display: block;
 		padding: var(--spacing-4);
-		background-color: var(--code-block-background);
+		background-color: var(--code-background-color);
 		font-size: 0.85rem;
 		border-radius: 4px;
 		overflow-x: auto;
