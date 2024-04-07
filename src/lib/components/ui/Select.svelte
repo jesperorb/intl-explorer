@@ -24,7 +24,7 @@
 	{#if label}
 		<label for={name}>{label}</label>
 	{/if}
-	<Spacing size={1} />
+	<Spacing size={2} />
 	<select {name} bind:value id={name} on:change={onChange} class:fullWidth>
 		{#if !removeEmpty}
 			<option value="">{placeholder ?? "undefined"}</option>
