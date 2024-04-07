@@ -81,65 +81,6 @@
 <!-- Ignore -->
 <style global>
 	:root {
-		--blue-black: hsl(202, 32%, 15%);
-		--dark-black: hsl(0, 100%, 2%);
-		--black: hsl(276, 100%, 12%);
-		--white: hsl(0, 100%, 100%);
-		--dark-blue: hsl(207, 95%, 8%);
-		--light-blue: hsl(221, 100%, 75%);
-		--darkergray: hsl(0, 0%, 10%);
-		--darkgray: hsl(0, 0%, 25%);
-		--gray: hsl(0, 0%, 60%);
-		--lightgray: hsl(0, 0%, 80%);
-		--lightergray: hsl(0, 0%, 90%);
-		--teal: hsl(169, 56%, 68%);
-		--green: hsl(114, 31%, 68%);
-		--darkgreen: hsl(114, 31%, 39%);
-		--red: hsl(350, 100%, 67%);
-		--darkred: hsl(350, 100%, 46%);
-		--orange: hsl(14, 90%, 70%);
-		--lighteryellow: #fac863;
-		--lightyellow: hsl(40, 94%, 50%);
-		--yellow: hsl(40, 94%, 32%);
-		--highlight: hsl(216, 100%, 50%);
-		--purple1: hsl(276, 100%, 98%);
-		--purple2: hsl(276, 50%, 92%);
-		--purple3: hsl(276, 50%, 89%);
-		--purple4: hsl(276, 50%, 80%);
-		--purple5: hsl(276, 67%, 74%);
-
-		--text-color: var(--black);
-		--accent-background-color: var(--purple1);
-		--link-underline-color: var(--purple5);
-		--background-color: var(--white);
-		--border-color: var(--lightgray);
-		--divider-color: var(--lightergray);
-		--card-color: var(--background-color);
-
-		--button-background-color: var(--purple2);
-		--button-border-color: var(--purple3);
-		--button-background-hover-color: var(--purple3);
-		--button-text-color: var(--black);
-		--button-no-background-text-color: var(--black);
-
-		--radio-checked-color: var(--purple4);
-
-		--progress-bar-color: var(--purple4);
-
-		--code-comment-color: var(--gray);
-		--code-text-color: var(--white);
-		--code-block-background: var(--blue-black);
-
-		--comment: var(--gray);
-		--punctuation: var(--purple5);
-		--operator: var(--teal);
-		--key: var(--white);
-		--function: var(--light-blue);
-		--boolean: var(--red);
-		--number: var(--orange);
-		--string: var(--green);
-		--class: var(--lightyellow);
-
 		--font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
 			"Segoe UI Emoji", "Segoe UI Symbol";
 		--code-font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
@@ -156,56 +97,103 @@
 		--spacing-10: 2.5rem;
 		--spacing-11: 2.75rem;
 		--spacing-12: 3rem;
+
+		--white-1: rgb(255, 255, 255);
+
+		--gray-1: rgb(250, 250, 250);
+		--gray-2: rgb(240, 240, 240);
+		--gray-3: rgb(220, 220, 220);
+		--gray-4: rgb(100, 100, 100);
+		--gray-5: rgb(150, 150, 150);
+		
+		--black-1: rgb(0, 0, 0);
+		--black-2: rgb(20, 20, 20);
+		--black-3: rgb(30, 30, 30);
+
+		--blue-1: hsl(200, 30%, 10%);
+		--blue-2: hsl(200, 100%, 75%);
+		--blue-3: hsl(216, 100%, 50%);
+		--blue-4: hsl(200, 30%, 15%);
+
+		--teal-1: hsl(169, 56%, 68%);
+	
+		--green-1: hsl(114, 31%, 39%);
+		--green-2: hsl(114, 31%, 68%);
+	
+		--red-1: hsl(350, 100%, 46%);
+		--red-2: hsl(350, 100%, 67%);
+		--red-3: hsl(354, 66%, 54%);
+	
+		--orange-1: hsl(14, 90%, 70%);
+		
+		--yellow-1: hsl(40, 94%, 32%);
+		--yellow-2: hsl(40, 94%, 50%);
+		--yellow-3: hsl(40, 94%, 80%);
+
+		--purple-1: hsl(276, 65%, 75%);
+		--purple-2: hsl(276, 65%, 60%);
+
+		--accent-hue: 275;
+		--accent-1: hsl(var(--accent-hue), 100%, 98%);
+		--accent-2: hsl(var(--accent-hue), 100%, 90%);
+		--accent-3: hsl(var(--accent-hue), 100%, 75%);
+		--accent-4: hsl(var(--accent-hue), 100%, 60%);
+		--accent-5: hsl(var(--accent-hue), 100%, 50%);
+
+		--text-color: var(--black-1);
+		--background-color: var(--white-1);
+		--background-secondary-color: var(--gray-1);
+		--divider-color: var(--gray-3);
+		--border-color: var(--gray-3);
+		--disabled-color: var(--gray-2);
+		--focus-color: var(--blue-3);
+		--body-background-color: var(--accent-1);
+
+		--code-key: var(--white-1);
+		--code-comment: var(--gray-2);
+		--code-text-color: var(--white-1);
+		--code-background-color: var(--blue-4);
+		--code-punctuation: var(--purple-2);
+		--code-operator: var(--teal-1);
+		--code-function: var(--blue-2);
+		--code-boolean: var(--red-2);
+		--code-number: var(--orange-1);
+		--code-string: var(--green-2);
+		--code-class: var(--yellow-2);
 	}
 
 	@media (prefers-color-scheme: dark) {
 		:root {
-			--text-color: var(--white);
-			--accent-background-color: var(--darkergray);
-			--background-color: var(--dark-black);
-			--link-underline-color: var(--white);
-			--border-color: var(--darkgray);
-			--divider-color: var(--darkgray);
-			--card-color: var(--darkergray);
-			--yellow: var(--lightyellow);
-			--darkgreen: var(--green);
-
-			--button-no-background-text-color: var(--white);
-			--button-background-color: var(--purple2);
-			--button-border-color: var(--purple3);
-			--button-background-hover-color: var(--purple3);
-			--button-text-color: var(--black);
+			--text-color: var(--white-1);
+			--background-color: var(--black-1);
+			--background-secondary-color: var(--black-2);
+			--body-background-color: var(--black-2);
+			--border-color: var(--black-3);
+			--divider-color: var(--gray-4);
+			--disabled-color: var(--gray-2);
 		}
 	}
 	[data-dark-mode] {
-		--text-color: var(--white);
-		--accent-background-color: var(--dark-black);
-		--background-color: hsl(0, 0%, 6%);
-		--link-underline-color: var(--white);
-		--border-color: hsl(0, 0%, 17%);
-		--divider-color: var(--darkgray);
-		--card-color: var(--dark-black);
-		--yellow: var(--lightyellow);
-		--darkgreen: var(--green);
-
-		--button-no-background-text-color: var(--white);
-		--button-background-color: var(--blue-black);
-		--button-border-color: var(--darkgray);
-		--button-background-hover-color: var(--blue-black);
-		--button-text-color: var(--white);
+		--text-color: var(--white-1);
+		--background-color: var(--black-1);
+		--background-secondary-color: var(--black-2);
+		--body-background-color: var(--black-2);
+		--border-color: var(--black-3);
+		--divider-color: var(--gray-4);
+		--disabled-color: var(--gray-2);
 	}
 	[data-code-light-mode] {
-		--code-text-color: var(--black);
-		--code-block-background: var(--white);
-		--comment: var(--darkgray);
-		--punctuation: var(--black);
-		--operator: var(--black);
-		--key: #d73a49;
-		--function: #6f42c1;
-		--boolean: #005cc5;
-		--number: #032f62;
-		--string: #032f62;
-		--class: #6f42c1;
+		--code-text-color: var(--black-1);
+		--code-background-color: var(--white-1);
+		--code-comment: var(--gray-4);
+		--code-punctuation: var(--red-2);
+		--code-operator: var(--black-1);
+		--code-key: var(--black-1);
+		--code-function: var(--purple-2);
+		--code-boolean: var(--blue-4);
+		--code-number: var(--blue-4);
+		--code-string: var(--blue-4);
+		--code-class: var(--purple-2);
 	}
 	*,
 	*::after,
@@ -216,7 +204,7 @@
 	body,
 	html {
 		font-size: 100%;
-		background-color: var(--accent-background-color);
+		background-color: var(--body-background-color);
 		color: var(--text-color);
 		font-family: var(--font-family);
 		line-height: 1.5;
@@ -249,17 +237,16 @@
 	code * {
 		font-family: var(--code-font-family);
 	}
-	span.hljs-comment {
-		color: var(--code-comment-color);
-	}
+
 	code.hljs {
 		border-radius: 4px;
 		border: 1px solid var(--border-color);
 		font-size: 0.85rem;
 	}
+
 	a {
 		text-decoration: none;
-		border-bottom: 2px solid var(--link-underline-color);
+		border-bottom: 2px solid var(--accent-3);
 	}
 
 	select {
@@ -269,17 +256,17 @@
 		padding: var(--spacing-3);
 		appearance: none;
 		--webkit-appearance: none;
-		background-color: inherit;
+		background-color: var(--background-color);
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 		background-repeat: no-repeat;
 		background-position: right var(--spacing-2) center;
 	}
 
 	input {
+		background-color: var(--background-color);
 		border: 1px solid var(--border-color);
 		color: var(--text-color);
 		border-radius: 4px;
-		background-color: inherit;
 		padding: var(--spacing-3);
 		font-family: var(--font-family);
 	}

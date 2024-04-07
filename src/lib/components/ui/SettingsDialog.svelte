@@ -23,6 +23,7 @@
 	import { locales } from "$store/locales";
 	import { formatLocaleForUrl } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
+	import Slider from "./Slider.svelte";
 
 	export let show: boolean;
 
@@ -40,20 +41,27 @@
 		}));
 	};
 
+	const onValueChange = (value: number[]) => {
+		settings.update((s) => ({
+			...s,
+			accentColor: value[0].toString(),
+		}))
+	};
+
 	const getHint = (key: keyof Settings) => {
 		const hintKey = settingsConfiguration[key].hint;
 		if (!hintKey) return "";
 		return m[hintKey]();
 	};
 
-	const getLabel = (value: boolean | DarkMode) => {
+	const getLabel = (value: boolean | string | DarkMode) => {
 		if (typeof value === "boolean") {
 			return "";
 		}
-		return m[value]();
+		return m[value as DarkMode]();
 	};
 
-	export const getValue = (value: boolean | DarkMode) => {
+	export const getValue = (value: boolean | string | DarkMode) => {
 		if (typeof value === "boolean") {
 			return "";
 		}
@@ -67,6 +75,11 @@
 			return tag;
 		}
 	};
+
+	const getDefaultValueForSlider = (key: keyof Settings) => {
+		if($settings[key]) return $settings[key] as unknown as number;
+		return settingsConfiguration[key].values[0] as unknown as number;
+	}
 
 	const formatLanguages = () => {
 		return availableLanguageTags.map((tag) => [tag, formatTag(tag)]);
@@ -99,6 +112,9 @@
 						label={m[key]()}
 						name={key}
 					/>
+				{/if}
+				{#if settingsConfiguration[key].type === "color"}
+					<Slider min={0} max={360} defaultValue={getDefaultValueForSlider(key)} step={5} {onValueChange} />
 				{/if}
 				{#if settingsConfiguration[key].hint}
 					<Spacing size={2} />

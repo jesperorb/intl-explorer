@@ -19,13 +19,13 @@
 
 <style>
 	.full {
-		color: var(--darkgreen);
+		color: var(--green-1);
 	}
 	.partial {
-		color: var(--yellow);
+		color: var(--yellow-1);
 	}
 	.none {
-		color: var(--darkred);
+		color: var(--red-1);
 	}
 	.missing {
 		color: var(--gray);

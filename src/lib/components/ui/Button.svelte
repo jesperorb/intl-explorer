@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type {
 		AriaAttributes,
-		Booleanish,
 		HTMLButtonAttributes,
 		KeyboardEventHandler,
 		MouseEventHandler
@@ -60,12 +59,12 @@
 
 <style>
 	.button {
-		background-color: var(--button-background-color);
-		border: 1px solid var(--button-border-color);
+		background-color: var(--background-secondary-color);
+		border: 1px solid var(--border-color);
 		border-radius: 4px;
 		padding: var(--spacing-2) var(--spacing-3);
 		cursor: pointer;
-		color: var(--button-text-color);
+		color: var(--text-color);
 		text-align: center;
 		display: inline-flex;
 		justify-content: center;
@@ -81,17 +80,13 @@
 	.no-background {
 		background-color: transparent;
 		border-color: transparent;
-		color: var(--button-no-background-text-color);
+		color: var(--text-color);
 	}
 	.button:disabled {
-		color: rgb(118, 118, 118);
+		color: var(--disabled-color);
 		cursor: not-allowed;
 	}
-	.button.no-background:not(:disabled):hover {
-		background-color: transparent;
-		border-color: var(--button-background-hover-color);
-	}
 	.button:not(:disabled):hover {
-		background-color: var(--button-background-hover-color);
+		filter: brightness(90%);
 	}
 </style>

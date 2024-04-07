@@ -25,7 +25,7 @@
 		padding: var(--spacing-2);
 		border-radius: 4px;
 		display: inline-block;
-		background-color: var(--card-color);
+		background-color: var(--background-color);
 	}
 
 	.fullWidth {

@@ -1,6 +1,8 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"about": "About",
+	"accentColor": "Accent color",
+	"accentColorHint": "Change the color of the accent (default: purple)",
 	"alternativeUseHeading": "Alternativ use",
 	"alternativeUseIngress": "{method} can also be used from",
 	"amount": "Amount",

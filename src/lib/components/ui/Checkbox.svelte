@@ -22,6 +22,6 @@
 		width: var(--spacing-4);
 		height: var(--spacing-4);
 		color: var(--text-color);
-		accent-color: var(--purple4);
+		accent-color: var(--accent-2);
 	}
 </style>
