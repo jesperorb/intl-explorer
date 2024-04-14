@@ -12,7 +12,7 @@
 	import Header from "$ui/Header.svelte";
 	import { getLocaleFromParams } from "$utils/get-locale";
 	import { locales } from "$store/locales";
-	import { description, tags, title } from "$lib/constants";
+	import { description, tags, title, imageUrl } from "$lib/constants";
 
 	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;
