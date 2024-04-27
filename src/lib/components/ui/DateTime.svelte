@@ -26,12 +26,12 @@
 <div class="datetime" class:fullWidth>
 	<div class="date">
 		<label for="date">{m.date()}</label>
-		<Spacing size={1} />
+		<Spacing size={2} />
 		<input type="date" id="date" on:input={onChangeDate} value={dateString} />
 	</div>
 	<div class="time">
 		<label for="time">{m.time()}</label>
-		<Spacing size={1} />
+		<Spacing size={2} />
 		<input type="time" id="time" on:input={onChangeTime} value={timeString} />
 	</div>
 </div>
