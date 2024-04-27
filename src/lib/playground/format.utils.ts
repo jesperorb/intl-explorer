@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FormatMethodsKeys } from "$lib/format-methods";
 import type { AllFormatOptions } from "$lib/format-options/types";
 import type { PlaygroundOption, PlaygroundSchema } from "$lib/playground/playground.schema";
@@ -6,7 +5,13 @@ import type { PlaygroundOption, PlaygroundSchema } from "$lib/playground/playgro
 import { formatOptions } from "$lib/format-options";
 import { durationValues } from "$lib/format-options/duration-format.options";
 import { optionIsActive } from "$lib/playground/validate";
-import { clampValue, fallbackDisplayNames, tryFormat, print, formatLocalesForPrint } from "$utils/format-utils";
+import {
+	clampValue,
+	fallbackDisplayNames,
+	tryFormat,
+	print,
+	formatLocalesForPrint
+} from "$utils/format-utils";
 
 export const updateOptionOnSchema = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
@@ -16,7 +21,7 @@ export const updateOptionOnSchema = <Method extends FormatMethodsKeys>(
 	const isRadioEvent = target.type === 'radio';
 	const isCheckBox = target.type === 'checkbox';
 	const optionName = target.name.replace("_active", "");
-	const optionValue =  target.value;
+	const optionValue = target.value;
 	const radioValue = optionValue === 'true' ? true : optionValue === 'false' ? false : undefined;
 	const value = isRadioEvent ? radioValue : optionValue;
 	const schemaOptions = schema.options.map((option) =>
@@ -66,7 +71,7 @@ export const getItemsFromOption = <Method extends FormatMethodsKeys>(
 ) => {
 	const optionsForMethod = formatOptions[method];
 	const name = option.name as keyof typeof optionsForMethod;
-	const options = optionsForMethod[name] as (string|boolean|number|undefined)[];
+	const options = optionsForMethod[name] as (string | boolean | number | undefined)[];
 	return options?.map((option) => [option, option]) ?? [];
 };
 
@@ -82,6 +87,7 @@ const prepareSchemaForOutput = <Method extends FormatMethodsKeys>(
 }
 
 export const formatDurationFormatValues = (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	inputValues: any[]
 ) =>
 	Object.fromEntries(
@@ -107,7 +113,7 @@ export const schemaToPrimaryFormatterOutput = <Method extends FormatMethodsKeys>
 	const { options } = prepareSchemaForOutput(schema);
 	return tryFormat(() => {
 		if (schema.method === "Collator") {
-			const formattedString = (schema.inputValues[0]).sort(new Intl.Collator(
+			const formattedString = ([...schema.inputValues[0]]).sort(new Intl.Collator(
 				locale,
 				options
 			).compare)
