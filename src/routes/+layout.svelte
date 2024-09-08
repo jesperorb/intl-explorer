@@ -12,7 +12,7 @@
 	import Header from "$ui/Header.svelte";
 	import { getLocaleFromParams } from "$utils/get-locale";
 	import { locales } from "$store/locales";
-	import { description, tags, title, imageUrl } from "$lib/constants";
+	import { description, tags, title, imageUrl, author } from "$lib/constants";
 
 	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;
@@ -34,7 +34,7 @@
 <svelte:head>
 	<title>{routeId ?? title}</title>
 	<meta name="robots" content="index, follow" />
-	<meta name="author" content="Jesper Orb" />
+	<meta name="author" content="{author}" />
 	<meta name="keywords" content="{tags.join(", ")}" />
 	<meta
 		name="description"
@@ -48,6 +48,7 @@
 	<meta property="og:url" content="{$page.url.host}">
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="{title}" />
+	<meta property="og:image" content="{imageUrl}" />
 	<meta name="twitter:card" content="summary_large_image">
 	<meta property="twitter:domain" content="{$page.url.host}">
 	<meta property="twitter:url" content="{$page.url.host}">
@@ -126,12 +127,12 @@
 	
 		--orange-1: hsl(14, 90%, 70%);
 		
-		--yellow-1: hsl(40, 94%, 32%);
+		--yellow-1: hsl(40, 94%, 30%);
 		--yellow-2: hsl(40, 94%, 50%);
 		--yellow-3: hsl(40, 94%, 80%);
 
 		--purple-1: hsl(276, 65%, 75%);
-		--purple-2: hsl(276, 65%, 60%);
+		--purple-2: hsl(276, 65%, 70%);
 
 		--accent-hue: 275;
 		--accent-1: hsl(var(--accent-hue), 100%, 98%);
@@ -150,7 +151,7 @@
 		--body-background-color: var(--accent-1);
 
 		--code-key: var(--white-1);
-		--code-comment: var(--gray-2);
+		--code-comment: var(--gray-3);
 		--code-text-color: var(--white-1);
 		--code-background-color: var(--blue-4);
 		--code-punctuation: var(--purple-2);
