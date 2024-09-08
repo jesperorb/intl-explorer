@@ -89,6 +89,7 @@
 			bind:ref={openButton}
 			textTransform="uppercase"
 			noBackground
+			testId={testIds.openNavigation}
 		>
 			{m.menu()}
 		</Button>
@@ -140,10 +141,10 @@
 						href={`/${route.path}${formatLocaleForUrl($locales)}`}
 					>
 						{route.name}
-						{#if route.experimental}
-							<img height="16" width="16" src="/icons/experimental.svg" alt="Experimental" />
-						{/if}
 					</a>
+					{#if route.experimental}
+						<img height="16" width="16" src="/icons/experimental.svg" alt="Experimental" />
+					{/if}
 				</li>
 			{/each}
 			<li class="menu-heading">{m.meta()}</li>

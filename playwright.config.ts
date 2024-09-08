@@ -1,13 +1,16 @@
-import { devices } from "@playwright/test";
+import { devices, type PlaywrightTestConfig } from "@playwright/test";
 
-const config = {
+const config: PlaywrightTestConfig = {
 	testDir: "tests",
-	forbidOnly: !!process.env.CI,
+	use: {
+		headless: true,
+		ignoreHTTPSErrors: true,
+	},
 	projects: [
 		{
-			name: "chromium",
+			name: "Desktop Firefox",
 			use: {
-				...devices["Desktop Chrome"]
+				...devices["Desktop Firefox"]
 			}
 		}
 	]

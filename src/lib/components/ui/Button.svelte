@@ -21,6 +21,7 @@
 	export let bold: boolean | undefined = undefined;
 	export let title: string | undefined = undefined;
 	export let disabled: boolean | null | undefined = undefined;
+	export let testId: string | undefined = undefined;
 </script>
 
 {#if href}
@@ -32,6 +33,7 @@
 		class:uppercase={textTransform === "uppercase"}
 		class:bold
 		{title}
+		data-testid={testId}
 		hreflang={hrefLang}
 	>
 		<slot />
@@ -50,6 +52,7 @@
 		class:uppercase={textTransform === "uppercase"}
 		class:no-background={noBackground}
 		class:bold
+		data-testid={testId}
 		on:keydown={onKeyDown}
 		bind:this={ref}
 	>

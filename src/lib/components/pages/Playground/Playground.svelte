@@ -35,6 +35,7 @@
 	import { getMessages } from "$i18n/util";
 	import { settings } from "$store/settings";
 	import { locales } from "$store/locales";
+	import { testIds } from "$utils/dom-utils";
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 
@@ -173,14 +174,16 @@
 				<div class="output-inner">
 					<h2>{m.output()}</h2>
 					<Spacing size={2} />
-					<Highlight
-						language={typescript}
-						code={schemaToPrimaryFormatterOutput(schema, $locales)}
-					/>
+					<div data-testid="{testIds.playground.output}">
+						<Highlight
+							language={typescript}
+							code={schemaToPrimaryFormatterOutput(schema, $locales)}
+						/>
+					</div>
 					<Spacing />
 					<h2>{m.code()}</h2>
 					<Spacing size={2} />
-					<div class="highlight">
+					<div class="highlight" data-testid="{testIds.playground.code}">
 						<Highlight language={typescript} code={schemaToCode(schema, $locales)} />
 					</div>
 					<Spacing size={2} />
