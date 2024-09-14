@@ -75,7 +75,7 @@ export const getItemsFromOption = <Method extends FormatMethodsKeys>(
 	return options?.map((option) => [option, option]) ?? [];
 };
 
-const prepareSchemaForOutput = <Method extends FormatMethodsKeys>(
+export const prepareSchemaForOutput = <Method extends FormatMethodsKeys>(
 	schema: PlaygroundSchema<Method>,
 ) => {
 	const options = schemaToFormatOptions(schema);
