@@ -1,4 +1,9 @@
 import { localeMatcher, style } from "$lib/format-options/common.options";
+import type { CreateOptions } from "$types/common";
+
+export type RelativeTimeFormatOptions = CreateOptions<Intl.RelativeTimeFormatOptions> & {
+	unit: Intl.RelativeTimeFormatUnit[];
+}
 
 export const relativeTimeFormatUnits: Intl.RelativeTimeFormatUnit[] = [
 	"year",
@@ -19,9 +24,9 @@ export const relativeTimeFormatUnits: Intl.RelativeTimeFormatUnit[] = [
 	"seconds"
 ];
 
-export const relativeTimeFormatOptions = {
+export const relativeTimeFormatOptions: RelativeTimeFormatOptions = {
 	numeric: ["always", "auto", undefined],
 	style,
 	unit: relativeTimeFormatUnits,
 	localeMatcher
-} as const;
+}

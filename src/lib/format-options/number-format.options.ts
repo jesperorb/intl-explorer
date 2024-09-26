@@ -9,6 +9,9 @@ import {
 	trailingZeroDisplay,
 	style
 } from "$lib/format-options/common.options";
+import type { CreateOptions } from "$types/common";
+
+export type NumberFormatOptions = CreateOptions<Intl.NumberFormatOptions>;
 
 export const numberFormatOptionsCommon = {
 	style: ["currency", "unit"],
@@ -24,17 +27,17 @@ export const numberFormatOptionsCommon = {
 	roundingPriority,
 	trailingZeroDisplay,
 	localeMatcher
-} as const;
+}
 
-export const numberFormatOptionsCurrency = {
+export const numberFormatOptionsCurrency: NumberFormatOptions = {
 	currencySign: ["standard", "accounting", undefined],
 	currencyDisplay: ["code", "symbol", "narrowSymbol", "name", undefined],
-	currency: Object.keys(currencies)
-} as const;
+	currency: Object.keys(currencies) as [string | undefined, string | undefined],
+}
 
-export const numberFormatOptionsUnit = {
-	unit: units,
+export const numberFormatOptionsUnit: NumberFormatOptions = {
+	unit: units as [string | undefined, string | undefined],
 	unitDisplay: style,
 	compactDisplay: ["short", "long", undefined],
 	notation: ["standard", "scientific", "engineering", "compact", undefined]
-} as const;
+}

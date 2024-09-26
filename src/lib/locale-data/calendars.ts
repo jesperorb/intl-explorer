@@ -12,7 +12,7 @@ export const calendars = [
 	"japanese",
 	"persian",
 	"roc"
-] as const;
+]
 
 export const numberingSystems = [
 	"arab",
@@ -37,4 +37,4 @@ export const numberingSystems = [
 	"telu",
 	"thai",
 	"tibt"
-] as const;
+];

@@ -1,6 +1,9 @@
 import { localeMatcher } from "$lib/format-options/common.options";
+import type { CreateOptions } from "$types/common";
 
-export const segmenterOptions = {
+export type SegmenterOptions = CreateOptions<Intl.SegmenterOptions>;
+
+export const segmenterOptions: SegmenterOptions = {
 	granularity: ["word", "sentence", "grapheme", undefined],
 	localeMatcher
-} as const;
+}
