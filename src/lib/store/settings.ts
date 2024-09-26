@@ -73,11 +73,9 @@ export const settings = writable(getSettings());
 
 settings.subscribe((value) => {
 	if (browser) {
-		if (value.theme === "dark") {
-			document.querySelector("html")?.setAttribute("data-dark-mode", "true");
-		} else if (value.theme === "light") {
-			document.querySelector("html")?.removeAttribute("data-dark-mode");
-		}
+		const htmlElement = document.querySelector("html");
+		htmlElement?.setAttribute(`data-${value.theme}-mode`, "true");
+		htmlElement?.removeAttribute(`data-${value.theme === "dark" ? "light" : "dark"}-mode`);
 		if (value.codeTheme === "light") {
 			document.querySelector("html")?.setAttribute("data-code-light-mode", "true");
 		} else if (value.codeTheme === "dark") {
