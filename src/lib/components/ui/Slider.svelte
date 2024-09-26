@@ -17,11 +17,8 @@
     return value.next;
   }
 
-  const reset = () => value.set([275]) 
-
   const {
     elements: { root, range, thumbs },
-    states: { value }
   } = createSlider({
     defaultValue: defaultValue ? [defaultValue] : undefined,
     min,
@@ -40,13 +37,6 @@
     class="thumb"
   />
 </span>
-
-{#if defaultValue}
-  <Spacing />
-  <Button on:click={reset}>
-    Reset
-  </Button>
-{/if}
 
 <style>
   .slider {

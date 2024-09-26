@@ -1,8 +1,11 @@
 import { defaultNumberRange } from "$utils/format-utils";
 import { style, localeMatcher } from "$lib/format-options/common.options";
+import type { CreateOptions, NumberOrUndefinedTuple } from "$types/common";
 
-export const durationFormatOptions = {
-	style,
+type DurationFormatOptions = CreateOptions<Intl.DurationFormatOptions>;
+
+export const durationFormatOptions: DurationFormatOptions = {
+	style: [...style, "digital"],
 	years: style,
 	months: style,
 	weeks: style,
@@ -13,9 +16,9 @@ export const durationFormatOptions = {
 	milliseconds: style,
 	microseconds: style,
 	nanoseconds: style,
-	fractionalDigits: [...defaultNumberRange, undefined],
+	fractionalDigits: [...defaultNumberRange, undefined] as NumberOrUndefinedTuple,
 	localeMatcher
-} as const;
+}
 
 export const durationValues: (keyof Intl.Duration)[] = [
 	"years",

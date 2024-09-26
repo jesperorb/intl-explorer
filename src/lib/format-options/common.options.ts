@@ -1,7 +1,23 @@
-export const style = [undefined, "long", "short", "narrow"] as const;
-export const localeMatcher = [undefined, "best fit", "lookup"] as const;
-export const roundingPriority = ["auto", "morePrecision", "lessPrecision", undefined] as const;
-export const roundingIncrement = [
+import type { Tuple } from "$types/common";
+
+export const style: Tuple<Intl.RelativeTimeFormatOptions["style"]> = [
+	undefined,
+	"long",
+	"short",
+	"narrow"
+];
+export const localeMatcher: Tuple<Intl.CollatorOptions["localeMatcher"]> = [
+	undefined,
+	"best fit",
+	"lookup"
+];
+export const roundingPriority: Tuple<Intl.PluralRulesOptions["roundingPriority"]> = [
+	"auto",
+	"morePrecision",
+	"lessPrecision",
+	undefined
+];
+export const roundingIncrement: Tuple<Intl.PluralRulesOptions["roundingIncrement"]> = [
 	1,
 	2,
 	5,
@@ -18,8 +34,8 @@ export const roundingIncrement = [
 	2500,
 	5000,
 	undefined
-] as const;
-export const roundingMode = [
+];
+export const roundingMode: Tuple<Intl.PluralRulesOptions["roundingMode"]> = [
 	"ceil",
 	"floor",
 	"expand",
@@ -30,5 +46,9 @@ export const roundingMode = [
 	"halfTrunc",
 	"halfEven",
 	undefined
-] as const;
-export const trailingZeroDisplay = ["auto", "stripIfInteger", undefined] as const;
+];
+export const trailingZeroDisplay: Tuple<Intl.PluralRulesOptions["trailingZeroDisplay"]> = [
+	"auto",
+	"stripIfInteger",
+	undefined
+];

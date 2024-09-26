@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test";
-import { defaultPageUnderTest, localBaseURL, mdnUrl } from "./contstants";
+import { defaultPageUnderTest, localBaseURL, mdnUrl } from "./constants";
 import { checkA11y } from "axe-playwright";
 import { testIds } from "../src/lib/utils/dom-utils";
 import messages from "../messages/en.json" assert { type: "json" };

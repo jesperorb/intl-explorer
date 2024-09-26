@@ -22,14 +22,14 @@ importers:
         specifier: 1.3.5
         version: 1.3.5
       '@mdn/browser-compat-data':
-        specifier: 5.5.48
-        version: 5.5.48
+        specifier: 5.6.3
+        version: 5.6.3
       '@melt-ui/pp':
-        specifier: ^0.3.0
-        version: 0.3.0(@melt-ui/svelte@0.76.3(svelte@4.2.12))(svelte@4.2.12)
+        specifier: ^0.3.2
+        version: 0.3.2(@melt-ui/svelte@0.83.0(svelte@4.2.12))(svelte@4.2.12)
       '@melt-ui/svelte':
-        specifier: ^0.76.3
-        version: 0.76.3(svelte@4.2.12)
+        specifier: ^0.83.0
+        version: 0.83.0(svelte@4.2.12)
       '@playwright/test':
         specifier: ^1.42.1
         version: 1.42.1
@@ -618,20 +618,19 @@ packages:
     resolution: {integrity: sha512-aDF3S3rK9Q2gey/WAttUlISduDItz5BU3306M9Eyv6/oS40aMprnopshtlKTykxRNIBEZuRMaZAnbrQ4QtKGyw==}
     hasBin: true
 
-  '@mdn/browser-compat-data@5.5.48':
-    resolution: {integrity: sha512-ddCsJkVKMfZJS4Ik7ekgoBjMPRdAb7p68+1VSRls3mUWJ2hknSAIOj2gBobRSd/8XdbIRYMsBEpJRl2jhB4sFg==}
+  '@mdn/browser-compat-data@5.6.3':
+    resolution: {integrity: sha512-HOTfnXR2GmEtpriwCa689EYySqfVAwhzjQ4PzY3K3QN1g9z7/o8yYUjXxAHvTuVa2qU7EjlXmuZ0I3xYOmG0yg==}
 
-  '@melt-ui/pp@0.3.0':
-    resolution: {integrity: sha512-b07Bdh8l2KcwKVCXOY+SoBw1dk9eWvQfMSi6SoacpRVyVmmfpi0kV4oGt3HYF0tUCB3sEmVicxse50ZzZxEzEA==}
-    engines: {pnpm: '>=8.6.3'}
+  '@melt-ui/pp@0.3.2':
+    resolution: {integrity: sha512-xKkPvaIAFinklLXcQOpwZ8YSpqAFxykjWf8Y/fSJQwsixV/0rcFs07hJ49hJjPy5vItvw5Qa0uOjzFUbXzBypQ==}
     peerDependencies:
       '@melt-ui/svelte': '>= 0.29.0'
       svelte: ^3.55.0 || ^4.0.0 || ^5.0.0-next.1
 
-  '@melt-ui/svelte@0.76.3':
-    resolution: {integrity: sha512-fEtwHnOVLH0eNwtr+7pX5JQVtOL2XWVFA0/xrNU0yL6NkEpv++4NUwaaulGZC4nVmVG/gIA1JK2fx5M0u01TlA==}
+  '@melt-ui/svelte@0.83.0':
+    resolution: {integrity: sha512-E7QT+8YSftz+Hdk1W0hNR3f+cnaF2COMWkStn+2u4vk0RO1I9mXRJl+bJD6uhYaH146oxEB+5elu/ABbv6rpsA==}
     peerDependencies:
-      svelte: '>=3 <5'
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.118
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3461,16 +3460,16 @@ snapshots:
       - encoding
       - supports-color
 
-  '@mdn/browser-compat-data@5.5.48': {}
+  '@mdn/browser-compat-data@5.6.3': {}
 
-  '@melt-ui/pp@0.3.0(@melt-ui/svelte@0.76.3(svelte@4.2.12))(svelte@4.2.12)':
+  '@melt-ui/pp@0.3.2(@melt-ui/svelte@0.83.0(svelte@4.2.12))(svelte@4.2.12)':
     dependencies:
-      '@melt-ui/svelte': 0.76.3(svelte@4.2.12)
+      '@melt-ui/svelte': 0.83.0(svelte@4.2.12)
       estree-walker: 3.0.3
       magic-string: 0.30.6
       svelte: 4.2.12
 
-  '@melt-ui/svelte@0.76.3(svelte@4.2.12)':
+  '@melt-ui/svelte@0.83.0(svelte@4.2.12)':
     dependencies:
       '@floating-ui/core': 1.6.0
       '@floating-ui/dom': 1.6.3

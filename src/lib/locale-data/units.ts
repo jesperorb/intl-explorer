@@ -42,6 +42,6 @@ export const units = [
 	"week",
 	"yard",
 	"year"
-] as const;
+];
 
 export const unitsAsEntries = units.map((unit) => [unit, unit]);
