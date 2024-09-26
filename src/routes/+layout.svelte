@@ -177,6 +177,15 @@
 		--divider-color: var(--gray-4);
 		--disabled-color: var(--gray-2);
 	}
+	[data-light-mode] {
+		--text-color: var(--black-1);
+		--background-color: var(--white-1);
+		--background-secondary-color: var(--gray-1);
+		--body-background-color: var(--accent-1);
+		--border-color: var(--gray-3);
+		--divider-color: var(--gray-3);
+		--disabled-color: var(--gray-2);
+	}
 	[data-code-light-mode] {
 		--code-text-color: var(--black-1);
 		--code-background-color: var(--white-1);
