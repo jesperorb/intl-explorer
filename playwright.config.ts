@@ -4,7 +4,7 @@ const config: PlaywrightTestConfig = {
 	testDir: "tests",
 	use: {
 		headless: true,
-		ignoreHTTPSErrors: true,
+		ignoreHTTPSErrors: true
 	},
 	projects: [
 		{

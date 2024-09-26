@@ -1,5 +1,11 @@
 import { describe, expect, test } from "vitest";
-import { camelCaseToWords, clampValue, formatLocaleForUrl, formatLocalesForPrint, tryFormat } from "./format-utils";
+import {
+	camelCaseToWords,
+	clampValue,
+	formatLocaleForUrl,
+	formatLocalesForPrint,
+	tryFormat
+} from "./format-utils";
 import { numberFormatOptionFactory } from "./factory";
 
 describe("clampValue", () => {
@@ -87,7 +93,7 @@ describe("formatLocalesForPrint", () => {
 	});
 
 	test("format multiple locale", () => {
-		expect(formatLocalesForPrint(["sv", "en"])).toEqual("[\"sv\",\"en\"]");
+		expect(formatLocalesForPrint(["sv", "en"])).toEqual('["sv","en"]');
 	});
 
 	test("format zero locale", () => {
@@ -97,9 +103,9 @@ describe("formatLocalesForPrint", () => {
 
 describe("formatLocaleForUrl", () => {
 	test("format locales", () => {
-		expect(formatLocaleForUrl(["sv"])).toEqual('?locale=sv');
+		expect(formatLocaleForUrl(["sv"])).toEqual("?locale=sv");
 	});
 	test("format locales", () => {
-		expect(formatLocaleForUrl(["sv", "en"])).toEqual('?locale=sv,en');
+		expect(formatLocaleForUrl(["sv", "en"])).toEqual("?locale=sv,en");
 	});
 });

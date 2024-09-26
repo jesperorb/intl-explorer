@@ -27,17 +27,17 @@ export const numberFormatOptionsCommon = {
 	roundingPriority,
 	trailingZeroDisplay,
 	localeMatcher
-}
+};
 
 export const numberFormatOptionsCurrency: NumberFormatOptions = {
 	currencySign: ["standard", "accounting", undefined],
 	currencyDisplay: ["code", "symbol", "narrowSymbol", "name", undefined],
-	currency: Object.keys(currencies) as [string | undefined, string | undefined],
-}
+	currency: Object.keys(currencies) as [string | undefined, string | undefined]
+};
 
 export const numberFormatOptionsUnit: NumberFormatOptions = {
 	unit: units as [string | undefined, string | undefined],
 	unitDisplay: style,
 	compactDisplay: ["short", "long", undefined],
 	notation: ["standard", "scientific", "engineering", "compact", undefined]
-}
+};

@@ -276,6 +276,8 @@ describe("schemaToPrimaryFormatterOutput", () => {
 
 describe("schemaToCode", () => {
 	test("format default", () => {
-		expect(schemaToCode(numberFormatSchemaFactory(), [])).toEqual("new Intl.NumberFormat(undefined).format(1091)\n");
-	})
-})
+		expect(schemaToCode(numberFormatSchemaFactory(), [])).toEqual(
+			"new Intl.NumberFormat(undefined).format(1091)\n"
+		);
+	});
+});

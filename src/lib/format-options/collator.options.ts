@@ -1,7 +1,7 @@
 import { localeMatcher } from "$lib/format-options/common.options";
 import type { CreateOptions } from "$types/common";
 
-export type CollatorOptions = CreateOptions<Intl.CollatorOptions>
+export type CollatorOptions = CreateOptions<Intl.CollatorOptions>;
 
 export const collatorFormatOptions: CollatorOptions = {
 	usage: ["sort", "search", undefined],
@@ -10,4 +10,4 @@ export const collatorFormatOptions: CollatorOptions = {
 	sensitivity: ["base", "accent", "case", "variant", undefined],
 	ignorePunctuation: [true, false, undefined],
 	localeMatcher
-}
+};

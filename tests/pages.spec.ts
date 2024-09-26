@@ -21,7 +21,7 @@ test.describe("Pages", () => {
 			await test.step("Change locale", async () => {
 				await intlPage.changeLocale(locale);
 				await intlPage.assertUrlLocale(locale);
-				await intlPage.assertLocaleChip(locale)
+				await intlPage.assertLocaleChip(locale);
 			});
 		});
 	});
@@ -39,6 +39,6 @@ test("Playground", async ({ intlPage }) => {
 	});
 
 	await test.step("Verify default values", async () => {
-		await intlPage.verifyPlaygroundDefaultValues()
+		await intlPage.verifyPlaygroundDefaultValues();
 	});
 });

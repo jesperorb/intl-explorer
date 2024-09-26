@@ -3,6 +3,6 @@ export const testIds = {
 	openNavigation: "openNavigation",
 	playground: {
 		output: "playgroundOutput",
-		code: "playgroundCode",
-	} 
+		code: "playgroundCode"
+	}
 } as const;

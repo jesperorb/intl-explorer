@@ -104,7 +104,7 @@ describe("validateAndUpdateSchema", () => {
 		expect(
 			validateAndUpdateSchema(
 				numberFormatSchemaFactory({
-					options: [styleOption, unitOption],
+					options: [styleOption, unitOption]
 				})
 			)
 		).toEqual(
@@ -123,7 +123,7 @@ describe("validateAndUpdateSchema", () => {
 						defaultValue: undefined,
 						value: "degree",
 						inputType: "select"
-					}),
+					})
 				])
 			})
 		);
@@ -131,12 +131,12 @@ describe("validateAndUpdateSchema", () => {
 
 	test("pass through option based on schema and set selected and value", () => {
 		const option = numberFormatOptionFactory({
-			name: "maximumFractionDigits",
+			name: "maximumFractionDigits"
 		});
 		expect(
 			validateAndUpdateSchema(
 				numberFormatSchemaFactory({
-					options: [option],
+					options: [option]
 				})
 			)
 		).toEqual(
@@ -150,8 +150,8 @@ describe("validateAndUpdateSchema", () => {
 						valueType: "number",
 						inputType: "text",
 						value: undefined,
-						selected: undefined,
-					}),
+						selected: undefined
+					})
 				])
 			})
 		);

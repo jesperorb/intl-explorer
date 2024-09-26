@@ -7,4 +7,4 @@ export const listFormatOptions: ListFormatOptions = {
 	type: [undefined, "conjunction", "disjunction", "unit"],
 	style,
 	localeMatcher
-}
+};

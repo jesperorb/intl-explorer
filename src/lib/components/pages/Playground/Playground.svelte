@@ -174,7 +174,7 @@
 				<div class="output-inner">
 					<h2>{m.output()}</h2>
 					<Spacing size={2} />
-					<div data-testid="{testIds.playground.output}">
+					<div data-testid={testIds.playground.output}>
 						<Highlight
 							language={typescript}
 							code={schemaToPrimaryFormatterOutput(schema, $locales)}
@@ -183,7 +183,7 @@
 					<Spacing />
 					<h2>{m.code()}</h2>
 					<Spacing size={2} />
-					<div class="highlight" data-testid="{testIds.playground.code}">
+					<div class="highlight" data-testid={testIds.playground.code}>
 						<Highlight language={typescript} code={schemaToCode(schema, $locales)} />
 					</div>
 					<Spacing size={2} />

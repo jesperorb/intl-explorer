@@ -175,7 +175,7 @@
 		z-index: 1;
 		overflow-x: hidden;
 		transition: transform 0.3s;
-		box-shadow: 1px 1px 8px 2px rgba(0,0,0,0.1);
+		box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.1);
 		border-top-right-radius: 4px;
 		border-bottom-right-radius: 4px;
 	}

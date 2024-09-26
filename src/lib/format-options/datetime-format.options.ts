@@ -33,7 +33,7 @@ export const datetimeFormatOptions: DateTimeFormatOptions = {
 	],
 	formatMatcher: ["best fit", "basic", undefined],
 	localeMatcher
-}
+};
 
 export const getDateTimeFormatOptions = (
 	option: AllFormatOptionsKeys["DateTimeFormat"] | string,
