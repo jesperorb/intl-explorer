@@ -44,8 +44,8 @@
 	const onValueChange = (value: number[]) => {
 		settings.update((s) => ({
 			...s,
-			accentColor: value[0].toString(),
-		}))
+			accentColor: value[0].toString()
+		}));
 	};
 
 	const getHint = (key: keyof Settings) => {
@@ -77,9 +77,9 @@
 	};
 
 	const getDefaultValueForSlider = (key: keyof Settings) => {
-		if($settings[key]) return $settings[key] as unknown as number;
+		if ($settings[key]) return $settings[key] as unknown as number;
 		return settingsConfiguration[key].values[0] as unknown as number;
-	}
+	};
 
 	const formatLanguages = () => {
 		return availableLanguageTags.map((tag) => [tag, formatTag(tag)]);
@@ -114,7 +114,13 @@
 					/>
 				{/if}
 				{#if settingsConfiguration[key].type === "color"}
-					<Slider min={0} max={360} defaultValue={getDefaultValueForSlider(key)} step={5} {onValueChange} />
+					<Slider
+						min={0}
+						max={360}
+						defaultValue={getDefaultValueForSlider(key)}
+						step={5}
+						{onValueChange}
+					/>
 				{/if}
 				{#if settingsConfiguration[key].hint}
 					<Spacing size={2} />

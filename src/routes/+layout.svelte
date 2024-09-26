@@ -34,26 +34,20 @@
 <svelte:head>
 	<title>{routeId ?? title}</title>
 	<meta name="robots" content="index, follow" />
-	<meta name="author" content="{author}" />
-	<meta name="keywords" content="{tags.join(", ")}" />
-	<meta
-		name="description"
-		content="{description}"
-	/>
-	<meta
-		property="og:description"
-		content="{description}"
-	/>
-	<meta property="og:site_name" content="{title}">
-	<meta property="og:url" content="{$page.url.host}">
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="{title}" />
-	<meta property="og:image" content="{imageUrl}" />
-	<meta name="twitter:card" content="summary_large_image">
-	<meta property="twitter:domain" content="{$page.url.host}">
-	<meta property="twitter:url" content="{$page.url.host}">
-	<meta name="twitter:title" content="{title}">
-	<meta name="twitter:description" content="{description}">
+	<meta name="author" content={author} />
+	<meta name="keywords" content={tags.join(", ")} />
+	<meta name="description" content={description} />
+	<meta property="og:description" content={description} />
+	<meta property="og:site_name" content={title} />
+	<meta property="og:url" content={$page.url.host} />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content={title} />
+	<meta property="og:image" content={imageUrl} />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="twitter:domain" content={$page.url.host} />
+	<meta property="twitter:url" content={$page.url.host} />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={description} />
 	{#if !dev}
 		<script
 			defer
@@ -106,7 +100,7 @@
 		--gray-3: rgb(220, 220, 220);
 		--gray-4: rgb(100, 100, 100);
 		--gray-5: rgb(150, 150, 150);
-		
+
 		--black-1: rgb(0, 0, 0);
 		--black-2: rgb(20, 20, 20);
 		--black-3: rgb(30, 30, 30);
@@ -117,16 +111,16 @@
 		--blue-4: hsl(200, 30%, 15%);
 
 		--teal-1: hsl(169, 56%, 68%);
-	
+
 		--green-1: hsl(114, 31%, 39%);
 		--green-2: hsl(114, 31%, 68%);
-	
+
 		--red-1: hsl(350, 100%, 46%);
 		--red-2: hsl(350, 100%, 67%);
 		--red-3: hsl(354, 66%, 54%);
-	
+
 		--orange-1: hsl(14, 90%, 70%);
-		
+
 		--yellow-1: hsl(40, 94%, 30%);
 		--yellow-2: hsl(40, 94%, 50%);
 		--yellow-3: hsl(40, 94%, 80%);

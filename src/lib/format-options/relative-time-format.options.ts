@@ -3,7 +3,7 @@ import type { CreateOptions } from "$types/common";
 
 export type RelativeTimeFormatOptions = CreateOptions<Intl.RelativeTimeFormatOptions> & {
 	unit: Intl.RelativeTimeFormatUnit[];
-}
+};
 
 export const relativeTimeFormatUnits: Intl.RelativeTimeFormatUnit[] = [
 	"year",
@@ -29,4 +29,4 @@ export const relativeTimeFormatOptions: RelativeTimeFormatOptions = {
 	style,
 	unit: relativeTimeFormatUnits,
 	localeMatcher
-}
+};

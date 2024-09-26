@@ -14,7 +14,6 @@
 </label>
 
 <style>
-
 	label {
 		cursor: pointer;
 		display: flex;
@@ -71,7 +70,7 @@
 
 	input[type="radio"]:focus-visible {
 		background-color: var(--accent-2);
-		outline: 2px solid  var(--focus-color);
+		outline: 2px solid var(--focus-color);
 	}
 	@media (prefers-reduced-motion: reduce) {
 		input[type="radio"] {

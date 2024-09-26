@@ -18,7 +18,7 @@ export const durationFormatOptions: DurationFormatOptions = {
 	nanoseconds: style,
 	fractionalDigits: [...defaultNumberRange, undefined] as NumberOrUndefinedTuple,
 	localeMatcher
-}
+};
 
 export const durationValues: (keyof Intl.Duration)[] = [
 	"years",

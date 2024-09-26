@@ -25,7 +25,7 @@
 <ComboBox
 	labelText={m.locale()}
 	placeholder={m.localePlaceHolder()}
-	defaultValue={$locales.map(v => ({ value: v, label: v }))}
+	defaultValue={$locales.map((v) => ({ value: v, label: v }))}
 	{onSelect}
 	{onDelete}
 	options={languageByLocaleAsComboBoxOptions}

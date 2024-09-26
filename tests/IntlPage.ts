@@ -22,7 +22,7 @@ export class IntlPage {
 		method: Locator;
 		value: Locator;
 		locale: Locator;
-	}
+	};
 
 	private locale: Locator;
 
@@ -38,7 +38,7 @@ export class IntlPage {
 			method: this.page.getByLabel(messages.method),
 			value: this.page.getByLabel(messages.value),
 			locale: this.page.getByPlaceholder(messages.localePlaceHolder)
-		}
+		};
 	}
 
 	public setPageUnderTest(pageUnderTest: string) {
@@ -72,8 +72,9 @@ export class IntlPage {
 
 	public async clickOnNavigationLink() {
 		await this.clickOnMenu();
-		await this.page.getByTestId(testIds.navigation)
-			.getByRole('link', { name: this.pageUnderTest, exact: true })
+		await this.page
+			.getByTestId(testIds.navigation)
+			.getByRole("link", { name: this.pageUnderTest, exact: true })
 			.click();
 	}
 
@@ -83,7 +84,9 @@ export class IntlPage {
 	}
 
 	public async assertTitle(prefix = true) {
-		expect(await this.page.textContent("h1")).toBe(`${prefix ? "Intl." : ""}${this.pageUnderTest} `);
+		expect(await this.page.textContent("h1")).toBe(
+			`${prefix ? "Intl." : ""}${this.pageUnderTest} `
+		);
 	}
 
 	public async assertMDNLink() {
@@ -125,8 +128,8 @@ export class IntlPage {
 		await expect(this.playground.value).toHaveValue("1091");
 		await expect(this.playground.method).toHaveValue("NumberFormat");
 		await expect(this.playground.locale).toHaveValue("");
-		await expect(this.playground.output).toHaveText("$1,091.00")
-		await expect(this.playground.code).toContainText('"style": "currency"')
-		await expect(this.playground.code).toContainText('"currency": "USD"')
+		await expect(this.playground.output).toHaveText("$1,091.00");
+		await expect(this.playground.code).toContainText('"style": "currency"');
+		await expect(this.playground.code).toContainText('"currency": "USD"');
 	}
 }

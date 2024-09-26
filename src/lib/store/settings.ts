@@ -3,10 +3,7 @@ import { writable } from "svelte/store";
 
 export type DarkMode = "dark" | "light";
 
-type HintKeys = "codeThemeHint" |
-	"themeHint" |
-	"showBrowserSupportHint" |
-	"accentColorHint";
+type HintKeys = "codeThemeHint" | "themeHint" | "showBrowserSupportHint" | "accentColorHint";
 
 type Setting<Value> = {
 	type: "radio" | "checkbox" | "color";
@@ -40,7 +37,7 @@ export const settingsConfiguration: SettingsConfiguration = {
 	accentColor: {
 		type: "color",
 		values: ["275"],
-		hint: "accentColorHint",
+		hint: "accentColorHint"
 	}
 };
 
@@ -55,7 +52,7 @@ const defaultSettings: Settings = {
 	codeTheme: "dark",
 	theme: "light",
 	showBrowserSupport: true,
-	accentColor: "275",
+	accentColor: "275"
 };
 
 export const settingsKeys = Object.keys(defaultSettings) as (keyof Settings)[];
@@ -86,8 +83,8 @@ settings.subscribe((value) => {
 		} else if (value.codeTheme === "dark") {
 			document.querySelector("html")?.removeAttribute("data-code-light-mode");
 		}
-		if(value.accentColor) {
-			document.documentElement.style.setProperty('--accent-hue', value.accentColor);
+		if (value.accentColor) {
+			document.documentElement.style.setProperty("--accent-hue", value.accentColor);
 		}
 		localStorage.setItem(settingsLocalStorageKey, JSON.stringify(value));
 	}

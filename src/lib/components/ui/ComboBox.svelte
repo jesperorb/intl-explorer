@@ -34,7 +34,7 @@
 		forceVisible: true,
 		multiple: true,
 		closeOnEscape: true,
-		defaultSelected: defaultValue?.map(v => ({ value: v })),
+		defaultSelected: defaultValue?.map((v) => ({ value: v })),
 		closeOnOutsideClick: true,
 		onSelectedChange: (args) => {
 			onSelect(args.next?.map((v) => v.value) as Option[] | undefined);
@@ -55,9 +55,9 @@
 	};
 
 	const internalDelete = (itemToDelete: string) => {
-		selected.update(value => value?.filter(v => v.value.value !== itemToDelete))
+		selected.update((value) => value?.filter((v) => v.value.value !== itemToDelete));
 		onDelete(itemToDelete);
-	} 
+	};
 
 	$: output = getOutput(options, $inputValue, $touchedInput);
 </script>

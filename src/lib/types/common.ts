@@ -49,5 +49,5 @@ export type CreateOptions<Value, Key extends keyof Value = keyof Value> = {
 	[key in Key]: Tuple<Value[key]>;
 };
 
-export type StringOrUndefinedTuple = [string | undefined, string | undefined]
-export type NumberOrUndefinedTuple = [number | undefined, number | undefined]
+export type StringOrUndefinedTuple = [string | undefined, string | undefined];
+export type NumberOrUndefinedTuple = [number | undefined, number | undefined];

@@ -4,7 +4,7 @@
 	height="16"
 	viewBox="0 0 24 24"
 	fill="none"
-  aria-hidden="true"
+	aria-hidden="true"
 	stroke="currentColor"
 	stroke-width="2"
 	stroke-linecap="round"
