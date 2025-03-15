@@ -78,6 +78,7 @@ export class BasePage {
 
 	public async goesToPage() {
 		await this.clicksOnNavigationLink();
+		await this.page.waitForURL(this.getUrl(this.pageUnderTest));
 		await expect(this.page).toHaveURL(this.getUrl(this.pageUnderTest));
 	}
 
