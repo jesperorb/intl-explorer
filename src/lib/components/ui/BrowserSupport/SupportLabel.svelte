@@ -22,7 +22,7 @@
 		color: var(--green-1);
 	}
 	.partial {
-		color: var(--yellow-1);
+		color: var(--partial-support-color);
 	}
 	.none {
 		color: var(--red-1);

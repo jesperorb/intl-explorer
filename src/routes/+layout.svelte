@@ -143,6 +143,7 @@
 		--disabled-color: var(--gray-2);
 		--focus-color: var(--blue-3);
 		--body-background-color: var(--accent-1);
+		--partial-support-color: var(--yellow-1);
 
 		--code-key: var(--white-1);
 		--code-comment: var(--gray-3);
@@ -166,6 +167,7 @@
 			--border-color: var(--black-3);
 			--divider-color: var(--gray-4);
 			--disabled-color: var(--gray-2);
+			--partial-support-color: var(--yellow-2);
 		}
 	}
 	[data-dark-mode] {
@@ -176,6 +178,7 @@
 		--border-color: var(--black-3);
 		--divider-color: var(--gray-4);
 		--disabled-color: var(--gray-2);
+		--partial-support-color: var(--yellow-2);
 	}
 	[data-light-mode] {
 		--text-color: var(--black-1);
