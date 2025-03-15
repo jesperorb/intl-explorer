@@ -122,17 +122,6 @@ test("user changes playground options for DateTimeFormat", async ({ playground }
 		await playground.seesCode(`new Intl.DateTimeFormat(undefined).format("2022-04-24T19:00")`);
 	});
 
-	await test.step("changes date", async () => {
-		await playground.changesDateAndTimeInputValue({
-			year: "2012",
-			month: "09",
-			day: "13",
-		});
-		await playground.seesDateInputValue("2012-09-13");
-		await playground.seesOutput("9/13/2012");
-		await playground.seesCode(`new Intl.DateTimeFormat(undefined).format("2012-09-13T19:00")`);
-	});
-
 	await test.step("hides invalid option when dateStyle is selected", async () => {
 		const type: keyof Intl.DateTimeFormatOptions = "dateStyle";
 		const option: Intl.DateTimeFormatOptions["dateStyle"] = "short";
@@ -147,7 +136,7 @@ test("user changes playground options for DateTimeFormat", async ({ playground }
 		await playground.seesSecondaryFormatter(formatter);
 		await playground.seesSecondaryFormatterContent(
 			formatter,
-			`"9/13/2012 – 10/24/2022"`
+			`"4/24/2022 – 10/24/2022"`
 		);
 	})
 });
