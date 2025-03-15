@@ -1,6 +1,6 @@
 import type { PlaygroundSchema } from "$lib/playground/playground.schema";
 
-const invalidOptions = [
+export const invalidOptions = [
 	"day",
 	"hour",
 	"minute",
