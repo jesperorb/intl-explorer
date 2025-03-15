@@ -1,8 +1,10 @@
 export const testIds = {
 	navigation: "navigation",
 	openNavigation: "openNavigation",
+	optionSectionPrefix: "optionSection_",
 	playground: {
 		output: "playgroundOutput",
-		code: "playgroundCode"
+		code: "playgroundCode",
+		resolvedOptions: "resolvedOptions",
 	}
 } as const;

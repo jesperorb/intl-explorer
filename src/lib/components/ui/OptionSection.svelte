@@ -3,6 +3,7 @@
 	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
 
 	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
+	import { testIds } from "$utils/dom-utils";
 
 	export let header: string;
 	export let labelId: string | undefined = undefined;
@@ -10,7 +11,7 @@
 	export let hideFullSupport: boolean | undefined = true;
 </script>
 
-<section data-testid={`option-section-${header}`}>
+<section data-testid={`${testIds.optionSectionPrefix}${header}`}>
 	<div class="header">
 		{#if labelId}
 			<label for={labelId}>{header}</label>

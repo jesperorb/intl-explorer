@@ -193,7 +193,7 @@
 					<Spacing size={2} />
 					<h2>{m.resolvedOptions()}</h2>
 					<Spacing size={2} />
-					<div>
+					<div data-testid={testIds.playground.resolvedOptions}>
 						<Highlight language={typescript} code={schemaToResolvedOptions(schema, $locales)} />
 					</div>
 				</div>

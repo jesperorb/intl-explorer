@@ -16,6 +16,7 @@
 		transition: transform 0.3s;
 		color: var(--text-color);
 		background-color: var(--background-color);
+		border-bottom: 2px solid var(--text-color);
 	}
 	.skip-link:focus {
 		transform: translateY(0);

@@ -1,16 +1,30 @@
 import { devices, type PlaywrightTestConfig } from "@playwright/test";
+import { localBaseURL } from "./tests/constants"
 
 const config: PlaywrightTestConfig = {
 	testDir: "tests",
+	fullyParallel: true,
+	forbidOnly: Boolean(process.env.CI),
+	retries: process.env.CI ? 2 : 0,
+	workers: process.env.CI ? 1 : undefined,
 	use: {
+		baseURL: localBaseURL,
 		headless: true,
-		ignoreHTTPSErrors: true
+		ignoreHTTPSErrors: true,
+		permissions: ["clipboard-read"],
+		locale: "en-US",
+		trace: "on-first-retry"
+	},
+	webServer: {
+		command: "pnpm dev",
+		url: localBaseURL,
+		reuseExistingServer: !Boolean(process.env.CI)
 	},
 	projects: [
 		{
-			name: "Desktop Firefox",
+			name: "Desktop Chrome",
 			use: {
-				...devices["Desktop Firefox"]
+				...devices["Desktop Chrome"]
 			}
 		}
 	]
