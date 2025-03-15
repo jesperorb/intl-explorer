@@ -8,20 +8,18 @@ const config: PlaywrightTestConfig = {
 	retries: process.env.CI ? 2 : 0,
 	workers: process.env.CI ? 1 : undefined,
 	use: {
+		baseURL: localBaseURL,
 		headless: true,
 		ignoreHTTPSErrors: true,
 		permissions: ["clipboard-read"],
 		locale: "en-US",
 		trace: "on-first-retry"
 	},
-	...(Boolean(process.env.CI)
-		? { webServer: undefined }
-		: {
-				webServer: {
-					command: "pnpm dev",
-					url: localBaseURL,
-				}
-			}),
+	webServer: {
+		command: "pnpm dev",
+		url: localBaseURL,
+		reuseExistingServer: !Boolean(process.env.CI)
+	},
 	projects: [
 		{
 			name: "Desktop Chrome",
