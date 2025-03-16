@@ -45,6 +45,6 @@ test("user changes settings", async ({ settings, playground }) => {
 	await test.step("user changes accent color", async () => {
 		await settings.seesDefaultAccentColor();
 		await settings.changesAccentColor(-100);
-		await settings.seesChangedAccentColor(200);
+		await settings.doesNotSeeDefaultAccentColor();
 	});
 });

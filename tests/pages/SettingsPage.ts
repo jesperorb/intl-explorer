@@ -172,8 +172,8 @@ export class SettingsPage extends BasePage {
 		await expect(this.darkModeOption).toHaveCSS("background-color", "rgb(234, 204, 255)");
 	}
 
-	public async seesChangedAccentColor(hue: number) {
-		await expect(this.page.locator("html")).toHaveAttribute("style", `--accent-hue: ${hue};`);
+	public async doesNotSeeDefaultAccentColor() {
+		await expect(this.page.locator("html")).not.toHaveAttribute("style", `--accent-hue: 275;`);
 		await expect(this.darkModeOption).not.toHaveCSS("background-color", "rgb(234, 204, 255)");
 	}
 

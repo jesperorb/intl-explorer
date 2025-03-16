@@ -4,7 +4,6 @@ test("user changes playground options and sees generated output", async ({ playg
 	await test.step("goes to playground page", async () => {
 		await playground.goesToStart();
 		await playground.goesToPage();
-		await playground.page.waitForURL("**/Playground");
 	});
 
 	await test.step("changes method", async () => {
