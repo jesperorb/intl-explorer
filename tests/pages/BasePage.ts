@@ -24,17 +24,26 @@ export class BasePage {
 
 	protected dictionary: typeof enMessages | typeof svMessages;
 
+	protected translations: {
+		en: typeof enMessages;
+		sv: typeof svMessages;
+	};
+
 	constructor({ page, tabKey = "Tab", baseURL, language = "en" }: BasePageConfig) {
 		this.page = page;
 		this.tabKey = tabKey;
 		this.baseURL = baseURL ?? localBaseURL;
 		this.pageUnderTest = defaultPageUnderTest;
-		this.dictionary = language === "en" ? enMessages : svMessages;
+		this.translations = {
+			en: enMessages,
+			sv: svMessages
+		};
+		this.dictionary = this.translations[language];
 		this.locale = this.page.getByPlaceholder(this.dictionary.localePlaceHolder);
 	}
 
-	public changeDictionaryLanguage(language: BasePageConfig["language"]) {
-		this.dictionary = language === "en" ? enMessages : svMessages;
+	public changeDictionaryLanguage(language: NonNullable<BasePageConfig["language"]>) {
+		this.dictionary = this.translations[language];
 	}
 
 	public setPageUnderTest(pageUnderTest: string) {
@@ -49,9 +58,19 @@ export class BasePage {
 		return `MDN`;
 	}
 
-	private getUrl(method: string, locale?: string): string {
+	private getUrl({
+		method,
+		locale,
+		language
+	}: {
+		method: string;
+		locale?: string;
+		language?: string;
+	}): string {
 		const withLocale = locale ? `?locale=${locale ?? "en-US"}` : "";
-		return `${this.baseURL}/${method}${withLocale}`;
+		const withLanguage = language ? `/${language}` : "/";
+		const withMethod = method === "/" ? "" : method;
+		return `${this.baseURL}${withLanguage}${withMethod}${withLocale}`;
 	}
 
 	public async goesToStart() {
@@ -62,7 +81,7 @@ export class BasePage {
 	}
 
 	public async clicksOnMenu() {
-		await this.page.waitForLoadState('networkidle');
+		await this.page.waitForLoadState("networkidle");
 		await this.page.getByTestId(testIds.openNavigation).waitFor();
 		await this.page.getByTestId(testIds.openNavigation).click();
 		await expect(this.page.getByRole("button", { name: this.dictionary.close })).toBeVisible();
@@ -78,8 +97,8 @@ export class BasePage {
 
 	public async goesToPage() {
 		await this.clicksOnNavigationLink();
-		await this.page.waitForURL(this.getUrl(this.pageUnderTest));
-		await expect(this.page).toHaveURL(this.getUrl(this.pageUnderTest));
+		await this.page.waitForURL(this.getUrl({ method: this.pageUnderTest }));
+		await expect(this.page).toHaveURL(this.getUrl({ method: this.pageUnderTest }));
 	}
 
 	public async assertTitle(prefix = true) {
@@ -95,7 +114,16 @@ export class BasePage {
 	}
 
 	public async assertUrlLocale(locale: string) {
-		await expect(this.page).toHaveURL(this.getUrl(this.pageUnderTest, locale));
+		await expect(this.page).toHaveURL(this.getUrl({ method: this.pageUnderTest, locale }));
+	}
+
+	public async assertUrlLanguage(language: string) {
+		await this.page.waitForURL(`**/${language}`);
+		await expect(this.page).toHaveURL(this.getUrl({ method: this.pageUnderTest, language }));
+	}
+
+	public async assertHtmlLanguage(language: string) {
+		await expect(this.page.locator("html")).toHaveAttribute("lang", language);
 	}
 
 	public async changesLocale(locale: string) {
@@ -112,6 +140,13 @@ export class BasePage {
 		).toBeVisible();
 	}
 
+	public async removedSelectedLocale(locale: string) {
+		await this.locale.focus();
+		await this.locale.clear({ force: true });
+		await this.page.keyboard.down("Escape");
+		await this.page.getByLabel(this.dictionary.remove.replace("{value}", locale)).click();
+	}
+
 	public async tabAndAssertElementHasFocus(selector: string, nth = 0) {
 		await this.page.keyboard.press(this.tabKey);
 		await expect(this.page.locator(selector).nth(nth)).toBeFocused();
@@ -121,5 +156,28 @@ export class BasePage {
 		return new Promise((resolve) => {
 			setTimeout(resolve, ms);
 		});
+	}
+
+	public async dragElement({
+		element,
+		xOffset,
+		yOffset
+	}: {
+		element: Locator;
+		xOffset: number;
+		yOffset: number;
+	}) {
+		const elementBox = await element.boundingBox();
+		if (!elementBox) {
+			throw new Error("Unable to find bounding box on element");
+		}
+
+		const elementCenterX = elementBox.x + elementBox.width / 2;
+		const elementCenterY = elementBox.y + elementBox.height / 2;
+
+		await element.hover();
+		await this.page.mouse.down();
+		await this.page.mouse.move(elementCenterX + xOffset, elementCenterY + yOffset);
+		await this.page.mouse.up();
 	}
 }

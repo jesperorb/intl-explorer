@@ -115,10 +115,12 @@
 				{/if}
 				{#if settingsConfiguration[key].type === "color"}
 					<Slider
+						id="colorSlider"
 						min={0}
 						max={360}
 						defaultValue={getDefaultValueForSlider(key)}
 						step={5}
+						label={m[key]()}
 						{onValueChange}
 					/>
 				{/if}

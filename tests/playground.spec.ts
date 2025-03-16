@@ -134,9 +134,6 @@ test("user changes playground options for DateTimeFormat", async ({ playground }
 	await test.step("sees secondary formatter: formatRange", async () => {
 		const formatter: keyof Intl.DateTimeFormat = "formatRange";
 		await playground.seesSecondaryFormatter(formatter);
-		await playground.seesSecondaryFormatterContent(
-			formatter,
-			`"4/24/2022 – 10/24/2022"`
-		);
-	})
+		await playground.seesSecondaryFormatterContent(formatter, `"4/24/2022 – 10/24/2022"`);
+	});
 });

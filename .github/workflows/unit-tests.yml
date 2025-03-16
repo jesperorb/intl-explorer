@@ -1,6 +1,7 @@
 name: unit tests
 on:
   pull_request:
+    types: [opened, edited, reopened, synchronize]
     branches:
       - main
     paths-ignore:

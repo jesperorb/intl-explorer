@@ -1,5 +1,5 @@
 import { devices, type PlaywrightTestConfig } from "@playwright/test";
-import { localBaseURL } from "./tests/constants"
+import { localBaseURL } from "./tests/constants";
 
 const config: PlaywrightTestConfig = {
 	testDir: "tests",
@@ -9,7 +9,7 @@ const config: PlaywrightTestConfig = {
 	workers: process.env.CI ? 1 : undefined,
 	use: {
 		baseURL: localBaseURL,
-		headless: true,
+		headless: Boolean(process.env.CI),
 		ignoreHTTPSErrors: true,
 		permissions: ["clipboard-read"],
 		locale: "en-US",

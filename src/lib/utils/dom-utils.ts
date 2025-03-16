@@ -5,6 +5,6 @@ export const testIds = {
 	playground: {
 		output: "playgroundOutput",
 		code: "playgroundCode",
-		resolvedOptions: "resolvedOptions",
+		resolvedOptions: "resolvedOptions"
 	}
 } as const;

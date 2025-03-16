@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { createSlider, melt } from "@melt-ui/svelte";
 	import type { ChangeFn } from "@melt-ui/svelte/internal/helpers";
-	import Button from "./Button.svelte";
 	import Spacing from "./Spacing.svelte";
 
 	export let defaultValue: number | undefined = undefined;
@@ -9,6 +8,8 @@
 	export let max: number | undefined = undefined;
 	export let step: number | undefined = undefined;
 	export let onValueChange: ((value: number[]) => void) | undefined = undefined;
+	export let label: string;
+	export let id: string;
 
 	const internalValueChange: ChangeFn<number[]> = (value) => {
 		if (onValueChange) {
@@ -28,12 +29,16 @@
 	});
 </script>
 
-<span use:melt={$root} class="slider">
-	<span class="range">
-		<span use:melt={$range} />
-	</span>
-	<span use:melt={$thumbs[0]} class="thumb" />
-</span>
+<div>
+	<label for={id}>{label}</label>
+	<Spacing />
+	<div use:melt={$root} class="slider">
+		<div class="range">
+			<div use:melt={$range} />
+		</div>
+		<div {id} class="thumb" use:melt={$thumbs[0]} />
+	</div>
+</div>
 
 <style>
 	.slider {
@@ -51,7 +56,7 @@
 		border-radius: var(--spacing-1);
 	}
 
-	.range > span {
+	.range > div {
 		height: var(--spacing-2);
 		background: var(--text-color);
 		border-radius: var(--spacing-1);
@@ -62,7 +67,7 @@
 		width: var(--spacing-6);
 		border-radius: 50%;
 		background: var(--background-color);
-		border: 1px solid var(--border-color);
+		border: 2px solid var(--border-color);
 		cursor: pointer;
 	}
 	.thumb:focus {

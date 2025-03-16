@@ -1,6 +1,8 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"about": "Om",
+	"accentColor": "Accentfärg",
+	"accentColorHint": "Ändra på accentfärgen (standard: lila)",
 	"alternativeUseHeading": "Alternativ användning",
 	"alternativeUseIngress": "{method} kan också användas från",
 	"amount": "Summa",

@@ -139,7 +139,7 @@
 		--background-color: var(--white-1);
 		--background-secondary-color: var(--gray-1);
 		--divider-color: var(--gray-3);
-		--border-color: var(--gray-3);
+		--border-color: var(--gray-5);
 		--disabled-color: var(--gray-2);
 		--focus-color: var(--blue-3);
 		--body-background-color: var(--accent-1);
@@ -164,7 +164,7 @@
 			--background-color: var(--black-1);
 			--background-secondary-color: var(--black-2);
 			--body-background-color: var(--black-2);
-			--border-color: var(--black-3);
+			--border-color: var(--gray-4);
 			--divider-color: var(--gray-4);
 			--disabled-color: var(--gray-2);
 			--partial-support-color: var(--yellow-2);
@@ -175,7 +175,7 @@
 		--background-color: var(--black-1);
 		--background-secondary-color: var(--black-2);
 		--body-background-color: var(--black-2);
-		--border-color: var(--black-3);
+		--border-color: var(--gray-4);
 		--divider-color: var(--gray-4);
 		--disabled-color: var(--gray-2);
 		--partial-support-color: var(--yellow-2);
@@ -185,7 +185,7 @@
 		--background-color: var(--white-1);
 		--background-secondary-color: var(--gray-1);
 		--body-background-color: var(--accent-1);
-		--border-color: var(--gray-3);
+		--border-color: var(--gray-5);
 		--divider-color: var(--gray-3);
 		--disabled-color: var(--gray-2);
 	}
