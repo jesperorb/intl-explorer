@@ -8,39 +8,54 @@ import { expect } from "../test";
 import { BasePage, type BasePageConfig } from "./BasePage";
 
 export class PlaygroundPage extends BasePage {
-	private methodInput: Locator;
+	private methodInput!: Locator;
 
-	private valueInput: Locator;
+	private valueInput!: Locator;
 
-	private dateInput: Locator;
+	private dateInput!: Locator;
 
-	private timeInput: Locator;
+	private timeInput!: Locator;
 
-	private output: Locator;
+	private output!: Locator;
 
-	private code: Locator;
+	private code!: Locator;
 
-	private resolvedOptions: Locator;
+	private resolvedOptions!: Locator;
 
-	private copyCodeButton: Locator;
+	private copyCodeButton!: Locator;
 
-	private secondaryFormattersHeading: Locator;
+	private secondaryFormattersHeading!: Locator;
 
 	constructor(config: BasePageConfig) {
 		super(config);
-		this.methodInput = this.page.getByRole("combobox", { name: this.dictionary.method, exact: true });
+		this.setLocators();
+	}
+
+	private setLocators() {
+		this.methodInput = this.page.getByRole("combobox", {
+			name: this.dictionary.method,
+			exact: true
+		});
 		this.valueInput = this.page.getByRole("textbox", { name: this.dictionary.value, exact: true });
 		this.dateInput = this.page.getByLabel(this.dictionary.date, { exact: true });
 		this.timeInput = this.page.getByLabel(this.dictionary.time, { exact: true });
 		this.output = this.page.getByTestId(testIds.playground.output);
 		this.code = this.page.getByTestId(testIds.playground.code);
 		this.resolvedOptions = this.page.getByTestId(testIds.playground.resolvedOptions);
-		this.copyCodeButton = this.page.getByRole("button", { name: this.dictionary.copyCode, exact: true });
+		this.copyCodeButton = this.page.getByRole("button", {
+			name: this.dictionary.copyCode,
+			exact: true
+		});
 		this.secondaryFormattersHeading = this.page.getByRole("heading", {
 			level: 2,
 			name: this.dictionary.secondaryFormatters,
 			exact: true
 		});
+	}
+
+	public override changeDictionaryLanguage(language: NonNullable<BasePageConfig["language"]>) {
+		super.changeDictionaryLanguage(language);
+		this.setLocators();
 	}
 
 	// --- Actions ---
@@ -163,5 +178,29 @@ export class PlaygroundPage extends BasePage {
 				expect(locator).not.toBeVisible();
 			}
 		});
+	}
+
+	public async seesBrowserSupport(shouldBeVisible: boolean) {
+		const locator = this.page.getByText(this.dictionary.browserSupport, { exact: true }).first();
+		if (shouldBeVisible) {
+			await expect(locator).toBeVisible();
+		} else {
+			await expect(locator).not.toBeVisible();
+		}
+	}
+
+	public async seesBrowserSupportForSecondaryFormatter(
+		formatter: string,
+		shouldBeVisible: boolean
+	) {
+		const locator = await this.getSecondaryFormatterSection(formatter);
+		const browserSupportLocator = locator
+			.getByText(this.dictionary.browserSupport, { exact: true })
+			.first();
+		if (shouldBeVisible) {
+			await expect(browserSupportLocator).toBeVisible();
+		} else {
+			await expect(browserSupportLocator).not.toBeVisible();
+		}
 	}
 }

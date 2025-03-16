@@ -4,7 +4,6 @@ test("user changes playground options and sees generated output", async ({ playg
 	await test.step("goes to playground page", async () => {
 		await playground.goesToStart();
 		await playground.goesToPage();
-		await playground.page.waitForURL("**/Playground");
 	});
 
 	await test.step("changes method", async () => {
@@ -134,9 +133,6 @@ test("user changes playground options for DateTimeFormat", async ({ playground }
 	await test.step("sees secondary formatter: formatRange", async () => {
 		const formatter: keyof Intl.DateTimeFormat = "formatRange";
 		await playground.seesSecondaryFormatter(formatter);
-		await playground.seesSecondaryFormatterContent(
-			formatter,
-			`"4/24/2022 – 10/24/2022"`
-		);
-	})
+		await playground.seesSecondaryFormatterContent(formatter, `"4/24/2022 – 10/24/2022"`);
+	});
 });

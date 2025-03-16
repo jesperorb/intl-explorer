@@ -82,7 +82,6 @@
 		<Button
 			type="button"
 			id="openMenuButton"
-			ariaLabel="Open navigation"
 			ariaControls="links"
 			ariaExpanded="false"
 			onClick={openDrawer}
@@ -96,7 +95,6 @@
 		<div class="settings">
 			<Button
 				onClick={() => (showSettings = true)}
-				ariaLabel="Settings"
 				textTransform="uppercase"
 				noBackground
 			>
@@ -172,7 +170,7 @@
 		background-color: var(--background-color);
 		height: 100%;
 		padding: var(--spacing-4);
-		z-index: 1;
+		z-index: 3;
 		overflow-x: hidden;
 		transition: transform 0.3s;
 		box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.1);

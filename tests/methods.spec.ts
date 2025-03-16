@@ -15,6 +15,10 @@ test("visits and sees all method pages", async ({ intlPage }) => {
 			await intlPage.assertMDNLink();
 			await intlPage.assertTitle();
 		});
+
+		await test.step("changes input value and checks result", async () => {
+			await intlPage.changesValueAndSeesExpectedOutput(method);
+		});
 	}
 
 	await test.step("changes locale and sees locale change", async () => {
