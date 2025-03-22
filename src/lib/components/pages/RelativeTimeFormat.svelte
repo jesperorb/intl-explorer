@@ -14,6 +14,7 @@
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 	import { locales } from "$store/locales";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
@@ -23,12 +24,14 @@
 	let numeric: "always" | "auto" = "auto";
 
 	const m = getMessages();
+	const announce = getAnnouncer();
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.RelativeTimeFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(
 			Object.assign({}, options, { value: undefined })
 		)}).format(${dayValue}, "${options.value}")`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 
 	const format = (

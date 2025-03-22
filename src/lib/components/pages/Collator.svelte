@@ -13,16 +13,19 @@
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
 	import { locales } from "$store/locales";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
+	const announce = getAnnouncer();
 
 	let list = "Z,a,z,ä,1,=,à";
 
 	let onClick = async (options: OptionValues) => {
 		const code = `[].sort(new Intl.Collator(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).compare)`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 	const format = (options: Intl.CollatorOptions, list: string, language: string[]) =>
 		tryFormat(() => list.split(",").sort(new Intl.Collator(language, options).compare).join(","));

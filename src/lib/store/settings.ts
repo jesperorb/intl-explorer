@@ -3,7 +3,12 @@ import { writable } from "svelte/store";
 
 export type DarkMode = "dark" | "light";
 
-type HintKeys = "codeThemeHint" | "themeHint" | "showBrowserSupportHint" | "accentColorHint";
+type HintKeys =
+	| "codeThemeHint"
+	| "themeHint"
+	| "showBrowserSupportHint"
+	| "accentColorHint"
+	| "announceOutputToScreenreaderHint";
 
 type Setting<Value> = {
 	type: "radio" | "checkbox" | "color";
@@ -15,6 +20,7 @@ type SettingsConfiguration = {
 	codeTheme: Setting<DarkMode>;
 	theme: Setting<DarkMode>;
 	showBrowserSupport: Setting<boolean>;
+	announceOutputToScreenreader: Setting<boolean>;
 	accentColor: Setting<string>;
 };
 
@@ -38,6 +44,11 @@ export const settingsConfiguration: SettingsConfiguration = {
 		type: "color",
 		values: ["275"],
 		hint: "accentColorHint"
+	},
+	announceOutputToScreenreader: {
+		type: "checkbox",
+		values: [true],
+		hint: "announceOutputToScreenreaderHint"
 	}
 };
 
@@ -46,13 +57,15 @@ export type Settings = {
 	theme: DarkMode;
 	showBrowserSupport: boolean;
 	accentColor: string;
+	announceOutputToScreenreader: boolean;
 };
 
 const defaultSettings: Settings = {
 	codeTheme: "dark",
 	theme: "light",
 	showBrowserSupport: true,
-	accentColor: "275"
+	accentColor: "275",
+	announceOutputToScreenreader: true,
 };
 
 export const settingsKeys = Object.keys(defaultSettings) as (keyof Settings)[];

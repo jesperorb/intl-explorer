@@ -51,7 +51,11 @@
 	const getHint = (key: keyof Settings) => {
 		const hintKey = settingsConfiguration[key].hint;
 		if (!hintKey) return "";
-		return m[hintKey]();
+		try {
+			return m[hintKey]();
+		} catch(e) {
+			return "";
+		}
 	};
 
 	const getLabel = (value: boolean | string | DarkMode) => {

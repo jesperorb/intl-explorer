@@ -16,10 +16,12 @@
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
 	import { locales } from "$store/locales";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
+	const announce = getAnnouncer();
 
 	const toArray = (string: string) => string.split(",");
 	const toStyle = (string: string | boolean | number) => string as Intl.ListFormatStyle;
@@ -29,6 +31,7 @@
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.ListFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format([])`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 
 	const style = listFormatOptions.style ?? [];

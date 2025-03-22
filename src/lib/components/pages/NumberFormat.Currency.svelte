@@ -22,10 +22,12 @@
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
 	import { locales } from "$store/locales";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
+	const announce = getAnnouncer();
 
 	let selectedCurrency = "EUR";
 	let number = 123456.789;
@@ -37,6 +39,7 @@
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.NumberFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${number})`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 
 	const format = (options: Intl.NumberFormatOptions, number: number, language: string[]) =>
