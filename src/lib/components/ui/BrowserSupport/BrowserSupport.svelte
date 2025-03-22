@@ -8,33 +8,41 @@
 
 	export let data: BrowserSupportForOption | undefined;
 	export let hideFullSupport: boolean | undefined = undefined;
+	export let zIndex: number = 1;
 	const m = getMessages();
 </script>
 
 {#if data}
-	<Details fullWidth={false}>
-		<svelte:fragment slot="summary">
-			<div class="header">
-				<p>{m.browserSupport()}</p>
-				<SupportLabel bind:support={data.coverage} {hideFullSupport} />
-			</div>
-		</svelte:fragment>
-		<BrowserSupportGrid bind:data={data.support} />
-	</Details>
+	<div class="browser-support-wrapper">
+		<div class="browser-support-inner-wrapper" style="z-index: {zIndex};">
+			<Details>
+				<svelte:fragment slot="summary">
+					<div class="header">
+						<p>{m.browserSupport()}</p>
+						<SupportLabel bind:support={data.coverage} {hideFullSupport} />
+					</div>
+				</svelte:fragment>
+				<BrowserSupportGrid bind:data={data.support} />
+			</Details>
+		</div>
+	</div>
 {/if}
 
 <style>
+	.browser-support-wrapper {
+		position: relative;
+		width: 100%;
+		min-height: 2.5rem;
+	}
+	.browser-support-inner-wrapper {
+		position: absolute;
+		width: 100%;
+		top: 0;
+		left: 0;
+	}
 	.header {
 		width: 100%;
 		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-	@media screen and (min-width: 500px) {
-		.header {
-			flex-direction: row;
-			align-items: center;
-			gap: var(--spacing-2);
-		}
+		gap: 1rem;
 	}
 </style>

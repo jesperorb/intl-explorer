@@ -16,7 +16,10 @@
 
 <style>
 	.wrapper {
-		display: inline;
+		display: inline-flex;
+	}
+	.wrapper, input {
+		cursor: pointer;
 	}
 	input[type="checkbox"] {
 		width: var(--spacing-4);

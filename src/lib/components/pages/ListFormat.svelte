@@ -11,7 +11,7 @@
 
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
-	import { listFormatOptions } from "$lib/format-options/list-format.options";
+	import { listFormatOptions, listFormatOptionsArray } from "$lib/format-options/list-format.options";
 	import { copyCode } from "$utils/copy-to-clipboard";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
@@ -70,8 +70,12 @@
 		/></CodeBlock
 	>
 	<Grid slot="output">
-		{#each Object.entries(listFormatOptions) as [option, values]}
-			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
+		{#each listFormatOptionsArray as [option, values], index}
+			<OptionSection
+				header={option}
+				support={browserCompatData?.optionsSupport?.[option]}
+				zIndex={listFormatOptionsArray.length - index}
+			>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

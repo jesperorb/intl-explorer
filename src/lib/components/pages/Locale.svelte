@@ -44,10 +44,11 @@
 	<Input id="locale" label={m.locale()} slot="input" bind:value={locale} fullWidth />
 	<Grid slot="output">
 		{#if intl}
-			{#each properties as property}
+			{#each properties as property, index}
 				<OptionSection
 					header={property}
 					support={browserCompatData?.propertiesSupport?.[property]}
+					zIndex={properties.length - index}
 					hideFullSupport
 				>
 					<CodeBlock>

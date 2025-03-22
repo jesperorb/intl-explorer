@@ -146,7 +146,7 @@
 		--partial-support-color: var(--yellow-1);
 
 		--code-key: var(--white-1);
-		--code-comment: var(--gray-3);
+		--code-comment: var(--gray-5);
 		--code-text-color: var(--white-1);
 		--code-background-color: var(--blue-4);
 		--code-punctuation: var(--purple-2);
@@ -267,6 +267,7 @@
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 		background-repeat: no-repeat;
 		background-position: right var(--spacing-2) center;
+		cursor: pointer;
 	}
 
 	input {

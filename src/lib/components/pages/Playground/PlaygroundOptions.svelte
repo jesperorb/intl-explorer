@@ -24,7 +24,7 @@
 <h2>{m.options()}</h2>
 <Spacing size={2} />
 <div class="grid">
-	{#each schema.options as option}
+	{#each schema.options as option, index}
 		<OptionCard
 			checked={optionIsActive(option)}
 			option={option.name}
@@ -70,10 +70,14 @@
 			{/if}
 			{#if support?.[option.name]?.support && $settings.showBrowserSupport}
 				<Spacing />
-				<Details>
-					<p slot="summary">{m.browserDetails()}</p>
-					<BrowserSupportGrid data={support[option.name]?.support} />
-				</Details>
+				<div class="browser-support-wrapper">
+					<div class="browser-support-inner-wrapper" style="z-index: {schema.options.length - index};">
+						<Details>
+							<p slot="summary">{m.browserDetails()}</p>
+							<BrowserSupportGrid data={support[option.name]?.support} />
+						</Details>
+					</div>
+				</div>
 			{/if}
 		</OptionCard>
 	{/each}
@@ -94,5 +98,16 @@
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-4);
+	}
+	.browser-support-wrapper {
+		position: relative;
+		width: 100%;
+		min-height: 2.5rem;
+	}
+	.browser-support-inner-wrapper {
+		position: absolute;
+		width: 100%;
+		top: 0;
+		left: 0;
 	}
 </style>

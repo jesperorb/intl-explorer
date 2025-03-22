@@ -35,7 +35,7 @@
 		</Fieldset>
 	</svelte:fragment>
 	<Grid slot="output">
-		<OptionSection header={type} support={browserCompatData?.optionsSupport?.[type]}>
+		<OptionSection header={type} support={browserCompatData?.optionsSupport?.[type]} zIndex={2}>
 			<Spacing size={1} />
 			<Highlight
 				{onClick}
@@ -80,7 +80,7 @@
 				)}
 			/>
 		</OptionSection>
-		<OptionSection header={"localeMatcher"}>
+		<OptionSection header={"localeMatcher"} zIndex={1}>
 			<Spacing size={1} />
 			<Highlight
 				{onClick}

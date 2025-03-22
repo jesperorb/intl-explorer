@@ -120,12 +120,24 @@
 			matchMedia.removeEventListener("change", onMatchMediaChange);
 		}
 	});
+
+	const customLanguage = {
+    name: "custom-language",
+    register: (_hljs: any) => {
+      return {
+        /** custom language rules */
+        contains: [],
+      };
+    },
+  };
 </script>
 
 {#if schema}
 	<div class="columns">
 		<div class="main">
 			<Header header="Playground" link={schema.method} />
+			<PlaygroundInput {schema} {onChangeSchema} {onChangeDate} {onInput} />
+			<Spacing />
 			<Grid>
 				{#if $settings.showBrowserSupport}
 					<BrowserSupport bind:data={browserSupportData} />
@@ -133,12 +145,10 @@
 				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
 			<Spacing />
-			<PlaygroundInput {schema} {onChangeSchema} {onChangeDate} {onInput} />
-			<Spacing />
 			{#if !isDesktop}
 				<h2>{m.output()}</h2>
 				<Spacing size={2} />
-				<Highlight language={typescript} code={schemaToPrimaryFormatterOutput(schema, $locales)} />
+				<Highlight language={typescript} code={`"${schemaToPrimaryFormatterOutput(schema, $locales)}"`} />
 				<Spacing />
 				<h2>{m.code()}</h2>
 				<Spacing size={2} />
@@ -174,10 +184,10 @@
 				<div class="output-inner">
 					<h2>{m.output()}</h2>
 					<Spacing size={2} />
-					<div data-testid={testIds.playground.output}>
+					<div data-testid={testIds.playground.output} id="output">
 						<Highlight
 							language={typescript}
-							code={schemaToPrimaryFormatterOutput(schema, $locales)}
+							code={`"${schemaToPrimaryFormatterOutput(schema, $locales)}"`}
 						/>
 					</div>
 					<Spacing />

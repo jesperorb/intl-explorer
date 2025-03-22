@@ -8,3 +8,5 @@ export const listFormatOptions: ListFormatOptions = {
 	style,
 	localeMatcher
 };
+
+export const listFormatOptionsArray = Object.entries(listFormatOptions);

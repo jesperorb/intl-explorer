@@ -7,3 +7,5 @@ export const segmenterOptions: SegmenterOptions = {
 	granularity: ["word", "sentence", "grapheme", undefined],
 	localeMatcher
 };
+
+export const segmenterOptionsArray = Object.entries(segmenterOptions);
