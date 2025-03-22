@@ -34,9 +34,9 @@
 	<Spacing />
 	<div use:melt={$root} class="slider">
 		<div class="range">
-			<div use:melt={$range} />
+			<div use:melt={$range}></div>
 		</div>
-		<div {id} class="thumb" use:melt={$thumbs[0]} />
+		<div use:melt={$thumbs[0]} {id} class="thumb" ></div>
 	</div>
 </div>
 

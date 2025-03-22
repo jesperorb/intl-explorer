@@ -159,6 +159,5 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing-2);
-		min-width: 20rem;
 	}
 </style>

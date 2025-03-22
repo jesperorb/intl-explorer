@@ -14,7 +14,7 @@
 
 <Card>
 	<div class="heading">
-		<div>
+		<div class="checkbox">
 			<Checkbox
 				label="{option} active"
 				name="{option}_active"
@@ -36,10 +36,17 @@
 <style>
 	label {
 		font-weight: bold;
+		cursor: pointer;
 	}
 	.heading {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+	}
+
+	.checkbox {
+		display: flex;
+		gap: 0.25rem;
 		align-items: center;
 	}
 </style>

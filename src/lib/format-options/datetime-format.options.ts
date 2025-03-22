@@ -35,6 +35,8 @@ export const datetimeFormatOptions: DateTimeFormatOptions = {
 	localeMatcher
 };
 
+export const dateTimeFormatOptionsArray = Object.entries(datetimeFormatOptions);
+
 export const getDateTimeFormatOptions = (
 	option: AllFormatOptionsKeys["DateTimeFormat"] | string,
 	value: string | boolean | number

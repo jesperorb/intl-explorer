@@ -11,6 +11,7 @@
 
 	import {
 		datetimeFormatOptions,
+		dateTimeFormatOptionsArray,
 		getDateTimeFormatOptions
 	} from "$lib/format-options/datetime-format.options";
 	import { copyCode } from "$utils/copy-to-clipboard";
@@ -64,8 +65,12 @@
 		/>
 	</CodeBlock>
 	<Grid slot="output">
-		{#each Object.entries(datetimeFormatOptions) as [option, values]}
-			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
+		{#each dateTimeFormatOptionsArray as [option, values], index}
+			<OptionSection
+				header={option}
+				support={browserCompatData?.optionsSupport?.[option]}
+				zIndex={dateTimeFormatOptionsArray.length - index}
+			>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

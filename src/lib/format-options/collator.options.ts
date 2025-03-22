@@ -11,3 +11,5 @@ export const collatorFormatOptions: CollatorOptions = {
 	ignorePunctuation: [true, false, undefined],
 	localeMatcher
 };
+
+export const collatorFormatOptionsArray = Object.entries(collatorFormatOptions);

@@ -20,6 +20,8 @@ export const durationFormatOptions: DurationFormatOptions = {
 	localeMatcher
 };
 
+export const durationFormatOptionsArray = Object.entries(durationFormatOptions);
+
 export const durationValues: (keyof Intl.Duration)[] = [
 	"years",
 	"months",

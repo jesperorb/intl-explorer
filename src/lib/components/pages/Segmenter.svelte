@@ -10,7 +10,7 @@
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
 	import { copyCode } from "$utils/copy-to-clipboard";
-	import { segmenterOptions } from "$lib/format-options/segmenter.options";
+	import { segmenterOptions, segmenterOptionsArray } from "$lib/format-options/segmenter.options";
 	import { tryFormat, print, formatLocalesForPrint } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
 	import { locales } from "$store/locales";
@@ -35,8 +35,12 @@
 <PageLayout>
 	<Input slot="input" fullWidth id="list" label={m.list()} bind:value={sentence} />
 	<Grid slot="output">
-		{#each Object.entries(segmenterOptions) as [option, values]}
-			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
+		{#each segmenterOptionsArray as [option, values], index}
+			<OptionSection
+				header={option}
+				support={browserCompatData?.optionsSupport?.[option]}
+				zIndex={segmenterOptionsArray.length - index}
+			>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

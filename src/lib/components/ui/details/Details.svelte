@@ -30,6 +30,7 @@
 
 	.fullWidth {
 		display: block;
+		width: 100%;
 	}
 
 	details[open] > summary {

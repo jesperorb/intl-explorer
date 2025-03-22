@@ -140,7 +140,7 @@
 		padding: var(--spacing-3) var(--spacing-2);
 	}
 	ul {
-		z-index: 1;
+		z-index: 50;
 		display: flex;
 		max-height: 300px;
 		flex-direction: column;

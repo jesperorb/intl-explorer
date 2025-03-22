@@ -9,7 +9,7 @@
 	import { copyCode } from "$utils/copy-to-clipboard";
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
-	import { durationFormatOptions } from "$lib/format-options/duration-format.options";
+	import { durationFormatOptionsArray } from "$lib/format-options/duration-format.options";
 	import { clampValue, formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { locales } from "$store/locales";
 
@@ -44,7 +44,7 @@
 		const newDuration = {
 			...duration,
 			[target.name]: clampValue(
-				{ name: target.name as any, defaultValue: "", valueType: "number", inputType: "text" },
+				{ name: target.name as any, defaultValue: undefined, valueType: "number", inputType: "text" },
 				target.value
 			) as number
 		};
@@ -60,8 +60,12 @@
 		{/each}
 	</svelte:fragment>
 	<Grid slot="output">
-		{#each Object.entries(durationFormatOptions) as [option, values]}
-			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
+		{#each durationFormatOptionsArray as [option, values], index}
+			<OptionSection
+				header={option}
+				support={browserCompatData?.optionsSupport?.[option]}
+				zIndex={durationFormatOptionsArray.length - index}
+			>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

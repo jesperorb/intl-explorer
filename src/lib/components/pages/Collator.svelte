@@ -8,7 +8,7 @@
 
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import type { OptionValues } from "$types/OptionValues.types";
-	import { collatorFormatOptions } from "$lib/format-options/collator.options";
+	import { collatorFormatOptionsArray } from "$lib/format-options/collator.options";
 	import { copyCode } from "$utils/copy-to-clipboard";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
@@ -31,8 +31,12 @@
 <PageLayout>
 	<Input slot="input" id="list" fullWidth label={m.list()} bind:value={list} />
 	<Grid slot="output">
-		{#each Object.entries(collatorFormatOptions) as [option, values]}
-			<OptionSection header={option} support={browserCompatData?.optionsSupport?.[option]}>
+		{#each collatorFormatOptionsArray as [option, values], index}
+			<OptionSection
+				header={option}
+				support={browserCompatData?.optionsSupport?.[option]}
+				zIndex={collatorFormatOptionsArray.length - index}
+			>
 				{#each values as value}
 					{#if value !== undefined}
 						<Spacing size={1} />

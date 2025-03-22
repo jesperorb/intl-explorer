@@ -9,6 +9,7 @@
 	export let labelId: string | undefined = undefined;
 	export let support: BrowserSupportForOption | undefined = undefined;
 	export let hideFullSupport: boolean | undefined = true;
+	export let zIndex: number = 1;
 </script>
 
 <section data-testid={`${testIds.optionSectionPrefix}${header}`}>
@@ -19,7 +20,7 @@
 			<h3>{header}</h3>
 		{/if}
 		{#if support?.support}
-			<BrowserSupport bind:data={support} {hideFullSupport} />
+			<BrowserSupport bind:data={support} {hideFullSupport} {zIndex} />
 		{/if}
 	</div>
 	<Spacing size={2} />
@@ -30,13 +31,14 @@
 <style>
 	.header {
 		display: flex;
-		justify-content: space-between;
 		flex-direction: column;
-		gap: var(--spacing-2);
+		gap: 1rem;
 	}
 	@media screen and (min-width: 900px) {
 		.header {
 			flex-direction: row;
+			align-items: center;
+			gap: 4rem;
 		}
 	}
 </style>

@@ -170,12 +170,14 @@
 		background-color: var(--background-color);
 		height: 100%;
 		padding: var(--spacing-4);
-		z-index: 3;
+		z-index: 999;
 		overflow-x: hidden;
 		transition: transform 0.3s;
 		box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.1);
 		border-top-right-radius: 4px;
 		border-bottom-right-radius: 4px;
+		border: 1px solid var(--border-color);
+		border-left: none;
 	}
 	.drawer--open {
 		visibility: visible;
@@ -211,5 +213,8 @@
 	}
 	.mr-2 {
 		margin-right: var(--spacing-2);
+	}
+	.sublink {
+		margin-left: 1rem;
 	}
 </style>

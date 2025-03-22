@@ -16,10 +16,11 @@
 {#if secondaryFormatters.length}
 	<h2>{m.secondaryFormatters()}</h2>
 	<Spacing />
-	{#each secondaryFormatters as formatter}
+	{#each secondaryFormatters as formatter, index}
 		<Card>
 			<OptionSection
 				header={formatter.name}
+				zIndex={secondaryFormatters.length - index}
 				support={$settings.showBrowserSupport ? support?.[formatter.name] : undefined}
 				hideFullSupport={false}
 			>

@@ -16,7 +16,7 @@
 
 <PageLayout>
 	<Grid slot="output">
-		<OptionSection header={"region"}>
+		<OptionSection header={"region"} zIndex={10}>
 			<Spacing size={1} />
 			<Input id="region" label="region" bind:value={code} />
 			<Spacing size={2} />
@@ -42,7 +42,7 @@
 				}}
 			/>
 		</OptionSection>
-		<OptionSection header={"language"}>
+		<OptionSection header={"language"} zIndex={9}>
 			<Spacing size={1} />
 			<Input id="language" label="language" bind:value={language} />
 			<Spacing size={2} />
@@ -61,7 +61,7 @@
 				}}
 			/>
 		</OptionSection>
-		<OptionSection header={"currency"}>
+		<OptionSection header={"currency"} zIndex={8}>
 			<Spacing size={1} />
 			<Input id="currency" label="currency" bind:value={currency} />
 			<Spacing size={2} />
@@ -72,7 +72,7 @@
 				}}
 			/>
 		</OptionSection>
-		<OptionSection header={"script"}>
+		<OptionSection header={"script"} zIndex={7}>
 			<Spacing size={1} />
 			<Input id="script" label="script" bind:value={script} />
 			<Spacing size={2} />
@@ -83,7 +83,7 @@
 				}}
 			/>
 		</OptionSection>
-		<OptionSection header={"calendar"}>
+		<OptionSection header={"calendar"} zIndex={6}>
 			<Spacing size={1} />
 			<Input id="calendar" label="calendar" bind:value={calendar} />
 			<Spacing size={2} />
@@ -94,7 +94,7 @@
 				}}
 			/>
 		</OptionSection>
-		<OptionSection header={"dateTimeField"}>
+		<OptionSection header={"dateTimeField"} zIndex={5}>
 			<Spacing size={1} />
 			<Input id="dateTimeField" label="dateTimeField" bind:value={dateTimeField} />
 			<Spacing size={2} />

@@ -31,6 +31,7 @@
 		border: none;
 		background: var(--background-color);
 		border: 1px solid var(--border-color);
+		height: 100%;
 	}
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);
@@ -39,7 +40,7 @@
 		border-radius: 8px;
 		display: flex;
 		flex-direction: column;
-		padding: var(--spacing-4);
+		padding: var(--spacing-2);
 		background: var(--background-color);
 		color: var(--text-color);
 	}
