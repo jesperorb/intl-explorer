@@ -13,6 +13,11 @@
 	import { getLocaleFromParams } from "$utils/get-locale";
 	import { locales } from "$store/locales";
 	import { description, tags, title, imageUrl, author } from "$lib/constants";
+	import {
+		liveAnnouncerRegionIdAssertive,
+		liveAnnouncerRegionIdPolite
+	} from "$lib/live-announcer/constants";
+	import LiveAnnouncer from "$lib/live-announcer/live-announcer.svelte";
 
 	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;
@@ -57,21 +62,26 @@
 	{/if}
 </svelte:head>
 
-<Provider>
-	<SkipLink />
+<div id={liveAnnouncerRegionIdPolite} aria-live="polite"></div>
+<div id={liveAnnouncerRegionIdAssertive} aria-live="assertive"></div>
 
-	<Navigation />
+<LiveAnnouncer>
+	<Provider>
+		<SkipLink />
 
-	<Main bind:center={isHomePage}>
-		{#if $navigating}
-			<ProgressBar />
-		{/if}
-		{#if routeId && routeId !== "Playground"}
-			<Header header={routeId} />
-		{/if}
-		<slot />
-	</Main>
-</Provider>
+		<Navigation />
+
+		<Main bind:center={isHomePage}>
+			{#if $navigating}
+				<ProgressBar />
+			{/if}
+			{#if routeId && routeId !== "Playground"}
+				<Header header={routeId} />
+			{/if}
+			<slot />
+		</Main>
+	</Provider>
+</LiveAnnouncer>
 
 <!-- Ignore -->
 <style global>

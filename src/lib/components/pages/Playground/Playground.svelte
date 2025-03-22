@@ -36,10 +36,12 @@
 	import { settings } from "$store/settings";
 	import { locales } from "$store/locales";
 	import { testIds } from "$utils/dom-utils";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 
 	const m = getMessages();
+	const announce = getAnnouncer();
 
 	const matchMedia = browser ? window.matchMedia("(min-width: 630px)") : null;
 	$: isDesktop = Boolean(matchMedia?.matches);
@@ -61,6 +63,10 @@
 	const onChangeOption = (event: Event) => {
 		if (!schema) return;
 		schema = validateAndUpdateSchema(updateOptionOnSchema(schema, event));
+		if(!$settings.announceOutputToScreenreader) {
+			return;
+		}
+		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
 	};
 
 	const onInput = (event: Event) => {
@@ -76,12 +82,20 @@
 		if (schema?.inputValueType === "string") {
 			schema.inputValues[0] = value;
 		}
+		if(!$settings.announceOutputToScreenreader) {
+			return;
+		}
+		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
 	};
 
 	const onChangeDate = (datetime: string) => {
 		if (schema?.inputValueType === "date") {
 			schema.inputValues[0] = datetime;
 		}
+		if(!$settings.announceOutputToScreenreader) {
+			return;
+		}
+		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
 	};
 
 	const onChangeSchema = (event: Event) => {
@@ -90,17 +104,23 @@
 			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<"NumberFormat">
 		);
 		schema = newSchema;
+		if(!$settings.announceOutputToScreenreader) {
+			return;
+		}
+		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
 	};
 
 	const copy = async () => {
 		if (!schema) return;
 		const code = schemaToCode(schema, $locales);
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 
 	const copySchema = async () => {
 		if (!schema) return;
 		await copyToClipboard(createSchemaUrl(schema));
+		announce(m.copySchemaUrlDone());
 		trackEvent("Copy Schema", {
 			method: schema.method
 		});
@@ -120,16 +140,6 @@
 			matchMedia.removeEventListener("change", onMatchMediaChange);
 		}
 	});
-
-	const customLanguage = {
-    name: "custom-language",
-    register: (_hljs: any) => {
-      return {
-        /** custom language rules */
-        contains: [],
-      };
-    },
-  };
 </script>
 
 {#if schema}
@@ -148,7 +158,10 @@
 			{#if !isDesktop}
 				<h2>{m.output()}</h2>
 				<Spacing size={2} />
-				<Highlight language={typescript} code={`"${schemaToPrimaryFormatterOutput(schema, $locales)}"`} />
+				<Highlight
+					language={typescript}
+					code={`"${schemaToPrimaryFormatterOutput(schema, $locales)}"`}
+				/>
 				<Spacing />
 				<h2>{m.code()}</h2>
 				<Spacing size={2} />

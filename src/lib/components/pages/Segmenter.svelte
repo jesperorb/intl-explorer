@@ -10,7 +10,8 @@
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
 	import { copyCode } from "$utils/copy-to-clipboard";
-	import { segmenterOptions, segmenterOptionsArray } from "$lib/format-options/segmenter.options";
+	import { segmenterOptionsArray } from "$lib/format-options/segmenter.options";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 	import { tryFormat, print, formatLocalesForPrint } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
 	import { locales } from "$store/locales";
@@ -18,6 +19,7 @@
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
+	const announce = getAnnouncer();
 
 	let sentence = "This is a sentence.";
 
@@ -26,6 +28,7 @@
 			options
 		)}).segment("${sentence}"))`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 
 	const format = (options: OptionValues, input: string, language: string[]) =>

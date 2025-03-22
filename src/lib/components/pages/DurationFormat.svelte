@@ -12,8 +12,13 @@
 	import { durationFormatOptionsArray } from "$lib/format-options/duration-format.options";
 	import { clampValue, formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { locales } from "$store/locales";
+	import { getMessages } from "$i18n/util";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
+
+	const m = getMessages();
+	const announce = getAnnouncer();
 
 	let duration: Record<string, string | number> = {
 		years: 2,
@@ -31,6 +36,7 @@
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.DurationFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 
 	const format = (

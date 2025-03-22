@@ -10,7 +10,6 @@
 	import HighlightLocale from "$ui/Highlight/HighlightLocale.svelte";
 
 	import {
-		datetimeFormatOptions,
 		dateTimeFormatOptionsArray,
 		getDateTimeFormatOptions
 	} from "$lib/format-options/datetime-format.options";
@@ -20,10 +19,12 @@
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { getMessages } from "$i18n/util";
 	import { locales } from "$store/locales";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	const m = getMessages();
+	const announce = getAnnouncer();
 
 	let dateTimeString = "2022-04-24T19:00";
 
@@ -36,6 +37,7 @@
 			options
 		)}).format(new Date("${dateTimeString}"))`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 
 	const format = (options: Intl.DateTimeFormatOptions, dateTime: string, language: string[]) =>

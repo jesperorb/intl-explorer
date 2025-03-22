@@ -12,16 +12,21 @@
 	import { copyCode } from "$utils/copy-to-clipboard";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { locales } from "$store/locales";
+	import { getMessages } from "$i18n/util";
+	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | null;
 
 	let type: Intl.PluralRuleType = "cardinal";
+	const announce = getAnnouncer();
+	const m = getMessages();
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.PluralRules(${formatLocalesForPrint($locales)}, ${JSON.stringify(
 			Object.assign({}, options, { value: undefined })
 		)}).select(${options.value})`;
 		await copyCode(code);
+		announce(m.copyCodeDone());
 	};
 	const format = (options: Intl.PluralRulesOptions, number: number, language: string[]) =>
 		tryFormat(() => new Intl.PluralRules(language, options).select(number));
