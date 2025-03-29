@@ -13,7 +13,7 @@
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 	import { locales } from "$store/locales";
 
@@ -23,7 +23,6 @@
 	let style: Intl.RelativeTimeFormatStyle = "long";
 	let numeric: "always" | "auto" = "auto";
 
-	const m = getMessages();
 	const announce = getAnnouncer();
 
 	let onClick = async (options: OptionValues) => {

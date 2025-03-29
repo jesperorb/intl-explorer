@@ -20,14 +20,13 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint .",
 		"format": "prettier --write .",
-		"prepare": "husky install",
+		"prepare": "husky",
 		"postinstall": "paraglide-js compile --project ./project.inlang"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.2.1",
 		"@commitlint/config-conventional": "^19.1.0",
-		"@inlang/paraglide-js": "1.3.5",
-		"@inlang/paraglide-js-adapter-sveltekit": "^0.5.17",
+		"@inlang/paraglide-js": "2.0.7",
 		"@mdn/browser-compat-data": "5.6.3",
 		"@melt-ui/pp": "^0.3.2",
 		"@melt-ui/svelte": "^0.83.0",

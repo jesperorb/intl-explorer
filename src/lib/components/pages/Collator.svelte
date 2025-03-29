@@ -11,13 +11,12 @@
 	import { collatorFormatOptionsArray } from "$lib/format-options/collator.options";
 	import { copyCode } from "$utils/copy-to-clipboard";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
-	const m = getMessages();
 	const announce = getAnnouncer();
 
 	let list = "Z,a,z,ä,1,=,à";

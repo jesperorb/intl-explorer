@@ -1,14 +1,15 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import type { UserConfig } from "vite";
 import { defineConfig, mergeConfig } from "vitest/config";
-import { paraglide } from "@inlang/paraglide-js-adapter-sveltekit/vite";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 const config: UserConfig = {
 	plugins: [
 		sveltekit(),
-		paraglide({
+		paraglideVitePlugin({
 			project: "./project.inlang",
-			outdir: "./src/paraglide"
+			outdir: "./src/paraglide",
+			strategy: ["url"]
 		})
 	],
 	optimizeDeps: {

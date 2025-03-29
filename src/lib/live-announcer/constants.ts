@@ -7,5 +7,5 @@ export const defaultAnnounceTimeoutMs = 1000;
 export const defaultAnnounceSetting: AnnounceOptions["setting"] = "polite";
 export const defaultAnnounceOptions: AnnounceOptions = {
 	setting: defaultAnnounceSetting,
-	timeout: defaultAnnounceTimeoutMs,
-}
+	timeout: defaultAnnounceTimeoutMs
+};

@@ -17,13 +17,12 @@
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
-	const m = getMessages();
 	const announce = getAnnouncer();
 
 	let dateTimeString = "2022-04-24T19:00";

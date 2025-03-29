@@ -12,12 +12,11 @@
 	import { durationFormatOptionsArray } from "$lib/format-options/duration-format.options";
 	import { clampValue, formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { locales } from "$store/locales";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
-	const m = getMessages();
 	const announce = getAnnouncer();
 
 	let duration: Record<string, string | number> = {
@@ -50,7 +49,12 @@
 		const newDuration = {
 			...duration,
 			[target.name]: clampValue(
-				{ name: target.name as any, defaultValue: undefined, valueType: "number", inputType: "text" },
+				{
+					name: target.name as any,
+					defaultValue: undefined,
+					valueType: "number",
+					inputType: "text"
+				},
 				target.value
 			) as number
 		};

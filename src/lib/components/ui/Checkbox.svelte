@@ -18,7 +18,8 @@
 	.wrapper {
 		display: inline-flex;
 	}
-	.wrapper, input {
+	.wrapper,
+	input {
 		cursor: pointer;
 	}
 	input[type="checkbox"] {

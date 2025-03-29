@@ -3,7 +3,6 @@
 	import { dev, browser } from "$app/environment";
 	import type { FormatMethodsKeys } from "$lib/format-methods";
 	import { page, navigating } from "$app/stores";
-	import Provider from "$i18n/Provider.svelte";
 
 	import Navigation from "$ui/Navigation.svelte";
 	import Main from "$ui/Main.svelte";
@@ -66,21 +65,19 @@
 <div id={liveAnnouncerRegionIdAssertive} aria-live="assertive"></div>
 
 <LiveAnnouncer>
-	<Provider>
-		<SkipLink />
+	<SkipLink />
 
-		<Navigation />
+	<Navigation />
 
-		<Main bind:center={isHomePage}>
-			{#if $navigating}
-				<ProgressBar />
-			{/if}
-			{#if routeId && routeId !== "Playground"}
-				<Header header={routeId} />
-			{/if}
-			<slot />
-		</Main>
-	</Provider>
+	<Main bind:center={isHomePage}>
+		{#if $navigating}
+			<ProgressBar />
+		{/if}
+		{#if routeId && routeId !== "Playground"}
+			<Header header={routeId} />
+		{/if}
+		<slot />
+	</Main>
 </LiveAnnouncer>
 
 <!-- Ignore -->

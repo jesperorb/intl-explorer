@@ -10,7 +10,6 @@
 	let browserCompatData = $settings.showBrowserSupport
 		? loadJson<BrowserSupportForOption>("Segmenter")
 		: Promise.resolve(undefined);
-
 </script>
 
 {#await browserCompatData}
@@ -22,4 +21,3 @@
 	<Spacing />
 	<Segmenter browserCompatData={data} />
 {/await}
-

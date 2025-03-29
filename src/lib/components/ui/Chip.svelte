@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Times from "$ui/icons/Times.svelte";
 
-	import { getMessages } from "$i18n/util";
-
-	const m = getMessages();
+	import { m } from "$paraglide/messages";
 
 	export let label: string;
 	export let onDelete: (() => void) | undefined = undefined;

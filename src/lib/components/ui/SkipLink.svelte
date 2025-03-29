@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { getMessages } from "$i18n/util";
-
-	const m = getMessages();
+	import { m } from "$paraglide/messages";
 </script>
 
 <a class="skip-link" href="#main">{m.skipLink()}</a>

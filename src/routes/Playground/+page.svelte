@@ -22,9 +22,9 @@
 	{/if}
 </svelte:head>
 
-{#await browserSupport }
+{#await browserSupport}
 	<Playground data={{}} />
-{:then data }
+{:then data}
 	{#if data}
 		<Playground {data} />
 	{/if}

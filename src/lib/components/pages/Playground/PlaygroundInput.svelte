@@ -8,14 +8,13 @@
 
 	import { formatMethods } from "$lib/format-methods";
 	import Card from "$ui/Card.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import LocalePicker from "$ui/LocalePicker.svelte";
 
 	export let schema: PlaygroundSchema<"NumberFormat">;
 	export let onChangeSchema: (event: Event) => void;
 	export let onInput: (event: Event) => void;
 	export let onChangeDate: (datetime: string) => void;
-	const m = getMessages();
 </script>
 
 <Card>

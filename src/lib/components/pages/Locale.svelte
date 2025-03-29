@@ -5,7 +5,7 @@
 	import HighlightValue from "$ui/HighlightValue.svelte";
 	import OptionSection from "$ui/OptionSection.svelte";
 	import PageLayout from "$pages/PageLayout.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
 	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
@@ -23,8 +23,6 @@
 	};
 
 	$: intl = getIntl(locale);
-
-	const m = getMessages();
 
 	const properties: (keyof Intl.LocaleOptions)[] = [
 		"baseName",

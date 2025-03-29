@@ -1,14 +1,12 @@
 <script lang="ts">
 	import Spacing from "$ui/Spacing.svelte";
 	import Button from "$ui/Button.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 
 	export let show: boolean;
 	export let header: string;
 
 	let dialog: HTMLDialogElement;
-
-	const m = getMessages();
 
 	$: if (dialog && show) dialog.showModal();
 </script>

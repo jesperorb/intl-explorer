@@ -12,13 +12,12 @@
 	import BrowserSupportGrid from "$ui/BrowserSupport/BrowserSupportGrid.svelte";
 	import Radio from "$ui/Radio.svelte";
 	import { optionIsActive } from "$lib/playground/validate";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
 
 	export let schema: PlaygroundSchema<"NumberFormat">;
 	export let support: BrowserSupportDataForOptions | undefined;
 	export let onChangeOption: (event: Event) => void;
-	const m = getMessages();
 </script>
 
 <h2>{m.options()}</h2>
@@ -71,7 +70,10 @@
 			{#if support?.[option.name]?.support && $settings.showBrowserSupport}
 				<Spacing />
 				<div class="browser-support-wrapper">
-					<div class="browser-support-inner-wrapper" style="z-index: {schema.options.length - index};">
+					<div
+						class="browser-support-inner-wrapper"
+						style="z-index: {schema.options.length - index};"
+					>
 						<Details>
 							<p slot="summary">{m.browserDetails()}</p>
 							<BrowserSupportGrid data={support[option.name]?.support} />

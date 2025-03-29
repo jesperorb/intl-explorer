@@ -11,16 +11,18 @@
 
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
-	import { listFormatOptions, listFormatOptionsArray } from "$lib/format-options/list-format.options";
+	import {
+		listFormatOptions,
+		listFormatOptionsArray
+	} from "$lib/format-options/list-format.options";
 	import { copyCode } from "$utils/copy-to-clipboard";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
-	const m = getMessages();
 	const announce = getAnnouncer();
 
 	const toArray = (string: string) => string.split(",");

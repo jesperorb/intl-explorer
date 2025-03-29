@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { locales } from "$store/locales";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { languageByLocaleAsComboBoxOptions } from "$lib/locale-data/locales";
 
 	import ComboBox, { type Option } from "$ui/ComboBox.svelte";
-
-	const m = getMessages();
 
 	const onDelete = (locale: string) => {
 		const index = $locales.lastIndexOf(locale);

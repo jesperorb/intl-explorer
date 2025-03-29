@@ -12,14 +12,13 @@
 	import { copyCode } from "$utils/copy-to-clipboard";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { locales } from "$store/locales";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
 	let type: Intl.PluralRuleType = "cardinal";
 	const announce = getAnnouncer();
-	const m = getMessages();
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.PluralRules(${formatLocalesForPrint($locales)}, ${JSON.stringify(

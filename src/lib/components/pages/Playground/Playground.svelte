@@ -32,7 +32,7 @@
 	import { trackEvent } from "$utils/analytics";
 	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
 	import Grid from "$ui/Grid.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
 	import { locales } from "$store/locales";
 	import { testIds } from "$utils/dom-utils";
@@ -40,7 +40,6 @@
 
 	export let data: { [key: string]: BrowserSupportDataForMethod };
 
-	const m = getMessages();
 	const announce = getAnnouncer();
 
 	const matchMedia = browser ? window.matchMedia("(min-width: 630px)") : null;
@@ -63,7 +62,7 @@
 	const onChangeOption = (event: Event) => {
 		if (!schema) return;
 		schema = validateAndUpdateSchema(updateOptionOnSchema(schema, event));
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
@@ -82,7 +81,7 @@
 		if (schema?.inputValueType === "string") {
 			schema.inputValues[0] = value;
 		}
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
@@ -92,7 +91,7 @@
 		if (schema?.inputValueType === "date") {
 			schema.inputValues[0] = datetime;
 		}
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
@@ -104,7 +103,7 @@
 			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<"NumberFormat">
 		);
 		schema = newSchema;
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);

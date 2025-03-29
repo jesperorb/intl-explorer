@@ -36,7 +36,7 @@
 		<div class="range">
 			<div use:melt={$range}></div>
 		</div>
-		<div use:melt={$thumbs[0]} {id} class="thumb" ></div>
+		<div use:melt={$thumbs[0]} {id} class="thumb"></div>
 	</div>
 </div>
 

@@ -2,8 +2,7 @@
 	import ProgressBar from "$ui/ProgressBar.svelte";
 	import { navigating } from "$app/stores";
 	import Spacing from "$ui/Spacing.svelte";
-	import { getMessages } from "$i18n/util";
-	const m = getMessages();
+	import { m } from "$paraglide/messages";
 </script>
 
 <svelte:head>

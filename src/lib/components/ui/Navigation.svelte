@@ -13,7 +13,7 @@
 	import { testIds } from "$utils/dom-utils";
 	import { locales } from "$store/locales";
 	import { formatLocaleForUrl } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 
 	let path: string;
 	let open = false;
@@ -21,8 +21,6 @@
 	let closeButton: HTMLButtonElement;
 	let openButton: HTMLButtonElement;
 	let lastItem: HTMLAnchorElement;
-
-	const m = getMessages();
 
 	const getPath = (page: Page<Record<string, string>>): void => {
 		path = page.url.pathname;
@@ -93,11 +91,7 @@
 			{m.menu()}
 		</Button>
 		<div class="settings">
-			<Button
-				onClick={() => (showSettings = true)}
-				textTransform="uppercase"
-				noBackground
-			>
+			<Button onClick={() => (showSettings = true)} textTransform="uppercase" noBackground>
 				<span class="mr-2">{m.settingsButton()}</span>
 				<Settings />
 			</Button>

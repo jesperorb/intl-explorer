@@ -15,9 +15,7 @@
 	import Check from "$ui/icons/Check.svelte";
 	import Chip from "$ui/Chip.svelte";
 
-	import { getMessages } from "$i18n/util";
-
-	const m = getMessages();
+	import { m } from "$paraglide/messages";
 
 	export let options: Option[];
 	export let labelText: string;

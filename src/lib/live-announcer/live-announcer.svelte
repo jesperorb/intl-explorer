@@ -8,10 +8,7 @@
 		defaultAnnounceOptions
 	} from "./constants";
 
-	const announce: AnnounceFunction = (
-		message: string,
-		options = defaultAnnounceOptions
-	) => {
+	const announce: AnnounceFunction = (message: string, options = defaultAnnounceOptions) => {
 		const elementId =
 			options.setting === "polite" ? liveAnnouncerRegionIdPolite : liveAnnouncerRegionIdAssertive;
 		const element = document.getElementById(elementId);

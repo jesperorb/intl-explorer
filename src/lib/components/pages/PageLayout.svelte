@@ -4,9 +4,8 @@
 	import Grid from "$ui/Grid.svelte";
 	import LocalePicker from "$ui/LocalePicker.svelte";
 
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	export let showLocalePicker: boolean = true;
-	const m = getMessages();
 </script>
 
 <Card>

@@ -1,12 +1,10 @@
 <script lang="ts">
 	import Spacing from "$ui/Spacing.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 
 	export let defaultValue: string;
 	export let onChange: (datetime: string) => void;
 	export let fullWidth: boolean | undefined = undefined;
-
-	const m = getMessages();
 
 	const [date, time] = defaultValue.split("T");
 

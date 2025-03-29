@@ -5,15 +5,13 @@
 
 	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
 
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
 	import { loadJson } from "$utils/load-json";
 
 	let browserCompatData = $settings.showBrowserSupport
 		? loadJson<BrowserSupportForOption>("NumberFormat")
 		: Promise.resolve(undefined);
-
-	const m = getMessages();
 </script>
 
 {#await browserCompatData}

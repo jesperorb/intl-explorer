@@ -19,7 +19,7 @@
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
@@ -28,7 +28,6 @@
 	let selectedUnit = "degree";
 	let number = 123456.789;
 
-	const m = getMessages();
 	const announce = getAnnouncer();
 
 	const options = Object.entries({ ...numberFormatOptionsUnit, ...numberFormatOptionsCommon })

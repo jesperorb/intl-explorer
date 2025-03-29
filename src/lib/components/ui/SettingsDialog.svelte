@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-
 	import Dialog from "$ui/Dialog.svelte";
 	import Radio from "$ui/Radio.svelte";
 	import Fieldset from "$ui/Fieldset.svelte";
@@ -18,18 +16,15 @@
 		type DarkMode
 	} from "$store/settings";
 
-	import { availableLanguageTags, languageTag } from "$paraglide/runtime";
-	import { i18n } from "$i18n/i18n";
+	import { locales as paraglideLocales, getLocale, localizeHref } from "$paraglide/runtime";
 	import { locales } from "$store/locales";
 	import { formatLocaleForUrl } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import Slider from "./Slider.svelte";
 
 	export let show: boolean;
 
-	const m = getMessages();
-
-	export let language = languageTag();
+	export let language = getLocale();
 
 	const onChange = (event: Event) => {
 		const target = event.target as HTMLInputElement;
@@ -53,7 +48,7 @@
 		if (!hintKey) return "";
 		try {
 			return m[hintKey]();
-		} catch(e) {
+		} catch (e) {
 			return "";
 		}
 	};
@@ -86,7 +81,7 @@
 	};
 
 	const formatLanguages = () => {
-		return availableLanguageTags.map((tag) => [tag, formatTag(tag)]);
+		return paraglideLocales.map((tag) => [tag, formatTag(tag)]);
 	};
 </script>
 
@@ -148,10 +143,7 @@
 		<Spacing size={2} />
 		<p>{m.languageHint()}</p>
 		<Spacing />
-		<Button
-			href={`${i18n.route($page.url.pathname)}${formatLocaleForUrl($locales)}`}
-			hrefLang={language}
-		>
+		<Button href={`${localizeHref(language)}${formatLocaleForUrl($locales)}`} hrefLang={language}>
 			{m.confirmLanguage()}
 		</Button>
 	</Card>

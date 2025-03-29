@@ -10,7 +10,7 @@
 
 	import { getMessages } from '$i18n/util';
 
-	const m = getMessages();
+
 
 	export let values: OptionValues;
 	export let output: string;
