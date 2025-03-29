@@ -8,6 +8,7 @@
 	"private": false,
 	"type": "module",
 	"scripts": {
+		"start": "vite dev",
 		"dev": "vite dev",
 		"build": "paraglide-js compile --project ./project.inlang && vite build",
 		"preview": "vite preview",
