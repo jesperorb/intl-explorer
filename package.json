@@ -33,6 +33,7 @@
 		"@melt-ui/svelte": "^0.83.0",
 		"@playwright/test": "^1.51.0",
 		"@sveltejs/adapter-cloudflare": "^6.0.1",
+		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/kit": "2.5.5",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
 		"@testing-library/svelte": "^4.1.0",

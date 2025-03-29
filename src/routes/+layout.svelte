@@ -19,8 +19,6 @@
 	} from "$lib/live-announcer/constants";
 	import LiveAnnouncer from "$lib/live-announcer/live-announcer.svelte";
 
-	export const prerender = true;
-
 	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;
 	const getRouteId = (page: Page<Record<string, string>>): void => {
@@ -31,11 +29,11 @@
 			document.querySelector("h1")?.focus();
 		}
 	};
-	const getLocale = (page: Page<Record<string, string>>) => {
-		locales.set(getLocaleFromParams(page));
+	const getLocale = () => {
+		locales.set(getLocaleFromParams());
 	};
 	$: getRouteId($page);
-	$: getLocale($page);
+	$: getLocale();
 </script>
 
 <svelte:head>
