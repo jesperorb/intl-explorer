@@ -1,0 +1,7 @@
+{
+	"name": "intl-explorer",
+	"compatibility_date": "2025-03-29",
+	"assets": {
+		"directory": ".svelte-kit/output"
+	}
+}
