@@ -1,4 +1,4 @@
-import adapter from "@sveltejs/adapter-vercel";
+import adapter from '@sveltejs/adapter-cloudflare';
 import preprocess from "svelte-preprocess";
 import { preprocessMeltUI, sequence } from "@melt-ui/pp";
 
