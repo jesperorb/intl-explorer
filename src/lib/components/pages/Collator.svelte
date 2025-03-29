@@ -15,7 +15,7 @@
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
 	const m = getMessages();
 	const announce = getAnnouncer();

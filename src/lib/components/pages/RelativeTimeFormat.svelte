@@ -17,7 +17,7 @@
 	import { getAnnouncer } from "$lib/live-announcer/util";
 	import { locales } from "$store/locales";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
 	let dayValue = 2;
 	let style: Intl.RelativeTimeFormatStyle = "long";

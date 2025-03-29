@@ -8,7 +8,7 @@
 	import { getMessages } from "$i18n/util";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
 	const fallback = "ja-Jpan-JP-u-ca-japanese-hc-h12-kf-upper";
 

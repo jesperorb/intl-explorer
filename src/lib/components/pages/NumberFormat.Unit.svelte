@@ -23,7 +23,7 @@
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
 	let selectedUnit = "degree";
 	let number = 123456.789;

@@ -1,12 +1,12 @@
-import type { ServerLoadEvent } from "@sveltejs/kit";
+import type { FormatMethodsKeys } from "$lib/format-methods";
 
-export const loadJson = async ({ route, fetch }: ServerLoadEvent) => {
+export const loadJson = async <Type extends object>(
+	method: FormatMethodsKeys | "Locale" | "Playground",
+): Promise<Type | undefined> => {
 	try {
-		const isNumberFormat = route.id?.includes("NumberFormat");
-		const routeName = isNumberFormat ? "/NumberFormat" : route.id;
-		const response = await fetch(`${routeName}-compat-data.json`);
+		const response = await fetch(`${method}-compat-data.json`);
 		return response.json();
 	} catch (e: unknown) {
-		return null;
+		return undefined;
 	}
 };

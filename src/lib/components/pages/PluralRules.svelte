@@ -15,7 +15,7 @@
 	import { getMessages } from "$i18n/util";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
 	let type: Intl.PluralRuleType = "cardinal";
 	const announce = getAnnouncer();

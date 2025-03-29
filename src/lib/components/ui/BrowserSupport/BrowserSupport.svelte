@@ -5,14 +5,16 @@
 
 	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
 	import { getMessages } from "$i18n/util";
+	import { settings } from "$store/settings";
+	import Skeleton from "$ui/Skeleton.svelte";
 
-	export let data: BrowserSupportForOption | undefined;
+	export let data: BrowserSupportForOption | undefined = undefined;
 	export let hideFullSupport: boolean | undefined = undefined;
 	export let zIndex: number = 1;
 	const m = getMessages();
 </script>
 
-{#if data}
+{#if data && $settings.showBrowserSupport}
 	<div class="browser-support-wrapper">
 		<div class="browser-support-inner-wrapper" style="z-index: {zIndex};">
 			<Details>
@@ -26,6 +28,8 @@
 			</Details>
 		</div>
 	</div>
+{:else if !data && $settings.showBrowserSupport}
+	<Skeleton />
 {/if}
 
 <style>

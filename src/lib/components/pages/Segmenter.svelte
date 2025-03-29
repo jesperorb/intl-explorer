@@ -16,7 +16,7 @@
 	import { getMessages } from "$i18n/util";
 	import { locales } from "$store/locales";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
 
 	const m = getMessages();
 	const announce = getAnnouncer();

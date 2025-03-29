@@ -19,6 +19,8 @@
 	} from "$lib/live-announcer/constants";
 	import LiveAnnouncer from "$lib/live-announcer/live-announcer.svelte";
 
+	export const prerender = true;
+
 	let routeId: FormatMethodsKeys | "Playground" | "/";
 	$: isHomePage = false;
 	const getRouteId = (page: Page<Record<string, string>>): void => {
