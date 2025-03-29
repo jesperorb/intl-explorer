@@ -7,10 +7,7 @@
 	import CopyToClipboard from '$ui/icons/CopyToClipboard.svelte';
 
 	import type { OptionValues } from '$types/OptionValues.types';
-
-	import { getMessages } from '$i18n/util';
-
-
+	import { m } from '$paraglide/messages';
 
 	export let values: OptionValues;
 	export let output: string;

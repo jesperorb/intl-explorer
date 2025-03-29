@@ -2,7 +2,9 @@
 	import type { Page } from "@sveltejs/kit";
 	import { dev, browser } from "$app/environment";
 	import type { FormatMethodsKeys } from "$lib/format-methods";
-	import { page, navigating } from "$app/stores";
+	import { navigating } from "$app/stores";
+	import { page } from "$app/state";
+	import { locales as paraglideLocales, localizeHref } from "$paraglide/runtime";
 
 	import Navigation from "$ui/Navigation.svelte";
 	import Main from "$ui/Main.svelte";
@@ -31,7 +33,7 @@
 	const getLocale = () => {
 		locales.set(getLocaleFromParams());
 	};
-	$: getRouteId($page);
+	$: getRouteId(page);
 	$: getLocale();
 </script>
 
@@ -43,13 +45,13 @@
 	<meta name="description" content={description} />
 	<meta property="og:description" content={description} />
 	<meta property="og:site_name" content={title} />
-	<meta property="og:url" content={$page.url.host} />
+	<meta property="og:url" content={page.url.host} />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={title} />
 	<meta property="og:image" content={imageUrl} />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta property="twitter:domain" content={$page.url.host} />
-	<meta property="twitter:url" content={$page.url.host} />
+	<meta property="twitter:domain" content={page.url.host} />
+	<meta property="twitter:url" content={page.url.host} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
 	{#if !dev}
@@ -63,6 +65,12 @@
 
 <div id={liveAnnouncerRegionIdPolite} aria-live="polite"></div>
 <div id={liveAnnouncerRegionIdAssertive} aria-live="assertive"></div>
+
+<div style="display:none">
+	{#each paraglideLocales as locale}
+		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
+	{/each}
+</div>
 
 <LiveAnnouncer>
 	<SkipLink />
