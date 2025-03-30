@@ -24,7 +24,7 @@
 		defaultValue?: Option[] | undefined;
 		onSelect: (values?: Option[]) => void;
 		onDelete: (value: string) => void;
-	}
+	};
 
 	let {
 		options,

@@ -17,7 +17,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -36,10 +36,10 @@
 
 <PageLayout>
 	{#snippet input()}
-		<Input  id="list" fullWidth label={m.list()} bind:value={list} />
+		<Input id="list" fullWidth label={m.list()} bind:value={list} />
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each collatorFormatOptionsArray as [option, values], index}
 				<OptionSection
 					header={option}

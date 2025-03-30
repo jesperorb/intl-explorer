@@ -18,7 +18,7 @@
 		fullWidth?: boolean | undefined;
 		removeEmpty?: boolean | undefined;
 		onChange?: ((event: Event) => void) | undefined;
-	}
+	};
 
 	let {
 		label = undefined,

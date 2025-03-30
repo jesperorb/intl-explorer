@@ -8,16 +8,9 @@
 		label: string;
 		srOnlyLabel?: boolean | undefined;
 		onChange: ChangeEventHandler<HTMLInputElement>;
-	}
+	};
 
-	let {
-		id,
-		name,
-		checked = false,
-		label,
-		srOnlyLabel = undefined,
-		onChange
-	}: Props = $props();
+	let { id, name, checked = false, label, srOnlyLabel = undefined, onChange }: Props = $props();
 </script>
 
 <div class="wrapper">

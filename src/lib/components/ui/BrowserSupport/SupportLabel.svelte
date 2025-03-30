@@ -5,7 +5,7 @@
 	type Props = {
 		support?: BrowserCoverage | undefined;
 		hideFullSupport?: boolean | undefined;
-	}
+	};
 
 	let { support = undefined, hideFullSupport = false }: Props = $props();
 </script>

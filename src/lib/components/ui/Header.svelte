@@ -7,8 +7,8 @@
 	type Props = {
 		header: string;
 		link?: FormatMethodsKeys | undefined;
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let { header, link = undefined, children }: Props = $props();
 
@@ -21,7 +21,6 @@
 		if (header.includes("NumberFormat")) return "NumberFormat";
 		return header;
 	};
-
 </script>
 
 <header>
@@ -49,6 +48,9 @@
 	}
 
 	h1 {
+		outline: none;
+	}
+	h1:focus {
 		outline: none;
 	}
 

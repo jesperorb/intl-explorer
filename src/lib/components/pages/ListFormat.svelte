@@ -23,7 +23,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -48,10 +48,10 @@
 
 <PageLayout>
 	{#snippet input()}
-		<Input  id="list" fullWidth label={m.list()} bind:value={list} />
+		<Input id="list" fullWidth label={m.list()} bind:value={list} />
 	{/snippet}
 	{#snippet alternativeUse()}
-		<div >
+		<div>
 			{m.alternativeUseIngress({ method: "Intl.ListFormat" })}
 			<strong
 				><a
@@ -85,7 +85,7 @@
 		>
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each listFormatOptionsArray as [option, values], index}
 				<OptionSection
 					header={option}

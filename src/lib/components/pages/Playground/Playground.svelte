@@ -40,19 +40,21 @@
 
 	type Props = {
 		data: { [key: string]: BrowserSupportDataForMethod };
-	}
+	};
 
 	let { data }: Props = $props();
 
 	const announce = getAnnouncer();
 
 	const matchMedia = browser ? window.matchMedia("(min-width: 630px)") : null;
-	let isDesktop = $derived(Boolean(matchMedia?.matches));
+	let isDesktop = $derived(matchMedia ? Boolean(matchMedia.matches) : true);
 
 	let schema = $derived(validateAndUpdateSchema(numberFormatSchema));
-	let browserSupportData = $derived(schema
-		? { ...data[schema.method] }
-		: { optionsSupport: undefined, formattersSupport: undefined });
+	let browserSupportData = $derived(
+		schema
+			? { ...data[schema.method] }
+			: { optionsSupport: undefined, formattersSupport: undefined }
+	);
 
 	onMount(() => {
 		if (getSchemaParam()) {
@@ -176,11 +178,7 @@
 					<Button onClick={copy}>{m.copyCode()} <CopyToClipboard /></Button>
 				</div>
 			{/if}
-			<PlaygroundOptions
-				support={browserSupportData.optionsSupport}
-				{schema}
-				{onChangeOption}
-			/>
+			<PlaygroundOptions support={browserSupportData.optionsSupport} {schema} {onChangeOption} />
 			<Spacing />
 			{#if !isDesktop}
 				<h2>{m.resolvedOptions()}</h2>

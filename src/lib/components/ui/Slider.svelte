@@ -11,7 +11,7 @@
 		onValueChange?: ((value: number[]) => void) | undefined;
 		label: string;
 		id: string;
-	}
+	};
 
 	let {
 		defaultValue = undefined,

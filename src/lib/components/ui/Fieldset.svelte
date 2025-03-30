@@ -4,8 +4,8 @@
 		role?: string | undefined;
 		name?: string | undefined;
 		capitalize?: boolean;
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let {
 		legend,

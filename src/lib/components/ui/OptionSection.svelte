@@ -11,8 +11,8 @@
 		support?: BrowserSupportForOption | undefined;
 		hideFullSupport?: boolean | undefined;
 		zIndex?: number;
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let {
 		header,

@@ -10,7 +10,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -44,10 +44,10 @@
 
 <PageLayout showLocalePicker={false}>
 	{#snippet input()}
-		<Input id="locale" label={m.locale()}  bind:value={locale} fullWidth />
+		<Input id="locale" label={m.locale()} bind:value={locale} fullWidth />
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#if intl}
 				{#each properties as property, index}
 					<OptionSection

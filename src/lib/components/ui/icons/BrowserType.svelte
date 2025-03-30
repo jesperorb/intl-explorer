@@ -5,7 +5,7 @@
 	import Server from "$ui/icons/Server.svelte";
 	type Props = {
 		browserType: BrowserType;
-	}
+	};
 
 	let { browserType }: Props = $props();
 </script>

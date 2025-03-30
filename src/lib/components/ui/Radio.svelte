@@ -7,7 +7,7 @@
 		label: string;
 		group?: string | boolean | number | undefined;
 		onChange?: ((event: Event) => void) | undefined;
-	}
+	};
 
 	let {
 		name,
@@ -21,7 +21,7 @@
 </script>
 
 <label>
-	<input type="radio" oninput={onChange} {name} {id} {checked} {value} bind:group={group} />
+	<input type="radio" oninput={onChange} {name} {id} {checked} {value} bind:group />
 	{label}
 </label>
 

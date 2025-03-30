@@ -17,7 +17,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -37,15 +37,13 @@
 
 <PageLayout>
 	{#snippet input()}
-
-			<Fieldset legend="type">
-				<Radio label="cardinal" id="typeCardinal" name="type" bind:group={type} value="cardinal" />
-				<Radio label="ordinal" id="typeOrdinal" name="type" bind:group={type} value="ordinal" />
-			</Fieldset>
-
+		<Fieldset legend="type">
+			<Radio label="cardinal" id="typeCardinal" name="type" bind:group={type} value="cardinal" />
+			<Radio label="ordinal" id="typeOrdinal" name="type" bind:group={type} value="ordinal" />
+		</Fieldset>
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			<OptionSection header={type} support={browserCompatData?.optionsSupport?.[type]} zIndex={2}>
 				<Spacing size={1} />
 				<Highlight

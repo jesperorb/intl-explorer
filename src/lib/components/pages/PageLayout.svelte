@@ -7,19 +7,13 @@
 	import { m } from "$paraglide/messages";
 	type Props = {
 		showLocalePicker?: boolean;
-		input?: import('svelte').Snippet;
-		alternativeUse?: import('svelte').Snippet;
-		alternativeCode?: import('svelte').Snippet;
-		output?: import('svelte').Snippet;
-	}
+		input?: import("svelte").Snippet;
+		alternativeUse?: import("svelte").Snippet;
+		alternativeCode?: import("svelte").Snippet;
+		output?: import("svelte").Snippet;
+	};
 
-	let {
-		showLocalePicker = true,
-		input,
-		alternativeUse,
-		alternativeCode,
-		output
-	}: Props = $props();
+	let { showLocalePicker = true, input, alternativeUse, alternativeCode, output }: Props = $props();
 </script>
 
 <Card>

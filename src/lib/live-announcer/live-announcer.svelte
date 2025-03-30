@@ -14,8 +14,8 @@
 	import SrOnly from "$ui/SrOnly.svelte";
 
 	type Props = {
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let { children }: Props = $props();
 
@@ -33,7 +33,6 @@
 	};
 
 	setContext(liveAnnouncerContextKey, announce);
-
 </script>
 
 <SrOnly>

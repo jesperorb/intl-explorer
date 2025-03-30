@@ -3,7 +3,7 @@
 
 	type Props = {
 		locales: string[];
-	}
+	};
 
 	let { locales }: Props = $props();
 </script>

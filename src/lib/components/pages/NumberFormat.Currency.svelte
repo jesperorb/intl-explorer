@@ -26,7 +26,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -51,21 +51,19 @@
 
 <PageLayout>
 	{#snippet input()}
-
-			<Select
-				name="currencies"
-				placeholder={m.selectCurrency()}
-				label={m.currency()}
-				removeEmpty
-				fullWidth
-				bind:value={selectedCurrency}
-				items={Object.entries(currencies)}
-			/>
-			<Input id="amount" fullWidth label={m.amount()} bind:value={number} />
-
+		<Select
+			name="currencies"
+			placeholder={m.selectCurrency()}
+			label={m.currency()}
+			removeEmpty
+			fullWidth
+			bind:value={selectedCurrency}
+			items={Object.entries(currencies)}
+		/>
+		<Input id="amount" fullWidth label={m.amount()} bind:value={number} />
 	{/snippet}
 	{#snippet alternativeUse()}
-		<div >
+		<div>
 			{m.alternativeUseIngress({ method: "Intl.NumberFormat" })}
 			<strong
 				><a
@@ -95,7 +93,7 @@
 		>
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each options as [option, values], index}
 				<OptionSection
 					header={option}

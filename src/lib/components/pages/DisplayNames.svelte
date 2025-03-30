@@ -16,7 +16,7 @@
 
 <PageLayout>
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			<OptionSection header={"region"} zIndex={10}>
 				<Spacing size={1} />
 				<Input id="region" label="region" bind:value={code} />

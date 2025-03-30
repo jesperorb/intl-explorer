@@ -3,7 +3,7 @@
 
 	type Props = {
 		header: string;
-	}
+	};
 
 	let { header }: Props = $props();
 </script>

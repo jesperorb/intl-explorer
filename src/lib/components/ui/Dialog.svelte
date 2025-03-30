@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { run, self, createBubbler, stopPropagation } from 'svelte/legacy';
+	import { run, self, createBubbler, stopPropagation } from "svelte/legacy";
 
 	const bubble = createBubbler();
 	import Spacing from "$ui/Spacing.svelte";
@@ -9,8 +9,8 @@
 	type Props = {
 		show: boolean;
 		header: string;
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let { show = $bindable(), header, children }: Props = $props();
 
@@ -24,7 +24,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
 <dialog bind:this={dialog} onclose={() => (show = false)} onclick={self(() => dialog?.close())}>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div onclick={stopPropagation(bubble('click'))}>
+	<div onclick={stopPropagation(bubble("click"))}>
 		<!-- svelte-ignore a11y_autofocus -->
 		<h2 tabindex="-1" autofocus>{header}</h2>
 		<Spacing />

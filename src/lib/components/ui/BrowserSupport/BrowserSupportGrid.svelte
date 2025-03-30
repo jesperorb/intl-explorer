@@ -6,7 +6,7 @@
 
 	type Props = {
 		data: Record<string, BrowserReleaseData> | undefined;
-	}
+	};
 
 	let { data }: Props = $props();
 

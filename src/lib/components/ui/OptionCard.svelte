@@ -12,8 +12,8 @@
 		hideFullSupport?: boolean | undefined;
 		checked?: boolean | undefined;
 		onChange: (event: Event) => void;
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let {
 		option,

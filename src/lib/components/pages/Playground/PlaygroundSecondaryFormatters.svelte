@@ -11,7 +11,7 @@
 	type Props = {
 		secondaryFormatters: { name: string; output: string }[];
 		support?: BrowserSupportDataForOptions | undefined;
-	}
+	};
 
 	let { secondaryFormatters, support = undefined }: Props = $props();
 </script>

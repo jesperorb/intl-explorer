@@ -1,9 +1,8 @@
 <script lang="ts">
-
 	type Props = {
 		center?: boolean | undefined;
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let { center = undefined, children }: Props = $props();
 </script>

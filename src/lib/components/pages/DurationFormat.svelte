@@ -17,7 +17,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -68,15 +68,13 @@
 
 <PageLayout>
 	{#snippet input()}
-
-			<Spacing />
-			{#each Object.keys(duration) as key}
-				<Input id={key} name={key} label={key} {onInput} value={String(duration[key])} fullWidth />
-			{/each}
-
+		<Spacing />
+		{#each Object.keys(duration) as key}
+			<Input id={key} name={key} label={key} {onInput} value={String(duration[key])} fullWidth />
+		{/each}
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each durationFormatOptionsArray as [option, values], index}
 				<OptionSection
 					header={option}

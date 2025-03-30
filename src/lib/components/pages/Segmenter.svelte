@@ -18,7 +18,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -40,10 +40,10 @@
 
 <PageLayout>
 	{#snippet input()}
-		<Input  fullWidth id="list" label={m.list()} bind:value={sentence} />
+		<Input fullWidth id="list" label={m.list()} bind:value={sentence} />
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each segmenterOptionsArray as [option, values], index}
 				<OptionSection
 					header={option}

@@ -109,11 +109,11 @@
 		<Spacing />
 		<ul id="links">
 			<li class="last-item" class:active={path === "/"}>
-				<a href="{localizeHref("/")}{formatLocaleForUrl($locales)}">{m.about()}</a>
+				<a href="{localizeHref('/')}{formatLocaleForUrl($locales)}">{m.about()}</a>
 			</li>
 			<li class="last-item">
 				<a
-					href="{localizeHref("/Playground")}{formatLocaleForUrl($locales)}"
+					href="{localizeHref('/Playground')}{formatLocaleForUrl($locales)}"
 					class:active={path?.includes("Playground")}>Playground</a
 				>
 			</li>

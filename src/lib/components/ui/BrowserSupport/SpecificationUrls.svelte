@@ -4,7 +4,7 @@
 	import { getSpecUrls } from "$utils/browser-support";
 	type Props = {
 		data: BrowserSupportDataForMethod | null;
-	}
+	};
 
 	let { data }: Props = $props();
 </script>

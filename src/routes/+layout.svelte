@@ -15,22 +15,22 @@
 	import RoutingLinks from "./routing-links.svelte";
 
 	type Props = {
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let { children }: Props = $props();
 
-	let route = $derived(page.route.id?.replace("/", ""))
-  let isHomePage = $derived(page.route.id === "/");
+	let route = $derived(page.route.id?.replace("/", ""));
+	let isHomePage = $derived(page.route.id === "/");
 	$effect(() => {
 		locales.set(getLocaleFromParams());
-	})
+	});
 	$effect(() => {
 		if (browser) {
 			document.querySelector("h1")?.setAttribute("tabIndex", "-1");
 			document.querySelector("h1")?.focus();
 		}
-	})
+	});
 </script>
 
 <svelte:head>
@@ -77,7 +77,8 @@
 <!-- Ignore -->
 <style global>
 	:root {
-		--font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+		--font-family:
+			system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
 			"Segoe UI Emoji", "Segoe UI Symbol";
 		--code-font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 

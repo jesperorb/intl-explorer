@@ -14,12 +14,13 @@
 	import { optionIsActive } from "$lib/playground/validate";
 	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
+	import Skeleton from "$ui/Skeleton.svelte";
 
 	type Props = {
 		schema: PlaygroundSchema<"NumberFormat">;
 		support: BrowserSupportDataForOptions | undefined;
 		onChangeOption: (event: Event) => void;
-	}
+	};
 
 	let { schema, support, onChangeOption }: Props = $props();
 </script>
@@ -80,12 +81,15 @@
 					>
 						<Details>
 							{#snippet summary()}
-														<p >{m.browserDetails()}</p>
-													{/snippet}
+								<p>{m.browserDetails()}</p>
+							{/snippet}
 							<BrowserSupportGrid data={support[option.name]?.support} />
 						</Details>
 					</div>
 				</div>
+			{:else}
+				<Spacing />
+				<Skeleton />
 			{/if}
 		</OptionCard>
 	{/each}

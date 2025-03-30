@@ -23,7 +23,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -49,10 +49,10 @@
 
 <PageLayout>
 	{#snippet input()}
-		<DateTime fullWidth  defaultValue={dateTimeString} {onChange} />
+		<DateTime fullWidth defaultValue={dateTimeString} {onChange} />
 	{/snippet}
 	{#snippet alternativeUse()}
-		<div >
+		<div>
 			{m.alternativeUseIngress({ method: "Intl.DateTimeFormat" })}
 			<strong
 				><a
@@ -64,7 +64,7 @@
 		</div>
 	{/snippet}
 	{#snippet alternativeCode()}
-		<CodeBlock >
+		<CodeBlock>
 			<Token v="new" t="punctuation" />
 			<Token v="Date" t="class" />{"("}<Token v={`"${dateTimeString}"`} t="string" />{")"}
 			.<Token v="toLocaleString" t="function" />{"("}<HighlightLocale
@@ -76,7 +76,7 @@
 		</CodeBlock>
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each dateTimeFormatOptionsArray as [option, values], index}
 				<OptionSection
 					header={option}

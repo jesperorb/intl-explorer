@@ -25,7 +25,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -53,21 +53,19 @@
 
 <PageLayout>
 	{#snippet input()}
-
-			<Select
-				name="unit"
-				placeholder={m.selectUnit()}
-				label={m.unit()}
-				removeEmpty
-				fullWidth
-				bind:value={selectedUnit}
-				items={unitsAsEntries}
-			/>
-			<Input id="amount" fullWidth label={m.amount()} bind:value={number} />
-
+		<Select
+			name="unit"
+			placeholder={m.selectUnit()}
+			label={m.unit()}
+			removeEmpty
+			fullWidth
+			bind:value={selectedUnit}
+			items={unitsAsEntries}
+		/>
+		<Input id="amount" fullWidth label={m.amount()} bind:value={number} />
 	{/snippet}
 	{#snippet alternativeUse()}
-		<div >
+		<div>
 			{m.alternativeUseIngress({ method: "Intl.NumberFormat" })}
 			<strong
 				><a
@@ -99,7 +97,7 @@
 		>
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each options as [option, values], index}
 				<OptionSection
 					header={option}

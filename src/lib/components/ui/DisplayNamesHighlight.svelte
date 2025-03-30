@@ -8,7 +8,7 @@
 	type Props = {
 		value: string;
 		options: OptionValues;
-	}
+	};
 
 	let { value, options }: Props = $props();
 
@@ -18,7 +18,9 @@
 		);
 	};
 
-	let output = $derived(tryDisplayNames(value, $locales, options as unknown as Intl.DisplayNamesOptions));
+	let output = $derived(
+		tryDisplayNames(value, $locales, options as unknown as Intl.DisplayNamesOptions)
+	);
 </script>
 
 <Highlight {onClick} values={options} {output} />

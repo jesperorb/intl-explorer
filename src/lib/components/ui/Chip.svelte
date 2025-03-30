@@ -6,7 +6,7 @@
 	type Props = {
 		label: string;
 		onDelete?: (() => void) | undefined;
-	}
+	};
 
 	let { label, onDelete = undefined }: Props = $props();
 </script>
@@ -14,12 +14,7 @@
 <div class="chip">
 	<p>{label}</p>
 	{#if onDelete}
-		<button
-			type="button"
-			class="delete"
-			onclick={onDelete}
-			aria-label={m.remove({ value: label })}
-		>
+		<button type="button" class="delete" onclick={onDelete} aria-label={m.remove({ value: label })}>
 			<Times />
 		</button>
 	{/if}

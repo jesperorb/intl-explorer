@@ -23,7 +23,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -49,10 +49,10 @@
 
 <PageLayout>
 	{#snippet input()}
-		<Input  fullWidth id="amount" label={m.amount()} bind:value={number} />
+		<Input fullWidth id="amount" label={m.amount()} bind:value={number} />
 	{/snippet}
 	{#snippet alternativeUse()}
-		<div >
+		<div>
 			{m.alternativeUseIngress({ method: "Intl.NumberFormat" })}
 			<strong
 				><a
@@ -82,7 +82,7 @@
 		>
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			{#each options as [option, values], index}
 				<OptionSection
 					header={option}

@@ -27,7 +27,7 @@
 	type Props = {
 		show: boolean;
 		language?: any;
-	}
+	};
 
 	let { show = $bindable(), language = $bindable(getLocale()) }: Props = $props();
 

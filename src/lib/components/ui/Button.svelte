@@ -23,8 +23,8 @@
 		title?: string | undefined;
 		disabled?: boolean | null | undefined;
 		testId?: string | undefined;
-		children?: import('svelte').Snippet;
-	}
+		children?: import("svelte").Snippet;
+	};
 
 	let {
 		onClick = undefined,

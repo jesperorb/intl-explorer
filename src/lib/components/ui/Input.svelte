@@ -11,7 +11,7 @@
 		pattern?: string | undefined;
 		max?: number | undefined;
 		min?: number | undefined;
-	}
+	};
 
 	let {
 		label = undefined,

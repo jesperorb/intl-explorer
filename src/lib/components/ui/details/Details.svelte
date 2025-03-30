@@ -5,17 +5,11 @@
 		open?: boolean | undefined;
 		id?: string | undefined;
 		fullWidth?: boolean | undefined;
-		summary?: import('svelte').Snippet;
-		children?: import('svelte').Snippet;
-	}
+		summary?: import("svelte").Snippet;
+		children?: import("svelte").Snippet;
+	};
 
-	let {
-		open = undefined,
-		id = undefined,
-		fullWidth = true,
-		summary,
-		children
-	}: Props = $props();
+	let { open = undefined, id = undefined, fullWidth = true, summary, children }: Props = $props();
 </script>
 
 <details {open} {id} class:fullWidth>

@@ -16,14 +16,9 @@
 		onChangeSchema: (event: Event) => void;
 		onInput: (event: Event) => void;
 		onChangeDate: (datetime: string) => void;
-	}
+	};
 
-	let {
-		schema,
-		onChangeSchema,
-		onInput,
-		onChangeDate
-	}: Props = $props();
+	let { schema, onChangeSchema, onInput, onChangeDate }: Props = $props();
 </script>
 
 <Card>

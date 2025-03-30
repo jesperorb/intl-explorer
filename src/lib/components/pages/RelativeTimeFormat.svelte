@@ -19,7 +19,7 @@
 
 	type Props = {
 		browserCompatData?: BrowserSupportDataForMethod | undefined;
-	}
+	};
 
 	let { browserCompatData = undefined }: Props = $props();
 
@@ -47,21 +47,19 @@
 
 <PageLayout>
 	{#snippet input()}
-
-			<Input id="value" fullWidth label={m.value()} bind:value={dayValue} />
-			<Fieldset legend="Style">
-				<Radio value="long" label="long" id="styleLong" name="style" bind:group={style} />
-				<Radio value="short" label="short" id="styleShort" name="style" bind:group={style} />
-				<Radio value="narrow" label="narrow" id="styleNarrow" name="style" bind:group={style} />
-			</Fieldset>
-			<Fieldset legend="Numeric">
-				<Radio label="always" id="numericalways" name="numeric" bind:group={numeric} value="always" />
-				<Radio label="auto" id="numericauto" name="numeric" bind:group={numeric} value="auto" />
-			</Fieldset>
-
+		<Input id="value" fullWidth label={m.value()} bind:value={dayValue} />
+		<Fieldset legend="Style">
+			<Radio value="long" label="long" id="styleLong" name="style" bind:group={style} />
+			<Radio value="short" label="short" id="styleShort" name="style" bind:group={style} />
+			<Radio value="narrow" label="narrow" id="styleNarrow" name="style" bind:group={style} />
+		</Fieldset>
+		<Fieldset legend="Numeric">
+			<Radio label="always" id="numericalways" name="numeric" bind:group={numeric} value="always" />
+			<Radio label="auto" id="numericauto" name="numeric" bind:group={numeric} value="auto" />
+		</Fieldset>
 	{/snippet}
 	{#snippet output()}
-		<Grid >
+		<Grid>
 			<OptionSection header={"unit"} support={browserCompatData?.optionsSupport?.unit}>
 				{#each relativeTimeFormatUnits as value}
 					{#if value !== undefined}

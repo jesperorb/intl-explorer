@@ -6,7 +6,7 @@
 		defaultValue: string;
 		onChange: (datetime: string) => void;
 		fullWidth?: boolean | undefined;
-	}
+	};
 
 	let { defaultValue, onChange, fullWidth = undefined }: Props = $props();
 

@@ -1,12 +1,12 @@
 import adapter from "@sveltejs/adapter-cloudflare";
-import preprocess from "svelte-preprocess";
+import { sveltePreprocess } from "svelte-preprocess";
 import { preprocessMeltUI, sequence } from "@melt-ui/pp";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: sequence([preprocess(), preprocessMeltUI()]),
+	preprocess: sequence([sveltePreprocess(), preprocessMeltUI()]),
 
 	kit: {
 		adapter: adapter(),

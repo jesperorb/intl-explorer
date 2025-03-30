@@ -10,7 +10,7 @@
 	import Samsung from "$ui/icons/Samsung.svelte";
 	type Props = {
 		browserName: string;
-	}
+	};
 
 	let { browserName }: Props = $props();
 </script>
