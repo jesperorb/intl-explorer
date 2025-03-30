@@ -9,7 +9,8 @@ const config: UserConfig = {
 		paraglideVitePlugin({
 			project: "./project.inlang",
 			outdir: "./src/paraglide",
-			strategy: ["url"]
+			strategy: ["url"],
+			disableAsyncLocalStorage: true
 		})
 	],
 	optimizeDeps: {
