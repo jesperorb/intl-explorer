@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Page } from "@sveltejs/kit";
+	import { page } from "$app/state";
 
 	import OpenInNewTab from "$ui/icons/OpenInNewTab.svelte";
 	import Spacing from "$ui/Spacing.svelte";
@@ -7,40 +7,32 @@
 	import SettingsDialog from "$ui/SettingsDialog.svelte";
 	import Button from "$ui/Button.svelte";
 
-	import { page } from "$app/state";
-
 	import { routes } from "$lib/routes";
 	import { testIds } from "$utils/dom-utils";
-	import { locales } from "$store/locales";
 	import { formatLocaleForUrl } from "$utils/format-utils";
+	import { locales } from "$store/locales";
 
 	import { m } from "$paraglide/messages";
 	import { localizeHref } from "$paraglide/runtime";
 
-	let path: string;
-	let open = false;
-	let showSettings = false;
-	let closeButton: HTMLButtonElement;
-	let openButton: HTMLButtonElement;
-	let lastItem: HTMLAnchorElement;
-
-	const getPath = (page: Page<Record<string, string>>): void => {
-		path = page.url.pathname;
-	};
-
-	$: getPath(page);
+	let open = $state(false);
+	let showSettings = $state(false);
+	let closeButton: HTMLButtonElement | undefined = $state();
+	let openButton: HTMLButtonElement | undefined = $state();
+	let lastItem: HTMLAnchorElement | undefined = $state();
+	let path: string | undefined = $derived(page.url.pathname);
 
 	const onCloseButtonShiftTab = (event: KeyboardEvent) => {
 		if (event.key === "Tab" && event.shiftKey) {
 			event.preventDefault();
-			lastItem.focus();
+			lastItem?.focus();
 		}
 	};
 
 	const onLastItemKeyPress = (event: KeyboardEvent) => {
 		if (event.key === "Tab") {
 			event.preventDefault();
-			closeButton.focus();
+			closeButton?.focus();
 		}
 	};
 
@@ -63,14 +55,14 @@
 	const openDrawer = () => {
 		open = true;
 		setTimeout(() => {
-			closeButton.focus();
+			closeButton?.focus();
 		}, 0);
 	};
 
 	const closeDrawer = () => {
 		open = false;
 		setTimeout(() => {
-			openButton.focus();
+			openButton?.focus();
 		}, 0);
 	};
 </script>
@@ -99,8 +91,8 @@
 			</Button>
 		</div>
 	</div>
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="drawer" class:drawer--open={open} on:keydown={onKeyDown} on:click={onClick}>
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="drawer" class:drawer--open={open} onkeydown={onKeyDown} onclick={onClick}>
 		<div class="drawer__top">
 			<Button
 				type="button"
@@ -122,7 +114,7 @@
 			<li class="last-item">
 				<a
 					href="{localizeHref("/Playground")}{formatLocaleForUrl($locales)}"
-					class:active={path.includes("Playground")}>Playground</a
+					class:active={path?.includes("Playground")}>Playground</a
 				>
 			</li>
 			<li class="menu-heading">Intl.</li>
@@ -131,7 +123,7 @@
 					<a
 						aria-label={route.ariaLabel}
 						class:sublink={route.sublink}
-						class:active={path.includes(route.path)}
+						class:active={path?.includes(route.path)}
 						href={`${localizeHref(route.path)}${formatLocaleForUrl($locales)}`}
 					>
 						{route.name}
@@ -148,7 +140,7 @@
 					href="https://github.com/jesperorb/intl-explorer"
 					target="_blank"
 					rel="noopener noreferrer"
-					on:keydown={onLastItemKeyPress}
+					onkeydown={onLastItemKeyPress}
 					bind:this={lastItem}>GitHub <OpenInNewTab /></a
 				>
 			</li>

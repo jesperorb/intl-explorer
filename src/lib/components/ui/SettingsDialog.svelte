@@ -24,9 +24,12 @@
 	import { locales as paraglideLocales, getLocale, localizeHref } from "$paraglide/runtime";
 	import { m } from "$paraglide/messages";
 
-	export let show: boolean;
+	type Props = {
+		show: boolean;
+		language?: any;
+	}
 
-	export let language = getLocale();
+	let { show = $bindable(), language = $bindable(getLocale()) }: Props = $props();
 
 	const onChange = (event: Event) => {
 		const target = event.target as HTMLInputElement;

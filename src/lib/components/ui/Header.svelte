@@ -4,8 +4,13 @@
 
 	import type { FormatMethodsKeys } from "$lib/format-methods";
 
-	export let header: string;
-	export let link: FormatMethodsKeys | undefined = undefined;
+	type Props = {
+		header: string;
+		link?: FormatMethodsKeys | undefined;
+		children?: import('svelte').Snippet;
+	}
+
+	let { header, link = undefined, children }: Props = $props();
 
 	const formatHeader = (header: string) => {
 		if (header.includes("Playground")) return header;
@@ -28,7 +33,7 @@
 	</h1>
 	<div class="metadata">
 		<div class="wrapper">
-			<slot />
+			{@render children?.()}
 		</div>
 		<MdnLink header={link ?? formatLink(header)} />
 	</div>
@@ -41,6 +46,10 @@
 		align-items: center;
 		flex-wrap: wrap;
 		gap: var(--spacing-2);
+	}
+
+	h1 {
+		outline: none;
 	}
 
 	.wrapper {

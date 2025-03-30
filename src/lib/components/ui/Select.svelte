@@ -9,14 +9,27 @@
 			index: number;
 		};
 	}
-	export let label: string | undefined = undefined;
-	export let name: string;
-	export let placeholder: string | undefined = undefined;
-	export let items: Type[][];
-	export let value: string | number;
-	export let fullWidth: boolean | undefined = undefined;
-	export let removeEmpty: boolean | undefined = undefined;
-	export let onChange: ((event: Event) => void) | undefined = undefined;
+	type Props = {
+		label?: string | undefined;
+		name: string;
+		placeholder?: string | undefined;
+		items: Type[][];
+		value: string | number;
+		fullWidth?: boolean | undefined;
+		removeEmpty?: boolean | undefined;
+		onChange?: ((event: Event) => void) | undefined;
+	}
+
+	let {
+		label = undefined,
+		name,
+		placeholder = undefined,
+		items,
+		value = $bindable(),
+		fullWidth = undefined,
+		removeEmpty = undefined,
+		onChange = undefined
+	}: Props = $props();
 	const getValue = (value: Type) => (value as string | number).toString();
 </script>
 
@@ -25,7 +38,7 @@
 		<label for={name}>{label}</label>
 	{/if}
 	<Spacing size={2} />
-	<select {name} bind:value id={name} on:change={onChange} class:fullWidth>
+	<select {name} bind:value id={name} onchange={onChange} class:fullWidth>
 		{#if !removeEmpty}
 			<option value="">{placeholder ?? "undefined"}</option>
 		{/if}

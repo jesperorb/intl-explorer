@@ -4,7 +4,11 @@
 	import { m } from "$paraglide/messages";
 	import type { VersionValue } from "@mdn/browser-compat-data";
 
-	export let data: Record<string, BrowserReleaseData> | undefined;
+	type Props = {
+		data: Record<string, BrowserReleaseData> | undefined;
+	}
+
+	let { data }: Props = $props();
 
 	const getAriaLabel = (browserName: string, versionAdded: VersionValue): string => {
 		if (!versionAdded) return m.notAvailableInBrowser({ browserName });

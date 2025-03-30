@@ -5,8 +5,12 @@
 	import Highlight from "$ui/Highlight.svelte";
 	import { locales } from "$store/locales";
 
-	export let value: string;
-	export let options: OptionValues;
+	type Props = {
+		value: string;
+		options: OptionValues;
+	}
+
+	let { value, options }: Props = $props();
 
 	let onClick = async (options: OptionValues) => {
 		await copyToClipboard(
@@ -14,7 +18,7 @@
 		);
 	};
 
-	$: output = tryDisplayNames(value, $locales, options as unknown as Intl.DisplayNamesOptions);
+	let output = $derived(tryDisplayNames(value, $locales, options as unknown as Intl.DisplayNamesOptions));
 </script>
 
 <Highlight {onClick} values={options} {output} />

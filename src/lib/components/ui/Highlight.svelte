@@ -9,9 +9,13 @@
 	import type { OptionValues } from '$types/OptionValues.types';
 	import { m } from '$paraglide/messages';
 
-	export let values: OptionValues;
-	export let output: string;
-	export let onClick: (values: OptionValues) => void = () => ({});
+	type Props = {
+		values: OptionValues;
+		output: string;
+		onClick?: (values: OptionValues) => void;
+	}
+
+	let { values, output, onClick = () => ({}) }: Props = $props();
 	let internalOnClick = () => {
 		onClick(values);
 	};

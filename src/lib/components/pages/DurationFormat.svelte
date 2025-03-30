@@ -15,11 +15,15 @@
 	import { m } from "$paraglide/messages";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	}
+
+	let { browserCompatData = undefined }: Props = $props();
 
 	const announce = getAnnouncer();
 
-	let duration: Record<string, string | number> = {
+	let duration: Record<string, string | number> = $state({
 		years: 2,
 		months: 1,
 		weeks: "",
@@ -30,7 +34,7 @@
 		milliseconds: "",
 		microseconds: "",
 		nanoseconds: ""
-	};
+	});
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.DurationFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`;
@@ -63,30 +67,34 @@
 </script>
 
 <PageLayout>
-	<svelte:fragment slot="input">
-		<Spacing />
-		{#each Object.keys(duration) as key}
-			<Input id={key} name={key} label={key} {onInput} value={String(duration[key])} fullWidth />
-		{/each}
-	</svelte:fragment>
-	<Grid slot="output">
-		{#each durationFormatOptionsArray as [option, values], index}
-			<OptionSection
-				header={option}
-				support={browserCompatData?.optionsSupport?.[option]}
-				zIndex={durationFormatOptionsArray.length - index}
-			>
-				{#each values as value}
-					{#if value !== undefined}
-						<Spacing size={1} />
-						<Highlight
-							{onClick}
-							values={{ [option]: value }}
-							output={format({ [option]: value }, duration, $locales)}
-						/>
-					{/if}
-				{/each}
-			</OptionSection>
-		{/each}
-	</Grid>
+	{#snippet input()}
+
+			<Spacing />
+			{#each Object.keys(duration) as key}
+				<Input id={key} name={key} label={key} {onInput} value={String(duration[key])} fullWidth />
+			{/each}
+
+	{/snippet}
+	{#snippet output()}
+		<Grid >
+			{#each durationFormatOptionsArray as [option, values], index}
+				<OptionSection
+					header={option}
+					support={browserCompatData?.optionsSupport?.[option]}
+					zIndex={durationFormatOptionsArray.length - index}
+				>
+					{#each values as value}
+						{#if value !== undefined}
+							<Spacing size={1} />
+							<Highlight
+								{onClick}
+								values={{ [option]: value }}
+								output={format({ [option]: value }, duration, $locales)}
+							/>
+						{/if}
+					{/each}
+				</OptionSection>
+			{/each}
+		</Grid>
+	{/snippet}
 </PageLayout>

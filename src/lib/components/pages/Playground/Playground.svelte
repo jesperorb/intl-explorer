@@ -38,17 +38,21 @@
 	import { testIds } from "$utils/dom-utils";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let data: { [key: string]: BrowserSupportDataForMethod };
+	type Props = {
+		data: { [key: string]: BrowserSupportDataForMethod };
+	}
+
+	let { data }: Props = $props();
 
 	const announce = getAnnouncer();
 
 	const matchMedia = browser ? window.matchMedia("(min-width: 630px)") : null;
-	$: isDesktop = Boolean(matchMedia?.matches);
+	let isDesktop = $derived(Boolean(matchMedia?.matches));
 
-	$: schema = validateAndUpdateSchema(numberFormatSchema);
-	$: browserSupportData = schema
+	let schema = $derived(validateAndUpdateSchema(numberFormatSchema));
+	let browserSupportData = $derived(schema
 		? { ...data[schema.method] }
-		: { optionsSupport: undefined, formattersSupport: undefined };
+		: { optionsSupport: undefined, formattersSupport: undefined });
 
 	onMount(() => {
 		if (getSchemaParam()) {
@@ -149,7 +153,7 @@
 			<Spacing />
 			<Grid>
 				{#if $settings.showBrowserSupport}
-					<BrowserSupport bind:data={browserSupportData} />
+					<BrowserSupport data={browserSupportData} />
 				{/if}
 				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
@@ -173,7 +177,7 @@
 				</div>
 			{/if}
 			<PlaygroundOptions
-				bind:support={browserSupportData.optionsSupport}
+				support={browserSupportData.optionsSupport}
 				{schema}
 				{onChangeOption}
 			/>
@@ -187,7 +191,7 @@
 			{/if}
 			<Spacing />
 			<PlaygroundSecondaryFormatters
-				bind:support={browserSupportData.formattersSupport}
+				support={browserSupportData.formattersSupport}
 				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, $locales)}
 			/>
 		</div>

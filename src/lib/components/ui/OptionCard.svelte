@@ -1,15 +1,28 @@
 <script lang="ts">
-	import type { BrowserCoverage } from "$types/BrowserSupport.types";
 	import SupportLabel from "$ui/BrowserSupport/SupportLabel.svelte";
 	import Card from "$ui/Card.svelte";
 	import Checkbox from "$ui/Checkbox.svelte";
 	import Spacing from "$ui/Spacing.svelte";
 
-	export let option: string;
-	export let support: BrowserCoverage | undefined = undefined;
-	export let hideFullSupport: boolean | undefined = false;
-	export let checked: boolean | undefined = true;
-	export let onChange: (event: Event) => void;
+	import type { BrowserCoverage } from "$types/BrowserSupport.types";
+
+	type Props = {
+		option: string;
+		support?: BrowserCoverage | undefined;
+		hideFullSupport?: boolean | undefined;
+		checked?: boolean | undefined;
+		onChange: (event: Event) => void;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		option,
+		support = undefined,
+		hideFullSupport = false,
+		checked = true,
+		onChange,
+		children
+	}: Props = $props();
 </script>
 
 <Card>
@@ -29,7 +42,7 @@
 	</div>
 	<Spacing size={2} />
 	<div class="content">
-		<slot />
+		{@render children?.()}
 	</div>
 </Card>
 

@@ -2,9 +2,13 @@
 	import Spacing from "$ui/Spacing.svelte";
 	import { m } from "$paraglide/messages";
 
-	export let defaultValue: string;
-	export let onChange: (datetime: string) => void;
-	export let fullWidth: boolean | undefined = undefined;
+	type Props = {
+		defaultValue: string;
+		onChange: (datetime: string) => void;
+		fullWidth?: boolean | undefined;
+	}
+
+	let { defaultValue, onChange, fullWidth = undefined }: Props = $props();
 
 	const [date, time] = defaultValue.split("T");
 
@@ -25,12 +29,12 @@
 	<div class="date">
 		<label for="date">{m.date()}</label>
 		<Spacing size={2} />
-		<input type="date" id="date" on:input={onChangeDate} value={dateString} />
+		<input type="date" id="date" oninput={onChangeDate} value={dateString} />
 	</div>
 	<div class="time">
 		<label for="time">{m.time()}</label>
 		<Spacing size={2} />
-		<input type="time" id="time" on:input={onChangeTime} value={timeString} />
+		<input type="time" id="time" oninput={onChangeTime} value={timeString} />
 	</div>
 </div>
 

@@ -15,9 +15,13 @@
 	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
 
-	export let schema: PlaygroundSchema<"NumberFormat">;
-	export let support: BrowserSupportDataForOptions | undefined;
-	export let onChangeOption: (event: Event) => void;
+	type Props = {
+		schema: PlaygroundSchema<"NumberFormat">;
+		support: BrowserSupportDataForOptions | undefined;
+		onChangeOption: (event: Event) => void;
+	}
+
+	let { schema, support, onChangeOption }: Props = $props();
 </script>
 
 <h2>{m.options()}</h2>
@@ -75,7 +79,9 @@
 						style="z-index: {schema.options.length - index};"
 					>
 						<Details>
-							<p slot="summary">{m.browserDetails()}</p>
+							{#snippet summary()}
+														<p >{m.browserDetails()}</p>
+													{/snippet}
 							<BrowserSupportGrid data={support[option.name]?.support} />
 						</Details>
 					</div>

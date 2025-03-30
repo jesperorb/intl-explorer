@@ -5,7 +5,21 @@
 	import LocalePicker from "$ui/LocalePicker.svelte";
 
 	import { m } from "$paraglide/messages";
-	export let showLocalePicker: boolean = true;
+	type Props = {
+		showLocalePicker?: boolean;
+		input?: import('svelte').Snippet;
+		alternativeUse?: import('svelte').Snippet;
+		alternativeCode?: import('svelte').Snippet;
+		output?: import('svelte').Snippet;
+	}
+
+	let {
+		showLocalePicker = true,
+		input,
+		alternativeUse,
+		alternativeCode,
+		output
+	}: Props = $props();
 </script>
 
 <Card>
@@ -17,19 +31,19 @@
 		{#if showLocalePicker}
 			<LocalePicker />
 		{/if}
-		{#if $$slots.input}
-			<slot name="input" />
+		{#if input}
+			{@render input?.()}
 		{/if}
 	</Grid>
 </Card>
 <Spacing />
-{#if $$slots.alternativeUse}
+{#if alternativeUse}
 	<Card>
 		<h2>{m.alternativeUseHeading()}</h2>
 		<Spacing />
-		<slot name="alternativeUse" />
+		{@render alternativeUse?.()}
 		<Spacing />
-		<slot name="alternativeCode" />
+		{@render alternativeCode?.()}
 	</Card>
 	<Spacing />
 {/if}
@@ -37,4 +51,4 @@
 <Spacing size={2} />
 <hr />
 <Spacing />
-<slot name="output" />
+{@render output?.()}

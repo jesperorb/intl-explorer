@@ -1,8 +1,13 @@
-<script>
+<script lang="ts">
 	import Spacing from "$ui/Spacing.svelte";
+	type Props = {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 
 </script>
-<code><pre><slot /></pre></code>
+<code><pre>{@render children?.()}</pre></code>
 <Spacing size={2} />
 
 <style>

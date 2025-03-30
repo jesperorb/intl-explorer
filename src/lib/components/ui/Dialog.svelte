@@ -1,25 +1,35 @@
 <script lang="ts">
+	import { run, self, createBubbler, stopPropagation } from 'svelte/legacy';
+
+	const bubble = createBubbler();
 	import Spacing from "$ui/Spacing.svelte";
 	import Button from "$ui/Button.svelte";
 	import { m } from "$paraglide/messages";
 
-	export let show: boolean;
-	export let header: string;
+	type Props = {
+		show: boolean;
+		header: string;
+		children?: import('svelte').Snippet;
+	}
 
-	let dialog: HTMLDialogElement;
+	let { show = $bindable(), header, children }: Props = $props();
 
-	$: if (dialog && show) dialog.showModal();
+	let dialog: HTMLDialogElement | undefined = $state();
+
+	run(() => {
+		if (dialog && show) dialog.showModal();
+	});
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-<dialog bind:this={dialog} on:close={() => (show = false)} on:click|self={() => dialog.close()}>
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div on:click|stopPropagation>
-		<!-- svelte-ignore a11y-autofocus -->
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
+<dialog bind:this={dialog} onclose={() => (show = false)} onclick={self(() => dialog?.close())}>
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div onclick={stopPropagation(bubble('click'))}>
+		<!-- svelte-ignore a11y_autofocus -->
 		<h2 tabindex="-1" autofocus>{header}</h2>
 		<Spacing />
-		<slot />
-		<Button onClick={() => dialog.close()}>{m.close()}</Button>
+		{@render children?.()}
+		<Button onClick={() => dialog?.close()}>{m.close()}</Button>
 	</div>
 </dialog>
 

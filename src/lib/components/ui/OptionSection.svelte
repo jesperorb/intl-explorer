@@ -5,11 +5,23 @@
 	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
 	import { testIds } from "$utils/dom-utils";
 
-	export let header: string;
-	export let labelId: string | undefined = undefined;
-	export let support: BrowserSupportForOption | undefined = undefined;
-	export let hideFullSupport: boolean | undefined = true;
-	export let zIndex: number = 1;
+	type Props = {
+		header: string;
+		labelId?: string | undefined;
+		support?: BrowserSupportForOption | undefined;
+		hideFullSupport?: boolean | undefined;
+		zIndex?: number;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		header,
+		labelId = undefined,
+		support = $bindable(undefined),
+		hideFullSupport = true,
+		zIndex = 1,
+		children
+	}: Props = $props();
 </script>
 
 <section data-testid={`${testIds.optionSectionPrefix}${header}`}>
@@ -24,7 +36,7 @@
 		{/if}
 	</div>
 	<Spacing size={2} />
-	<slot />
+	{@render children?.()}
 	<Spacing size={2} />
 </section>
 

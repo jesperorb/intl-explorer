@@ -1,20 +1,32 @@
 <script lang="ts">
 	import ChevronUp from "$ui/icons/ChevronUp.svelte";
 
-	export let open: boolean | undefined = undefined;
-	export let id: string | undefined = undefined;
-	export let fullWidth: boolean | undefined = true;
+	type Props = {
+		open?: boolean | undefined;
+		id?: string | undefined;
+		fullWidth?: boolean | undefined;
+		summary?: import('svelte').Snippet;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		open = undefined,
+		id = undefined,
+		fullWidth = true,
+		summary,
+		children
+	}: Props = $props();
 </script>
 
 <details {open} {id} class:fullWidth>
 	<summary>
 		<span class="summary-title">
-			<slot name="summary" />
+			{@render summary?.()}
 		</span>
 		<div class="summary-icon" aria-hidden="true"><ChevronUp /></div>
 	</summary>
 	<div>
-		<slot />
+		{@render children?.()}
 	</div>
 </details>
 

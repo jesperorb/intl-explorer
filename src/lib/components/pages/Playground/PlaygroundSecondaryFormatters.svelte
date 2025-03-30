@@ -8,8 +8,12 @@
 	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
 
-	export let secondaryFormatters: { name: string; output: string }[];
-	export let support: BrowserSupportDataForOptions | undefined = undefined;
+	type Props = {
+		secondaryFormatters: { name: string; output: string }[];
+		support?: BrowserSupportDataForOptions | undefined;
+	}
+
+	let { secondaryFormatters, support = undefined }: Props = $props();
 </script>
 
 {#if secondaryFormatters.length}

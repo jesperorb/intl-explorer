@@ -15,11 +15,15 @@
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	}
+
+	let { browserCompatData = undefined }: Props = $props();
 
 	const announce = getAnnouncer();
 
-	let list = "Z,a,z,ä,1,=,à";
+	let list = $state("Z,a,z,ä,1,=,à");
 
 	let onClick = async (options: OptionValues) => {
 		const code = `[].sort(new Intl.Collator(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).compare)`;
@@ -31,31 +35,35 @@
 </script>
 
 <PageLayout>
-	<Input slot="input" id="list" fullWidth label={m.list()} bind:value={list} />
-	<Grid slot="output">
-		{#each collatorFormatOptionsArray as [option, values], index}
-			<OptionSection
-				header={option}
-				support={browserCompatData?.optionsSupport?.[option]}
-				zIndex={collatorFormatOptionsArray.length - index}
-			>
-				{#each values as value}
-					{#if value !== undefined}
-						<Spacing size={1} />
-						<Highlight
-							{onClick}
-							values={{ [option]: value }}
-							output={format(
-								{
-									[option]: value
-								},
-								list,
-								$locales
-							)}
-						/>
-					{/if}
-				{/each}
-			</OptionSection>
-		{/each}
-	</Grid>
+	{#snippet input()}
+		<Input  id="list" fullWidth label={m.list()} bind:value={list} />
+	{/snippet}
+	{#snippet output()}
+		<Grid >
+			{#each collatorFormatOptionsArray as [option, values], index}
+				<OptionSection
+					header={option}
+					support={browserCompatData?.optionsSupport?.[option]}
+					zIndex={collatorFormatOptionsArray.length - index}
+				>
+					{#each values as value}
+						{#if value !== undefined}
+							<Spacing size={1} />
+							<Highlight
+								{onClick}
+								values={{ [option]: value }}
+								output={format(
+									{
+										[option]: value
+									},
+									list,
+									$locales
+								)}
+							/>
+						{/if}
+					{/each}
+				</OptionSection>
+			{/each}
+		</Grid>
+	{/snippet}
 </PageLayout>

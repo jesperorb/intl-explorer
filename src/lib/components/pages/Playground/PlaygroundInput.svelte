@@ -11,10 +11,19 @@
 	import { m } from "$paraglide/messages";
 	import LocalePicker from "$ui/LocalePicker.svelte";
 
-	export let schema: PlaygroundSchema<"NumberFormat">;
-	export let onChangeSchema: (event: Event) => void;
-	export let onInput: (event: Event) => void;
-	export let onChangeDate: (datetime: string) => void;
+	type Props = {
+		schema: PlaygroundSchema<"NumberFormat">;
+		onChangeSchema: (event: Event) => void;
+		onInput: (event: Event) => void;
+		onChangeDate: (datetime: string) => void;
+	}
+
+	let {
+		schema,
+		onChangeSchema,
+		onInput,
+		onChangeDate
+	}: Props = $props();
 </script>
 
 <Card>

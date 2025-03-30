@@ -1,7 +1,11 @@
 <script lang="ts">
 	import Token from "./Token.svelte";
 
-	export let locales: string[];
+	type Props = {
+		locales: string[];
+	}
+
+	let { locales }: Props = $props();
 </script>
 
 {#if locales.length === 1}

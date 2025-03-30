@@ -14,6 +14,12 @@
 	import { getLocaleFromParams } from "$utils/get-locale";
 	import RoutingLinks from "./routing-links.svelte";
 
+	type Props = {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
+
 	let route = $derived(page.route.id?.replace("/", ""))
   let isHomePage = $derived(page.route.id === "/");
 	$effect(() => {
@@ -53,19 +59,18 @@
 	{/if}
 </svelte:head>
 
-<RoutingLinks />
-
 <LiveAnnouncer>
+	<RoutingLinks />
 	<SkipLink />
 	<Navigation />
-	<Main bind:center={isHomePage}>
+	<Main center={isHomePage}>
 		{#if navigating}
 			<ProgressBar />
 		{/if}
 		{#if route && route !== "Playground"}
 			<Header header={route} />
 		{/if}
-		<slot />
+		{@render children?.()}
 	</Main>
 </LiveAnnouncer>
 

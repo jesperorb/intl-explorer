@@ -21,11 +21,15 @@
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	}
+
+	let { browserCompatData = undefined }: Props = $props();
 
 	const announce = getAnnouncer();
 
-	let dateTimeString = "2022-04-24T19:00";
+	let dateTimeString = $state("2022-04-24T19:00");
 
 	const onChange = (dateTime: string) => {
 		dateTimeString = dateTime;
@@ -44,45 +48,53 @@
 </script>
 
 <PageLayout>
-	<DateTime fullWidth slot="input" defaultValue={dateTimeString} {onChange} />
-	<div slot="alternativeUse">
-		{m.alternativeUseIngress({ method: "Intl.DateTimeFormat" })}
-		<strong
-			><a
-				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString"
-				target="_blank"
-				rel="noopener noreferrer">Date.prototype.toLocaleString()</a
-			></strong
-		>
-	</div>
-	<CodeBlock slot="alternativeCode">
-		<Token v="new" t="punctuation" />
-		<Token v="Date" t="class" />{"("}<Token v={`"${dateTimeString}"`} t="string" />{")"}
-		.<Token v="toLocaleString" t="function" />{"("}<HighlightLocale
-			locales={$locales}
-		/>{")"}{"\n"}<Token v="// " ariaHidden noTrim t="comment" /><Token
-			v={`${tryFormat(() => new Date(dateTimeString).toLocaleString($locales))}`}
-			t="comment"
-		/>
-	</CodeBlock>
-	<Grid slot="output">
-		{#each dateTimeFormatOptionsArray as [option, values], index}
-			<OptionSection
-				header={option}
-				support={browserCompatData?.optionsSupport?.[option]}
-				zIndex={dateTimeFormatOptionsArray.length - index}
+	{#snippet input()}
+		<DateTime fullWidth  defaultValue={dateTimeString} {onChange} />
+	{/snippet}
+	{#snippet alternativeUse()}
+		<div >
+			{m.alternativeUseIngress({ method: "Intl.DateTimeFormat" })}
+			<strong
+				><a
+					href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString"
+					target="_blank"
+					rel="noopener noreferrer">Date.prototype.toLocaleString()</a
+				></strong
 			>
-				{#each values as value}
-					{#if value !== undefined}
-						<Spacing size={1} />
-						<Highlight
-							{onClick}
-							values={{ [option]: value }}
-							output={format(getDateTimeFormatOptions(option, value), dateTimeString, $locales)}
-						/>
-					{/if}
-				{/each}
-			</OptionSection>
-		{/each}
-	</Grid>
+		</div>
+	{/snippet}
+	{#snippet alternativeCode()}
+		<CodeBlock >
+			<Token v="new" t="punctuation" />
+			<Token v="Date" t="class" />{"("}<Token v={`"${dateTimeString}"`} t="string" />{")"}
+			.<Token v="toLocaleString" t="function" />{"("}<HighlightLocale
+				locales={$locales}
+			/>{")"}{"\n"}<Token v="// " ariaHidden noTrim t="comment" /><Token
+				v={`${tryFormat(() => new Date(dateTimeString).toLocaleString($locales))}`}
+				t="comment"
+			/>
+		</CodeBlock>
+	{/snippet}
+	{#snippet output()}
+		<Grid >
+			{#each dateTimeFormatOptionsArray as [option, values], index}
+				<OptionSection
+					header={option}
+					support={browserCompatData?.optionsSupport?.[option]}
+					zIndex={dateTimeFormatOptionsArray.length - index}
+				>
+					{#each values as value}
+						{#if value !== undefined}
+							<Spacing size={1} />
+							<Highlight
+								{onClick}
+								values={{ [option]: value }}
+								output={format(getDateTimeFormatOptions(option, value), dateTimeString, $locales)}
+							/>
+						{/if}
+					{/each}
+				</OptionSection>
+			{/each}
+		</Grid>
+	{/snippet}
 </PageLayout>

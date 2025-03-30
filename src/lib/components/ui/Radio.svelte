@@ -1,15 +1,27 @@
 <script lang="ts">
-	export let name: string;
-	export let id: string | undefined = undefined;
-	export let value: string;
-	export let checked: boolean | undefined = undefined;
-	export let label: string;
-	export let group: string | boolean | number | undefined = undefined;
-	export let onChange: ((event: Event) => void) | undefined = undefined;
+	type Props = {
+		name: string;
+		id?: string | undefined;
+		value: string;
+		checked?: boolean | undefined;
+		label: string;
+		group?: string | boolean | number | undefined;
+		onChange?: ((event: Event) => void) | undefined;
+	}
+
+	let {
+		name,
+		id = undefined,
+		value,
+		checked = undefined,
+		label,
+		group = $bindable(undefined),
+		onChange = undefined
+	}: Props = $props();
 </script>
 
 <label>
-	<input type="radio" on:input={onChange} {name} {id} {checked} {value} bind:group />
+	<input type="radio" oninput={onChange} {name} {id} {checked} {value} bind:group={group} />
 	{label}
 </label>
 

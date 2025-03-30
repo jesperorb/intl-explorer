@@ -15,9 +15,13 @@
 	import { m } from "$paraglide/messages";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | undefined = undefined;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	}
 
-	let type: Intl.PluralRuleType = "cardinal";
+	let { browserCompatData = undefined }: Props = $props();
+
+	let type: Intl.PluralRuleType = $state("cardinal");
 	const announce = getAnnouncer();
 
 	let onClick = async (options: OptionValues) => {
@@ -32,92 +36,96 @@
 </script>
 
 <PageLayout>
-	<svelte:fragment slot="input">
-		<Fieldset legend="type">
-			<Radio label="cardinal" id="typeCardinal" name="type" bind:group={type} value="cardinal" />
-			<Radio label="ordinal" id="typeOrdinal" name="type" bind:group={type} value="ordinal" />
-		</Fieldset>
-	</svelte:fragment>
-	<Grid slot="output">
-		<OptionSection header={type} support={browserCompatData?.optionsSupport?.[type]} zIndex={2}>
-			<Spacing size={1} />
-			<Highlight
-				{onClick}
-				values={{
-					value: 1,
-					type
-				}}
-				output={format(
-					{
+	{#snippet input()}
+
+			<Fieldset legend="type">
+				<Radio label="cardinal" id="typeCardinal" name="type" bind:group={type} value="cardinal" />
+				<Radio label="ordinal" id="typeOrdinal" name="type" bind:group={type} value="ordinal" />
+			</Fieldset>
+
+	{/snippet}
+	{#snippet output()}
+		<Grid >
+			<OptionSection header={type} support={browserCompatData?.optionsSupport?.[type]} zIndex={2}>
+				<Spacing size={1} />
+				<Highlight
+					{onClick}
+					values={{
+						value: 1,
 						type
-					},
-					1,
-					$locales
-				)}
-			/>
-			<Highlight
-				{onClick}
-				values={{
-					value: 2,
-					type
-				}}
-				output={format(
-					{
+					}}
+					output={format(
+						{
+							type
+						},
+						1,
+						$locales
+					)}
+				/>
+				<Highlight
+					{onClick}
+					values={{
+						value: 2,
 						type
-					},
-					2,
-					$locales
-				)}
-			/>
-			<Highlight
-				{onClick}
-				values={{
-					value: 20,
-					type
-				}}
-				output={format(
-					{
+					}}
+					output={format(
+						{
+							type
+						},
+						2,
+						$locales
+					)}
+				/>
+				<Highlight
+					{onClick}
+					values={{
+						value: 20,
 						type
-					},
-					20,
-					$locales
-				)}
-			/>
-		</OptionSection>
-		<OptionSection header={"localeMatcher"} zIndex={1}>
-			<Spacing size={1} />
-			<Highlight
-				{onClick}
-				values={{
-					value: 1,
-					type,
-					localeMatcher: "best fit"
-				}}
-				output={format(
-					{
+					}}
+					output={format(
+						{
+							type
+						},
+						20,
+						$locales
+					)}
+				/>
+			</OptionSection>
+			<OptionSection header={"localeMatcher"} zIndex={1}>
+				<Spacing size={1} />
+				<Highlight
+					{onClick}
+					values={{
+						value: 1,
 						type,
 						localeMatcher: "best fit"
-					},
-					1,
-					$locales
-				)}
-			/>
-			<Highlight
-				{onClick}
-				values={{
-					value: 2,
-					type,
-					localeMatcher: "lookup"
-				}}
-				output={format(
-					{
+					}}
+					output={format(
+						{
+							type,
+							localeMatcher: "best fit"
+						},
+						1,
+						$locales
+					)}
+				/>
+				<Highlight
+					{onClick}
+					values={{
+						value: 2,
 						type,
 						localeMatcher: "lookup"
-					},
-					2,
-					$locales
-				)}
-			/>
-		</OptionSection>
-	</Grid>
+					}}
+					output={format(
+						{
+							type,
+							localeMatcher: "lookup"
+						},
+						2,
+						$locales
+					)}
+				/>
+			</OptionSection>
+		</Grid>
+	{/snippet}
 </PageLayout>

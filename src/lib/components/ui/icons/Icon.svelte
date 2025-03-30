@@ -8,7 +8,11 @@
 	import Opera from "$ui/icons/Opera.svelte";
 	import Safari from "$ui/icons/Safari.svelte";
 	import Samsung from "$ui/icons/Samsung.svelte";
-	export let browserName: string;
+	type Props = {
+		browserName: string;
+	}
+
+	let { browserName }: Props = $props();
 </script>
 
 {#if browserName.includes("chrome")}

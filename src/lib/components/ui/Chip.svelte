@@ -3,8 +3,12 @@
 
 	import { m } from "$paraglide/messages";
 
-	export let label: string;
-	export let onDelete: (() => void) | undefined = undefined;
+	type Props = {
+		label: string;
+		onDelete?: (() => void) | undefined;
+	}
+
+	let { label, onDelete = undefined }: Props = $props();
 </script>
 
 <div class="chip">
@@ -13,7 +17,7 @@
 		<button
 			type="button"
 			class="delete"
-			on:click={onDelete}
+			onclick={onDelete}
 			aria-label={m.remove({ value: label })}
 		>
 			<Times />

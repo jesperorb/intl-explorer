@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	export interface Option {
 		label: string;
 		value: string;
@@ -17,12 +17,23 @@
 
 	import { m } from "$paraglide/messages";
 
-	export let options: Option[];
-	export let labelText: string;
-	export let placeholder: string;
-	export let defaultValue: Option[] | undefined = undefined;
-	export let onSelect: (values?: Option[]) => void;
-	export let onDelete: (value: string) => void;
+	type Props = {
+		options: Option[];
+		labelText: string;
+		placeholder: string;
+		defaultValue?: Option[] | undefined;
+		onSelect: (values?: Option[]) => void;
+		onDelete: (value: string) => void;
+	}
+
+	let {
+		options,
+		labelText,
+		placeholder,
+		defaultValue = undefined,
+		onSelect,
+		onDelete
+	}: Props = $props();
 
 	const {
 		elements: { menu, input, option, label },
@@ -57,11 +68,11 @@
 		onDelete(itemToDelete);
 	};
 
-	$: output = getOutput(options, $inputValue, $touchedInput);
+	let output = $derived(getOutput(options, $inputValue, $touchedInput));
 </script>
 
 <div class="wrapper">
-	<!-- svelte-ignore a11y-label-has-associated-control -->
+	<!-- svelte-ignore a11y_label_has_associated_control -->
 	<label use:melt={$label} class="label">
 		<span>{labelText}</span>
 	</label>
@@ -88,7 +99,7 @@
 
 {#if $open}
 	<ul use:melt={$menu} transition:fly={{ duration: 150, y: -5 }}>
-		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<div tabindex="0">
 			{#each output as renderOption}
 				<li

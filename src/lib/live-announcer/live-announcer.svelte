@@ -11,6 +11,13 @@
 	} from "./constants";
 
 	import LiveAnnouncerRegion from "./live-announcer-region.svelte";
+	import SrOnly from "$ui/SrOnly.svelte";
+
+	type Props = {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	const announce: AnnounceFunction = (message: string, options = defaultAnnounceOptions) => {
 		const elementId =
@@ -29,5 +36,7 @@
 
 </script>
 
-<LiveAnnouncerRegion />
-<slot />
+<SrOnly>
+	<LiveAnnouncerRegion />
+</SrOnly>
+{@render children?.()}

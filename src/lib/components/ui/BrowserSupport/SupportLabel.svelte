@@ -2,8 +2,12 @@
 	import { m } from "$paraglide/messages";
 	import type { BrowserCoverage } from "$types/BrowserSupport.types";
 
-	export let support: BrowserCoverage | undefined = undefined;
-	export let hideFullSupport: boolean | undefined = false;
+	type Props = {
+		support?: BrowserCoverage | undefined;
+		hideFullSupport?: boolean | undefined;
+	}
+
+	let { support = undefined, hideFullSupport = false }: Props = $props();
 </script>
 
 <p class={support === "full" && hideFullSupport ? "" : support}>

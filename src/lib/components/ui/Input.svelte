@@ -1,15 +1,29 @@
 <script lang="ts">
 	import Spacing from "$ui/Spacing.svelte";
 
-	export let label: string | undefined = undefined;
-	export let value: string | number;
-	export let id: string;
-	export let name: string | undefined = undefined;
-	export let fullWidth: boolean | undefined = undefined;
-	export let onInput: ((event: Event) => void) | undefined = undefined;
-	export let pattern: string | undefined = undefined;
-	export let max: number | undefined = undefined;
-	export let min: number | undefined = undefined;
+	type Props = {
+		label?: string | undefined;
+		value: string | number;
+		id: string;
+		name?: string | undefined;
+		fullWidth?: boolean | undefined;
+		onInput?: ((event: Event) => void) | undefined;
+		pattern?: string | undefined;
+		max?: number | undefined;
+		min?: number | undefined;
+	}
+
+	let {
+		label = undefined,
+		value = $bindable(),
+		id,
+		name = undefined,
+		fullWidth = undefined,
+		onInput = undefined,
+		pattern = undefined,
+		max = undefined,
+		min = undefined
+	}: Props = $props();
 </script>
 
 <div class:fullWidth>
@@ -23,7 +37,7 @@
 			{max}
 			{min}
 			type="text"
-			on:input={onInput}
+			oninput={onInput}
 			{value}
 			{id}
 			class:fullWidth

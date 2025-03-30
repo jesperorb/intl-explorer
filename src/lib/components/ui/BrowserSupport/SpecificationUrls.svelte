@@ -2,7 +2,11 @@
 	import { m } from "$paraglide/messages";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { getSpecUrls } from "$utils/browser-support";
-	export let data: BrowserSupportDataForMethod | null;
+	type Props = {
+		data: BrowserSupportDataForMethod | null;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <div>
