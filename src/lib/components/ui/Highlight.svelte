@@ -7,14 +7,15 @@
 	import CopyToClipboard from '$ui/icons/CopyToClipboard.svelte';
 
 	import type { OptionValues } from '$types/OptionValues.types';
+	import { m } from '$paraglide/messages';
 
-	import { getMessages } from '$i18n/util';
+	type Props = {
+		values: OptionValues;
+		output: string;
+		onClick?: (values: OptionValues) => void;
+	}
 
-	const m = getMessages();
-
-	export let values: OptionValues;
-	export let output: string;
-	export let onClick: (values: OptionValues) => void = () => ({});
+	let { values, output, onClick = () => ({}) }: Props = $props();
 	let internalOnClick = () => {
 		onClick(values);
 	};

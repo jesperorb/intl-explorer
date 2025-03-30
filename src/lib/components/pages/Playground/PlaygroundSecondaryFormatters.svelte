@@ -5,12 +5,15 @@
 	import OptionSection from "$ui/OptionSection.svelte";
 	import type { BrowserSupportDataForOptions } from "$types/BrowserSupport.types";
 	import Card from "$ui/Card.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
 
-	export let secondaryFormatters: { name: string; output: string }[];
-	export let support: BrowserSupportDataForOptions | undefined = undefined;
-	const m = getMessages();
+	type Props = {
+		secondaryFormatters: { name: string; output: string }[];
+		support?: BrowserSupportDataForOptions | undefined;
+	};
+
+	let { secondaryFormatters, support = undefined }: Props = $props();
 </script>
 
 {#if secondaryFormatters.length}

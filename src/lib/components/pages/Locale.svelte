@@ -5,14 +5,18 @@
 	import HighlightValue from "$ui/HighlightValue.svelte";
 	import OptionSection from "$ui/OptionSection.svelte";
 	import PageLayout from "$pages/PageLayout.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	};
+
+	let { browserCompatData = undefined }: Props = $props();
 
 	const fallback = "ja-Jpan-JP-u-ca-japanese-hc-h12-kf-upper";
 
-	let locale = fallback;
+	let locale = $state(fallback);
 
 	const getIntl = (language: string) => {
 		try {
@@ -22,9 +26,7 @@
 		}
 	};
 
-	$: intl = getIntl(locale);
-
-	const m = getMessages();
+	let intl = $derived(getIntl(locale));
 
 	const properties: (keyof Intl.LocaleOptions)[] = [
 		"baseName",
@@ -41,21 +43,25 @@
 </script>
 
 <PageLayout showLocalePicker={false}>
-	<Input id="locale" label={m.locale()} slot="input" bind:value={locale} fullWidth />
-	<Grid slot="output">
-		{#if intl}
-			{#each properties as property, index}
-				<OptionSection
-					header={property}
-					support={browserCompatData?.propertiesSupport?.[property]}
-					zIndex={properties.length - index}
-					hideFullSupport
-				>
-					<CodeBlock>
-						<HighlightValue value={intl[property] ?? m.noValue()} />
-					</CodeBlock>
-				</OptionSection>
-			{/each}
-		{/if}
-	</Grid>
+	{#snippet input()}
+		<Input id="locale" label={m.locale()} bind:value={locale} fullWidth />
+	{/snippet}
+	{#snippet output()}
+		<Grid>
+			{#if intl}
+				{#each properties as property, index}
+					<OptionSection
+						header={property}
+						support={browserCompatData?.propertiesSupport?.[property]}
+						zIndex={properties.length - index}
+						hideFullSupport
+					>
+						<CodeBlock>
+							<HighlightValue value={intl[property] ?? m.noValue()} />
+						</CodeBlock>
+					</OptionSection>
+				{/each}
+			{/if}
+		</Grid>
+	{/snippet}
 </PageLayout>

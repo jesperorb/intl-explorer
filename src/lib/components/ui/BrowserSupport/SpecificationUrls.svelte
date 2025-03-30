@@ -1,9 +1,12 @@
 <script lang="ts">
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { getSpecUrls } from "$utils/browser-support";
-	export let data: BrowserSupportDataForMethod | null;
-	const m = getMessages();
+	type Props = {
+		data: BrowserSupportDataForMethod | null;
+	};
+
+	let { data }: Props = $props();
 </script>
 
 <div>

@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let t: 'punctuation'
+	type Props = {
+		t?: 'punctuation'
 		| 'comment'
 		| 'operator'
 		| 'key'
@@ -7,11 +8,20 @@
 		| 'boolean'
 		| 'number'
 		| 'string'
-		| 'class' = 'key';
-	export let noWrap: boolean = false
-	export let v: string;
-	export let ariaHidden: boolean = false;
-	export let noTrim: boolean = false;
+		| 'class';
+		noWrap?: boolean;
+		v: string;
+		ariaHidden?: boolean;
+		noTrim?: boolean;
+	}
+
+	let {
+		t = 'key',
+		noWrap = false,
+		v,
+		ariaHidden = false,
+		noTrim = false
+	}: Props = $props();
 </script>
 <span aria-hidden="{ariaHidden}" class="token {t}" class:noWrap={noWrap}>{noTrim ? v : v.toString().trim()}</span>
 <style>
@@ -52,5 +62,5 @@
 	.token.class {
 		color: var(--code-class);
 	}
-	
+
 </style>

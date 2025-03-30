@@ -1,56 +1,52 @@
 <script lang="ts">
-	import type { Page } from "@sveltejs/kit";
 	import { dev, browser } from "$app/environment";
-	import type { FormatMethodsKeys } from "$lib/format-methods";
-	import { page, navigating } from "$app/stores";
-	import Provider from "$i18n/Provider.svelte";
+	import { page, navigating } from "$app/state";
 
 	import Navigation from "$ui/Navigation.svelte";
 	import Main from "$ui/Main.svelte";
 	import SkipLink from "$ui/SkipLink.svelte";
 	import ProgressBar from "$ui/ProgressBar.svelte";
 	import Header from "$ui/Header.svelte";
-	import { getLocaleFromParams } from "$utils/get-locale";
+
 	import { locales } from "$store/locales";
 	import { description, tags, title, imageUrl, author } from "$lib/constants";
-	import {
-		liveAnnouncerRegionIdAssertive,
-		liveAnnouncerRegionIdPolite
-	} from "$lib/live-announcer/constants";
 	import LiveAnnouncer from "$lib/live-announcer/live-announcer.svelte";
+	import { getLocaleFromParams } from "$utils/get-locale";
 
-	let routeId: FormatMethodsKeys | "Playground" | "/";
-	$: isHomePage = false;
-	const getRouteId = (page: Page<Record<string, string>>): void => {
-		isHomePage = page.route.id === "/";
-		routeId = page.route.id?.replace("/", "") as FormatMethodsKeys;
+	type Props = {
+		children?: import("svelte").Snippet;
+	};
+
+	let { children }: Props = $props();
+
+	let route = $derived(page.route.id?.replace("/", ""));
+	let isHomePage = $derived(page.route.id === "/");
+	$effect(() => {
+		locales.set(getLocaleFromParams());
+	});
+	$effect(() => {
 		if (browser) {
 			document.querySelector("h1")?.setAttribute("tabIndex", "-1");
 			document.querySelector("h1")?.focus();
 		}
-	};
-	const getLocale = (page: Page<Record<string, string>>) => {
-		locales.set(getLocaleFromParams(page));
-	};
-	$: getRouteId($page);
-	$: getLocale($page);
+	});
 </script>
 
 <svelte:head>
-	<title>{routeId ?? title}</title>
+	<title>{route ?? title}</title>
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content={author} />
 	<meta name="keywords" content={tags.join(", ")} />
 	<meta name="description" content={description} />
 	<meta property="og:description" content={description} />
 	<meta property="og:site_name" content={title} />
-	<meta property="og:url" content={$page.url.host} />
+	<meta property="og:url" content={page.url.host} />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={title} />
 	<meta property="og:image" content={imageUrl} />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta property="twitter:domain" content={$page.url.host} />
-	<meta property="twitter:url" content={$page.url.host} />
+	<meta property="twitter:domain" content={page.url.host} />
+	<meta property="twitter:url" content={page.url.host} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
 	{#if !dev}
@@ -62,31 +58,25 @@
 	{/if}
 </svelte:head>
 
-<div id={liveAnnouncerRegionIdPolite} aria-live="polite"></div>
-<div id={liveAnnouncerRegionIdAssertive} aria-live="assertive"></div>
-
 <LiveAnnouncer>
-	<Provider>
-		<SkipLink />
-
-		<Navigation />
-
-		<Main bind:center={isHomePage}>
-			{#if $navigating}
-				<ProgressBar />
-			{/if}
-			{#if routeId && routeId !== "Playground"}
-				<Header header={routeId} />
-			{/if}
-			<slot />
-		</Main>
-	</Provider>
+	<SkipLink />
+	<Navigation />
+	<Main center={isHomePage}>
+		{#if navigating.to}
+			<ProgressBar />
+		{/if}
+		{#if route && route !== "Playground"}
+			<Header header={route} />
+		{/if}
+		{@render children?.()}
+	</Main>
 </LiveAnnouncer>
 
 <!-- Ignore -->
 <style global>
 	:root {
-		--font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+		--font-family:
+			system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
 			"Segoe UI Emoji", "Segoe UI Symbol";
 		--code-font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 

@@ -6,22 +6,45 @@
 		MouseEventHandler
 	} from "svelte/elements";
 
-	export let onClick: MouseEventHandler<HTMLButtonElement> | undefined = undefined;
-	export let onKeyDown: KeyboardEventHandler<HTMLButtonElement> | undefined = undefined;
-	export let id: HTMLButtonAttributes["id"] | undefined = undefined;
-	export let type: HTMLButtonAttributes["type"] | undefined = undefined;
-	export let ariaLabel: AriaAttributes["aria-label"] = undefined;
-	export let ariaControls: AriaAttributes["aria-controls"] = undefined;
-	export let ariaExpanded: AriaAttributes["aria-expanded"] = undefined;
-	export let ref: HTMLButtonElement | undefined = undefined;
-	export let textTransform: "uppercase" | undefined = undefined;
-	export let href: string | undefined = undefined;
-	export let hrefLang: string | undefined = undefined;
-	export let noBackground: boolean | undefined = undefined;
-	export let bold: boolean | undefined = undefined;
-	export let title: string | undefined = undefined;
-	export let disabled: boolean | null | undefined = undefined;
-	export let testId: string | undefined = undefined;
+	type Props = {
+		onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+		onKeyDown?: KeyboardEventHandler<HTMLButtonElement> | undefined;
+		id?: HTMLButtonAttributes["id"] | undefined;
+		type?: HTMLButtonAttributes["type"] | undefined;
+		ariaLabel?: AriaAttributes["aria-label"];
+		ariaControls?: AriaAttributes["aria-controls"];
+		ariaExpanded?: AriaAttributes["aria-expanded"];
+		ref?: HTMLButtonElement | undefined;
+		textTransform?: "uppercase" | undefined;
+		href?: string | undefined;
+		hrefLang?: string | undefined;
+		noBackground?: boolean | undefined;
+		bold?: boolean | undefined;
+		title?: string | undefined;
+		disabled?: boolean | null | undefined;
+		testId?: string | undefined;
+		children?: import("svelte").Snippet;
+	};
+
+	let {
+		onClick = undefined,
+		onKeyDown = undefined,
+		id = undefined,
+		type = undefined,
+		ariaLabel = undefined,
+		ariaControls = undefined,
+		ariaExpanded = undefined,
+		ref = $bindable(undefined),
+		textTransform = undefined,
+		href = undefined,
+		hrefLang = undefined,
+		noBackground = undefined,
+		bold = undefined,
+		title = undefined,
+		disabled = undefined,
+		testId = undefined,
+		children
+	}: Props = $props();
 </script>
 
 {#if href}
@@ -36,11 +59,11 @@
 		data-testid={testId}
 		hreflang={hrefLang}
 	>
-		<slot />
+		{@render children?.()}
 	</a>
 {:else}
 	<button
-		on:click={onClick}
+		onclick={onClick}
 		{id}
 		{type}
 		{title}
@@ -53,10 +76,10 @@
 		class:no-background={noBackground}
 		class:bold
 		data-testid={testId}
-		on:keydown={onKeyDown}
+		onkeydown={onKeyDown}
 		bind:this={ref}
 	>
-		<slot />
+		{@render children?.()}
 	</button>
 {/if}
 

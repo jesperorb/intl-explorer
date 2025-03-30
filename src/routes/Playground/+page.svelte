@@ -7,8 +7,11 @@
 	import Playground from "$pages/Playground/Playground.svelte";
 
 	import { settings } from "$store/settings";
+	import { loadJson } from "$utils/load-json";
 
-	export let data: Record<string, BrowserSupportDataForMethod>;
+	let browserSupport = $settings.showBrowserSupport
+		? loadJson<{ [key: string]: BrowserSupportDataForMethod }>("Playground")
+		: Promise.resolve(undefined);
 </script>
 
 <svelte:head>
@@ -19,4 +22,10 @@
 	{/if}
 </svelte:head>
 
-<Playground {data} />
+{#await browserSupport}
+	<Playground data={{}} />
+{:then data}
+	{#if data}
+		<Playground {data} />
+	{/if}
+{/await}

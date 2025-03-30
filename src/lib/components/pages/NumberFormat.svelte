@@ -17,16 +17,19 @@
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { locales } from "$store/locales";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	};
 
-	const m = getMessages();
+	let { browserCompatData = undefined }: Props = $props();
+
 	const announce = getAnnouncer();
 
-	let number = 123456.789;
+	let number = $state(123456.789);
 
 	const options = Object.entries({ ...numberFormatOptionsUnit, ...numberFormatOptionsCommon })
 		.filter(([o]) => o !== "unit")
@@ -45,59 +48,67 @@
 </script>
 
 <PageLayout>
-	<Input slot="input" fullWidth id="amount" label={m.amount()} bind:value={number} />
-	<div slot="alternativeUse">
-		{m.alternativeUseIngress({ method: "Intl.NumberFormat" })}
-		<strong
-			><a
-				href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"
-				target="_blank"
-				rel="noopener noreferrer">Number.prototype.toLocaleString()</a
-			></strong
-		>
-	</div>
-	<CodeBlock slot="alternativeCode"
-		><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token
-			t="number"
-			v={`${number}`}
-		/><br /><Token v="number" /><Token v=".toLocaleString" t="function" /><Token
-			v="("
-		/><HighlightLocale locales={$locales} /><Token v=")" /><br /><Token
-			v="// "
-			ariaHidden
-			noTrim
-			t="comment"
-		/><Token
-			v={tryFormat(() => new Intl.NumberFormat($locales).format(number))}
-			t="comment"
-		/></CodeBlock
-	>
-	<Grid slot="output">
-		{#each options as [option, values], index}
-			<OptionSection
-				header={option}
-				support={browserCompatData?.optionsSupport?.[option]}
-				zIndex={options.length - index}
+	{#snippet input()}
+		<Input fullWidth id="amount" label={m.amount()} bind:value={number} />
+	{/snippet}
+	{#snippet alternativeUse()}
+		<div>
+			{m.alternativeUseIngress({ method: "Intl.NumberFormat" })}
+			<strong
+				><a
+					href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"
+					target="_blank"
+					rel="noopener noreferrer">Number.prototype.toLocaleString()</a
+				></strong
 			>
-				{#each values as value}
-					{#if value !== undefined}
-						<Spacing size={1} />
-						<Highlight
-							{onClick}
-							values={{
-								[option]: value
-							}}
-							output={format(
-								{
+		</div>
+	{/snippet}
+	{#snippet alternativeCode()}
+		<CodeBlock
+			><Token noTrim v="const " t="punctuation" /><Token noTrim v="number = " /><Token
+				t="number"
+				v={`${number}`}
+			/><br /><Token v="number" /><Token v=".toLocaleString" t="function" /><Token
+				v="("
+			/><HighlightLocale locales={$locales} /><Token v=")" /><br /><Token
+				v="// "
+				ariaHidden
+				noTrim
+				t="comment"
+			/><Token
+				v={tryFormat(() => new Intl.NumberFormat($locales).format(number))}
+				t="comment"
+			/></CodeBlock
+		>
+	{/snippet}
+	{#snippet output()}
+		<Grid>
+			{#each options as [option, values], index}
+				<OptionSection
+					header={option}
+					support={browserCompatData?.optionsSupport?.[option]}
+					zIndex={options.length - index}
+				>
+					{#each values as value}
+						{#if value !== undefined}
+							<Spacing size={1} />
+							<Highlight
+								{onClick}
+								values={{
 									[option]: value
-								},
-								number,
-								$locales
-							)}
-						/>
-					{/if}
-				{/each}
-			</OptionSection>
-		{/each}
-	</Grid>
+								}}
+								output={format(
+									{
+										[option]: value
+									},
+									number,
+									$locales
+								)}
+							/>
+						{/if}
+					{/each}
+				</OptionSection>
+			{/each}
+		</Grid>
+	{/snippet}
 </PageLayout>

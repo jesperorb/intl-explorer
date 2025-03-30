@@ -3,13 +3,25 @@
 	import type { ChangeFn } from "@melt-ui/svelte/internal/helpers";
 	import Spacing from "./Spacing.svelte";
 
-	export let defaultValue: number | undefined = undefined;
-	export let min: number | undefined = undefined;
-	export let max: number | undefined = undefined;
-	export let step: number | undefined = undefined;
-	export let onValueChange: ((value: number[]) => void) | undefined = undefined;
-	export let label: string;
-	export let id: string;
+	type Props = {
+		defaultValue?: number | undefined;
+		min?: number | undefined;
+		max?: number | undefined;
+		step?: number | undefined;
+		onValueChange?: ((value: number[]) => void) | undefined;
+		label: string;
+		id: string;
+	};
+
+	let {
+		defaultValue = undefined,
+		min = undefined,
+		max = undefined,
+		step = undefined,
+		onValueChange = undefined,
+		label,
+		id
+	}: Props = $props();
 
 	const internalValueChange: ChangeFn<number[]> = (value) => {
 		if (onValueChange) {
@@ -36,7 +48,7 @@
 		<div class="range">
 			<div use:melt={$range}></div>
 		</div>
-		<div use:melt={$thumbs[0]} {id} class="thumb" ></div>
+		<div use:melt={$thumbs[0]} {id} class="thumb"></div>
 	</div>
 </div>
 

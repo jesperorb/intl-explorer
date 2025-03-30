@@ -1,13 +1,24 @@
 <script lang="ts">
-	export let legend: string;
-	export let role: string | undefined = undefined;
-	export let name: string | undefined = undefined;
-	export let capitalize: boolean = false;
+	type Props = {
+		legend: string;
+		role?: string | undefined;
+		name?: string | undefined;
+		capitalize?: boolean;
+		children?: import("svelte").Snippet;
+	};
+
+	let {
+		legend,
+		role = undefined,
+		name = undefined,
+		capitalize = false,
+		children
+	}: Props = $props();
 </script>
 
 <fieldset {role} {name}>
 	<legend class:capitalize>{legend}</legend>
-	<slot />
+	{@render children?.()}
 </fieldset>
 
 <style>

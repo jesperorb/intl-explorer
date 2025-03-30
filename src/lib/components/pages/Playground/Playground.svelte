@@ -32,24 +32,29 @@
 	import { trackEvent } from "$utils/analytics";
 	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
 	import Grid from "$ui/Grid.svelte";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { settings } from "$store/settings";
 	import { locales } from "$store/locales";
 	import { testIds } from "$utils/dom-utils";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let data: { [key: string]: BrowserSupportDataForMethod };
+	type Props = {
+		data: { [key: string]: BrowserSupportDataForMethod };
+	};
 
-	const m = getMessages();
+	let { data }: Props = $props();
+
 	const announce = getAnnouncer();
 
 	const matchMedia = browser ? window.matchMedia("(min-width: 630px)") : null;
-	$: isDesktop = Boolean(matchMedia?.matches);
+	let isDesktop = $derived(matchMedia ? Boolean(matchMedia.matches) : true);
 
-	$: schema = validateAndUpdateSchema(numberFormatSchema);
-	$: browserSupportData = schema
-		? { ...data[schema.method] }
-		: { optionsSupport: undefined, formattersSupport: undefined };
+	let schema = $derived(validateAndUpdateSchema(numberFormatSchema));
+	let browserSupportData = $derived(
+		schema
+			? { ...data[schema.method] }
+			: { optionsSupport: undefined, formattersSupport: undefined }
+	);
 
 	onMount(() => {
 		if (getSchemaParam()) {
@@ -63,7 +68,7 @@
 	const onChangeOption = (event: Event) => {
 		if (!schema) return;
 		schema = validateAndUpdateSchema(updateOptionOnSchema(schema, event));
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
@@ -82,7 +87,7 @@
 		if (schema?.inputValueType === "string") {
 			schema.inputValues[0] = value;
 		}
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
@@ -92,7 +97,7 @@
 		if (schema?.inputValueType === "date") {
 			schema.inputValues[0] = datetime;
 		}
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
@@ -104,7 +109,7 @@
 			schemas[value as SchemaKeys] as unknown as PlaygroundSchema<"NumberFormat">
 		);
 		schema = newSchema;
-		if(!$settings.announceOutputToScreenreader) {
+		if (!$settings.announceOutputToScreenreader) {
 			return;
 		}
 		announce(`${m.output()}: ${schemaToPrimaryFormatterOutput(schema, $locales)}`);
@@ -150,7 +155,7 @@
 			<Spacing />
 			<Grid>
 				{#if $settings.showBrowserSupport}
-					<BrowserSupport bind:data={browserSupportData} />
+					<BrowserSupport data={browserSupportData} />
 				{/if}
 				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
@@ -173,11 +178,7 @@
 					<Button onClick={copy}>{m.copyCode()} <CopyToClipboard /></Button>
 				</div>
 			{/if}
-			<PlaygroundOptions
-				bind:support={browserSupportData.optionsSupport}
-				{schema}
-				{onChangeOption}
-			/>
+			<PlaygroundOptions support={browserSupportData.optionsSupport} {schema} {onChangeOption} />
 			<Spacing />
 			{#if !isDesktop}
 				<h2>{m.resolvedOptions()}</h2>
@@ -188,7 +189,7 @@
 			{/if}
 			<Spacing />
 			<PlaygroundSecondaryFormatters
-				bind:support={browserSupportData.formattersSupport}
+				support={browserSupportData.formattersSupport}
 				secondaryFormatters={schemaToSecondaryFormattersOutput(schema, $locales)}
 			/>
 		</div>

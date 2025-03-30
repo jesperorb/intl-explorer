@@ -3,7 +3,11 @@
 	import Desktop from "$ui/icons/Desktop.svelte";
 	import Mobile from "$ui/icons/Mobile.svelte";
 	import Server from "$ui/icons/Server.svelte";
-	export let browserType: BrowserType;
+	type Props = {
+		browserType: BrowserType;
+	};
+
+	let { browserType }: Props = $props();
 </script>
 
 {#if browserType === "desktop"}

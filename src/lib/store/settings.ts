@@ -65,7 +65,7 @@ const defaultSettings: Settings = {
 	theme: "light",
 	showBrowserSupport: true,
 	accentColor: "275",
-	announceOutputToScreenreader: true,
+	announceOutputToScreenreader: true
 };
 
 export const settingsKeys = Object.keys(defaultSettings) as (keyof Settings)[];

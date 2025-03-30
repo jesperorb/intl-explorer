@@ -13,17 +13,20 @@
 	import type { OptionValues } from "$types/OptionValues.types";
 	import type { BrowserSupportDataForMethod } from "$types/BrowserSupport.types";
 	import { formatLocalesForPrint, tryFormat } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 	import { locales } from "$store/locales";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	};
 
-	let dayValue = 2;
-	let style: Intl.RelativeTimeFormatStyle = "long";
-	let numeric: "always" | "auto" = "auto";
+	let { browserCompatData = undefined }: Props = $props();
 
-	const m = getMessages();
+	let dayValue = $state(2);
+	let style: Intl.RelativeTimeFormatStyle = $state("long");
+	let numeric: "always" | "auto" = $state("auto");
+
 	const announce = getAnnouncer();
 
 	let onClick = async (options: OptionValues) => {
@@ -43,7 +46,7 @@
 </script>
 
 <PageLayout>
-	<svelte:fragment slot="input">
+	{#snippet input()}
 		<Input id="value" fullWidth label={m.value()} bind:value={dayValue} />
 		<Fieldset legend="Style">
 			<Radio value="long" label="long" id="styleLong" name="style" bind:group={style} />
@@ -54,27 +57,29 @@
 			<Radio label="always" id="numericalways" name="numeric" bind:group={numeric} value="always" />
 			<Radio label="auto" id="numericauto" name="numeric" bind:group={numeric} value="auto" />
 		</Fieldset>
-	</svelte:fragment>
-	<Grid slot="output">
-		<OptionSection header={"unit"} support={browserCompatData?.optionsSupport?.unit}>
-			{#each relativeTimeFormatUnits as value}
-				{#if value !== undefined}
-					<Spacing size={1} />
-					<Highlight
-						{onClick}
-						values={{ value: value, style, numeric }}
-						output={format(
-							{
-								style,
-								numeric
-							},
-							dayValue,
-							value,
-							$locales
-						)}
-					/>
-				{/if}
-			{/each}
-		</OptionSection>
-	</Grid>
+	{/snippet}
+	{#snippet output()}
+		<Grid>
+			<OptionSection header={"unit"} support={browserCompatData?.optionsSupport?.unit}>
+				{#each relativeTimeFormatUnits as value}
+					{#if value !== undefined}
+						<Spacing size={1} />
+						<Highlight
+							{onClick}
+							values={{ value: value, style, numeric }}
+							output={format(
+								{
+									style,
+									numeric
+								},
+								dayValue,
+								value,
+								$locales
+							)}
+						/>
+					{/if}
+				{/each}
+			</OptionSection>
+		</Grid>
+	{/snippet}
 </PageLayout>

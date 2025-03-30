@@ -5,6 +5,15 @@ declare namespace App {
 	// interface Locals {}
 	// interface PageData {}
 	// interface Platform {}
+	interface Platform {
+		env: {
+			COUNTER: DurableObjectNamespace;
+		};
+		context: {
+			waitUntil(promise: Promise<unknown>): void;
+		};
+		caches: CacheStorage & { default: Cache };
+	}
 }
 
 type Analytics = {

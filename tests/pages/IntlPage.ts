@@ -106,7 +106,10 @@ export class IntlPage extends BasePage {
 	}
 
 	public async getOptionSectionCode(option: string, nth = 0) {
-		return this.page.getByTestId(testIds.optionSectionPrefix + option).locator("pre").nth(nth);
+		return this.page
+			.getByTestId(testIds.optionSectionPrefix + option)
+			.locator("pre")
+			.nth(nth);
 	}
 
 	// --- Assertions ---
@@ -137,7 +140,7 @@ export class IntlPage extends BasePage {
 				break;
 			case "ListFormat":
 				await this.listInput.fill("cat,hat");
-				await this.seesOptionOutput("type", "cat and hat")
+				await this.seesOptionOutput("type", "cat and hat");
 				await this.changesLocale("sv-SE");
 				await this.seesOptionOutput("type", "cat och hat");
 				await this.removedSelectedLocale("sv-SE");
@@ -159,18 +162,21 @@ export class IntlPage extends BasePage {
 				break;
 			case "Segmenter":
 				await this.listInput.fill("word");
-				await this.seesOptionOutput("granularity", `[
+				await this.seesOptionOutput(
+					"granularity",
+					`[
 					{
 						"segment": "word",
 						"index": 0,
 						"input": "word",
 						"isWordLike": true
 					}
-				]`);
+				]`
+				);
 				break;
 			case "DisplayNames":
 				await this.seesOptionOutput("region", "United States");
-				await this.regionInput.fill("SE")
+				await this.regionInput.fill("SE");
 				await this.seesOptionOutput("region", "Sweden");
 				await this.changesLocale("sv-SE");
 				await this.seesOptionOutput("region", "Sverige");
@@ -178,7 +184,7 @@ export class IntlPage extends BasePage {
 				break;
 			case "DurationFormat":
 				await this.seesOptionOutput("style", "2 years, 1 month, 46 days");
-				await this.duration.years.fill("5")
+				await this.duration.years.fill("5");
 				await this.seesOptionOutput("style", "5 years, 1 month, 46 days");
 				await this.changesLocale("sv-SE");
 				await this.seesOptionOutput("style", "5 år, 1 månad, 46 dygn");

@@ -87,7 +87,7 @@ export class SettingsPage extends BasePage {
 			name: this.dictionary.confirmLanguage,
 			exact: true
 		});
-		this.colorSlider = this.page.getByRole("slider")
+		this.colorSlider = this.page.getByRole("slider");
 	}
 
 	public override changeDictionaryLanguage(language: NonNullable<BasePageConfig["language"]>) {
@@ -140,8 +140,8 @@ export class SettingsPage extends BasePage {
 		await this.dragElement({
 			element: this.colorSlider,
 			xOffset: lengthOfDrag,
-			yOffset: 0,
-		})
+			yOffset: 0
+		});
 	}
 
 	public async selectsLanguage(language: string) {

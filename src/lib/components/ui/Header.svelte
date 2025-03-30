@@ -1,13 +1,22 @@
 <script lang="ts">
-	import type { FormatMethodsKeys } from "$lib/format-methods";
 	import MdnLink from "$ui/MDNLink.svelte";
 	import Spacing from "$ui/Spacing.svelte";
-	export let header: string;
-	export let link: FormatMethodsKeys | undefined = undefined;
+
+	import type { FormatMethodsKeys } from "$lib/format-methods";
+
+	type Props = {
+		header: string;
+		link?: FormatMethodsKeys | undefined;
+		children?: import("svelte").Snippet;
+	};
+
+	let { header, link = undefined, children }: Props = $props();
+
 	const formatHeader = (header: string) => {
 		if (header.includes("Playground")) return header;
 		return `Intl.${header.includes("NumberFormat") ? header.split("/").join(" ") : header}`;
 	};
+
 	const formatLink = (header: string) => {
 		if (header.includes("NumberFormat")) return "NumberFormat";
 		return header;
@@ -23,7 +32,7 @@
 	</h1>
 	<div class="metadata">
 		<div class="wrapper">
-			<slot />
+			{@render children?.()}
 		</div>
 		<MdnLink header={link ?? formatLink(header)} />
 	</div>
@@ -36,6 +45,13 @@
 		align-items: center;
 		flex-wrap: wrap;
 		gap: var(--spacing-2);
+	}
+
+	h1 {
+		outline: none;
+	}
+	h1:focus {
+		outline: none;
 	}
 
 	.wrapper {

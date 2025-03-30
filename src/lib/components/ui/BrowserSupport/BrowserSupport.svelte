@@ -4,28 +4,35 @@
 	import Details from "$ui/details/Details.svelte";
 
 	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
+	import { settings } from "$store/settings";
+	import Skeleton from "$ui/Skeleton.svelte";
 
-	export let data: BrowserSupportForOption | undefined;
-	export let hideFullSupport: boolean | undefined = undefined;
-	export let zIndex: number = 1;
-	const m = getMessages();
+	type Props = {
+		data?: BrowserSupportForOption | undefined;
+		hideFullSupport?: boolean | undefined;
+		zIndex?: number;
+	};
+
+	let { data = undefined, hideFullSupport = undefined, zIndex = 1 }: Props = $props();
 </script>
 
-{#if data}
+{#if data && $settings.showBrowserSupport}
 	<div class="browser-support-wrapper">
 		<div class="browser-support-inner-wrapper" style="z-index: {zIndex};">
 			<Details>
-				<svelte:fragment slot="summary">
+				{#snippet summary()}
 					<div class="header">
 						<p>{m.browserSupport()}</p>
-						<SupportLabel bind:support={data.coverage} {hideFullSupport} />
+						<SupportLabel support={data.coverage} {hideFullSupport} />
 					</div>
-				</svelte:fragment>
-				<BrowserSupportGrid bind:data={data.support} />
+				{/snippet}
+				<BrowserSupportGrid data={data.support} />
 			</Details>
 		</div>
 	</div>
+{:else if !data && $settings.showBrowserSupport}
+	<Skeleton />
 {/if}
 
 <style>

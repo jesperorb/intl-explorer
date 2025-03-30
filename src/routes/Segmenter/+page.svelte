@@ -4,17 +4,20 @@
 	import Spacing from "$ui/Spacing.svelte";
 
 	import { settings } from "$store/settings";
+	import { loadJson } from "$utils/load-json";
+	import type { BrowserSupportForOption } from "$types/BrowserSupport.types";
 
-	import type { PageData } from "./$types";
-
-	export let data: PageData;
-
-	let browserCompatData = $settings.showBrowserSupport ? data : null;
+	let browserCompatData = $settings.showBrowserSupport
+		? loadJson<BrowserSupportForOption>("Segmenter")
+		: Promise.resolve(undefined);
 </script>
 
-{#if $settings.showBrowserSupport}
+{#await browserCompatData}
+	<BrowserSupport data={undefined} />
+	<Spacing />
+	<Segmenter />
+{:then data}
 	<BrowserSupport {data} />
 	<Spacing />
-{/if}
-
-<Segmenter {browserCompatData} />
+	<Segmenter browserCompatData={data} />
+{/await}

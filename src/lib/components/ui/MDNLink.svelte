@@ -1,7 +1,11 @@
 <script lang="ts">
 	import OpenInNewTab from "$ui/icons/OpenInNewTab.svelte";
 
-	export let header: string;
+	type Props = {
+		header: string;
+	};
+
+	let { header }: Props = $props();
 </script>
 
 <a

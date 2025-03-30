@@ -1,10 +1,15 @@
 <script lang="ts">
-	export let center: boolean | undefined = undefined;
+	type Props = {
+		center?: boolean | undefined;
+		children?: import("svelte").Snippet;
+	};
+
+	let { center = undefined, children }: Props = $props();
 </script>
 
 <main id="main" class:center tabindex="-1">
 	<div class="wrapper">
-		<slot />
+		{@render children?.()}
 	</div>
 </main>
 

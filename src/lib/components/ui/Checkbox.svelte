@@ -1,16 +1,20 @@
 <script lang="ts">
 	import type { ChangeEventHandler } from "svelte/elements";
 
-	export let id: string;
-	export let name: string;
-	export let checked: boolean = false;
-	export let label: string;
-	export let srOnlyLabel: boolean | undefined = undefined;
-	export let onChange: ChangeEventHandler<HTMLInputElement>;
+	type Props = {
+		id: string;
+		name: string;
+		checked?: boolean;
+		label: string;
+		srOnlyLabel?: boolean | undefined;
+		onChange: ChangeEventHandler<HTMLInputElement>;
+	};
+
+	let { id, name, checked = false, label, srOnlyLabel = undefined, onChange }: Props = $props();
 </script>
 
 <div class="wrapper">
-	<input class="checkbox" type="checkbox" {name} {id} {checked} on:change={onChange} />
+	<input class="checkbox" type="checkbox" {name} {id} {checked} onchange={onChange} />
 	<label for={id} class:sr-only={srOnlyLabel}>{label}</label>
 </div>
 
@@ -18,7 +22,8 @@
 	.wrapper {
 		display: inline-flex;
 	}
-	.wrapper, input {
+	.wrapper,
+	input {
 		cursor: pointer;
 	}
 	input[type="checkbox"] {

@@ -1,2 +1,6 @@
-import { i18n } from "$i18n/i18n";
-export const reroute = i18n.reroute();
+import type { Reroute } from "@sveltejs/kit";
+import { deLocalizeUrl } from "$paraglide/runtime";
+
+export const reroute: Reroute = (request) => {
+	return deLocalizeUrl(request.url).pathname;
+};

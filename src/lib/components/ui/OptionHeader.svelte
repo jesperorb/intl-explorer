@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let text: string;
+	type Props = {
+		text: string;
+	};
+
+	let { text }: Props = $props();
 </script>
 
 <h3><strong>{text}</strong></h3>

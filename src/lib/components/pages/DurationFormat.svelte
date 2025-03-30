@@ -12,15 +12,18 @@
 	import { durationFormatOptionsArray } from "$lib/format-options/duration-format.options";
 	import { clampValue, formatLocalesForPrint, tryFormat } from "$utils/format-utils";
 	import { locales } from "$store/locales";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	};
 
-	const m = getMessages();
+	let { browserCompatData = undefined }: Props = $props();
+
 	const announce = getAnnouncer();
 
-	let duration: Record<string, string | number> = {
+	let duration: Record<string, string | number> = $state({
 		years: 2,
 		months: 1,
 		weeks: "",
@@ -31,7 +34,7 @@
 		milliseconds: "",
 		microseconds: "",
 		nanoseconds: ""
-	};
+	});
 
 	let onClick = async (options: OptionValues) => {
 		const code = `new Intl.DurationFormat(${formatLocalesForPrint($locales)}, ${JSON.stringify(options)}).format(${JSON.stringify(duration)})`;
@@ -50,7 +53,12 @@
 		const newDuration = {
 			...duration,
 			[target.name]: clampValue(
-				{ name: target.name as any, defaultValue: undefined, valueType: "number", inputType: "text" },
+				{
+					name: target.name as any,
+					defaultValue: undefined,
+					valueType: "number",
+					inputType: "text"
+				},
 				target.value
 			) as number
 		};
@@ -59,30 +67,32 @@
 </script>
 
 <PageLayout>
-	<svelte:fragment slot="input">
+	{#snippet input()}
 		<Spacing />
 		{#each Object.keys(duration) as key}
 			<Input id={key} name={key} label={key} {onInput} value={String(duration[key])} fullWidth />
 		{/each}
-	</svelte:fragment>
-	<Grid slot="output">
-		{#each durationFormatOptionsArray as [option, values], index}
-			<OptionSection
-				header={option}
-				support={browserCompatData?.optionsSupport?.[option]}
-				zIndex={durationFormatOptionsArray.length - index}
-			>
-				{#each values as value}
-					{#if value !== undefined}
-						<Spacing size={1} />
-						<Highlight
-							{onClick}
-							values={{ [option]: value }}
-							output={format({ [option]: value }, duration, $locales)}
-						/>
-					{/if}
-				{/each}
-			</OptionSection>
-		{/each}
-	</Grid>
+	{/snippet}
+	{#snippet output()}
+		<Grid>
+			{#each durationFormatOptionsArray as [option, values], index}
+				<OptionSection
+					header={option}
+					support={browserCompatData?.optionsSupport?.[option]}
+					zIndex={durationFormatOptionsArray.length - index}
+				>
+					{#each values as value}
+						{#if value !== undefined}
+							<Spacing size={1} />
+							<Highlight
+								{onClick}
+								values={{ [option]: value }}
+								output={format({ [option]: value }, duration, $locales)}
+							/>
+						{/if}
+					{/each}
+				</OptionSection>
+			{/each}
+		</Grid>
+	{/snippet}
 </PageLayout>

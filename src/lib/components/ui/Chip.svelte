@@ -1,23 +1,20 @@
 <script lang="ts">
 	import Times from "$ui/icons/Times.svelte";
 
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 
-	const m = getMessages();
+	type Props = {
+		label: string;
+		onDelete?: (() => void) | undefined;
+	};
 
-	export let label: string;
-	export let onDelete: (() => void) | undefined = undefined;
+	let { label, onDelete = undefined }: Props = $props();
 </script>
 
 <div class="chip">
 	<p>{label}</p>
 	{#if onDelete}
-		<button
-			type="button"
-			class="delete"
-			on:click={onDelete}
-			aria-label={m.remove({ value: label })}
-		>
+		<button type="button" class="delete" onclick={onDelete} aria-label={m.remove({ value: label })}>
 			<Times />
 		</button>
 	{/if}

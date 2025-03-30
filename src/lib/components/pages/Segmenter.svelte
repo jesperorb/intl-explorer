@@ -13,15 +13,18 @@
 	import { segmenterOptionsArray } from "$lib/format-options/segmenter.options";
 	import { getAnnouncer } from "$lib/live-announcer/util";
 	import { tryFormat, print, formatLocalesForPrint } from "$utils/format-utils";
-	import { getMessages } from "$i18n/util";
+	import { m } from "$paraglide/messages";
 	import { locales } from "$store/locales";
 
-	export let browserCompatData: BrowserSupportDataForMethod | null;
+	type Props = {
+		browserCompatData?: BrowserSupportDataForMethod | undefined;
+	};
 
-	const m = getMessages();
+	let { browserCompatData = undefined }: Props = $props();
+
 	const announce = getAnnouncer();
 
-	let sentence = "This is a sentence.";
+	let sentence = $state("This is a sentence.");
 
 	let onClick = async (options: OptionValues) => {
 		const code = `Array.from(new Intl.Segmenter(${formatLocalesForPrint($locales)}, ${JSON.stringify(
@@ -36,25 +39,29 @@
 </script>
 
 <PageLayout>
-	<Input slot="input" fullWidth id="list" label={m.list()} bind:value={sentence} />
-	<Grid slot="output">
-		{#each segmenterOptionsArray as [option, values], index}
-			<OptionSection
-				header={option}
-				support={browserCompatData?.optionsSupport?.[option]}
-				zIndex={segmenterOptionsArray.length - index}
-			>
-				{#each values as value}
-					{#if value !== undefined}
-						<Spacing size={1} />
-						<Highlight
-							{onClick}
-							values={{ [option]: value }}
-							output={format({ [option]: value }, sentence, $locales)}
-						/>
-					{/if}
-				{/each}
-			</OptionSection>
-		{/each}
-	</Grid>
+	{#snippet input()}
+		<Input fullWidth id="list" label={m.list()} bind:value={sentence} />
+	{/snippet}
+	{#snippet output()}
+		<Grid>
+			{#each segmenterOptionsArray as [option, values], index}
+				<OptionSection
+					header={option}
+					support={browserCompatData?.optionsSupport?.[option]}
+					zIndex={segmenterOptionsArray.length - index}
+				>
+					{#each values as value}
+						{#if value !== undefined}
+							<Spacing size={1} />
+							<Highlight
+								{onClick}
+								values={{ [option]: value }}
+								output={format({ [option]: value }, sentence, $locales)}
+							/>
+						{/if}
+					{/each}
+				</OptionSection>
+			{/each}
+		</Grid>
+	{/snippet}
 </PageLayout>
