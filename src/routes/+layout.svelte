@@ -62,7 +62,7 @@
 	<SkipLink />
 	<Navigation />
 	<Main center={isHomePage}>
-		{#if navigating}
+		{#if navigating.to}
 			<ProgressBar />
 		{/if}
 		{#if route && route !== "Playground"}

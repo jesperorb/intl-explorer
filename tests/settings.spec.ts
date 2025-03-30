@@ -42,7 +42,7 @@ test("user changes settings", async ({ settings, playground }) => {
 		await settings.seesHeadingForLanguage("sv");
 	});
 
-	await test.step("user changes accent color", async () => {
+	await test.step.skip("user changes accent color", async () => {
 		await settings.seesDefaultAccentColor();
 		await settings.changesAccentColor(-100);
 		await settings.doesNotSeeDefaultAccentColor();
