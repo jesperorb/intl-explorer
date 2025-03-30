@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from "$app/state";
+
 	import Dialog from "$ui/Dialog.svelte";
 	import Radio from "$ui/Radio.svelte";
 	import Fieldset from "$ui/Fieldset.svelte";
@@ -7,6 +9,7 @@
 	import Select from "$ui/Select.svelte";
 	import Button from "$ui/Button.svelte";
 	import Checkbox from "$ui/Checkbox.svelte";
+	import Slider from "$ui/Slider.svelte";
 
 	import {
 		settings,
@@ -15,12 +18,11 @@
 		type Settings,
 		type DarkMode
 	} from "$store/settings";
-
-	import { locales as paraglideLocales, getLocale, localizeHref } from "$paraglide/runtime";
 	import { locales } from "$store/locales";
 	import { formatLocaleForUrl } from "$utils/format-utils";
+
+	import { locales as paraglideLocales, getLocale, localizeHref } from "$paraglide/runtime";
 	import { m } from "$paraglide/messages";
-	import Slider from "./Slider.svelte";
 
 	export let show: boolean;
 
@@ -143,7 +145,12 @@
 		<Spacing size={2} />
 		<p>{m.languageHint()}</p>
 		<Spacing />
-		<Button href={`${localizeHref(language)}${formatLocaleForUrl($locales)}`} hrefLang={language}>
+		<Button
+			href={`${localizeHref(page.url.href, {
+				locale: language
+			})}${formatLocaleForUrl($locales)}`}
+			hrefLang={language}
+		>
 			{m.confirmLanguage()}
 		</Button>
 	</Card>

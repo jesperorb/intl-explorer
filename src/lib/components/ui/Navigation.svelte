@@ -7,13 +7,15 @@
 	import SettingsDialog from "$ui/SettingsDialog.svelte";
 	import Button from "$ui/Button.svelte";
 
-	import { page } from "$app/stores";
+	import { page } from "$app/state";
 
 	import { routes } from "$lib/routes";
 	import { testIds } from "$utils/dom-utils";
 	import { locales } from "$store/locales";
 	import { formatLocaleForUrl } from "$utils/format-utils";
+
 	import { m } from "$paraglide/messages";
+	import { localizeHref } from "$paraglide/runtime";
 
 	let path: string;
 	let open = false;
@@ -26,7 +28,7 @@
 		path = page.url.pathname;
 	};
 
-	$: getPath($page);
+	$: getPath(page);
 
 	const onCloseButtonShiftTab = (event: KeyboardEvent) => {
 		if (event.key === "Tab" && event.shiftKey) {
@@ -115,11 +117,11 @@
 		<Spacing />
 		<ul id="links">
 			<li class="last-item" class:active={path === "/"}>
-				<a href="/{formatLocaleForUrl($locales)}">{m.about()}</a>
+				<a href="{localizeHref("/")}{formatLocaleForUrl($locales)}">{m.about()}</a>
 			</li>
 			<li class="last-item">
 				<a
-					href="/Playground{formatLocaleForUrl($locales)}"
+					href="{localizeHref("/Playground")}{formatLocaleForUrl($locales)}"
 					class:active={path.includes("Playground")}>Playground</a
 				>
 			</li>
@@ -130,7 +132,7 @@
 						aria-label={route.ariaLabel}
 						class:sublink={route.sublink}
 						class:active={path.includes(route.path)}
-						href={`/${route.path}${formatLocaleForUrl($locales)}`}
+						href={`${localizeHref(route.path)}${formatLocaleForUrl($locales)}`}
 					>
 						{route.name}
 					</a>

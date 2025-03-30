@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { setContext } from "svelte";
+
 	import type { AnnounceFunction } from "./types";
+
 	import {
 		liveAnnouncerContextKey,
 		liveAnnouncerRegionIdPolite,
 		liveAnnouncerRegionIdAssertive,
 		defaultAnnounceOptions
 	} from "./constants";
+
+	import LiveAnnouncerRegion from "./live-announcer-region.svelte";
 
 	const announce: AnnounceFunction = (message: string, options = defaultAnnounceOptions) => {
 		const elementId =
@@ -22,6 +26,8 @@
 	};
 
 	setContext(liveAnnouncerContextKey, announce);
+
 </script>
 
+<LiveAnnouncerRegion />
 <slot />

@@ -1,44 +1,34 @@
 <script lang="ts">
-	import type { Page } from "@sveltejs/kit";
 	import { dev, browser } from "$app/environment";
-	import type { FormatMethodsKeys } from "$lib/format-methods";
-	import { navigating } from "$app/stores";
-	import { page } from "$app/state";
-	import { locales as paraglideLocales, localizeHref } from "$paraglide/runtime";
+	import { page, navigating } from "$app/state";
 
 	import Navigation from "$ui/Navigation.svelte";
 	import Main from "$ui/Main.svelte";
 	import SkipLink from "$ui/SkipLink.svelte";
 	import ProgressBar from "$ui/ProgressBar.svelte";
 	import Header from "$ui/Header.svelte";
-	import { getLocaleFromParams } from "$utils/get-locale";
+
 	import { locales } from "$store/locales";
 	import { description, tags, title, imageUrl, author } from "$lib/constants";
-	import {
-		liveAnnouncerRegionIdAssertive,
-		liveAnnouncerRegionIdPolite
-	} from "$lib/live-announcer/constants";
 	import LiveAnnouncer from "$lib/live-announcer/live-announcer.svelte";
+	import { getLocaleFromParams } from "$utils/get-locale";
+	import RoutingLinks from "./routing-links.svelte";
 
-	let routeId: FormatMethodsKeys | "Playground" | "/";
-	$: isHomePage = false;
-	const getRouteId = (page: Page<Record<string, string>>): void => {
-		isHomePage = page.route.id === "/";
-		routeId = page.route.id?.replace("/", "") as FormatMethodsKeys;
+	let route = $derived(page.route.id?.replace("/", ""))
+  let isHomePage = $derived(page.route.id === "/");
+	$effect(() => {
+		locales.set(getLocaleFromParams());
+	})
+	$effect(() => {
 		if (browser) {
 			document.querySelector("h1")?.setAttribute("tabIndex", "-1");
 			document.querySelector("h1")?.focus();
 		}
-	};
-	const getLocale = () => {
-		locales.set(getLocaleFromParams());
-	};
-	$: getRouteId(page);
-	$: getLocale();
+	})
 </script>
 
 <svelte:head>
-	<title>{routeId ?? title}</title>
+	<title>{route ?? title}</title>
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content={author} />
 	<meta name="keywords" content={tags.join(", ")} />
@@ -63,26 +53,17 @@
 	{/if}
 </svelte:head>
 
-<div id={liveAnnouncerRegionIdPolite} aria-live="polite"></div>
-<div id={liveAnnouncerRegionIdAssertive} aria-live="assertive"></div>
-
-<div style="display:none">
-	{#each paraglideLocales as locale}
-		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
-	{/each}
-</div>
+<RoutingLinks />
 
 <LiveAnnouncer>
 	<SkipLink />
-
 	<Navigation />
-
 	<Main bind:center={isHomePage}>
-		{#if $navigating}
+		{#if navigating}
 			<ProgressBar />
 		{/if}
-		{#if routeId && routeId !== "Playground"}
-			<Header header={routeId} />
+		{#if route && route !== "Playground"}
+			<Header header={route} />
 		{/if}
 		<slot />
 	</Main>

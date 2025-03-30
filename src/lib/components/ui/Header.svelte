@@ -1,17 +1,22 @@
 <script lang="ts">
-	import type { FormatMethodsKeys } from "$lib/format-methods";
 	import MdnLink from "$ui/MDNLink.svelte";
 	import Spacing from "$ui/Spacing.svelte";
+
+	import type { FormatMethodsKeys } from "$lib/format-methods";
+
 	export let header: string;
 	export let link: FormatMethodsKeys | undefined = undefined;
+
 	const formatHeader = (header: string) => {
 		if (header.includes("Playground")) return header;
 		return `Intl.${header.includes("NumberFormat") ? header.split("/").join(" ") : header}`;
 	};
+
 	const formatLink = (header: string) => {
 		if (header.includes("NumberFormat")) return "NumberFormat";
 		return header;
 	};
+
 </script>
 
 <header>

@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { navigating } from "$app/state";
+
 	import ProgressBar from "$ui/ProgressBar.svelte";
-	import { navigating } from "$app/stores";
 	import Spacing from "$ui/Spacing.svelte";
+
 	import { m } from "$paraglide/messages";
 </script>
 
@@ -9,7 +11,7 @@
 	<title>Intl Explorer</title>
 </svelte:head>
 
-{#if $navigating}
+{#if navigating}
 	<ProgressBar />
 {/if}
 
