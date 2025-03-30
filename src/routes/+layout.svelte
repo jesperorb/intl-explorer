@@ -12,7 +12,6 @@
 	import { description, tags, title, imageUrl, author } from "$lib/constants";
 	import LiveAnnouncer from "$lib/live-announcer/live-announcer.svelte";
 	import { getLocaleFromParams } from "$utils/get-locale";
-	import RoutingLinks from "./routing-links.svelte";
 
 	type Props = {
 		children?: import("svelte").Snippet;
@@ -60,7 +59,6 @@
 </svelte:head>
 
 <LiveAnnouncer>
-	<RoutingLinks />
 	<SkipLink />
 	<Navigation />
 	<Main center={isHomePage}>
