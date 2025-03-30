@@ -10,7 +10,7 @@
 	"scripts": {
 		"start": "vite dev",
 		"dev": "vite dev",
-		"build": "paraglide-js compile --project ./project.inlang && vite build",
+		"build": "vite build",
 		"preview": "vite preview",
 		"test": "vitest",
 		"update:compat": "pnpx vite-node ./src/updateCompatData.ts",
@@ -20,8 +20,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
-		"prepare": "husky",
-		"postinstall": "paraglide-js compile --project ./project.inlang"
+		"prepare": "husky"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.2.1",
