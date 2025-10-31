@@ -40,9 +40,10 @@
 
 	type Props = {
 		data: { [key: string]: BrowserSupportDataForMethod };
+		isLoading?: boolean;
 	};
 
-	let { data }: Props = $props();
+	let { data, isLoading }: Props = $props();
 
 	const announce = getAnnouncer();
 
@@ -155,7 +156,7 @@
 			<Spacing />
 			<Grid>
 				{#if $settings.showBrowserSupport}
-					<BrowserSupport data={browserSupportData} />
+					<BrowserSupport data={browserSupportData} zIndex={20} isLoading={isLoading} />
 				{/if}
 				<Button onClick={copySchema}>{m.copySchemaUrl()} <CopyToClipboard /></Button>
 			</Grid>
@@ -178,7 +179,7 @@
 					<Button onClick={copy}>{m.copyCode()} <CopyToClipboard /></Button>
 				</div>
 			{/if}
-			<PlaygroundOptions support={browserSupportData.optionsSupport} {schema} {onChangeOption} />
+			<PlaygroundOptions support={browserSupportData.optionsSupport} {schema} {onChangeOption} isLoadingSupportData={isLoading} />
 			<Spacing />
 			{#if !isDesktop}
 				<h2>{m.resolvedOptions()}</h2>

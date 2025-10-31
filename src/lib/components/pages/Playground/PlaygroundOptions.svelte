@@ -20,9 +20,10 @@
 		schema: PlaygroundSchema<"NumberFormat">;
 		support: BrowserSupportDataForOptions | undefined;
 		onChangeOption: (event: Event) => void;
+		isLoadingSupportData?: boolean;
 	};
 
-	let { schema, support, onChangeOption }: Props = $props();
+	let { schema, support, onChangeOption, isLoadingSupportData = false }: Props = $props();
 </script>
 
 <h2>{m.options()}</h2>
@@ -87,7 +88,7 @@
 						</Details>
 					</div>
 				</div>
-			{:else}
+			{:else if isLoadingSupportData}
 				<Spacing />
 				<Skeleton />
 			{/if}

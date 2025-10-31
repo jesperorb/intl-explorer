@@ -12,9 +12,10 @@
 		data?: BrowserSupportForOption | undefined;
 		hideFullSupport?: boolean | undefined;
 		zIndex?: number;
+		isLoading?: boolean;
 	};
 
-	let { data = undefined, hideFullSupport = undefined, zIndex = 1 }: Props = $props();
+	let { data = undefined, hideFullSupport = undefined, zIndex = 1, isLoading = false }: Props = $props();
 </script>
 
 {#if data && $settings.showBrowserSupport}
@@ -31,7 +32,7 @@
 			</Details>
 		</div>
 	</div>
-{:else if !data && $settings.showBrowserSupport}
+{:else if $settings.showBrowserSupport && isLoading}
 	<Skeleton />
 {/if}
 

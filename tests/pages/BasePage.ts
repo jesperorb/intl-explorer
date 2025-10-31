@@ -1,8 +1,8 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 import { defaultPageUnderTest, localBaseURL, mdnUrl } from "../constants";
 import { testIds } from "../../src/lib/utils/dom-utils";
-import enMessages from "../../messages/en.json" assert { type: "json" };
-import svMessages from "../../messages/sv.json" assert { type: "json" };
+import enMessages from "../../messages/en.json" with { type: "json" };
+import svMessages from "../../messages/sv.json" with { type: "json" };
 
 export type BasePageConfig = {
 	page: Page;
