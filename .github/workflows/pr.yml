@@ -1,4 +1,5 @@
 name: run tests
+
 on:
 	pull_request:
 		types: [opened, edited, reopened, synchronize]
