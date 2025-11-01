@@ -24,5 +24,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: run unit tests
         run: pnpm test
+        shell: bash
       - name: run e2e tests
         run: npx playwright test
+        shell: bash

@@ -11,7 +11,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
     - uses: pnpm/action-setup@v4
       with:
         version: ${{ inputs.pnpm-version }}
@@ -22,3 +21,4 @@ runs:
         cache: "pnpm"
     - name: Install dependencies
       run: pnpm install
+      shell: bash
