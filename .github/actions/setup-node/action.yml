@@ -1,24 +1,24 @@
 name: "Setup node, pnpm and install dependencies"
 
 inputs:
-	node-version:
-		description: 'Which node version to use'
-		required: true
-	pnpm-version:
-		description: 'Which pnpm version to use'
-		required: true
+  node-version:
+    description: 'Which node version to use'
+    required: true
+  pnpm-version:
+    description: 'Which pnpm version to use'
+    required: true
 
 runs:
-	using: "composite"
-	steps:
-		- uses: actions/checkout@v4
-		- uses: pnpm/action-setup@v4
-			with:
-				version: ${{ inputs.pnpm-version }}
-		- name: Setup node
-			uses: actions/setup-node@v6
-			with:
-				node-version: ${{ inputs.node-version }}
-				cache: "pnpm"
-		- name: Install dependencies
-			run: pnpm install
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with:
+        version: ${{ inputs.pnpm-version }}
+    - name: Setup node
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: "pnpm"
+    - name: Install dependencies
+      run: pnpm install

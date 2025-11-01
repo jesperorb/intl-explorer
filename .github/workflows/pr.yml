@@ -1,26 +1,26 @@
 name: run tests
 
 on:
-	pull_request:
-		types: [opened, edited, reopened, synchronize]
-		branches:
-			- main
-		paths-ignore:
-			- '**.md'
-			- '.vscode/**'
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.vscode/**'
 jobs:
-	test:
-		timeout-minutes: 60
-		runs-on: ubuntu-latest
-		steps:
-			- name: setup node
-				uses: ./.github/actions/setup-node
-				with:
-					node-version: ${{ vars.NODE_VERSION }}
-					pnpm-version: ${{ vars.PNPM_VERSION }}
-			- name: install Playwright
-				run: npx playwright install --with-deps chromium
-			- name: run unit tests
-				run: pnpm test
-			- name: run e2e tests
-				run: npx playwright test
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          pnpm-version: ${{ vars.PNPM_VERSION }}
+      - name: install Playwright
+        run: npx playwright install --with-deps chromium
+      - name: run unit tests
+        run: pnpm test
+      - name: run e2e tests
+        run: npx playwright test
