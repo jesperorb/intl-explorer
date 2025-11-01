@@ -13,6 +13,8 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
+      - name: checkout code
+        uses: actions/checkout@v4
       - name: setup node
         uses: ./.github/actions/setup-node
         with:
