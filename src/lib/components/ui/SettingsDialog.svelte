@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/state";
+	import { browser } from "$app/environment";
 
 	import Dialog from "$ui/Dialog.svelte";
 	import Radio from "$ui/Radio.svelte";
@@ -151,7 +152,7 @@
 		<Button
 			href={`${localizeHref(page.url.href, {
 				locale: language
-			})}${formatLocaleForUrl($locales)}`}
+			})}`}
 			hrefLang={language}
 		>
 			{m.confirmLanguage()}

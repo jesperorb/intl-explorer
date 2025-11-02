@@ -39,7 +39,7 @@
 	import { getAnnouncer } from "$lib/live-announcer/util";
 
 	type Props = {
-		data: { [key: string]: BrowserSupportDataForMethod };
+		data?: { [key: string]: BrowserSupportDataForMethod };
 		isLoading?: boolean;
 	};
 
@@ -52,7 +52,7 @@
 
 	let schema = $derived(validateAndUpdateSchema(numberFormatSchema));
 	let browserSupportData = $derived(
-		schema
+		schema && data
 			? { ...data[schema.method] }
 			: { optionsSupport: undefined, formattersSupport: undefined }
 	);
