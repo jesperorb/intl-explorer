@@ -73,7 +73,7 @@
 					{/each}
 				</div>
 			{/if}
-			{#if support?.[option.name]?.support && $settings.showBrowserSupport}
+			{#if support?.[option.name]?.support && $settings.showBrowserSupport && !isLoadingSupportData}
 				<Spacing />
 				<div class="browser-support-wrapper">
 					<div

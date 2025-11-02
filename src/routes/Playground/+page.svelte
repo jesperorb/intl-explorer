@@ -23,9 +23,7 @@
 </svelte:head>
 
 {#await browserSupport}
-	<Playground data={{}} isLoading />
+	<Playground isLoading />
 {:then data}
-	{#if data}
-		<Playground {data} />
-	{/if}
+	<Playground {data} />
 {/await}
