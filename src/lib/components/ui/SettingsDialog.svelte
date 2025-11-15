@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import { browser } from "$app/environment";
 
 	import Dialog from "$ui/Dialog.svelte";
 	import Radio from "$ui/Radio.svelte";
@@ -19,8 +18,6 @@
 		type Settings,
 		type DarkMode
 	} from "$store/settings";
-	import { locales } from "$store/locales";
-	import { formatLocaleForUrl } from "$utils/format-utils";
 
 	import { locales as paraglideLocales, getLocale, localizeHref } from "$paraglide/runtime";
 	import { m } from "$paraglide/messages";
