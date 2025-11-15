@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { createSlider, melt } from "@melt-ui/svelte";
-	import type { ChangeFn } from "@melt-ui/svelte/internal/helpers";
+	import { Slider } from "melt/builders";
 	import Spacing from "./Spacing.svelte";
 
 	type Props = {
@@ -8,7 +7,7 @@
 		min?: number | undefined;
 		max?: number | undefined;
 		step?: number | undefined;
-		onValueChange?: ((value: number[]) => void) | undefined;
+		onValueChange?: ((value: number) => void) | undefined;
 		label: string;
 		id: string;
 	};
@@ -23,32 +22,25 @@
 		id
 	}: Props = $props();
 
-	const internalValueChange: ChangeFn<number[]> = (value) => {
-		if (onValueChange) {
-			onValueChange(value.next);
-		}
-		return value.next;
-	};
-
-	const {
-		elements: { root, range, thumbs }
-	} = createSlider({
-		defaultValue: defaultValue ? [defaultValue] : undefined,
+	const slider = new Slider({
+		value: defaultValue,
 		min,
 		max,
 		step: step ?? 1,
-		onValueChange: internalValueChange
+		onValueChange: (value) => {
+			if (onValueChange) {
+				onValueChange(value);
+			}
+		}
 	});
 </script>
 
 <div>
 	<label for={id}>{label}</label>
 	<Spacing />
-	<div use:melt={$root} class="slider">
-		<div class="range">
-			<div use:melt={$range}></div>
-		</div>
-		<div use:melt={$thumbs[0]} {id} class="thumb"></div>
+	<div {...slider.root} class="slider">
+		<div class="range"></div>
+		<div {...slider.thumb} {id} class="thumb"></div>
 	</div>
 </div>
 
@@ -62,19 +54,20 @@
 	}
 
 	.range {
+		position: absolute;
 		height: var(--spacing-2);
-		width: 100%;
+		inset: 0;
+		right: var(--percentage-inv);
 		background: var(--text-color);
 		border-radius: var(--spacing-1);
-	}
-
-	.range > div {
-		height: var(--spacing-2);
-		background: var(--text-color);
-		border-radius: var(--spacing-1);
+		pointer-events: none;
 	}
 
 	.thumb {
+		position: absolute;
+		left: var(--percentage);
+		top: 50%;
+		transform: translate(-50%, -50%);
 		height: var(--spacing-6);
 		width: var(--spacing-6);
 		border-radius: 50%;

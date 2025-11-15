@@ -9,7 +9,7 @@
 <script lang="ts">
 	import { fly } from "svelte/transition";
 
-	import { createCombobox, melt } from "@melt-ui/svelte";
+	import { Combobox } from "melt/builders";
 	import Spacing from "$ui/Spacing.svelte";
 	import ChevronUp from "$ui/icons/ChevronUp.svelte";
 	import Check from "$ui/icons/Check.svelte";
@@ -35,19 +35,19 @@
 		onDelete
 	}: Props = $props();
 
-	const {
-		elements: { menu, input, option, label },
-		states: { open, inputValue, touchedInput, selected },
-		helpers: { isSelected }
-	} = createCombobox<Option, true>({
-		forceVisible: true,
+	// Create a map to maintain consistent option references
+	const optionMap = new Map<string, Option>();
+	options.forEach((opt) => optionMap.set(opt.value, opt));
+
+	let isInternalDelete = false;
+
+	const combobox = new Combobox<Option, true>({
 		multiple: true,
-		closeOnEscape: true,
-		defaultSelected: defaultValue?.map((v) => ({ value: v })),
-		closeOnOutsideClick: true,
-		onSelectedChange: (args) => {
-			onSelect(args.next?.map((v) => v.value) as Option[] | undefined);
-			return args.next;
+		value: defaultValue ? new Set(defaultValue.map(v => optionMap.get(v.value) ?? v)) : undefined,
+		onValueChange: (values) => {
+			if (isInternalDelete) return;
+			const valuesArray = values ? Array.from(values) : undefined;
+			onSelect(valuesArray);
 		}
 	});
 
@@ -60,73 +60,92 @@
 				value.toLowerCase().includes(normalizedInput)
 			);
 		});
-		return filtered.length === 0 ? [{ label: valueFromInput, value: valueFromInput }] : filtered;
+		if (filtered.length === 0) {
+			const newOption: Option = { label: valueFromInput, value: valueFromInput };
+			optionMap.set(valueFromInput, newOption);
+			return [newOption];
+		}
+		return filtered;
 	};
 
 	const internalDelete = (itemToDelete: string) => {
-		selected.update((value) => value?.filter((v) => v.value.value !== itemToDelete));
+		const optionToDelete = optionMap.get(itemToDelete);
+		if (optionToDelete && combobox.value) {
+			isInternalDelete = true;
+			const newValues = new Set(combobox.value);
+			newValues.delete(optionToDelete);
+			combobox.value = newValues as typeof combobox.value;
+			isInternalDelete = false;
+
+			// Manually call onSelect with the updated values
+			onSelect(Array.from(newValues));
+		}
 		onDelete(itemToDelete);
 	};
 
-	let output = $derived(getOutput(options, $inputValue, $touchedInput));
+	let output = $derived(getOutput(options, combobox.inputValue, combobox.touched));
+	let selectedValues = $derived(combobox.value ? Array.from(combobox.value) : []);
+
+	// Custom isSelected that checks by value property instead of reference
+	const isOptionSelected = (option: Option): boolean => {
+		if (!combobox.value) return false;
+		return Array.from(combobox.value).some((selected) => selected.value === option.value);
+	};
 </script>
 
 <div class="wrapper">
 	<!-- svelte-ignore a11y_label_has_associated_control -->
-	<label use:melt={$label} class="label">
+	<label {...combobox.label} class="label">
 		<span>{labelText}</span>
 	</label>
 	<Spacing size={2} />
 	<div class="input">
-		<input use:melt={$input} {placeholder} />
+		<input {...combobox.input} {placeholder} />
 		<div class="input__icon">
-			{#if $open}
-				<ChevronUp />
-			{:else}
-				<ChevronUp />
-			{/if}
+			<ChevronUp />
 		</div>
 	</div>
-	{#if $selected}
+	{#if selectedValues.length > 0}
 		<Spacing size={2} />
 		<div class="chips">
-			{#each $selected as chip}
-				<Chip label={chip.value.value} onDelete={() => internalDelete(chip.value.value)} />
+			{#each selectedValues as chip}
+				<Chip label={chip.value} onDelete={() => internalDelete(chip.value)} />
 			{/each}
 		</div>
 	{/if}
 </div>
 
-{#if $open}
-	<ul use:melt={$menu} transition:fly={{ duration: 150, y: -5 }}>
-		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-		<div tabindex="0">
-			{#each output as renderOption}
-				<li
-					use:melt={$option({
-						value: renderOption,
-						label: renderOption.label,
-						disabled: renderOption.disabled
-					})}
-				>
-					{#if $isSelected(renderOption)}
-						<div class="item__icon">
-							<Check />
+<div {...combobox.content}>
+	{#if combobox.content.inert === false}
+		<ul transition:fly={{ duration: 150, y: -5 }}>
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+			<div tabindex="0">
+				{#each output as renderOption (renderOption.value)}
+					{@const optionRef = optionMap.get(renderOption.value) ?? renderOption}
+					{@const isSelected = isOptionSelected(optionRef)}
+					<li
+						{...combobox.getOption(optionRef, renderOption.label)}
+						data-disabled={renderOption.disabled}
+					>
+						{#if isSelected}
+							<div class="item__icon">
+								<Check />
+							</div>
+						{/if}
+						<div class="item__label">
+							<span>{renderOption.label}</span>
+							<span class="item__value">({renderOption.value})</span>
 						</div>
-					{/if}
-					<div class="item__label">
-						<span>{renderOption.label}</span>
-						<span class="item__value">({renderOption.value})</span>
-					</div>
-				</li>
-			{:else}
-				<li>
-					{m.noResult()}
-				</li>
-			{/each}
-		</div>
-	</ul>
-{/if}
+					</li>
+				{:else}
+					<li>
+						{m.noResult()}
+					</li>
+				{/each}
+			</div>
+		</ul>
+	{/if}
+</div>
 
 <style>
 	.wrapper {
