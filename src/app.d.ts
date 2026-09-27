@@ -16,14 +16,6 @@ declare namespace App {
 	}
 }
 
-type Analytics = {
-	track: (name: string, data?: Record<string, unknown>) => void;
-};
-
-declare interface Window {
-	umami?: Analytics;
-}
-
 declare namespace Intl {
 	interface DurationFormatOptions {
 		localeMatcher?: "best fit" | "lookup" | undefined;
