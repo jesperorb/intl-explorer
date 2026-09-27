@@ -49,13 +49,6 @@
 	<meta property="twitter:url" content={page.url.host} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
-	{#if !dev}
-		<script
-			defer
-			src="https://umami-xi-eosin.vercel.app/script.js"
-			data-website-id="a1ca3232-d4d8-44ac-92f0-656a91ceb36c"
-		></script>
-	{/if}
 </svelte:head>
 
 <LiveAnnouncer>

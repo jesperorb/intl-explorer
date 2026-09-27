@@ -1,5 +1,3 @@
-import { trackEvent } from "$utils/analytics";
-
 export function copyToClipboard(textToCopy: string): Promise<void> {
 	if (navigator.clipboard && window.isSecureContext) {
 		return navigator.clipboard.writeText(textToCopy);
@@ -21,7 +19,4 @@ export function copyToClipboard(textToCopy: string): Promise<void> {
 
 export const copyCode = async (code: string) => {
 	await copyToClipboard(code);
-	trackEvent("Copy Code", {
-		code
-	});
 };

@@ -29,7 +29,6 @@
 	import { schemas, type SchemaKeys } from "$lib/playground/schemas";
 	import { onDestroy, onMount } from "svelte";
 	import { numberFormatSchema } from "$lib/playground/schemas/numberFormat.schema";
-	import { trackEvent } from "$utils/analytics";
 	import BrowserSupport from "$ui/BrowserSupport/BrowserSupport.svelte";
 	import Grid from "$ui/Grid.svelte";
 	import { m } from "$paraglide/messages";
@@ -127,9 +126,6 @@
 		if (!schema) return;
 		await copyToClipboard(createSchemaUrl(schema));
 		announce(m.copySchemaUrlDone());
-		trackEvent("Copy Schema", {
-			method: schema.method
-		});
 	};
 
 	const onMatchMediaChange = (event: MediaQueryListEventMap["change"]) => {
