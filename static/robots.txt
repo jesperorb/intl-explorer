@@ -1,0 +1,32 @@
+# Search engines and AI search/assistants may use this site; AI training may not.
+# Training crawlers are listed below. Search and assistant crawlers (OAI-SearchBot,
+# ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, …)
+# fall under the default group and are allowed.
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: GoogleOther
+User-agent: Google-CloudVertexBot
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: meta-externalagent
+User-agent: FacebookBot
+User-agent: Amazonbot
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: MistralAI-Training
+User-agent: Diffbot
+User-agent: Omgilibot
+User-agent: omgili
+User-agent: Timpibot
+User-agent: ImagesiftBot
+User-agent: PanguBot
+User-agent: KimiBot
+Disallow: /
